@@ -1,0 +1,282 @@
+{%- comment -%}
+  LP: offer-led hero. Headline, product shot, limited badge, icon benefits, price and button.
+  {price} in the headline or subhead is replaced with the product's live price.
+{%- endcomment -%}
+{{ 'lp-mini-deo.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign lp_variant = product.selected_or_first_available_variant
+  assign lp_price = lp_variant.price | money_without_trailing_zeros
+  assign lp_headline = section.settings.headline | replace: '{price}', lp_price
+  assign lp_image = section.settings.image | default: product.featured_media
+  assign lp_cutouts = section.blocks | where: 'type', 'product_image'
+  assign lp_benefits = section.blocks | where: 'type', 'benefit'
+
+  comment
+    Star rating comes live from the reviews product's Junip metafields.
+  endcomment
+  assign lp_reviews_product = section.settings.reviews_product | default: product
+  assign lp_rating_field = lp_reviews_product.metafields.junip.rating_average
+  assign lp_rating = lp_rating_field.value | default: lp_rating_field | times: 1.0 | round: 1
+  assign lp_count_field = lp_reviews_product.metafields.junip.rating_count
+  assign lp_rating_count = lp_count_field.value | default: lp_count_field | times: 1
+-%}
+
+<div class="lp-hero">
+  <div class="lp-wrap lp-hero__grid">
+    <div class="lp-hero__intro">
+      {% if section.settings.eyebrow != blank %}
+        <p class="lp-eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      <h1 class="lp-hero__headline">{{ lp_headline }}</h1>
+      {% if section.settings.subhead != blank %}
+        <p class="lp-hero__subhead">{{ section.settings.subhead | replace: '{price}', lp_price }}</p>
+      {% endif %}
+    </div>
+
+    <div class="lp-hero__media">
+      {% if lp_cutouts.size > 0 %}
+        {% render 'lp-lineup', images: lp_cutouts, eager: true %}
+      {% elsif lp_image != blank %}
+        {{
+          lp_image
+          | image_url: width: 1400
+          | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            widths: '400, 600, 800, 1000, 1400',
+            sizes: '(min-width: 1024px) 50vw, 90vw',
+            alt: product.title,
+            class: 'lp-hero__img'
+        }}
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'lp-hero__img lp-placeholder' }}
+      {% endif %}
+
+      {% if section.settings.badge_text != blank %}
+        <div class="lp-badge" aria-hidden="true">
+          <svg viewBox="0 0 120 120" class="lp-badge__svg">
+            <defs>
+              <path id="lp-badge-path-{{ section.id }}" d="M60 60 m-42 0 a42 42 0 1 1 84 0 a42 42 0 1 1 -84 0"/>
+            </defs>
+            <text class="lp-badge__text">
+              <textPath href="#lp-badge-path-{{ section.id }}" textLength="258">{{ section.settings.badge_text }}</textPath>
+            </text>
+          </svg>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="lp-hero__buy">
+      <div class="lp-hero__cta-row">
+        <a class="lp-btn" href="#lp-buy-box">
+          {%- if product.available -%}
+            {{ section.settings.cta }}
+          {%- else -%}
+            Sold out
+          {%- endif -%}
+        </a>
+        <p class="lp-hero__price">
+          {% if lp_variant.compare_at_price > lp_variant.price %}
+            <s class="lp-price__compare">{{ lp_variant.compare_at_price | money_without_trailing_zeros }}</s>
+          {% endif %}
+          <span class="lp-price">{{ lp_price }}</span>
+          {% if section.settings.price_note != blank %}
+            <span class="lp-hero__price-note">{{ section.settings.price_note }}</span>
+          {% endif %}
+        </p>
+      </div>
+
+      {% if section.settings.show_rating and lp_rating_count > 0 %}
+        <p class="lp-hero__rating">
+          {% render 'lp-stars', rating: lp_rating %}
+          <span>{{ lp_rating }} out of 5 · {{ lp_rating_count }} {{ section.settings.rating_label }}</span>
+        </p>
+      {% endif %}
+
+      {% if lp_benefits.size > 0 %}
+        <ul class="lp-benefits">
+          {% for block in lp_benefits %}
+            <li class="lp-benefits__item" {{ block.shopify_attributes }}>
+              {% render 'lp-icon', icon: block.settings.icon %}
+              <span>{{ block.settings.text }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if section.settings.show_payment_icons %}
+        <ul class="lp-payments" aria-label="Accepted payment methods">
+          {% for type in shop.enabled_payment_types limit: 6 %}
+            <li>{{ type | payment_type_svg_tag: class: 'lp-payments__icon' }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if section.settings.band_text != blank %}
+    <div class="lp-band">
+      <p class="lp-band__text">{{ section.settings.band_text }}</p>
+      <svg class="lp-band__wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+        <path class="lp-band__wave-accent" d="M0 40 C240 100 480 100 720 60 C960 20 1200 20 1440 70 L1440 120 L0 120 Z"/>
+        <path class="lp-band__wave-main" d="M0 70 C240 120 480 120 720 86 C960 52 1200 52 1440 96 L1440 120 L0 120 Z"/>
+      </svg>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "LP Hero",
+  "tag": "section",
+  "class": "lp-section lp-hero-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Type {price} in the headline or subhead to show the product's live price."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Holiday gift set. Limited quantity."
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Try all four scents for {price}."
+    },
+    {
+      "type": "text",
+      "id": "subhead",
+      "label": "Subhead",
+      "default": "Four mini deos. One scent a week for a month."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Single product image",
+      "info": "Used only when there are no Product cut-out blocks. Leave empty to use the product's first image. Don't use a photo that shows the crate."
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Round badge text",
+      "info": "Keep it to wording already on the product page. Leave empty to hide.",
+      "default": "LIMITED QUANTITY • HOLIDAY GIFT SET •"
+    },
+    {
+      "type": "header",
+      "content": "Price and button"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Button text",
+      "default": "Get all four"
+    },
+    {
+      "type": "text",
+      "id": "price_note",
+      "label": "Note next to price",
+      "default": "for 4 minis"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show payment icons",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Star rating"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show star rating",
+      "default": true
+    },
+    {
+      "type": "product",
+      "id": "reviews_product",
+      "label": "Reviews product",
+      "info": "Rating and count come live from this product's Junip reviews."
+    },
+    {
+      "type": "text",
+      "id": "rating_label",
+      "label": "Text after the review count",
+      "default": "reviews of Everyday Endurance Deodorant"
+    },
+    {
+      "type": "header",
+      "content": "Band under the hero"
+    },
+    {
+      "type": "text",
+      "id": "band_text",
+      "label": "Band text",
+      "info": "Leave empty to hide.",
+      "default": "Limited quantity. Order now for holiday delivery."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_image",
+      "name": "Product cut-out",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "A tall cut-out on a transparent background works best. Up to four sit side by side."
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Image description",
+          "default": "Mini deodorant"
+        }
+      ]
+    },
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "clock", "label": "Clock" },
+            { "value": "no-aluminum", "label": "Crossed circle" },
+            { "value": "microbiome", "label": "Microbiome" },
+            { "value": "calendar", "label": "Calendar" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "gift", "label": "Gift" },
+            { "value": "star", "label": "Star" },
+            { "value": "check", "label": "Check" }
+          ],
+          "default": "check"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "48-hour odor protection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP Hero"
+    }
+  ]
+}
+{% endschema %}

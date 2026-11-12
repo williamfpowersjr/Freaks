@@ -1,0 +1,202 @@
+{%- comment -%}
+  LP: why the deodorant works. Short intro, numbered ingredient cards, optional photo and pull quote.
+{%- endcomment -%}
+{{ 'lp-mini-deo.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign lp_cards = section.blocks | where: 'type', 'ingredient'
+  assign lp_has_image = false
+  if section.settings.image != blank
+    assign lp_has_image = true
+  endif
+
+  comment
+    With a photo (or the editor's photo slot) the proof line sits under the text.
+    Without one it takes the photo's place as a big statement.
+  endcomment
+  assign lp_has_media = false
+  if lp_has_image or request.design_mode
+    assign lp_has_media = true
+  endif
+-%}
+
+<div class="lp-why">
+  <div class="lp-wrap">
+    <div class="lp-why__top{% if lp_has_media %} lp-why__top--media{% endif %}">
+      <div class="lp-why__copy">
+        {% if section.settings.eyebrow != blank %}
+          <p class="lp-eyebrow">{{ section.settings.eyebrow }}</p>
+        {% endif %}
+        <h2 class="lp-h2">{{ section.settings.heading }}</h2>
+        {% if section.settings.text != blank %}
+          <div class="lp-why__text lp-rte">{{ section.settings.text }}</div>
+        {% endif %}
+        {% if section.settings.proof != blank and lp_has_media %}
+          <p class="lp-why__proof">{{ section.settings.proof }}</p>
+        {% endif %}
+      </div>
+
+      {% if lp_has_image %}
+        <div class="lp-why__media">
+          {{
+            section.settings.image
+            | image_url: width: 1200
+            | image_tag:
+              loading: 'lazy',
+              widths: '400, 600, 800, 1200',
+              sizes: '(min-width: 1024px) 40vw, 90vw',
+              class: 'lp-why__img'
+          }}
+        </div>
+      {% elsif request.design_mode %}
+        <div class="lp-why__media lp-slot">
+          <p>Lifestyle photo goes here. Pick one in this section's settings. Shoppers don't see this box.</p>
+        </div>
+      {% elsif section.settings.proof != blank %}
+        {%- comment -%} The line breaks only apply on desktop: one sentence per line. {%- endcomment -%}
+        <p class="lp-why__proof lp-why__proof--big">
+          {{- section.settings.proof | replace: '. ', '.<br class="lp-br"> ' -}}
+        </p>
+      {% endif %}
+    </div>
+
+    {% if lp_cards.size > 0 %}
+      <ol class="lp-why__cards">
+        {% for block in lp_cards %}
+          <li class="lp-why__card" {{ block.shopify_attributes }}>
+            <div class="lp-why__card-head">
+              <span class="lp-why__num">0{{ forloop.index }}</span>
+              {% if block.settings.image != blank %}
+                {{
+                  block.settings.image
+                  | image_url: width: 160
+                  | image_tag: loading: 'lazy', alt: '', class: 'lp-why__thumb'
+                }}
+              {% endif %}
+            </div>
+            <h3 class="lp-why__name">{{ block.settings.name }}</h3>
+            {% if block.settings.role != blank %}
+              <p class="lp-why__role">{{ block.settings.role }}</p>
+            {% endif %}
+            <p class="lp-why__desc">{{ block.settings.text }}</p>
+          </li>
+        {% endfor %}
+      </ol>
+    {% endif %}
+
+    {% if section.settings.quote != blank %}
+      <figure class="lp-quote">
+        {% render 'lp-stars', rating: 5 %}
+        <blockquote class="lp-quote__text">“{{ section.settings.quote }}”</blockquote>
+        {% if section.settings.quote_name != blank %}
+          <figcaption class="lp-quote__name">{{ section.settings.quote_name }}</figcaption>
+        {% endif %}
+      </figure>
+    {% endif %}
+
+    {% render 'lp-cta', text: section.settings.cta, product: product %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "LP Why it works",
+  "tag": "section",
+  "class": "lp-section lp-why-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Why it works"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Stops odor at the source."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "proof",
+      "label": "Proof line",
+      "default": "48-hour odor protection. Zero aluminum. Zero baking soda."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Lifestyle photo",
+      "info": "Optional. The layout closes up when empty."
+    },
+    {
+      "type": "header",
+      "content": "Customer quote"
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Quote",
+      "info": "Copy a real review word for word. Leave empty to hide."
+    },
+    {
+      "type": "text",
+      "id": "quote_name",
+      "label": "Name",
+      "info": "First name and last initial."
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Button text",
+      "info": "{price} shows the live price. Leave empty to hide.",
+      "default": "Get all four for {price}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Zinc Ricinoleate"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "What it does, in a few words",
+          "default": "Traps odor"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Small image",
+          "info": "Optional."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP Why it works"
+    }
+  ]
+}
+{% endschema %}

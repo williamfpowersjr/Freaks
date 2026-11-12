@@ -1,0 +1,38 @@
+{%- comment -%}
+  Row of product cut-outs, slightly fanned out.
+  Usage: {% render 'lp-lineup', images: lp_cutouts, eager: true %}
+  images: section blocks, each with settings.image and settings.alt
+  eager:  true for images at the top of the page
+{%- endcomment -%}
+<div class="lp-lineup">
+  {%- for block in images -%}
+    {%- if block.settings.image != blank -%}
+      <div class="lp-lineup__item" {{ block.shopify_attributes }}>
+        {%- if eager -%}
+          {{
+            block.settings.image
+            | image_url: width: 600
+            | image_tag:
+              loading: 'eager',
+              fetchpriority: 'high',
+              widths: '150, 220, 300, 450, 600',
+              sizes: '(min-width: 1024px) 14vw, 26vw',
+              alt: block.settings.alt,
+              class: 'lp-lineup__img'
+          }}
+        {%- else -%}
+          {{
+            block.settings.image
+            | image_url: width: 600
+            | image_tag:
+              loading: 'lazy',
+              widths: '150, 220, 300, 450, 600',
+              sizes: '(min-width: 1024px) 14vw, 26vw',
+              alt: block.settings.alt,
+              class: 'lp-lineup__img'
+          }}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+</div>

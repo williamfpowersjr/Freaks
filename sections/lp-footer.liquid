@@ -1,0 +1,112 @@
+{%- comment -%}
+  LP: slim footer plus the buy bar that stays on screen on phones.
+  The bar appears once the hero button scrolls away and hides while the buy box is on screen.
+{%- endcomment -%}
+{{ 'lp-mini-deo.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign lp_variant = product.selected_or_first_available_variant
+  assign lp_price = lp_variant.price | money_without_trailing_zeros
+-%}
+
+<div class="lp-footer">
+  <div class="lp-wrap lp-footer__inner">
+    <span class="lp-footer__logo">{% render 'lp-logo' %}</span>
+    <p class="lp-footer__legal">
+      <span>© {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
+      {% if shop.terms_of_service.url != blank %}
+        <a href="{{ shop.terms_of_service.url }}">Terms</a>
+      {% endif %}
+      {% if shop.privacy_policy.url != blank %}
+        <a href="{{ shop.privacy_policy.url }}">Privacy</a>
+      {% endif %}
+      {% if shop.refund_policy.url != blank %}
+        <a href="{{ shop.refund_policy.url }}">Returns</a>
+      {% endif %}
+    </p>
+  </div>
+</div>
+
+{% if section.settings.show_bar %}
+  <div class="lp-bar" data-lp-bar hidden>
+    <p class="lp-bar__info">
+      <span class="lp-bar__title">{{ section.settings.bar_title | default: product.title }}</span>
+      <span class="lp-bar__price">{{ lp_price }}</span>
+    </p>
+    <a class="lp-btn lp-btn--sm" href="#lp-buy-box">
+      {%- if product.available -%}
+        {{ section.settings.bar_cta }}
+      {%- else -%}
+        Sold out
+      {%- endif -%}
+    </a>
+  </div>
+
+  <script>
+    (function () {
+      var bar = document.querySelector('[data-lp-bar]');
+      var buyBox = document.getElementById('lp-buy-box');
+      var heroCta = document.querySelector('.lp-hero__cta-row');
+      if (!bar || !('IntersectionObserver' in window)) return;
+      var pastHero = !heroCta;
+      var atBuyBox = false;
+      function update() {
+        var show = pastHero && !atBuyBox;
+        bar.hidden = false;
+        bar.classList.toggle('is-visible', show);
+        document.documentElement.classList.toggle('lp-bar-visible', show);
+      }
+      if (heroCta) {
+        new IntersectionObserver(function (entries) {
+          pastHero = !entries[0].isIntersecting && entries[0].boundingClientRect.top < 0;
+          update();
+        }).observe(heroCta);
+      }
+      if (buyBox) {
+        new IntersectionObserver(function (entries) {
+          atBuyBox = entries[0].isIntersecting;
+          update();
+        }, { threshold: 0.15 }).observe(buyBox);
+      }
+    })();
+  </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "LP Footer and buy bar",
+  "tag": "div",
+  "class": "lp-section lp-footer-section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Buy bar on phones"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bar",
+      "label": "Show the buy bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bar_title",
+      "label": "Bar title",
+      "info": "Leave empty to use the product title.",
+      "default": "Mini Deo Holiday Set"
+    },
+    {
+      "type": "text",
+      "id": "bar_cta",
+      "label": "Bar button text",
+      "default": "Get the set"
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP Footer and buy bar"
+    }
+  ]
+}
+{% endschema %}

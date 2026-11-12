@@ -1,0 +1,424 @@
+{
+  "sections": {
+    "lp_header": {
+      "type": "lp-header",
+      "settings": {
+        "cta": "Get the set"
+      }
+    },
+    "lp_hero": {
+      "type": "lp-hero",
+      "blocks": {
+        "cutout_santal_dune": {
+          "type": "product_image",
+          "settings": {
+            "image": "shopify://shop_images/mini-deo-santal-dune-closed.png",
+            "alt": "Santal Dune mini deodorant"
+          }
+        },
+        "cutout_cedar_peak": {
+          "type": "product_image",
+          "settings": {
+            "image": "shopify://shop_images/mini-deo-cedar-peak-closed.png",
+            "alt": "Cedar Peak mini deodorant"
+          }
+        },
+        "cutout_bergamot_canyon": {
+          "type": "product_image",
+          "settings": {
+            "image": "shopify://shop_images/mini-deo-bergamot-canyon-closed.png",
+            "alt": "Bergamot Canyon mini deodorant"
+          }
+        },
+        "cutout_solar_atoll": {
+          "type": "product_image",
+          "settings": {
+            "image": "shopify://shop_images/mini-deo-solar-atoll-closed.png",
+            "alt": "Solar Atoll mini deodorant"
+          }
+        },
+        "benefit_48h": {
+          "type": "benefit",
+          "settings": {
+            "icon": "clock",
+            "text": "48-hour odor protection"
+          }
+        },
+        "benefit_zero": {
+          "type": "benefit",
+          "settings": {
+            "icon": "no-aluminum",
+            "text": "Zero aluminum. Zero baking soda."
+          }
+        },
+        "benefit_biome": {
+          "type": "benefit",
+          "settings": {
+            "icon": "microbiome",
+            "text": "Works with your microbiome"
+          }
+        },
+        "benefit_week": {
+          "type": "benefit",
+          "settings": {
+            "icon": "calendar",
+            "text": "Each mini lasts about a week"
+          }
+        },
+        "benefit_vegan": {
+          "type": "benefit",
+          "settings": {
+            "icon": "leaf",
+            "text": "Vegan. Dermatologist tested."
+          }
+        }
+      },
+      "block_order": [
+        "cutout_santal_dune",
+        "cutout_cedar_peak",
+        "cutout_bergamot_canyon",
+        "cutout_solar_atoll",
+        "benefit_48h",
+        "benefit_zero",
+        "benefit_biome",
+        "benefit_week",
+        "benefit_vegan"
+      ],
+      "settings": {
+        "eyebrow": "Holiday gift set. Limited quantity.",
+        "headline": "Try all four scents for {price}.",
+        "subhead": "Four mini deos. One scent a week for a month.",
+        "badge_text": "LIMITED QUANTITY • HOLIDAY GIFT SET •",
+        "cta": "Get all four",
+        "price_note": "for 4 minis",
+        "show_payment_icons": true,
+        "show_rating": true,
+        "reviews_product": "everyday-endurance-deodorant",
+        "rating_label": "reviews of Everyday Endurance Deodorant",
+        "band_text": "Limited quantity. Order now for holiday delivery."
+      }
+    },
+    "lp_why": {
+      "type": "lp-why",
+      "blocks": {
+        "ingredient_zinc": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Zinc Ricinoleate",
+            "role": "Traps odor",
+            "text": "Derived from castor oil. It traps odor compounds and neutralizes them without disrupting your skin’s microbiome.",
+            "image": "shopify://shop_images/Ingredients_V2_6cb759eb-e242-4101-998a-b23b2e03c8bf.jpg"
+          }
+        },
+        "ingredient_sinodor": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Sinodor",
+            "role": "Removes odor",
+            "text": "Targets and binds to malodor molecules. Instead of masking odor, it removes it, so good bacteria can thrive.",
+            "image": "shopify://shop_images/Sinodor.jpg"
+          }
+        },
+        "ingredient_smart": {
+          "type": "ingredient",
+          "settings": {
+            "name": "SMA’RT TEC",
+            "role": "Stops odor forming",
+            "text": "Disrupts the enzyme activity that turns sweat into body odor. No need to block sweat.",
+            "image": "shopify://shop_images/SMA_RT_TEC.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_zinc",
+        "ingredient_sinodor",
+        "ingredient_smart"
+      ],
+      "settings": {
+        "eyebrow": "Why it works",
+        "heading": "Stops odor at the source.",
+        "text": "<p>Body odor starts when enzyme activity turns sweat into smell. Everyday Endurance works with your microbiome to stop it at the source. Odor-causing bacteria are kept at bay. The good bacteria that keep your skin healthy are left to thrive.</p>",
+        "proof": "48-hour odor protection. Zero aluminum. Zero baking soda.",
+        "quote": "This is the best deodorant I've used. Even after the most humid day, there's no smell. Highly recommend.",
+        "quote_name": "Matt H.",
+        "cta": "Get all four for {price}"
+      }
+    },
+    "lp_scents": {
+      "type": "lp-scents",
+      "blocks": {
+        "scent_santal_dune": {
+          "type": "scent",
+          "settings": {
+            "label": "Week 1",
+            "name": "Santal Dune",
+            "image": "shopify://shop_images/mini-deo-kit-week-santal-dune.jpg",
+            "tagline": "Warm and grounded.",
+            "description": "Earthy, warm and easy to wear every day.",
+            "notes": "Sandalwood, amber, carrot, cardamom, vetiver"
+          }
+        },
+        "scent_cedar_peak": {
+          "type": "scent",
+          "settings": {
+            "label": "Week 2",
+            "name": "Cedar Peak",
+            "image": "shopify://shop_images/mini-deo-kit-week-cedar-peak.jpg",
+            "tagline": "Cool and sharp.",
+            "description": "Made to wake you up.",
+            "notes": "Eucalyptus, mint, lavandin, geranium"
+          }
+        },
+        "scent_bergamot_canyon": {
+          "type": "scent",
+          "settings": {
+            "label": "Week 3",
+            "name": "Bergamot Canyon",
+            "image": "shopify://shop_images/mini-deo-kit-week-bergamot-canyon.jpg",
+            "tagline": "Bright and clean.",
+            "description": "Light and fresh from the first swipe.",
+            "notes": "Oakmoss, cedarwood, white tea, neroli, bergamot"
+          }
+        },
+        "scent_solar_atoll": {
+          "type": "scent",
+          "settings": {
+            "label": "Week 4",
+            "name": "Solar Atoll",
+            "image": "shopify://shop_images/mini-deo-kit-week-solar-atoll.jpg",
+            "tagline": "Warm and smooth.",
+            "description": "Our first gourmand scent.",
+            "notes": "Vanilla, amber, clove, tonka bean, resin"
+          }
+        }
+      },
+      "block_order": [
+        "scent_santal_dune",
+        "scent_cedar_peak",
+        "scent_bergamot_canyon",
+        "scent_solar_atoll"
+      ],
+      "settings": {
+        "eyebrow": "What’s in the set",
+        "heading": "Four scents. One a week.",
+        "text": "One mini of every Everyday Endurance scent. Each lasts a week, so the set gets you through about a month of really good sweat.",
+        "image_fit": "cover",
+        "cta": "Get all four for {price}"
+      }
+    },
+    "lp_reviews": {
+      "type": "lp-reviews",
+      "blocks": {
+        "review_robert": {
+          "type": "review",
+          "settings": {
+            "title": "Works as advertised",
+            "quote": "I work out every day and I sweat a lot. Usually after a workout, the pits are gonna smell but since I’ve been using FON deodorant, you really get protection for 48 hours. Normally, I would put deodorant on every day as force of habit, but with this I do it every other day. Great product and smells are unique- they are really good.",
+            "name": "Robert C."
+          }
+        },
+        "review_camille": {
+          "type": "review",
+          "settings": {
+            "title": "Finally Clean deodorant that works!",
+            "quote": "Works! Finally a clean deodorant that works all day!",
+            "name": "Camille P."
+          }
+        },
+        "review_darrin": {
+          "type": "review",
+          "settings": {
+            "title": "",
+            "quote": "Goes on clean, not greasy, clean ingredients, last long even under pressure.",
+            "name": "Darrin S."
+          }
+        },
+        "review_lindsay": {
+          "type": "review",
+          "settings": {
+            "title": "10/10 deodorant",
+            "quote": "It really works! I apply early in the morning & last all day! My husband & I love this product",
+            "name": "Lindsay T."
+          }
+        },
+        "review_drew": {
+          "type": "review",
+          "settings": {
+            "title": "Great smell. Clean Ingredients",
+            "quote": "Smell is great. I can't believe how long it last. Love the clean ingredients most of all",
+            "name": "Drew H."
+          }
+        }
+      },
+      "block_order": [
+        "review_robert",
+        "review_camille",
+        "review_darrin",
+        "review_lindsay",
+        "review_drew"
+      ],
+      "settings": {
+        "heading": "Tested by people who sweat.",
+        "show_rating": true,
+        "reviews_product": "everyday-endurance-deodorant",
+        "note": "Reviews of full-size Everyday Endurance Deodorant.",
+        "cta": "Get all four for {price}"
+      }
+    },
+    "lp_faq": {
+      "type": "lp-faq",
+      "blocks": {
+        "q_last": {
+          "type": "question",
+          "settings": {
+            "question": "How long does each mini last?",
+            "answer": "<p>About a week with daily use. Four minis gets you through about a month.</p>"
+          }
+        },
+        "q_aluminum": {
+          "type": "question",
+          "settings": {
+            "question": "Is there aluminum or baking soda in it?",
+            "answer": "<p>No. Zero aluminum and zero baking soda. It stops odor at the source without blocking sweat.</p>"
+          }
+        },
+        "q_scents": {
+          "type": "question",
+          "settings": {
+            "question": "Which scents are in the set?",
+            "answer": "<p>One mini of each Everyday Endurance scent: Santal Dune, Cedar Peak, Bergamot Canyon and Solar Atoll.</p>"
+          }
+        },
+        "q_use": {
+          "type": "question",
+          "settings": {
+            "question": "How do I use it?",
+            "answer": "<p>Remove the top and twist the bottom until the formula starts to appear through the cap. Don’t overtwist: a little goes a long way. Apply to clean, dry underarms. Keep it at room temperature for best results.</p>"
+          }
+        },
+        "q_holiday": {
+          "type": "question",
+          "settings": {
+            "question": "Will it arrive in time for the holidays?",
+            "answer": "<p>Order now for holiday delivery.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q_last",
+        "q_aluminum",
+        "q_scents",
+        "q_use",
+        "q_holiday"
+      ],
+      "settings": {
+        "heading": "Before you ask.",
+        "cta": "Get all four for {price}"
+      }
+    },
+    "lp_buy_box": {
+      "type": "lp-buy-box",
+      "blocks": {
+        "cutout_santal_dune": {
+          "type": "product_image",
+          "settings": {
+            "image": "shopify://shop_images/mini-deo-santal-dune-closed.png",
+            "alt": "Santal Dune mini deodorant"
+          }
+        },
+        "cutout_cedar_peak": {
+          "type": "product_image",
+          "settings": {
+            "image": "shopify://shop_images/mini-deo-cedar-peak-closed.png",
+            "alt": "Cedar Peak mini deodorant"
+          }
+        },
+        "cutout_bergamot_canyon": {
+          "type": "product_image",
+          "settings": {
+            "image": "shopify://shop_images/mini-deo-bergamot-canyon-closed.png",
+            "alt": "Bergamot Canyon mini deodorant"
+          }
+        },
+        "cutout_solar_atoll": {
+          "type": "product_image",
+          "settings": {
+            "image": "shopify://shop_images/mini-deo-solar-atoll-closed.png",
+            "alt": "Solar Atoll mini deodorant"
+          }
+        },
+        "point_48h": {
+          "type": "point",
+          "settings": {
+            "icon": "clock",
+            "text": "48-hour odor protection"
+          }
+        },
+        "point_aluminum": {
+          "type": "point",
+          "settings": {
+            "icon": "no-aluminum",
+            "text": "Zero aluminum"
+          }
+        },
+        "point_soda": {
+          "type": "point",
+          "settings": {
+            "icon": "no-aluminum",
+            "text": "Zero baking soda"
+          }
+        },
+        "point_vegan": {
+          "type": "point",
+          "settings": {
+            "icon": "leaf",
+            "text": "Vegan formula"
+          }
+        }
+      },
+      "block_order": [
+        "cutout_santal_dune",
+        "cutout_cedar_peak",
+        "cutout_bergamot_canyon",
+        "cutout_solar_atoll",
+        "point_48h",
+        "point_aluminum",
+        "point_soda",
+        "point_vegan"
+      ],
+      "settings": {
+        "eyebrow": "Holiday gift set. Limited quantity.",
+        "heading": "Four scents. Four weeks. One set.",
+        "text": "One mini of every Everyday Endurance scent. Each lasts about a week with daily use.",
+        "items_heading": "In the set",
+        "items": "Week 1: Santal Dune mini\nWeek 2: Cedar Peak mini\nWeek 3: Bergamot Canyon mini\nWeek 4: Solar Atoll mini",
+        "stock_text": "Selling fast: limited quantity available",
+        "stock_threshold": 160,
+        "cta": "Add to cart",
+        "claim_1": "Order now for holiday delivery",
+        "claim_2": "Free shipping on {amount}+",
+        "free_shipping_fallback": "$60",
+        "show_payment_icons": true,
+        "sold_out_text": "The holiday set is sold out."
+      }
+    },
+    "lp_footer": {
+      "type": "lp-footer",
+      "settings": {
+        "show_bar": true,
+        "bar_title": "Mini Deo Holiday Set",
+        "bar_cta": "Get the set"
+      }
+    }
+  },
+  "order": [
+    "lp_header",
+    "lp_hero",
+    "lp_why",
+    "lp_scents",
+    "lp_reviews",
+    "lp_faq",
+    "lp_buy_box",
+    "lp_footer"
+  ]
+}

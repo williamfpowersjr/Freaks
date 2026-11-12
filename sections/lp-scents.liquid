@@ -1,0 +1,151 @@
+{%- comment -%}
+  LP: scent cards, one per week. Add them in the order they should appear.
+{%- endcomment -%}
+{{ 'lp-mini-deo.css' | asset_url | stylesheet_tag }}
+
+{%- assign lp_scents = section.blocks | where: 'type', 'scent' -%}
+
+<div class="lp-scents lp-scents--{{ section.settings.image_fit }}">
+  <div class="lp-wrap">
+    <div class="lp-head">
+      {% if section.settings.eyebrow != blank %}
+        <p class="lp-eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      <h2 class="lp-h2">{{ section.settings.heading }}</h2>
+      {% if section.settings.text != blank %}
+        <p class="lp-lede">{{ section.settings.text }}</p>
+      {% endif %}
+    </div>
+
+    <ul class="lp-scents__grid">
+      {% for block in lp_scents %}
+        {%- comment -%} Always six children, so each part lines up with the next card's. {%- endcomment -%}
+        <li class="lp-card lp-scent" {{ block.shopify_attributes }}>
+          <p class="lp-scent__label-row">
+            {% if block.settings.label != blank %}
+              <span class="lp-scent__label">{{ block.settings.label }}</span>
+            {% endif %}
+          </p>
+          <h3 class="lp-scent__name">{{ block.settings.name }}</h3>
+          <div class="lp-scent__media">
+            {% if block.settings.image != blank %}
+              {{
+                block.settings.image
+                | image_url: width: 800
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '200, 300, 400, 600, 800',
+                  sizes: '(min-width: 1024px) 22vw, 44vw',
+                  alt: block.settings.name,
+                  class: 'lp-scent__img'
+              }}
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'lp-scent__img lp-placeholder' }}
+            {% endif %}
+          </div>
+          <p class="lp-scent__tagline">{{ block.settings.tagline }}</p>
+          <p class="lp-scent__desc">{{ block.settings.description }}</p>
+          <p class="lp-scent__notes">
+            {% if block.settings.notes != blank %}
+              <span class="lp-scent__notes-label">Scent notes</span>
+              {{ block.settings.notes }}
+            {% endif %}
+          </p>
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% render 'lp-cta', text: section.settings.cta, product: product %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "LP Scents",
+  "tag": "section",
+  "class": "lp-section lp-scents-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "What's in the set"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Four scents. One a week."
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Photo fit",
+      "options": [
+        { "value": "cover", "label": "Fill the square (photos)" },
+        { "value": "contain", "label": "Show the whole image (cut-outs)" }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Button text",
+      "info": "{price} shows the live price. Leave empty to hide.",
+      "default": "Get all four for {price}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "scent",
+      "name": "Scent",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Top label",
+          "default": "Week 1"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Scent name",
+          "default": "Santal Dune"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo",
+          "info": "Square works best."
+        },
+        {
+          "type": "text",
+          "id": "tagline",
+          "label": "Short description"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "One more line"
+        },
+        {
+          "type": "text",
+          "id": "notes",
+          "label": "Scent notes"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP Scents"
+    }
+  ]
+}
+{% endschema %}

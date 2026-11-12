@@ -1,0 +1,13 @@
+{%- comment -%}
+  Section-ending call to action. Every button scrolls to the one buy box.
+  Usage: {% render 'lp-cta', text: section.settings.cta, product: product, variant: 'light' %}
+  {price} in the text is replaced with the live price.
+{%- endcomment -%}
+{%- if text != blank -%}
+  {%- assign lp_cta_price = product.selected_or_first_available_variant.price | money_without_trailing_zeros -%}
+  <div class="lp-cta">
+    <a class="lp-btn{% if variant == 'cobalt' %} lp-btn--cobalt{% endif %}" href="#lp-buy-box">
+      {{- text | replace: '{price}', lp_cta_price -}}
+    </a>
+  </div>
+{%- endif -%}

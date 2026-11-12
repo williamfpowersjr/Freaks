@@ -1,0 +1,132 @@
+{%- comment -%}
+  LP: quoted customer reviews. Each quote must match a real review word for word.
+{%- endcomment -%}
+{{ 'lp-mini-deo.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign lp_reviews = section.blocks | where: 'type', 'review'
+
+  comment
+    Star rating comes live from the reviews product's Junip metafields.
+  endcomment
+  assign lp_reviews_product = section.settings.reviews_product | default: product
+  assign lp_rating_field = lp_reviews_product.metafields.junip.rating_average
+  assign lp_rating = lp_rating_field.value | default: lp_rating_field | times: 1.0 | round: 1
+  assign lp_count_field = lp_reviews_product.metafields.junip.rating_count
+  assign lp_rating_count = lp_count_field.value | default: lp_count_field | times: 1
+  assign lp_show_rating = false
+  if section.settings.show_rating and lp_rating_count > 0
+    assign lp_show_rating = true
+  endif
+-%}
+
+<div class="lp-reviews">
+  <div class="lp-wrap">
+    <div class="lp-head">
+      <h2 class="lp-h2">{{ section.settings.heading }}</h2>
+      {% if lp_show_rating or section.settings.note != blank %}
+        <div class="lp-reviews__summary">
+          {% if lp_show_rating %}
+            <p class="lp-reviews__rating">
+              {% render 'lp-stars', rating: lp_rating %}
+              <span>{{ lp_rating }} out of 5 · {{ lp_rating_count }} reviews</span>
+            </p>
+          {% endif %}
+          {% if section.settings.note != blank %}
+            <p class="lp-reviews__note">{{ section.settings.note }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <ul class="lp-reviews__grid">
+      {% for block in lp_reviews %}
+        <li class="lp-reviews__item" {{ block.shopify_attributes }}>
+          <div class="lp-review">
+            {% render 'lp-stars', rating: 5 %}
+            {% if block.settings.title != blank %}
+              <p class="lp-review__title">{{ block.settings.title }}</p>
+            {% endif %}
+            <blockquote class="lp-review__text">“{{ block.settings.quote }}”</blockquote>
+            <p class="lp-review__name">{{ block.settings.name }}</p>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% render 'lp-cta', text: section.settings.cta, product: product, variant: 'cobalt' %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "LP Reviews",
+  "tag": "section",
+  "class": "lp-section lp-reviews-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Tested by people who sweat."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show star rating",
+      "default": true
+    },
+    {
+      "type": "product",
+      "id": "reviews_product",
+      "label": "Reviews product",
+      "info": "Rating and count come live from this product's Junip reviews."
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Note under the rating",
+      "info": "Say which product the reviews are for.",
+      "default": "Reviews of full-size Everyday Endurance Deodorant."
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Button text",
+      "info": "{price} shows the live price. Leave empty to hide.",
+      "default": "Get all four for {price}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Review title"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review",
+          "info": "Copy the review from Junip word for word."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "info": "First name and last initial."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP Reviews"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,75 @@
+{%- comment -%}
+  LP: short FAQ for first-time visitors.
+{%- endcomment -%}
+{{ 'lp-mini-deo.css' | asset_url | stylesheet_tag }}
+
+{%- assign lp_faqs = section.blocks | where: 'type', 'question' -%}
+
+<div class="lp-faq">
+  <div class="lp-wrap lp-wrap--narrow">
+    <div class="lp-head">
+      <h2 class="lp-h2">{{ section.settings.heading }}</h2>
+    </div>
+
+    <div class="lp-faq__list">
+      {% for block in lp_faqs %}
+        <details class="lp-faq__item" {{ block.shopify_attributes }}>
+          <summary class="lp-faq__q">
+            <span>{{ block.settings.question }}</span>
+            <span class="lp-faq__mark" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq__a lp-rte">{{ block.settings.answer }}</div>
+        </details>
+      {% endfor %}
+    </div>
+
+    {% render 'lp-cta', text: section.settings.cta, product: product %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "LP FAQ",
+  "tag": "section",
+  "class": "lp-section lp-faq-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Before you ask."
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Button text",
+      "info": "{price} shows the live price. Leave empty to hide.",
+      "default": "Get all four for {price}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP FAQ"
+    }
+  ]
+}
+{% endschema %}

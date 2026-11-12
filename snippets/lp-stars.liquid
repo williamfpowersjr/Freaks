@@ -1,0 +1,11 @@
+{%- comment -%}
+  Star row. Usage: {% render 'lp-stars', rating: 4.5 %} (rating 0-5, defaults to 5)
+{%- endcomment -%}
+{%- liquid
+  assign lp_rating = rating | default: 5
+  assign lp_fill = lp_rating | times: 20
+-%}
+<span class="lp-stars" role="img" aria-label="{{ lp_rating }} out of 5 stars">
+  <span class="lp-stars__base" aria-hidden="true">★★★★★</span>
+  <span class="lp-stars__fill" aria-hidden="true" style="width: {{ lp_fill }}%;">★★★★★</span>
+</span>

@@ -1,0 +1,52 @@
+{%- comment -%}
+  LP: minimal header for paid-traffic landing pages.
+  Hides the store's global header, announcement bar and footer on any template that
+  includes this section. Nothing is removed from the layout, so the cart drawer,
+  pixels and app scripts keep loading exactly as on other pages.
+{%- endcomment -%}
+{{ 'lp-mini-deo.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  .header-section,
+  .footer-section,
+  #mobile-subnavigation {
+    display: none !important;
+  }
+{% endstyle %}
+
+<div class="lp-header">
+  <div class="lp-wrap lp-header__inner">
+    <span class="lp-header__logo">
+      {% render 'lp-logo' %}
+    </span>
+    {% if section.settings.cta != blank %}
+      <a class="lp-btn lp-btn--sm" href="#lp-buy-box">{{ section.settings.cta }}</a>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "LP Header",
+  "tag": "div",
+  "class": "lp-section lp-header-section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Logo and one offer button. Hides the store menu, announcement bar and full footer on this page."
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Button text",
+      "default": "Get the set"
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP Header"
+    }
+  ]
+}
+{% endschema %}

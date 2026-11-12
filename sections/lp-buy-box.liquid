@@ -1,0 +1,381 @@
+{%- comment -%}
+  LP: the one buy box. Price, what's in the set, quantity and Add to cart.
+
+  How it plugs into the theme (no new scripts):
+  - The form posts to /cart/add. The theme's ajax cart picks up any such form, adds the
+    item and opens the side cart, so Shopify's standard add-to-cart events fire.
+  - <product-form> and data-buy-button are the theme's own hooks: they disable the button
+    while the request runs and re-enable it afterwards.
+  - <ctr-buy-box-mini-kit> is the product page's own element: it swaps {amount} in the
+    free shipping claim for the visitor's market threshold.
+{%- endcomment -%}
+{{ 'lp-mini-deo.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ctr-buy-box-mini-kit.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign lp_variant = product.selected_or_first_available_variant
+  assign lp_price = lp_variant.price | money_without_trailing_zeros
+  assign lp_image = section.settings.image | default: product.featured_media
+  assign lp_cutouts = section.blocks | where: 'type', 'product_image'
+  assign lp_points = section.blocks | where: 'type', 'point'
+  assign lp_items = section.settings.items | newline_to_br | split: '<br />'
+
+  comment
+    Stock line: same rule as the product page. It shows only while tracked stock is at or
+    below the threshold, so the page never says "selling fast" when the product page doesn't.
+  endcomment
+  assign lp_show_stock = false
+  if section.settings.stock_text != blank and lp_variant.inventory_management == 'shopify'
+    if lp_variant.inventory_quantity > 0 and lp_variant.inventory_quantity <= section.settings.stock_threshold
+      assign lp_show_stock = true
+    endif
+  endif
+
+  assign lp_claim_2_is_shipping = false
+  if section.settings.claim_2 contains '{amount}'
+    assign lp_claim_2_is_shipping = true
+  endif
+  assign lp_claim_2 = section.settings.claim_2 | replace: '{amount}', section.settings.free_shipping_fallback
+-%}
+
+<div class="lp-buy">
+  <div class="lp-wrap lp-buy__grid">
+    <div class="lp-buy__media">
+      {% if lp_cutouts.size > 0 %}
+        {% render 'lp-lineup', images: lp_cutouts, eager: false %}
+      {% elsif lp_image != blank %}
+        {{
+          lp_image
+          | image_url: width: 1200
+          | image_tag:
+            loading: 'lazy',
+            widths: '400, 600, 800, 1200',
+            sizes: '(min-width: 1024px) 45vw, 80vw',
+            alt: product.title,
+            class: 'lp-buy__img'
+        }}
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'lp-buy__img lp-placeholder' }}
+      {% endif %}
+    </div>
+
+    {%- comment -%} Every button on the page scrolls to this card. {%- endcomment -%}
+    <div class="lp-card lp-buy__card" id="lp-buy-box">
+      {% if section.settings.eyebrow != blank %}
+        <p class="lp-eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      <h2 class="lp-h2 lp-buy__heading">{{ section.settings.heading | replace: '{price}', lp_price }}</h2>
+
+      <p class="lp-buy__price">
+        {% if lp_variant.compare_at_price > lp_variant.price %}
+          <s class="lp-price__compare">{{ lp_variant.compare_at_price | money_without_trailing_zeros }}</s>
+        {% endif %}
+        <span class="lp-price">{{ lp_price }}</span>
+        <span class="lp-buy__title">{{ product.title }}</span>
+      </p>
+
+      {% if section.settings.text != blank %}
+        <p class="lp-buy__text">{{ section.settings.text }}</p>
+      {% endif %}
+
+      {% if product.available %}
+        {% if lp_show_stock %}
+          <p class="lp-buy__stock">{{ section.settings.stock_text }}</p>
+        {% endif %}
+
+        <product-form class="lp-buy__product-form">
+          {% form 'product', product, class: 'lp-buy__form' %}
+            <input type="hidden" name="id" value="{{ lp_variant.id }}">
+            <div class="lp-buy__row">
+              <div class="lp-qty" data-lp-qty>
+                <button type="button" class="lp-qty__btn" data-lp-qty-minus aria-label="Decrease quantity">−</button>
+                <input
+                  class="lp-qty__input"
+                  type="number"
+                  name="quantity"
+                  value="1"
+                  min="1"
+                  inputmode="numeric"
+                  aria-label="Quantity"
+                >
+                <button type="button" class="lp-qty__btn" data-lp-qty-plus aria-label="Increase quantity">+</button>
+              </div>
+              <button type="submit" name="add" class="lp-btn lp-buy__submit" data-buy-button>
+                {{- section.settings.cta -}}
+              </button>
+            </div>
+          {% endform %}
+        </product-form>
+      {% else %}
+        <button type="button" class="lp-btn lp-buy__submit lp-buy__submit--sold-out" data-sold-out disabled>Sold out</button>
+        {% if section.settings.sold_out_text != blank %}
+          <p class="lp-buy__text">{{ section.settings.sold_out_text }}</p>
+        {% endif %}
+      {% endif %}
+
+      {%- liquid
+        assign lp_show_claims = false
+        if product.available
+          if section.settings.claim_1 != blank or section.settings.claim_2 != blank
+            assign lp_show_claims = true
+          endif
+        endif
+      -%}
+      {% if lp_show_claims %}
+        <ctr-buy-box-mini-kit class="lp-buy__claims-wrap">
+          <ul class="lp-buy__claims">
+            {% if section.settings.claim_1 != blank %}
+              <li>{% render 'lp-icon', icon: 'check' %}<span>{{ section.settings.claim_1 }}</span></li>
+            {% endif %}
+            {% if section.settings.claim_2 != blank %}
+              <li
+                {% if lp_claim_2_is_shipping %}
+                  data-free-shipping-claim
+                  data-free-shipping-fallback="{{ section.settings.free_shipping_fallback | escape }}"
+                {% endif %}
+              >
+                {% render 'lp-icon', icon: 'check' %}
+                <span
+                  {% if lp_claim_2_is_shipping %}
+                    data-free-shipping-text
+                    data-claim-template="{{ section.settings.claim_2 | escape }}"
+                  {% endif %}
+                >
+                  {{- lp_claim_2 -}}
+                </span>
+              </li>
+            {% endif %}
+          </ul>
+        </ctr-buy-box-mini-kit>
+      {% endif %}
+
+      {% if section.settings.show_payment_icons and product.available %}
+        <ul class="lp-payments" aria-label="Accepted payment methods">
+          {% for type in shop.enabled_payment_types limit: 6 %}
+            <li>{{ type | payment_type_svg_tag: class: 'lp-payments__icon' }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if lp_points.size > 0 %}
+        <ul class="lp-buy__points">
+          {% for block in lp_points %}
+            <li {{ block.shopify_attributes }}>
+              {% render 'lp-icon', icon: block.settings.icon %}
+              <span>{{ block.settings.text }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if section.settings.items != blank %}
+        <div class="lp-buy__includes">
+          {% if section.settings.items_heading != blank %}
+            <p class="lp-buy__includes-heading">{{ section.settings.items_heading }}</p>
+          {% endif %}
+          <ul class="lp-buy__items">
+            {% for item in lp_items %}
+              {% assign lp_item = item | strip %}
+              {% if lp_item != blank %}
+                <li>{% render 'lp-icon', icon: 'check' %}<span>{{ lp_item }}</span></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('lp-buy-box');
+    var qty = root && root.querySelector('[data-lp-qty]');
+    if (!qty) return;
+    var input = qty.querySelector('input');
+    function step(delta) {
+      var next = (parseInt(input.value, 10) || 1) + delta;
+      input.value = Math.max(1, next);
+    }
+    qty.querySelector('[data-lp-qty-minus]').addEventListener('click', function () {
+      step(-1);
+    });
+    qty.querySelector('[data-lp-qty-plus]').addEventListener('click', function () {
+      step(1);
+    });
+    input.addEventListener('change', function () {
+      step(0);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "LP Buy box",
+  "tag": "section",
+  "class": "lp-section lp-buy-section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Price, stock and Add to cart come from the product this page is opened on. Every button on the page scrolls here."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Holiday gift set. Limited quantity."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "info": "{price} shows the live price.",
+      "default": "Four scents. Four weeks. One set."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Single product image",
+      "info": "Used only when there are no Product cut-out blocks. Leave empty to use the product's first image. Don't use a photo that shows the crate."
+    },
+    {
+      "type": "header",
+      "content": "What's in the set"
+    },
+    {
+      "type": "text",
+      "id": "items_heading",
+      "label": "Heading",
+      "default": "In the set"
+    },
+    {
+      "type": "textarea",
+      "id": "items",
+      "label": "Items",
+      "info": "One per line."
+    },
+    {
+      "type": "header",
+      "content": "Stock line"
+    },
+    {
+      "type": "text",
+      "id": "stock_text",
+      "label": "Text",
+      "info": "Leave empty to never show it.",
+      "default": "Selling fast: limited quantity available"
+    },
+    {
+      "type": "number",
+      "id": "stock_threshold",
+      "label": "Show when stock is at or below",
+      "info": "Same rule as the product page, so both show it at the same time.",
+      "default": 160
+    },
+    {
+      "type": "header",
+      "content": "Purchase"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Button text",
+      "default": "Add to cart"
+    },
+    {
+      "type": "text",
+      "id": "claim_1",
+      "label": "Claim 1",
+      "default": "Order now for holiday delivery"
+    },
+    {
+      "type": "text",
+      "id": "claim_2",
+      "label": "Claim 2",
+      "info": "{amount} is replaced with the market's free shipping threshold.",
+      "default": "Free shipping on {amount}+"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_fallback",
+      "label": "Free shipping fallback amount",
+      "info": "Used when the market threshold isn't available.",
+      "default": "$60"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show payment icons",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sold_out_text",
+      "label": "Sold out message",
+      "default": "The holiday set is sold out."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_image",
+      "name": "Product cut-out",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "A tall cut-out on a transparent background works best. Up to four sit side by side."
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Image description",
+          "default": "Mini deodorant"
+        }
+      ]
+    },
+    {
+      "type": "point",
+      "name": "Icon point",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "clock", "label": "Clock" },
+            { "value": "no-aluminum", "label": "Crossed circle" },
+            { "value": "microbiome", "label": "Microbiome" },
+            { "value": "calendar", "label": "Calendar" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "gift", "label": "Gift" },
+            { "value": "star", "label": "Star" },
+            { "value": "check", "label": "Check" }
+          ],
+          "default": "check"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Zero aluminum"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP Buy box"
+    }
+  ]
+}
+{% endschema %}
