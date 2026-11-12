@@ -31,11 +31,9 @@
     endif
   endif
 
-  assign lp_claim_2_is_shipping = false
-  if section.settings.claim_2 contains '{amount}'
-    assign lp_claim_2_is_shipping = true
-  endif
-  assign lp_claim_2 = section.settings.claim_2 | replace: '{amount}', section.settings.free_shipping_fallback
+  assign lp_price_label = section.settings.price_label | default: product.title
+  assign lp_price_two = lp_variant.price | times: 2 | money_without_trailing_zeros
+  assign lp_claims = section.settings.claim_1 | append: '|||' | append: section.settings.claim_2 | split: '|||'
 -%}
 
 <div class="lp-buy">
@@ -71,7 +69,7 @@
           <s class="lp-price__compare">{{ lp_variant.compare_at_price | money_without_trailing_zeros }}</s>
         {% endif %}
         <span class="lp-price">{{ lp_price }}</span>
-        <span class="lp-buy__title">{{ product.title }}</span>
+        <span class="lp-buy__title">{{ lp_price_label }}</span>
       </p>
 
       {% if section.settings.text != blank %}
@@ -86,24 +84,56 @@
         <product-form class="lp-buy__product-form">
           {% form 'product', product, class: 'lp-buy__form' %}
             <input type="hidden" name="id" value="{{ lp_variant.id }}">
-            <div class="lp-buy__row">
-              <div class="lp-qty" data-lp-qty>
-                <button type="button" class="lp-qty__btn" data-lp-qty-minus aria-label="Decrease quantity">−</button>
-                <input
-                  class="lp-qty__input"
-                  type="number"
-                  name="quantity"
-                  value="1"
-                  min="1"
-                  inputmode="numeric"
-                  aria-label="Quantity"
-                >
-                <button type="button" class="lp-qty__btn" data-lp-qty-plus aria-label="Increase quantity">+</button>
-              </div>
-              <button type="submit" name="add" class="lp-btn lp-buy__submit" data-buy-button>
+            {% if section.settings.quantity_style == 'packs' %}
+              {%- comment -%} Two choices instead of a stepper. Both are plain radio inputs named "quantity". {%- endcomment -%}
+              <fieldset class="lp-packs">
+                <legend class="lp-sr">How many?</legend>
+                <label class="lp-packs__option">
+                  <input class="lp-packs__input" type="radio" name="quantity" value="1" checked>
+                  <span class="lp-packs__box" aria-hidden="true"></span>
+                  <span class="lp-packs__text">
+                    <span class="lp-packs__label">{{ section.settings.pack_1_label }}</span>
+                    {% if section.settings.pack_1_note != blank %}
+                      <span class="lp-packs__note">{{ section.settings.pack_1_note }}</span>
+                    {% endif %}
+                  </span>
+                  <span class="lp-packs__price">{{ lp_price }}</span>
+                </label>
+                <label class="lp-packs__option">
+                  <input class="lp-packs__input" type="radio" name="quantity" value="2">
+                  <span class="lp-packs__box" aria-hidden="true"></span>
+                  <span class="lp-packs__text">
+                    <span class="lp-packs__label">{{ section.settings.pack_2_label }}</span>
+                    {% if section.settings.pack_2_note != blank %}
+                      <span class="lp-packs__note">{{ section.settings.pack_2_note }}</span>
+                    {% endif %}
+                  </span>
+                  <span class="lp-packs__price">{{ lp_price_two }}</span>
+                </label>
+              </fieldset>
+              <button type="submit" name="add" class="lp-btn lp-buy__submit lp-buy__submit--full" data-buy-button>
                 {{- section.settings.cta -}}
               </button>
-            </div>
+            {% else %}
+              <div class="lp-buy__row">
+                <div class="lp-qty" data-lp-qty>
+                  <button type="button" class="lp-qty__btn" data-lp-qty-minus aria-label="Decrease quantity">−</button>
+                  <input
+                    class="lp-qty__input"
+                    type="number"
+                    name="quantity"
+                    value="1"
+                    min="1"
+                    inputmode="numeric"
+                    aria-label="Quantity"
+                  >
+                  <button type="button" class="lp-qty__btn" data-lp-qty-plus aria-label="Increase quantity">+</button>
+                </div>
+                <button type="submit" name="add" class="lp-btn lp-buy__submit" data-buy-button>
+                  {{- section.settings.cta -}}
+                </button>
+              </div>
+            {% endif %}
           {% endform %}
         </product-form>
       {% else %}
@@ -124,27 +154,25 @@
       {% if lp_show_claims %}
         <ctr-buy-box-mini-kit class="lp-buy__claims-wrap">
           <ul class="lp-buy__claims">
-            {% if section.settings.claim_1 != blank %}
-              <li>{% render 'lp-icon', icon: 'check' %}<span>{{ section.settings.claim_1 }}</span></li>
-            {% endif %}
-            {% if section.settings.claim_2 != blank %}
-              <li
-                {% if lp_claim_2_is_shipping %}
+            {% for lp_claim in lp_claims %}
+              {% if lp_claim == blank %}
+                {% continue %}
+              {% endif %}
+              {% if lp_claim contains '{amount}' %}
+                {%- comment -%} Free shipping claim: the theme swaps {amount} for the visitor's market threshold. {%- endcomment -%}
+                <li
                   data-free-shipping-claim
                   data-free-shipping-fallback="{{ section.settings.free_shipping_fallback | escape }}"
-                {% endif %}
-              >
-                {% render 'lp-icon', icon: 'check' %}
-                <span
-                  {% if lp_claim_2_is_shipping %}
-                    data-free-shipping-text
-                    data-claim-template="{{ section.settings.claim_2 | escape }}"
-                  {% endif %}
                 >
-                  {{- lp_claim_2 -}}
-                </span>
-              </li>
-            {% endif %}
+                  {% render 'lp-icon', icon: 'check' %}
+                  <span data-free-shipping-text data-claim-template="{{ lp_claim | escape }}">
+                    {{- lp_claim | replace: '{amount}', section.settings.free_shipping_fallback -}}
+                  </span>
+                </li>
+              {% else %}
+                <li>{% render 'lp-icon', icon: 'check' %}<span>{{ lp_claim }}</span></li>
+              {% endif %}
+            {% endfor %}
           </ul>
         </ctr-buy-box-mini-kit>
       {% endif %}
@@ -235,6 +263,12 @@
       "default": "Four scents. Four weeks. One set."
     },
     {
+      "type": "text",
+      "id": "price_label",
+      "label": "Text next to the price",
+      "info": "Leave empty to show the product's name."
+    },
+    {
       "type": "textarea",
       "id": "text",
       "label": "Text"
@@ -281,6 +315,44 @@
     },
     {
       "type": "header",
+      "content": "Quantity"
+    },
+    {
+      "type": "select",
+      "id": "quantity_style",
+      "label": "Quantity picker",
+      "options": [
+        { "value": "stepper", "label": "Plus and minus buttons" },
+        { "value": "packs", "label": "Two choices: one or two" }
+      ],
+      "default": "stepper"
+    },
+    {
+      "type": "text",
+      "id": "pack_1_label",
+      "label": "Choice 1 name",
+      "default": "1 pack"
+    },
+    {
+      "type": "text",
+      "id": "pack_1_note",
+      "label": "Choice 1 note",
+      "default": "4 minis, one of each scent"
+    },
+    {
+      "type": "text",
+      "id": "pack_2_label",
+      "label": "Choice 2 name",
+      "default": "2 packs"
+    },
+    {
+      "type": "text",
+      "id": "pack_2_note",
+      "label": "Choice 2 note",
+      "default": "8 minis, two of each scent"
+    },
+    {
+      "type": "header",
       "content": "Purchase"
     },
     {
@@ -293,13 +365,13 @@
       "type": "text",
       "id": "claim_1",
       "label": "Claim 1",
+      "info": "In either claim, {amount} is replaced with the market's free shipping threshold.",
       "default": "Order now for holiday delivery"
     },
     {
       "type": "text",
       "id": "claim_2",
       "label": "Claim 2",
-      "info": "{amount} is replaced with the market's free shipping threshold.",
       "default": "Free shipping on {amount}+"
     },
     {

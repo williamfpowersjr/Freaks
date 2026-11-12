@@ -262,7 +262,9 @@
         "show_rating": true,
         "reviews_product": "everyday-endurance-deodorant",
         "note": "Reviews of full-size Everyday Endurance Deodorant.",
-        "cta": "Get all four for {price}"
+        "cta": "Get all four for {price}",
+        "background": "sun-ray",
+        "style": "bubbles"
       }
     },
     "lp_faq": {
@@ -399,7 +401,8 @@
         "claim_2": "Free shipping on {amount}+",
         "free_shipping_fallback": "$60",
         "show_payment_icons": true,
-        "sold_out_text": "The holiday set is sold out."
+        "sold_out_text": "The holiday set is sold out.",
+        "quantity_style": "stepper"
       }
     },
     "lp_footer": {

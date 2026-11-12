@@ -8,7 +8,10 @@
   --lp-cobalt: #0032a0;
   --lp-sun-ray: #fe5000;
   --lp-wave: #008ad8;
+  --lp-evergreen: #024638;
   --lp-cloud: #efefef;
+  /* Cobalt at 20%: the tint the product page already uses behind the stick cut-outs. */
+  --lp-tint: #ccd6ec;
   --lp-midnight: #212121;
   --lp-white: #ffffff;
   --lp-font-head: 'Alliance Neue', 'Alliance Text', ui-sans-serif, system-ui, sans-serif;
@@ -82,6 +85,37 @@
   width: 16px;
   height: 2px;
   background: var(--lp-sun-ray);
+}
+
+/* On a colored background the eyebrow sits in a white pill so it stays readable. */
+.lp-eyebrow--pill {
+  display: inline-flex;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--lp-white);
+}
+
+.lp-eyebrow--pill::before {
+  display: none;
+}
+
+/* Small chips, e.g. scent notes. */
+.lp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-chips li {
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--lp-cloud);
+  font-size: 12px;
+  line-height: 1.2;
+  color: var(--lp-midnight);
 }
 
 .lp-h2 {
@@ -373,6 +407,13 @@
 
 .lp-lineup__item:nth-child(4n + 4) {
   transform: rotate(8deg) translateY(-3%);
+}
+
+/* Upright row, like bars in a variety box. */
+.lp-lineup--straight .lp-lineup__item:nth-child(n) {
+  flex-basis: 25%;
+  margin: 0;
+  transform: none;
 }
 
 .lp-hero__img {
@@ -797,6 +838,40 @@
 
 .lp-reviews {
   padding: 56px 0;
+  background: var(--lp-sun-ray);
+}
+
+.lp-reviews--cobalt {
+  background: var(--lp-cobalt);
+}
+
+.lp-reviews--cobalt .lp-h2 {
+  color: var(--lp-cloud);
+}
+
+.lp-reviews--cobalt .lp-review {
+  filter: drop-shadow(6px 6px 0 var(--lp-sun-ray));
+}
+
+.lp-reviews--cloud {
+  background: var(--lp-cloud);
+}
+
+.lp-reviews--cloud .lp-reviews__summary {
+  background: var(--lp-white);
+}
+
+/* Plain cards: no tail, no hard shadow. */
+.lp-reviews--cards .lp-review {
+  filter: none;
+}
+
+.lp-reviews--cards .lp-review::after {
+  display: none;
+}
+
+.lp-reviews--cards .lp-reviews__item {
+  padding-bottom: 16px;
 }
 
 .lp-reviews .lp-head {
@@ -1130,8 +1205,104 @@
   color: #c40000;
 }
 
-.lp-buy__submit--sold-out {
+.lp-buy__submit--sold-out,
+.lp-buy__submit--full {
   width: 100%;
+}
+
+/* Two choices (one or two) instead of the plus and minus buttons. */
+.lp-packs {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  margin: 0 0 12px;
+  padding: 0;
+  border: 0;
+}
+
+.lp-packs__option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px 14px 46px;
+  cursor: pointer;
+}
+
+.lp-packs__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+/* The box is the visible outline; it sits behind the text and reacts to the radio's state. */
+.lp-packs__box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 1px solid rgba(33, 33, 33, 0.3);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.lp-packs__box::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  width: 18px;
+  height: 18px;
+  margin-top: -9px;
+  border: 1.5px solid rgba(33, 33, 33, 0.5);
+  border-radius: 50%;
+}
+
+.lp-packs__input:checked ~ .lp-packs__box {
+  border: 2px solid var(--lp-cobalt);
+  background: rgba(0, 50, 160, 0.06);
+}
+
+.lp-packs__input:checked ~ .lp-packs__box::before {
+  border-color: var(--lp-cobalt);
+  background: radial-gradient(circle, var(--lp-cobalt) 0, var(--lp-cobalt) 5px, transparent 5.5px);
+}
+
+.lp-packs__input:focus-visible ~ .lp-packs__box {
+  outline: 3px solid var(--lp-wave);
+  outline-offset: 2px;
+}
+
+.lp-packs__text {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.lp-packs__label {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--lp-cobalt);
+}
+
+.lp-packs__note {
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.lp-packs__price {
+  position: relative;
+  flex: none;
+  font-family: var(--lp-font-head);
+  font-size: 22px;
+  line-height: 1;
+  color: var(--lp-cobalt);
 }
 
 .lp-buy__row {

@@ -1,0 +1,188 @@
+{%- comment -%}
+  LP (sampler): one large "chapter" per scent, in order. Each chapter gets the id
+  lp-scent-1, lp-scent-2 ... so the hero's jump links can scroll to it.
+{%- endcomment -%}
+{{ 'lp-mini-deo.css' | asset_url | stylesheet_tag }}
+{{ 'lp-sampler.css' | asset_url | stylesheet_tag }}
+
+{%- assign lp_scents = section.blocks | where: 'type', 'scent' -%}
+
+<div class="lp-chapters">
+  <div class="lp-wrap">
+    <div class="lp-head">
+      {% if section.settings.eyebrow != blank %}
+        <p class="lp-eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      <h2 class="lp-h2">{{ section.settings.heading }}</h2>
+      {% if section.settings.text != blank %}
+        <p class="lp-lede">{{ section.settings.text }}</p>
+      {% endif %}
+    </div>
+
+    <div class="lp-chapters__list">
+      {% for block in lp_scents %}
+        <article
+          class="lp-chapter lp-chapter--{{ block.settings.color }}"
+          id="lp-scent-{{ forloop.index }}"
+          {{ block.shopify_attributes }}
+        >
+          <div class="lp-chapter__media{% if block.settings.image_2 != blank %} lp-chapter__media--pair{% endif %}">
+            {% if block.settings.image != blank %}
+              {{
+                block.settings.image
+                | image_url: width: 600
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '150, 220, 300, 450, 600',
+                  sizes: '(min-width: 1024px) 16vw, 30vw',
+                  alt: block.settings.name,
+                  class: 'lp-chapter__img'
+              }}
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'lp-chapter__img lp-placeholder' }}
+            {% endif %}
+            {% if block.settings.image_2 != blank %}
+              {{
+                block.settings.image_2
+                | image_url: width: 600
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '150, 220, 300, 450, 600',
+                  sizes: '(min-width: 1024px) 16vw, 30vw',
+                  alt: '',
+                  class: 'lp-chapter__img lp-chapter__img--second'
+              }}
+            {% endif %}
+          </div>
+
+          <div class="lp-chapter__body">
+            {% if block.settings.label != blank %}
+              <p class="lp-chapter__label">{{ block.settings.label }}</p>
+            {% endif %}
+            <h3 class="lp-chapter__name">{{ block.settings.name }}</h3>
+            {% if block.settings.tagline != blank %}
+              <p class="lp-chapter__tagline">{{ block.settings.tagline }}</p>
+            {% endif %}
+            {% if block.settings.description != blank %}
+              <p class="lp-chapter__desc">{{ block.settings.description }}</p>
+            {% endif %}
+            {% render 'lp-chips', list: block.settings.notes %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.closing != blank %}
+      <p class="lp-chapters__closing">{{ section.settings.closing }}</p>
+    {% endif %}
+
+    {% render 'lp-cta', text: section.settings.cta, product: product %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "LP Sampler scents",
+  "tag": "section",
+  "class": "lp-section lp-chapters-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The four scents"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "One a week. Four weeks."
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "closing",
+      "label": "Closing line",
+      "info": "Shown under the last scent. Leave empty to hide."
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Button text",
+      "info": "{price} shows the live price. Leave empty to hide.",
+      "default": "Try all four for {price}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "scent",
+      "name": "Scent",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Small label",
+          "default": "Week 1"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Scent name",
+          "default": "Santal Dune"
+        },
+        {
+          "type": "select",
+          "id": "color",
+          "label": "Accent color",
+          "info": "Match the color on the packaging where you can.",
+          "options": [
+            { "value": "sun-ray", "label": "Sun Ray" },
+            { "value": "cobalt", "label": "Cobalt" },
+            { "value": "wave", "label": "Wave" },
+            { "value": "evergreen", "label": "Evergreen" }
+          ],
+          "default": "cobalt"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "A cut-out on a transparent background works best."
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Second image",
+          "info": "Optional. For example the same stick with the cap off."
+        },
+        {
+          "type": "text",
+          "id": "tagline",
+          "label": "Short description"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "notes",
+          "label": "Notes",
+          "info": "Optional. Separate with commas. Each becomes a small chip."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP Sampler scents"
+    }
+  ]
+}
+{% endschema %}

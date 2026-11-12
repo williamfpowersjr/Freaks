@@ -1,0 +1,345 @@
+/*
+ * Sampler landing page: styles for lp-sampler-hero and lp-sampler-scents.
+ * Loaded on top of lp-mini-deo.css, which holds the shared pieces (buttons, cards, type).
+ *
+ * Every LP section links lp-mini-deo.css, so it can load again after this file. Where a rule
+ * here overrides a shared rule, it is written with two classes so it wins whatever the order.
+ */
+
+/* ==========================================================
+   Sampler hero
+   ========================================================== */
+
+/* Same light tint the product page shows the stick cut-outs on. */
+.lp-section.lp-sampler-hero-section {
+  background: var(--lp-tint);
+}
+
+.lp-sampler-hero {
+  overflow: hidden;
+  text-align: center;
+}
+
+.lp-sampler-hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 28px;
+}
+
+.lp-sampler-hero .lp-eyebrow {
+  justify-content: center;
+}
+
+.lp-sampler-hero .lp-hero__headline {
+  font-size: 46px;
+}
+
+.lp-sampler-hero .lp-hero__subhead {
+  max-width: 30em;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.lp-sampler-hero__media {
+  width: 100%;
+  max-width: 480px;
+  margin: 6px 0 10px;
+}
+
+.lp-sampler-hero__buy {
+  width: 100%;
+  max-width: 420px;
+}
+
+.lp-sampler-hero .lp-hero__cta-row,
+.lp-sampler-hero .lp-hero__rating {
+  justify-content: center;
+}
+
+.lp-sampler-hero .lp-hero__price {
+  text-align: left;
+}
+
+/* Jump links to each scent. */
+.lp-weeks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+  max-width: 560px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-weeks__link {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  height: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--lp-white);
+  color: var(--lp-cobalt);
+  text-align: left;
+  text-decoration: none;
+}
+
+.lp-weeks__link:focus-visible {
+  outline: 3px solid var(--lp-wave);
+  outline-offset: 2px;
+}
+
+.lp-weeks__label {
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(33, 33, 33, 0.7);
+}
+
+.lp-weeks__name {
+  font-family: var(--lp-font-head);
+  font-size: 17px;
+  line-height: 1.1;
+}
+
+/* ==========================================================
+   Scent chapters
+   ========================================================== */
+
+.lp-chapters {
+  padding: 56px 0;
+}
+
+.lp-chapters__list {
+  display: grid;
+  gap: 18px;
+}
+
+.lp-chapter {
+  --lp-accent: var(--lp-cobalt);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--lp-white);
+  /* Keeps the chapter clear of the sticky header when a jump link scrolls to it. */
+  scroll-margin-top: calc(var(--lp-header-h) + 12px);
+}
+
+.lp-chapter--sun-ray {
+  --lp-accent: var(--lp-sun-ray);
+}
+
+.lp-chapter--wave {
+  --lp-accent: var(--lp-wave);
+}
+
+.lp-chapter--evergreen {
+  --lp-accent: var(--lp-evergreen);
+}
+
+.lp-chapter__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4%;
+  padding: 22px 16px;
+  background: var(--lp-tint);
+}
+
+.lp-chapter__img {
+  display: block;
+  width: auto;
+  max-width: 44%;
+  height: 210px;
+  object-fit: contain;
+}
+
+.lp-chapter__media--pair .lp-chapter__img {
+  transform: rotate(-5deg);
+}
+
+.lp-chapter__media--pair .lp-chapter__img--second {
+  transform: rotate(5deg) translateY(4%);
+}
+
+/* The accent color is only used for this bar and for large text, never for small text. */
+.lp-chapter__body {
+  padding: 20px 20px 22px;
+  border-top: 8px solid var(--lp-accent);
+}
+
+.lp-chapter__label {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(33, 33, 33, 0.7);
+}
+
+.lp-chapter__name {
+  margin: 0;
+  font-family: var(--lp-font-head);
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--lp-cobalt);
+}
+
+.lp-chapter__tagline {
+  margin: 8px 0 0;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.lp-chapter__desc {
+  margin: 8px 0 0;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.lp-chapter .lp-chips {
+  margin-top: 14px;
+}
+
+.lp-chapters__closing {
+  margin: 32px auto 0;
+  max-width: 18em;
+  font-family: var(--lp-font-head);
+  font-size: 28px;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--lp-cobalt);
+  text-wrap: balance;
+}
+
+.lp-chapters__closing + .lp-cta {
+  margin-top: 22px;
+}
+
+/* ==========================================================
+   Tablet and up
+   ========================================================== */
+
+@media (min-width: 750px) {
+  .lp-weeks {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    max-width: 880px;
+  }
+
+  .lp-chapter {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+
+  /* Every other chapter puts the picture on the right. */
+  .lp-chapter:nth-child(even) .lp-chapter__media {
+    order: 2;
+  }
+
+  .lp-chapter__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 32px;
+    border-top: 0;
+    border-left: 8px solid var(--lp-accent);
+  }
+
+  .lp-chapter:nth-child(even) .lp-chapter__body {
+    border-right: 8px solid var(--lp-accent);
+    border-left: 0;
+  }
+
+  .lp-chapter__img {
+    height: 260px;
+  }
+}
+
+/* ==========================================================
+   Desktop
+   ========================================================== */
+
+@media (min-width: 1024px) {
+  .lp-sampler-hero__inner {
+    padding-top: 40px;
+    padding-bottom: 56px;
+  }
+
+  .lp-sampler-hero .lp-hero__headline {
+    font-size: 88px;
+  }
+
+  .lp-sampler-hero .lp-hero__subhead {
+    font-size: 20px;
+  }
+
+  .lp-sampler-hero__media {
+    max-width: 620px;
+    margin: 16px 0 20px;
+  }
+
+  /* Capped by screen height so the button stays on the first screen on short laptops. */
+  .lp-sampler-hero__media .lp-lineup {
+    max-width: 620px;
+    max-width: min(620px, 58svh);
+  }
+
+  .lp-weeks {
+    margin-top: 32px;
+  }
+
+  .lp-weeks__link {
+    padding: 14px 16px;
+  }
+
+  .lp-weeks__name {
+    font-size: 20px;
+  }
+
+  .lp-chapters {
+    padding: 80px 0;
+  }
+
+  .lp-chapters__list {
+    gap: 24px;
+  }
+
+  .lp-chapter__media {
+    padding: 40px 24px;
+  }
+
+  .lp-chapter__img {
+    height: 340px;
+  }
+
+  .lp-chapter__body {
+    padding: 56px;
+  }
+
+  .lp-chapter__name {
+    font-size: 56px;
+  }
+
+  .lp-chapter__tagline {
+    margin-top: 12px;
+    font-size: 22px;
+  }
+
+  .lp-chapter__desc {
+    font-size: 18px;
+    max-width: 30em;
+  }
+
+  .lp-chapters__closing {
+    font-size: 40px;
+  }
+}

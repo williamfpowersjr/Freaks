@@ -1,0 +1,147 @@
+{%- comment -%}
+  LP (variety pack): what's in the pack. One color-coded tile per item, in order.
+{%- endcomment -%}
+{{ 'lp-mini-deo.css' | asset_url | stylesheet_tag }}
+{{ 'lp-pack.css' | asset_url | stylesheet_tag }}
+
+{%- assign lp_items = section.blocks | where: 'type', 'item' -%}
+
+<div class="lp-inside">
+  <div class="lp-wrap">
+    <div class="lp-head">
+      {% if section.settings.eyebrow != blank %}
+        <p class="lp-eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      <h2 class="lp-h2">{{ section.settings.heading }}</h2>
+      {% if section.settings.text != blank %}
+        <p class="lp-lede">{{ section.settings.text }}</p>
+      {% endif %}
+    </div>
+
+    <ul class="lp-inside__grid">
+      {% for block in lp_items %}
+        {%- comment -%} Always four children, so each part lines up with the next tile's. {%- endcomment -%}
+        <li class="lp-flavor lp-flavor--{{ block.settings.color }}" {{ block.shopify_attributes }}>
+          <div class="lp-flavor__head">
+            {% if block.settings.label != blank %}
+              <span class="lp-flavor__label">{{ block.settings.label }}</span>
+            {% endif %}
+            <h3 class="lp-flavor__name">{{ block.settings.name }}</h3>
+          </div>
+          <div class="lp-flavor__media">
+            {% if block.settings.image != blank %}
+              {{
+                block.settings.image
+                | image_url: width: 600
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '150, 220, 300, 450, 600',
+                  sizes: '(min-width: 1024px) 12vw, 22vw',
+                  alt: block.settings.name,
+                  class: 'lp-flavor__img'
+              }}
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'lp-flavor__img lp-placeholder' }}
+            {% endif %}
+          </div>
+          <p class="lp-flavor__tagline">{{ block.settings.tagline }}</p>
+          <div class="lp-flavor__notes">
+            {% render 'lp-chips', list: block.settings.notes %}
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% render 'lp-cta', text: section.settings.cta, product: product %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "LP Pack contents",
+  "tag": "section",
+  "class": "lp-section lp-inside-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "What's in the pack"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "One of each."
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Button text",
+      "info": "{price} shows the live price. Leave empty to hide.",
+      "default": "Get the pack for {price}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Small label",
+          "default": "Week 1"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Santal Dune"
+        },
+        {
+          "type": "select",
+          "id": "color",
+          "label": "Color",
+          "info": "Match the color on the packaging where you can.",
+          "options": [
+            { "value": "sun-ray", "label": "Sun Ray" },
+            { "value": "cobalt", "label": "Cobalt" },
+            { "value": "wave", "label": "Wave" },
+            { "value": "evergreen", "label": "Evergreen" }
+          ],
+          "default": "cobalt"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "A cut-out on a transparent background works best."
+        },
+        {
+          "type": "text",
+          "id": "tagline",
+          "label": "Short description"
+        },
+        {
+          "type": "text",
+          "id": "notes",
+          "label": "Notes",
+          "info": "Separate with commas. Each becomes a small chip."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP Pack contents"
+    }
+  ]
+}
+{% endschema %}

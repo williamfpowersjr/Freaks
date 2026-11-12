@@ -18,9 +18,17 @@
   if section.settings.show_rating and lp_rating_count > 0
     assign lp_show_rating = true
   endif
+
+  comment
+    The button takes whichever brand color the background isn't.
+  endcomment
+  assign lp_cta_variant = 'sun-ray'
+  if section.settings.background == 'sun-ray'
+    assign lp_cta_variant = 'cobalt'
+  endif
 -%}
 
-<div class="lp-reviews">
+<div class="lp-reviews lp-reviews--{{ section.settings.background }} lp-reviews--{{ section.settings.style }}">
   <div class="lp-wrap">
     <div class="lp-head">
       <h2 class="lp-h2">{{ section.settings.heading }}</h2>
@@ -54,7 +62,7 @@
       {% endfor %}
     </ul>
 
-    {% render 'lp-cta', text: section.settings.cta, product: product, variant: 'cobalt' %}
+    {% render 'lp-cta', text: section.settings.cta, product: product, variant: lp_cta_variant %}
   </div>
 </div>
 
@@ -88,6 +96,27 @@
       "label": "Note under the rating",
       "info": "Say which product the reviews are for.",
       "default": "Reviews of full-size Everyday Endurance Deodorant."
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Background",
+      "options": [
+        { "value": "sun-ray", "label": "Sun Ray" },
+        { "value": "cobalt", "label": "Cobalt" },
+        { "value": "cloud", "label": "Cloud" }
+      ],
+      "default": "sun-ray"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Card style",
+      "options": [
+        { "value": "bubbles", "label": "Speech bubbles" },
+        { "value": "cards", "label": "Plain cards" }
+      ],
+      "default": "bubbles"
     },
     {
       "type": "text",

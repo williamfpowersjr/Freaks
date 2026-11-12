@@ -40,54 +40,85 @@ A snapshot of the live Shopify theme **"Contara / Live"**, exported on **Nov 11,
 
 ## Landing pages built here
 
-### Mini Deo Set landing page (for cold Meta traffic)
+Three landing pages for the four-mini deodorant set, all for cold Meta traffic. Each is an alternate product template, so it opens on the product's own URL with `?view=` added.
 
-A Bev-style, offer-led page for the Mini Deodorant Holiday Gift Set: offer up top, why the deodorant works, the four scents, real reviews, a short FAQ and one buy box.
+| Page | Add to the product URL | The idea |
+|---|---|---|
+| Offer page | `?view=mini-deo-lp` | Bev-style. Leads with the offer: all four scents for one price. Uses holiday gift set wording |
+| Variety pack | `?view=mini-deo-lp-pack` | Sold like a snack variety pack: price per mini, what's in the pack, a "Deodorant Facts" label, one pack or two |
+| Find your scent | `?view=mini-deo-lp-sampler` | Sold like a discovery set: one large chapter per scent, one a week, find your favorite |
 
-**How to see it.** It is an alternate product template, so it opens on the product's own URL with `?view=mini-deo-lp` added:
+The variety pack and sampler pages have no gift or holiday wording.
+
+**How to see one.** For example:
 
 ```
-/products/mini-deodorant-holiday-gift-set?view=mini-deo-lp
+/products/mini-deodorant-holiday-gift-set?view=mini-deo-lp-pack
 ```
 
-In the theme editor, pick **Products → mini-deo-lp** in the template menu at the top, then choose the Mini Deodorant Holiday Gift Set as the preview product.
+In the theme editor, pick **Products** in the template menu at the top, choose the template, then choose the mini set as the preview product.
 
-**Do not assign this template to the product in Shopify admin.** A product's template is a store-wide setting, not a theme setting. The live theme doesn't have this template, so the live product page would change. Use the `?view=` link instead.
+**Do not assign these templates to the product in Shopify admin.** A product's template is a store-wide setting, not a theme setting. The live theme doesn't have these templates, so the live product page would change. Use the `?view=` link instead.
 
-**Files**
+**The product's name.** The pages never print the product's name, but the cart, checkout and browser tab do. Until there is a listing that isn't called a holiday gift set, shoppers will see that name once they add to cart. The templates work on any product, so a new listing only needs the same `?view=` link.
+
+### Files
+
+Each page is one template file that holds the section order and all copy, images and settings:
+
+- `templates/product.mini-deo-lp.json`
+- `templates/product.mini-deo-lp-pack.json`
+- `templates/product.mini-deo-lp-sampler.json`
+
+Shared by all three pages:
 
 | File | What it is |
 |---|---|
-| `templates/product.mini-deo-lp.json` | The page: section order and all copy, images and settings |
-| `sections/lp-header.liquid` | Logo and one offer button. Hides the store menu, announcement bar and full footer on this page only |
-| `sections/lp-hero.liquid` | Headline, product shot, round badge, benefits, price and button |
-| `sections/lp-why.liquid` | Where odor comes from and the three ingredients that stop it |
-| `sections/lp-scents.liquid` | Four scent cards in week order |
-| `sections/lp-reviews.liquid` | Quoted customer reviews |
+| `sections/lp-header.liquid` | Logo and one offer button. Hides the store menu, announcement bar and full footer on that page only |
+| `sections/lp-reviews.liquid` | Quoted customer reviews. Background and card style are settings |
 | `sections/lp-faq.liquid` | Short FAQ |
-| `sections/lp-buy-box.liquid` | The one buy box: price, contents, quantity, Add to cart |
+| `sections/lp-buy-box.liquid` | The one buy box: price, contents, quantity, Add to cart. Quantity can be plus and minus buttons or a one-or-two picker |
 | `sections/lp-footer.liquid` | Slim footer and the buy bar that stays on screen on phones |
-| `snippets/lp-*.liquid` | Logo, icons, stars, button and product line-up used by the sections |
-| `assets/lp-mini-deo.css` | All styles. Every class starts with `lp-`, so nothing else in the theme is affected |
+| `sections/lp-why.liquid` | Where odor comes from and the three ingredients that stop it (offer page and sampler) |
+| `snippets/lp-*.liquid` | Logo, icons, stars, button, chips and the product line-up |
+| `assets/lp-mini-deo.css` | Shared styles. Every class starts with `lp-`, so nothing else in the theme is affected |
 
-**How it plugs into the theme**
+Only on one page:
 
-- Price, stock and Add to cart come from the product itself. Type `{price}` in a headline or button setting to show the live price.
+| Page | Sections | Styles |
+|---|---|---|
+| Offer page | `lp-hero`, `lp-scents` | in `lp-mini-deo.css` |
+| Variety pack | `lp-pack-hero`, `lp-pack-inside`, `lp-facts` | `assets/lp-pack.css` |
+| Find your scent | `lp-sampler-hero`, `lp-sampler-scents` | `assets/lp-sampler.css` |
+
+### How they plug into the theme
+
+- Price, stock and Add to cart come from the product itself. Type `{price}` in a headline or button setting to show the live price. On the variety pack hero, `{unit_price}` shows the price divided by the number of items in the pack.
 - Add to cart is a standard `/cart/add` form. The theme's existing cart script picks it up and opens the side cart, so the usual add-to-cart tracking fires. No new apps or outside scripts.
 - The header and footer are hidden with CSS, not removed, so pixels, the cart drawer and app scripts load exactly as on other pages.
 - The "selling fast" line in the buy box follows the product page's rule: it shows only when tracked stock is at or below the threshold in the section settings.
 - Star ratings are read live from the Everyday Endurance Deodorant's Junip reviews.
+- Product pictures on the variety pack and sampler pages are the single-stick cut-outs from the product page's "Meet the scents" section.
 
-**Rules for edits**
+### Rules for edits
 
 - Claims: only say what the live product page says.
 - Reviews: copy them from Junip word for word, signed with first name and last initial. Deodorant reviews only.
 - Images: nothing that shows the crate.
+- Small text is never Sun Ray: it is too faint on Cloud and on Cobalt.
 
-**Check before ads point at it**
+### Check before ads point at a page
 
 1. Every image on the page, on a phone: no crate anywhere.
 2. Headline, price and button visible on a phone without scrolling.
-3. Tap Add to cart: the set is in the cart at the right price and the side cart opens.
+3. Tap Add to cart: the set is in the cart at the right price and quantity, and the side cart opens.
 4. With Meta Pixel Helper on: page view and product view on load, add to cart on tap.
-5. The holiday delivery line and FAQ answer still hold. Add the real shipping cutoff date when you have it.
+5. Offer page only: the holiday delivery line and FAQ answer still hold. Add the real shipping cutoff date when you have it.
+
+### Pages these were modelled on
+
+Found by search; the pages themselves could not be opened from the build environment.
+
+- Offer page: the Bev landing page supplied as the example.
+- Variety pack: protein bar and drink variety packs, such as David Protein's Variety Pack, Barebells' Variety Pack and LMNT's sample pack. Common pieces: one of each flavor, price per item, a path from one pack to more.
+- Find your scent: mini deodorant and fragrance discovery sets, such as Salt & Stone's Mini Deodorant Discovery Set, Each & Every's Want It All Kit, Alleyoop's Mini Deo Discovery Set and Huron's Best Smellers Set. Common pieces: try every scent, then pick a favorite.

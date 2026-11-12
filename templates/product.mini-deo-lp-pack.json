@@ -1,0 +1,482 @@
+{
+  "sections": {
+    "lp_header": {
+      "type": "lp-header",
+      "settings": {
+        "cta": "Get the pack"
+      }
+    },
+    "lp_pack_hero": {
+      "type": "lp-pack-hero",
+      "blocks": {
+        "cutout_santal_dune": {
+          "type": "product_image",
+          "settings": {
+            "image": "shopify://shop_images/mini-deo-santal-dune-closed.png",
+            "alt": "Santal Dune mini deodorant"
+          }
+        },
+        "cutout_cedar_peak": {
+          "type": "product_image",
+          "settings": {
+            "image": "shopify://shop_images/mini-deo-cedar-peak-closed.png",
+            "alt": "Cedar Peak mini deodorant"
+          }
+        },
+        "cutout_bergamot_canyon": {
+          "type": "product_image",
+          "settings": {
+            "image": "shopify://shop_images/mini-deo-bergamot-canyon-closed.png",
+            "alt": "Bergamot Canyon mini deodorant"
+          }
+        },
+        "cutout_solar_atoll": {
+          "type": "product_image",
+          "settings": {
+            "image": "shopify://shop_images/mini-deo-solar-atoll-closed.png",
+            "alt": "Solar Atoll mini deodorant"
+          }
+        },
+        "stat_minis": {
+          "type": "stat",
+          "settings": {
+            "value": "4",
+            "label": "minis"
+          }
+        },
+        "stat_scents": {
+          "type": "stat",
+          "settings": {
+            "value": "4",
+            "label": "scents"
+          }
+        },
+        "stat_hours": {
+          "type": "stat",
+          "settings": {
+            "value": "48",
+            "label": "hours of odor protection"
+          }
+        },
+        "stat_zero": {
+          "type": "stat",
+          "settings": {
+            "value": "0",
+            "label": "aluminum or baking soda"
+          }
+        }
+      },
+      "block_order": [
+        "cutout_santal_dune",
+        "cutout_cedar_peak",
+        "cutout_bergamot_canyon",
+        "cutout_solar_atoll",
+        "stat_minis",
+        "stat_scents",
+        "stat_hours",
+        "stat_zero"
+      ],
+      "settings": {
+        "eyebrow": "Variety pack. 4 minis.",
+        "headline": "All four scents. One pack.",
+        "subhead": "Four mini deos. One scent a week for a month.",
+        "unit_count": 4,
+        "sticker_text": "a mini",
+        "cta": "Get the pack",
+        "price_note": "for 4 minis",
+        "show_rating": true,
+        "reviews_product": "everyday-endurance-deodorant",
+        "rating_label": "reviews of Everyday Endurance Deodorant"
+      }
+    },
+    "lp_pack_inside": {
+      "type": "lp-pack-inside",
+      "blocks": {
+        "item_santal_dune": {
+          "type": "item",
+          "settings": {
+            "label": "Week 1",
+            "name": "Santal Dune",
+            "color": "sun-ray",
+            "image": "shopify://shop_images/mini-deo-santal-dune-closed.png",
+            "tagline": "Warm and grounded.",
+            "notes": "Sandalwood, amber, carrot, cardamom, vetiver"
+          }
+        },
+        "item_cedar_peak": {
+          "type": "item",
+          "settings": {
+            "label": "Week 2",
+            "name": "Cedar Peak",
+            "color": "evergreen",
+            "image": "shopify://shop_images/mini-deo-cedar-peak-closed.png",
+            "tagline": "Cool and sharp.",
+            "notes": "Eucalyptus, mint, lavandin, geranium"
+          }
+        },
+        "item_bergamot_canyon": {
+          "type": "item",
+          "settings": {
+            "label": "Week 3",
+            "name": "Bergamot Canyon",
+            "color": "wave",
+            "image": "shopify://shop_images/mini-deo-bergamot-canyon-closed.png",
+            "tagline": "Bright and clean.",
+            "notes": "Oakmoss, cedarwood, white tea, neroli, bergamot"
+          }
+        },
+        "item_solar_atoll": {
+          "type": "item",
+          "settings": {
+            "label": "Week 4",
+            "name": "Solar Atoll",
+            "color": "cobalt",
+            "image": "shopify://shop_images/mini-deo-solar-atoll-closed.png",
+            "tagline": "Warm and smooth.",
+            "notes": "Vanilla, amber, clove, tonka bean, resin"
+          }
+        }
+      },
+      "block_order": [
+        "item_santal_dune",
+        "item_cedar_peak",
+        "item_bergamot_canyon",
+        "item_solar_atoll"
+      ],
+      "settings": {
+        "eyebrow": "What’s in the pack",
+        "heading": "One of each.",
+        "text": "One mini of every Everyday Endurance scent. Each lasts about a week with daily use.",
+        "cta": "Get the pack for {price}"
+      }
+    },
+    "lp_facts": {
+      "type": "lp-facts",
+      "blocks": {
+        "row_protection": {
+          "type": "row",
+          "settings": {
+            "label": "Odor protection",
+            "value": "48 hours"
+          }
+        },
+        "row_aluminum": {
+          "type": "row",
+          "settings": {
+            "label": "Aluminum",
+            "value": "0"
+          }
+        },
+        "row_soda": {
+          "type": "row",
+          "settings": {
+            "label": "Baking soda",
+            "value": "0"
+          }
+        },
+        "row_preservatives": {
+          "type": "row",
+          "settings": {
+            "label": "Preservatives",
+            "value": "0"
+          }
+        },
+        "row_vegan": {
+          "type": "row",
+          "settings": {
+            "label": "Vegan formula",
+            "value": "Yes"
+          }
+        },
+        "row_derm": {
+          "type": "row",
+          "settings": {
+            "label": "Dermatologist tested",
+            "value": "Yes"
+          }
+        },
+        "step_zinc": {
+          "type": "step",
+          "settings": {
+            "name": "Zinc Ricinoleate",
+            "text": "Traps odor compounds and neutralizes them, without disrupting your skin’s microbiome."
+          }
+        },
+        "step_sinodor": {
+          "type": "step",
+          "settings": {
+            "name": "Sinodor",
+            "text": "Targets and binds to malodor molecules. Instead of masking odor, it removes it."
+          }
+        },
+        "step_smart": {
+          "type": "step",
+          "settings": {
+            "name": "SMA’RT TEC",
+            "text": "Disrupts the enzyme activity that turns sweat into body odor. No need to block sweat."
+          }
+        },
+        "row_parabens": {
+          "type": "row",
+          "settings": {
+            "label": "Parabens",
+            "value": "0"
+          }
+        },
+        "row_phthalates": {
+          "type": "row",
+          "settings": {
+            "label": "Phthalates",
+            "value": "0"
+          }
+        }
+      },
+      "block_order": [
+        "row_protection",
+        "row_aluminum",
+        "row_soda",
+        "row_preservatives",
+        "row_parabens",
+        "row_phthalates",
+        "row_vegan",
+        "row_derm",
+        "step_zinc",
+        "step_sinodor",
+        "step_smart"
+      ],
+      "settings": {
+        "eyebrow": "What’s in it",
+        "heading": "Read the label.",
+        "label_title": "Deodorant Facts",
+        "label_line_1": "4 minis per pack",
+        "label_line_2": "Serving size: 1 mini (about a week)",
+        "label_footnote": "Works with your skin’s microbiome. Odor fighters: Zinc Ricinoleate, Sinodor, SMA’RT TEC.",
+        "how_heading": "Stops odor at the source.",
+        "how_text": "Every scent works with your microbiome to stop odor at the source. Three ingredients do the work.",
+        "cta": "Get the pack for {price}"
+      }
+    },
+    "lp_reviews": {
+      "type": "lp-reviews",
+      "blocks": {
+        "review_alyse": {
+          "type": "review",
+          "settings": {
+            "title": "Best deodorant ever!",
+            "quote": "Wow it smells incredible and works better than any clean deodorant I’ve ever tried. Actually, it works better than any deodorant I’ve ever tried period. Clean or not!",
+            "name": "Alyse B."
+          }
+        },
+        "review_josh": {
+          "type": "review",
+          "settings": {
+            "title": "Worth every penny",
+            "quote": "I've tried a few natural deodorants, but they either don't work or irritate my skin. This one actually works, feels good, and I love the smell. Definitely my new go-to.",
+            "name": "Josh B."
+          }
+        },
+        "review_kristin": {
+          "type": "review",
+          "settings": {
+            "title": "Lightweight, Effective, and No Residue",
+            "quote": "I’ve tried a dozen different clean deodorants, and most of them end up being cakey and thick, leaving residue on my clothes - or they just don’t work. Freaks is lightweight, doesn’t leave any residue, and actually keeps odor under control.",
+            "name": "Kristin P."
+          }
+        },
+        "review_calvin": {
+          "type": "review",
+          "settings": {
+            "title": "Checks all the boxes",
+            "quote": "Love the deodorant. Smells great, lasts long, clean. Been looking for a while for one that checks all the boxes I care about.",
+            "name": "Calvin S."
+          }
+        },
+        "review_maggie": {
+          "type": "review",
+          "settings": {
+            "title": "Love!!",
+            "quote": "Love this deo!! One of the only natural ones I've used that continues to work.",
+            "name": "Maggie R."
+          }
+        }
+      },
+      "block_order": [
+        "review_alyse",
+        "review_josh",
+        "review_kristin",
+        "review_calvin",
+        "review_maggie"
+      ],
+      "settings": {
+        "heading": "Tried the others. Kept this one.",
+        "show_rating": true,
+        "reviews_product": "everyday-endurance-deodorant",
+        "note": "Reviews of full-size Everyday Endurance Deodorant.",
+        "background": "cobalt",
+        "style": "cards",
+        "cta": "Get the pack for {price}"
+      }
+    },
+    "lp_faq": {
+      "type": "lp-faq",
+      "blocks": {
+        "q_inside": {
+          "type": "question",
+          "settings": {
+            "question": "What’s in the pack?",
+            "answer": "<p>Four mini deodorants, one of each Everyday Endurance scent: Santal Dune, Cedar Peak, Bergamot Canyon and Solar Atoll.</p>"
+          }
+        },
+        "q_last": {
+          "type": "question",
+          "settings": {
+            "question": "How long does each mini last?",
+            "answer": "<p>About a week with daily use. Four minis gets you through about a month.</p>"
+          }
+        },
+        "q_pick": {
+          "type": "question",
+          "settings": {
+            "question": "Can I pick the scents?",
+            "answer": "<p>The pack comes with one mini of each scent.</p>"
+          }
+        },
+        "q_aluminum": {
+          "type": "question",
+          "settings": {
+            "question": "Is there aluminum or baking soda in it?",
+            "answer": "<p>No. Zero aluminum and zero baking soda. It stops odor at the source without blocking sweat.</p>"
+          }
+        },
+        "q_use": {
+          "type": "question",
+          "settings": {
+            "question": "How do I use it?",
+            "answer": "<p>Remove the top and twist the bottom until the formula starts to appear through the cap. Don’t overtwist: a little goes a long way. Apply to clean, dry underarms. Keep it at room temperature for best results.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q_inside",
+        "q_last",
+        "q_pick",
+        "q_aluminum",
+        "q_use"
+      ],
+      "settings": {
+        "heading": "Before you ask.",
+        "cta": "Get the pack for {price}"
+      }
+    },
+    "lp_buy_box": {
+      "type": "lp-buy-box",
+      "blocks": {
+        "cutout_santal_dune": {
+          "type": "product_image",
+          "settings": {
+            "image": "shopify://shop_images/mini-deo-santal-dune-closed.png",
+            "alt": "Santal Dune mini deodorant"
+          }
+        },
+        "cutout_cedar_peak": {
+          "type": "product_image",
+          "settings": {
+            "image": "shopify://shop_images/mini-deo-cedar-peak-closed.png",
+            "alt": "Cedar Peak mini deodorant"
+          }
+        },
+        "cutout_bergamot_canyon": {
+          "type": "product_image",
+          "settings": {
+            "image": "shopify://shop_images/mini-deo-bergamot-canyon-closed.png",
+            "alt": "Bergamot Canyon mini deodorant"
+          }
+        },
+        "cutout_solar_atoll": {
+          "type": "product_image",
+          "settings": {
+            "image": "shopify://shop_images/mini-deo-solar-atoll-closed.png",
+            "alt": "Solar Atoll mini deodorant"
+          }
+        },
+        "point_48h": {
+          "type": "point",
+          "settings": {
+            "icon": "clock",
+            "text": "48-hour odor protection"
+          }
+        },
+        "point_aluminum": {
+          "type": "point",
+          "settings": {
+            "icon": "no-aluminum",
+            "text": "Zero aluminum"
+          }
+        },
+        "point_soda": {
+          "type": "point",
+          "settings": {
+            "icon": "no-aluminum",
+            "text": "Zero baking soda"
+          }
+        },
+        "point_vegan": {
+          "type": "point",
+          "settings": {
+            "icon": "leaf",
+            "text": "Vegan formula"
+          }
+        }
+      },
+      "block_order": [
+        "cutout_santal_dune",
+        "cutout_cedar_peak",
+        "cutout_bergamot_canyon",
+        "cutout_solar_atoll",
+        "point_48h",
+        "point_aluminum",
+        "point_soda",
+        "point_vegan"
+      ],
+      "settings": {
+        "eyebrow": "Variety pack. Limited quantity.",
+        "heading": "Four minis. Four scents. One pack.",
+        "price_label": "4 mini deodorants",
+        "text": "One mini of every Everyday Endurance scent. Each lasts about a week with daily use.",
+        "items_heading": "In the pack",
+        "items": "Week 1: Santal Dune mini\nWeek 2: Cedar Peak mini\nWeek 3: Bergamot Canyon mini\nWeek 4: Solar Atoll mini",
+        "stock_text": "Selling fast: limited quantity available",
+        "stock_threshold": 160,
+        "quantity_style": "packs",
+        "pack_1_label": "1 pack",
+        "pack_1_note": "4 minis, one of each scent",
+        "pack_2_label": "2 packs",
+        "pack_2_note": "8 minis. One for home, one for the gym bag.",
+        "cta": "Add to cart",
+        "claim_1": "Free shipping on {amount}+",
+        "claim_2": "Four minis last about a month",
+        "free_shipping_fallback": "$60",
+        "show_payment_icons": true,
+        "sold_out_text": "The variety pack is sold out."
+      }
+    },
+    "lp_footer": {
+      "type": "lp-footer",
+      "settings": {
+        "show_bar": true,
+        "bar_title": "4 mini deodorants",
+        "bar_cta": "Get the pack"
+      }
+    }
+  },
+  "order": [
+    "lp_header",
+    "lp_pack_hero",
+    "lp_pack_inside",
+    "lp_facts",
+    "lp_reviews",
+    "lp_faq",
+    "lp_buy_box",
+    "lp_footer"
+  ]
+}

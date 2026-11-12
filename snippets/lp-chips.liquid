@@ -1,0 +1,15 @@
+{%- comment -%}
+  Turns a comma-separated list into small chips.
+  Usage: {% render 'lp-chips', list: block.settings.notes %}
+{%- endcomment -%}
+{%- assign lp_chip_items = list | split: ',' -%}
+{%- if lp_chip_items.size > 0 -%}
+  <ul class="lp-chips">
+    {%- for lp_chip in lp_chip_items -%}
+      {%- assign lp_chip_text = lp_chip | strip -%}
+      {%- if lp_chip_text != blank -%}
+        <li>{{ lp_chip_text }}</li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+{%- endif -%}

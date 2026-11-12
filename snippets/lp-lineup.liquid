@@ -1,10 +1,11 @@
 {%- comment -%}
   Row of product cut-outs, slightly fanned out.
   Usage: {% render 'lp-lineup', images: lp_cutouts, eager: true %}
-  images: section blocks, each with settings.image and settings.alt
-  eager:  true for images at the top of the page
+  images:   section blocks, each with settings.image and settings.alt
+  eager:    true for images at the top of the page
+  straight: true for an upright row instead of a fan
 {%- endcomment -%}
-<div class="lp-lineup">
+<div class="lp-lineup{% if straight %} lp-lineup--straight{% endif %}">
   {%- for block in images -%}
     {%- if block.settings.image != blank -%}
       <div class="lp-lineup__item" {{ block.shopify_attributes }}>

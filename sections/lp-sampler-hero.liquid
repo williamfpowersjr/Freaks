@@ -1,0 +1,205 @@
+{%- comment -%}
+  LP (sampler): centered hero for a "try them all, find your favorite" page.
+  Headline, fanned product cut-outs, price, button and a row of links that jump to each scent below.
+  {price} in the headline or subhead is replaced with the product's live price.
+{%- endcomment -%}
+{{ 'lp-mini-deo.css' | asset_url | stylesheet_tag }}
+{{ 'lp-sampler.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign lp_variant = product.selected_or_first_available_variant
+  assign lp_price = lp_variant.price | money_without_trailing_zeros
+  assign lp_cutouts = section.blocks | where: 'type', 'product_image'
+  assign lp_weeks = section.blocks | where: 'type', 'week'
+
+  comment
+    Star rating comes live from the reviews product's Junip metafields.
+  endcomment
+  assign lp_reviews_product = section.settings.reviews_product | default: product
+  assign lp_rating_field = lp_reviews_product.metafields.junip.rating_average
+  assign lp_rating = lp_rating_field.value | default: lp_rating_field | times: 1.0 | round: 1
+  assign lp_count_field = lp_reviews_product.metafields.junip.rating_count
+  assign lp_rating_count = lp_count_field.value | default: lp_count_field | times: 1
+-%}
+
+<div class="lp-sampler-hero">
+  <div class="lp-wrap lp-sampler-hero__inner">
+    <div class="lp-sampler-hero__intro">
+      {% if section.settings.eyebrow != blank %}
+        <p class="lp-eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      <h1 class="lp-hero__headline">{{ section.settings.headline | replace: '{price}', lp_price }}</h1>
+      {% if section.settings.subhead != blank %}
+        <p class="lp-hero__subhead">{{ section.settings.subhead | replace: '{price}', lp_price }}</p>
+      {% endif %}
+    </div>
+
+    <div class="lp-sampler-hero__media">
+      {% if lp_cutouts.size > 0 %}
+        {% render 'lp-lineup', images: lp_cutouts, eager: true %}
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'lp-hero__img lp-placeholder' }}
+      {% endif %}
+    </div>
+
+    <div class="lp-sampler-hero__buy">
+      <div class="lp-hero__cta-row">
+        <a class="lp-btn" href="#lp-buy-box">
+          {%- if product.available -%}
+            {{ section.settings.cta }}
+          {%- else -%}
+            Sold out
+          {%- endif -%}
+        </a>
+        <p class="lp-hero__price">
+          {% if lp_variant.compare_at_price > lp_variant.price %}
+            <s class="lp-price__compare">{{ lp_variant.compare_at_price | money_without_trailing_zeros }}</s>
+          {% endif %}
+          <span class="lp-price">{{ lp_price }}</span>
+          {% if section.settings.price_note != blank %}
+            <span class="lp-hero__price-note">{{ section.settings.price_note }}</span>
+          {% endif %}
+        </p>
+      </div>
+
+      {% if section.settings.show_rating and lp_rating_count > 0 %}
+        <p class="lp-hero__rating">
+          {% render 'lp-stars', rating: lp_rating %}
+          <span>{{ lp_rating }} out of 5 · {{ lp_rating_count }} {{ section.settings.rating_label }}</span>
+        </p>
+      {% endif %}
+    </div>
+
+    {% if lp_weeks.size > 0 %}
+      {%- comment -%} Each link jumps to the matching scent in the "LP Sampler scents" section (#lp-scent-1, #lp-scent-2 ...). {%- endcomment -%}
+      <ol class="lp-weeks">
+        {% for block in lp_weeks %}
+          <li {{ block.shopify_attributes }}>
+            <a class="lp-weeks__link" href="#lp-scent-{{ forloop.index }}">
+              <span class="lp-weeks__label">{{ block.settings.label }}</span>
+              <span class="lp-weeks__name">{{ block.settings.name }}</span>
+            </a>
+          </li>
+        {% endfor %}
+      </ol>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "LP Sampler hero",
+  "tag": "section",
+  "class": "lp-section lp-sampler-hero-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Type {price} in the headline or subhead to show the product's live price."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The sampler. 4 minis."
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Find your scent."
+    },
+    {
+      "type": "textarea",
+      "id": "subhead",
+      "label": "Subhead"
+    },
+    {
+      "type": "header",
+      "content": "Price and button"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Button text",
+      "default": "Try all four"
+    },
+    {
+      "type": "text",
+      "id": "price_note",
+      "label": "Note next to price",
+      "default": "for 4 minis"
+    },
+    {
+      "type": "header",
+      "content": "Star rating"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show star rating",
+      "default": true
+    },
+    {
+      "type": "product",
+      "id": "reviews_product",
+      "label": "Reviews product",
+      "info": "Rating and count come live from this product's Junip reviews."
+    },
+    {
+      "type": "text",
+      "id": "rating_label",
+      "label": "Text after the review count",
+      "default": "reviews of Everyday Endurance Deodorant"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_image",
+      "name": "Product cut-out",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "A tall cut-out on a transparent background works best. Up to four sit side by side."
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Image description",
+          "default": "Mini deodorant"
+        }
+      ]
+    },
+    {
+      "type": "week",
+      "name": "Jump link",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "The first link jumps to the first scent in the scents section, the second to the second, and so on."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Small label",
+          "default": "Week 1"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Santal Dune"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP Sampler hero"
+    }
+  ]
+}
+{% endschema %}
