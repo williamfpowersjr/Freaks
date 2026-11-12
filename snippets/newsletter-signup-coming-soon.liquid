@@ -1,0 +1,63 @@
+{% comment %}
+  Renders the newsletter in the footer.
+
+  Accepts:
+  - text (String): Central text to display on the element.
+  - success (String): Success message to display after the form is submitted.
+  - newsletter_placeholder (String): Placeholder text for the email input.
+  - isFooter (boolean): if it is the newsletter in the footer section.
+  - isNewsletterSection (boolean): If it is the newsletter in the newsletter section.
+  - policies (richtText): policies richtext in the newsletter section.
+{% endcomment %}
+
+{% if section.settings.klaviyo_list_id != blank %}
+  {% assign klaviyo_list_id = section.settings.klaviyo_list_id %}
+{% else %}
+  {% assign klaviyo_list_id = settings.klaviyo_list_id %}
+{% endif %}
+
+<newsletter-signup>
+  <div class="absolute bottom-0 right-0 z-50 flex w-full flex-col gap-16 bg-blue p-24 lg:w-fit lg:gap-24 ">
+    <h2 class="whitespace-nowrap font-neue text-[32px] uppercase text-white lg:text-[80px]">{{ newsletter_signup }}</h2>
+    <form
+      novalidate
+      data-klaviyo-list-id="{{ klaviyo_list_id }}"
+      id="newsletter"
+      class="group"
+    >
+      <div class="relative flex w-full items-center gap-x-8 border border-grey/40 transition duration-200 ease-in-out group-has-[:focus]:border-white group-has-[:hover]:border-white">
+        <input
+          aria-label="Email (required)"
+          placeholder="{{ settings.newsletter_placeholder }}"
+          type="email"
+          name="email"
+          class="js-email-input w-full appearance-none bg-transparent p-8 text-[18px] font-medium uppercase text-white placeholder-grey/40 outline-none hover:cursor-pointer focus-visible:placeholder-grey/40"
+        >
+        <button class="p-16" type="submit" aria-label="Submit">
+          {% render 'icon-thick-small-arrow',
+            class: 'w-16 transition duration-200 ease-in-out text-grey/40 group-has-[:hover]:text-white group-has-[:focus]:text-white'
+          %}
+        </button>
+
+        <div class="js-newsletter-success absolute left-0 top-0 hidden h-full w-full bg-blue ">
+          <div class="flex h-full w-full items-center justify-center bg-grey/15">
+            <p class="text-[18px] font-medium uppercase text-white">
+              {{ settings.newsletter_success }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <p
+        class="js-newsletter-error pt-8 text-[12px] font-medium uppercase text-orange lg:-bottom-34"
+      ></p>
+
+      {% if section.settings.newsletter_policies != blank %}
+        <div class="flex flex-col pt-16 lg:pt-24">
+          <div class="underline-links text-[12px] font-medium text-white">
+            {{ section.settings.newsletter_policies }}
+          </div>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</newsletter-signup>

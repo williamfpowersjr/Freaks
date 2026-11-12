@@ -1,0 +1,128 @@
+{% schema %}
+{
+  "name": "Approach",
+  "tag": "section",
+  "class": "approach-section",
+  "presets": [
+    {
+      "name": "Approach",
+      "category": "Approach",
+      "settings": {
+        "title": "Lorem ipsum",
+        "textarea": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+      },
+      "blocks": [
+        {
+          "type": "approach",
+          "settings": {
+            "card_color": "orange",
+            "approach_number": "01",
+            "approach_title": "Lorem ipsum",
+            "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+          }
+        },
+        {
+          "type": "approach",
+          "settings": {
+            "card_color": "blue",
+            "approach_number": "02",
+            "approach_title": "Lorem ipsumh",
+            "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+          }
+        },
+        {
+          "type": "approach",
+          "settings": {
+            "card_color": "white",
+            "approach_number": "03",
+            "approach_title": "Lorem ipsum",
+            "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "textarea",
+      "label": "Text"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Approach",
+      "type": "approach",
+      "settings": [
+        {
+          "type": "select",
+          "id": "card_color",
+          "label": "Card Color",
+          "options": [
+            {
+              "value": "orange",
+              "label": "Orange"
+            },
+            {
+              "value": "blue",
+              "label": "Blue"
+            },
+            {
+              "value": "white",
+              "label": "White"
+            }
+          ],
+          "default": "white"
+        },
+        {
+          "type": "text",
+          "id": "approach_number",
+          "label": "Approach Number"
+        },
+        {
+          "type": "text",
+          "id": "approach_title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% assign title = section.settings.title %}
+{% assign text = section.settings.textarea %}
+{% assign approach_blocks = section.blocks | where: 'type', 'approach' %}
+{% assign bg_color = section.settings.bg_color %}
+
+<div class="{{ bg_color }}">
+  {% if title != blank %}
+    <div class="w-full py-40 lg:-my-1 lg:py-80 ">
+      {% render 'title',
+        title: title,
+        text_size: 'fn-tt-title-70',
+        extra_wrapper_classes: 'overflow-hidden text-center px-24 my-11 lg:px-16 {{ bg_color }}',
+        bg_lines: 'bg-grey-lines'
+      %}
+    </div>
+  {% endif %}
+
+  {% if text != blank %}
+    <p class="fn-tt-body-30 mx-auto px-24 pb-40 text-center lg:max-w-[750px] ">{{ text }}</p>
+  {% endif %}
+  <p>{{ section.settings.text }}</p>
+
+  {% if approach_blocks != blank %}
+    {% render 'approach-cards', approaches: approach_blocks %}
+  {% endif %}
+</div>

@@ -1,0 +1,525 @@
+{{ 'ctr-product-showcase.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ctr-product-showcase.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign ctr_product_showcase_product = section.settings.product
+  if ctr_product_showcase_product == blank and product != blank
+    assign ctr_product_showcase_product = product
+  endif
+
+  assign ctr_product_showcase_subtitle = ''
+  if ctr_product_showcase_product != blank
+    if ctr_product_showcase_product.metafields.custom.subtitle != blank
+      assign ctr_product_showcase_subtitle = ctr_product_showcase_product.metafields.custom.subtitle.value | default: ctr_product_showcase_product.metafields.custom.subtitle
+    elsif ctr_product_showcase_product.metafields.custom.tagline != blank
+      assign ctr_product_showcase_subtitle = ctr_product_showcase_product.metafields.custom.tagline.value | default: ctr_product_showcase_product.metafields.custom.tagline
+    elsif ctr_product_showcase_product.metafields.custom.short_description != blank
+      assign ctr_product_showcase_subtitle = ctr_product_showcase_product.metafields.custom.short_description.value | default: ctr_product_showcase_product.metafields.custom.short_description
+    else
+      assign ctr_product_showcase_subtitle = section.settings.subtitle_fallback
+    endif
+  endif
+
+  assign ctr_product_showcase_volume = ''
+  if ctr_product_showcase_product != blank and ctr_product_showcase_product.metafields.custom.volume != blank
+    assign ctr_product_showcase_volume = ctr_product_showcase_product.metafields.custom.volume.value | default: ctr_product_showcase_product.metafields.custom.volume
+  endif
+
+  assign ctr_product_showcase_variant_media_subscription = blank
+  if ctr_product_showcase_product != blank
+    assign ctr_product_showcase_current_variant = ctr_product_showcase_product.selected_or_first_available_variant
+    if ctr_product_showcase_current_variant != blank and ctr_product_showcase_current_variant.metafields.custom.custom_media_subscription != blank
+      assign ctr_product_showcase_variant_media_subscription = ctr_product_showcase_current_variant.metafields.custom.custom_media_subscription.value | default: ctr_product_showcase_current_variant.metafields.custom.custom_media_subscription
+    endif
+  endif
+
+  assign ctr_product_showcase_selling_plan_id = blank
+  if ctr_product_showcase_current_variant != blank and ctr_product_showcase_current_variant.selling_plan_allocations.size > 0
+    assign ctr_product_showcase_first_selling_plan_allocation = ctr_product_showcase_current_variant.selling_plan_allocations | first
+    if ctr_product_showcase_first_selling_plan_allocation != blank and ctr_product_showcase_first_selling_plan_allocation.selling_plan != blank
+      assign ctr_product_showcase_selling_plan_id = ctr_product_showcase_first_selling_plan_allocation.selling_plan.id
+    endif
+  endif
+
+  if ctr_product_showcase_selling_plan_id == blank and ctr_product_showcase_product != blank and ctr_product_showcase_product.selling_plan_groups.size > 0
+    assign ctr_product_showcase_first_selling_plan_group = ctr_product_showcase_product.selling_plan_groups | first
+    if ctr_product_showcase_first_selling_plan_group != blank and ctr_product_showcase_first_selling_plan_group.selling_plans.size > 0
+      assign ctr_product_showcase_first_selling_plan = ctr_product_showcase_first_selling_plan_group.selling_plans | first
+      if ctr_product_showcase_first_selling_plan != blank
+        assign ctr_product_showcase_selling_plan_id = ctr_product_showcase_first_selling_plan.id
+      endif
+    endif
+  endif
+
+  assign ctr_product_showcase_reviews_anchor = section.settings.reviews_anchor_link | strip
+  assign ctr_product_showcase_cta_link = section.settings.cta_link
+  if ctr_product_showcase_cta_link == blank and ctr_product_showcase_product != blank
+    assign ctr_product_showcase_cta_link = ctr_product_showcase_product.url
+  endif
+
+  assign ctr_product_showcase_timer_duration_hours = section.settings.timer_duration_hours | default: 24
+  assign ctr_product_showcase_timer_duration_minutes = section.settings.timer_duration_minutes | default: 0
+  assign ctr_product_showcase_timer_total_minutes = ctr_product_showcase_timer_duration_hours | times: 60 | plus: ctr_product_showcase_timer_duration_minutes
+  assign ctr_product_showcase_show_hours_segment = false
+  if ctr_product_showcase_timer_total_minutes > 60
+    assign ctr_product_showcase_show_hours_segment = true
+  endif
+-%}
+
+<ctr-product-showcase
+  id="ctr-product-showcase"
+  class="ctr-product-showcase"
+  data-section-id="{{ section.id }}"
+  data-timer-duration-hours="{{ ctr_product_showcase_timer_duration_hours }}"
+  data-timer-duration-minutes="{{ ctr_product_showcase_timer_duration_minutes }}"
+  style="
+    {% if section.settings.background_gradient != blank %}
+      --ctr-product-showcase-background: {{ section.settings.background_gradient }};
+    {% else %}
+      --ctr-product-showcase-background: {{ section.settings.background_color }};
+    {% endif %}
+    --ctr-product-showcase-border-color: {{ section.settings.border_color }};
+    --ctr-product-showcase-text-color: {{ section.settings.text_color }};
+    --ctr-product-showcase-muted-text-color: {{ section.settings.muted_text_color }};
+    --ctr-product-showcase-accent-color: {{ section.settings.accent_color }};
+    --ctr-product-showcase-timer-background-color: {{ section.settings.timer_background_color }};
+    --ctr-product-showcase-timer-text-color: {{ section.settings.timer_text_color }};
+    --ctr-product-showcase-timer-segment-background-color: {{ section.settings.timer_segment_background_color }};
+    --ctr-product-showcase-timer-segment-text-color: {{ section.settings.timer_segment_text_color }};
+    --ctr-product-showcase-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-product-showcase-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-product-showcase-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-product-showcase-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  <div class="ctr-product-showcase__shell">
+    {% if ctr_product_showcase_product != blank %}
+      <div class="ctr-product-showcase__media-column">
+        {% render 'product-gallery-mobile',
+          product: ctr_product_showcase_product,
+          product_images: ctr_product_showcase_product.media,
+          gallery_badge: section.settings.gallery_badge,
+          use_variant_media: true,
+          variant_media_subscription: ctr_product_showcase_variant_media_subscription
+        %}
+        {% render 'product-gallery-desktop',
+          product: ctr_product_showcase_product,
+          product_images: ctr_product_showcase_product.media,
+          gallery_badge: section.settings.gallery_badge,
+          use_variant_media: true,
+          variant_media_subscription: ctr_product_showcase_variant_media_subscription
+        %}
+      </div>
+
+      <div class="ctr-product-showcase__content-column">
+        <div class="ctr-product-showcase__top">
+          {% if ctr_product_showcase_reviews_anchor != blank %}
+            <a class="ctr-product-showcase__top-meta" href="{{ ctr_product_showcase_reviews_anchor | escape }}">
+              {% render 'junip-product-summary', product: ctr_product_showcase_product %}
+              {% if ctr_product_showcase_volume != blank %}
+                <span class="ctr-product-showcase__volume">
+                  {{ ctr_product_showcase_volume }}
+                </span>
+              {% endif %}
+            </a>
+          {% else %}
+            <div class="ctr-product-showcase__top-meta">
+              {% render 'junip-product-summary', product: ctr_product_showcase_product %}
+              {% if ctr_product_showcase_volume != blank %}
+                <span class="ctr-product-showcase__volume">
+                  {{ ctr_product_showcase_volume }}
+                </span>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          <div
+            class="ctr-product-showcase__heading-wrap bg-grey-lines font-neue"
+            style="--lines-interval: calc(1.2em - .5px);"
+          >
+            <h2 class="ctr-product-showcase__title">
+              {{ ctr_product_showcase_product.title }}
+            </h2>
+          </div>
+
+          {% if ctr_product_showcase_subtitle != blank %}
+            <div class="ctr-product-showcase__subtitle inline-rich-text">
+              {{ ctr_product_showcase_subtitle }}
+            </div>
+          {% endif %}
+        </div>
+
+        {% assign ctr_product_showcase_has_highlights = false %}
+        {% for block in section.blocks %}
+          {% if block.type == 'highlight_item' %}
+            {% assign ctr_product_showcase_has_highlights = true %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+
+        {% if ctr_product_showcase_has_highlights or section.settings.show_timer %}
+          <div class="ctr-product-showcase__content">
+            {% if section.settings.show_timer %}
+              <div class="ctr-product-showcase__timer">
+                {% if section.settings.timer_text != blank %}
+                  <div class="ctr-product-showcase__timer-text inline-rich-text">
+                    {{ section.settings.timer_text }}
+                  </div>
+                {% endif %}
+                <div class="ctr-product-showcase__timer-countdown" data-ctr-product-showcase-timer>
+                  {% if ctr_product_showcase_show_hours_segment %}
+                    <div class="ctr-product-showcase__timer-segment" data-ctr-product-showcase-timer-segment="hours">
+                      <span class="ctr-product-showcase__timer-value" data-ctr-product-showcase-timer-value="hours">
+                        {{- ctr_product_showcase_timer_duration_hours -}}
+                      </span>
+                      <span class="ctr-product-showcase__timer-label">HRS</span>
+                    </div>
+                  {% endif %}
+                  <div class="ctr-product-showcase__timer-segment">
+                    <span class="ctr-product-showcase__timer-value" data-ctr-product-showcase-timer-value="minutes">
+                      {{- ctr_product_showcase_timer_duration_minutes -}}
+                    </span>
+                    <span class="ctr-product-showcase__timer-label">MIN</span>
+                  </div>
+                  <div class="ctr-product-showcase__timer-segment">
+                    <span class="ctr-product-showcase__timer-value" data-ctr-product-showcase-timer-value="seconds"
+                      >00</span
+                    >
+                    <span class="ctr-product-showcase__timer-label">SEC</span>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+            <div class="ctr-product-showcase__highlights">
+              {% for block in section.blocks %}
+                {% if block.type == 'highlight_item' %}
+                  <article class="ctr-product-showcase__highlight" {{ block.shopify_attributes }}>
+                    <div class="ctr-product-showcase__highlight-head">
+                      {% if block.settings.icon != blank %}
+                        <img
+                          src="{{ block.settings.icon | img_url: '120x' }}"
+                          alt="{{ block.settings.icon.alt | escape }}"
+                          class="ctr-product-showcase__highlight-icon"
+                          loading="lazy"
+                          width="{{ block.settings.icon.width }}"
+                          height="{{ block.settings.icon.height }}"
+                        >
+                      {% else %}
+                        <span class="ctr-product-showcase__highlight-fallback-icon" aria-hidden="true"></span>
+                      {% endif %}
+
+                      {% if block.settings.title != blank %}
+                        <div class="ctr-product-showcase__highlight-title inline-rich-text">
+                          {{ block.settings.title }}
+                        </div>
+                      {% endif %}
+                    </div>
+
+                    {% if block.settings.text != blank %}
+                      <div class="ctr-product-showcase__highlight-text inline-rich-text">
+                        {{ block.settings.text }}
+                      </div>
+                    {% endif %}
+                  </article>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if section.settings.button_label != blank and ctr_product_showcase_product != blank %}
+          {% if section.settings.cta_as_add_to_cart and ctr_product_showcase_current_variant != blank %}
+            {% assign ctr_product_showcase_cta_disabled = '' %}
+            {% if ctr_product_showcase_current_variant.available != true %}
+              {% assign ctr_product_showcase_cta_disabled = 'disabled' %}
+            {% endif %}
+
+            <form
+              class="ctr-product-showcase__atc-form"
+              action="{{ routes.cart_add_url }}"
+              method="post"
+              data-ctr-product-showcase-atc-form
+            >
+              <input type="hidden" name="id" value="{{ ctr_product_showcase_current_variant.id }}">
+              <input type="hidden" name="quantity" value="1">
+              {% if ctr_product_showcase_selling_plan_id != blank %}
+                <input type="hidden" name="selling_plan" value="{{ ctr_product_showcase_selling_plan_id }}">
+              {% endif %}
+              {% render 'cta',
+                as: 'button',
+                type: 'submit',
+                text: section.settings.button_label,
+                hasIcons: true,
+                cta_color: 'orange',
+                disabled_attribute: ctr_product_showcase_cta_disabled,
+                extra_classes: 'ctr-product-showcase__cta'
+              %}
+            </form>
+          {% else %}
+            {% render 'cta',
+              as: 'a',
+              href: ctr_product_showcase_cta_link,
+              text: section.settings.button_label,
+              hasIcons: true,
+              cta_color: 'orange',
+              extra_classes: 'ctr-product-showcase__cta'
+            %}
+          {% endif %}
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="ctr-product-showcase__empty-state">Select a product to render this section.</div>
+    {% endif %}
+  </div>
+</ctr-product-showcase>
+
+{% schema %}
+{
+  "name": "Product Showcase (CTR)",
+  "tag": "section",
+  "class": "ctr-product-showcase-section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle_fallback",
+      "label": "Subtitle fallback",
+      "default": "<p>Whole-body hydration and protection from the inside out</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Start my routine"
+    },
+    {
+      "type": "checkbox",
+      "id": "cta_as_add_to_cart",
+      "label": "CTA adds to cart",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link",
+      "info": "Leave blank to lead to PDP",
+      "visible_if": "{{ section.settings.cta_as_add_to_cart == false }}"
+    },
+    {
+      "type": "url",
+      "id": "reviews_anchor_link",
+      "label": "Reviews anchor link",
+      "info": "Example: #reviews"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_timer",
+      "label": "Show timer",
+      "default": false
+    },
+    {
+      "type": "richtext",
+      "id": "timer_text",
+      "label": "Timer text",
+      "default": "<p>FREE FLASK + FREE SHIPPING. OFFER ENDS IN</p>",
+      "visible_if": "{{ section.settings.show_timer == true }}"
+    },
+    {
+      "type": "range",
+      "id": "timer_duration_hours",
+      "label": "Timer duration (hours)",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "unit": "h",
+      "default": 24,
+      "visible_if": "{{ section.settings.show_timer == true }}"
+    },
+    {
+      "type": "range",
+      "id": "timer_duration_minutes",
+      "label": "Timer duration (minutes)",
+      "min": 0,
+      "max": 59,
+      "step": 1,
+      "unit": "m",
+      "default": 0,
+      "visible_if": "{{ section.settings.show_timer == true }}"
+    },
+    {
+      "type": "color",
+      "id": "timer_background_color",
+      "label": "Timer background color",
+      "default": "#E2EBFF",
+      "visible_if": "{{ section.settings.show_timer == true }}"
+    },
+    {
+      "type": "color",
+      "id": "timer_text_color",
+      "label": "Timer text color",
+      "default": "#000000",
+      "visible_if": "{{ section.settings.show_timer == true }}"
+    },
+    {
+      "type": "color",
+      "id": "timer_segment_background_color",
+      "label": "Timer segment background color",
+      "default": "#0032A0",
+      "visible_if": "{{ section.settings.show_timer == true }}"
+    },
+    {
+      "type": "color",
+      "id": "timer_segment_text_color",
+      "label": "Timer segment text color",
+      "default": "#FFFFFF",
+      "visible_if": "{{ section.settings.show_timer == true }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_badge",
+      "label": "Gallery badge"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "alpha": true,
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Section background gradient",
+      "info": "Example: linear-gradient(180deg, #FFFFFF 0%, #FFF2E9 100%)"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "alpha": true,
+      "default": "#21212126"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Muted text color",
+      "alpha": true,
+      "default": "#21212199"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#FE5000"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "blocks": [
+    {
+      "type": "highlight_item",
+      "name": "Highlight item (CTR)",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Title",
+          "default": "<p>Five systems. One daily sachet.</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Hydration, skin barrier, gut health, gut-skin axis and internal UV protection.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Showcase (CTR)",
+      "category": "CTR Sections",
+      "blocks": [
+        {
+          "type": "highlight_item"
+        },
+        {
+          "type": "highlight_item",
+          "settings": {
+            "title": "<p>Clinically proven ingredients</p>",
+            "text": "<p>22x higher UV tolerance. 46% less skin redness. 24% higher UV burn threshold.</p>"
+          }
+        },
+        {
+          "type": "highlight_item",
+          "settings": {
+            "title": "<p>North Shore flavor</p>",
+            "text": "<p>Tangy passionfruit, guava and a hint of zesty lime.</p>"
+          }
+        },
+        {
+          "type": "highlight_item",
+          "settings": {
+            "title": "<p>30-day money-back guarantee</p>",
+            "text": "<p>Add it to your daily routine. If it is not for you, we have got you.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

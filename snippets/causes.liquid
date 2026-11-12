@@ -1,0 +1,262 @@
+{% if section.blocks.size > 0 %}
+  <causes-swiper-element id="causes" class="causes">
+    {% comment %} desktop thumb-slider {% endcomment %}
+    <div class="hidden lg:block lg:border lg:border-b-0 lg:border-black/15 {{ card_bg_color }} ">
+      <swiper-container
+        class="mySwiper js-thumbnails"
+        init="false"
+      >
+        {% for block in section.blocks %}
+          {% if block.type == 'cause' %}
+            {% if block.settings.title != blank %}
+              <swiper-slide class="swiper-slide">
+                <div
+                  class="duration-250 relative flex w-fit items-center justify-center gap-16 border-r border-black/15 text-left transition-all ease-in-out lg:p-20 lg:hover:cursor-pointer lg:hover:bg-orange/15"
+                >
+                  <span class="indicator flex h-24 w-24 items-center justify-center rounded-full bg-offWhite text-[10px] font-medium tracking-[-1px] ">
+                    {% if forloop.index <= 9 %}
+                      0
+                    {% endif %}
+                    {{ forloop.index }}
+                  </span>
+
+                  <h3 class="fn-tt-body-10 whitespace-nowrap font-medium text-black">{{ block.settings.title }}</h3>
+                </div>
+              </swiper-slide>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </swiper-container>
+    </div>
+
+    {% comment %} main slider {% endcomment %}
+
+    <div class="relative w-full border-t border-black/15 lg:border {{ card_bg_color }}">
+      <swiper-container
+        class="mySwiper2 js-causes-content"
+        init="false"
+      >
+        <div class="swiper-button-prev" aria-label="Previous Slide {{ section.id }}" role="button"></div>
+        <div class="swiper-button-next" aria-label="Next Slide {{ section.id }}" role="button"></div>
+
+        {% for block in section.blocks %}
+          {% if block.type == 'cause' %}
+            {% assign icon = block.settings.icon %}
+            {% assign title = block.settings.title %}
+            {% assign cause_title = block.settings.cause_title %}
+            {% assign cause_description = block.settings.cause_description %}
+            {% assign protection_title = block.settings.protection_title %}
+            {% assign protection_description = block.settings.protection_description %}
+            {% assign ingredients_title = block.settings.ingredients_title %}
+            {% assign ingredients_description = block.settings.ingredients_description %}
+            {% assign tag_thumbnail_1 = block.settings.tag_thumbnail_1 %}
+            {% assign tag_title_1 = block.settings.tag_1 %}
+            {% assign tag_thumbnail_2 = block.settings.tag_thumbnail_2 %}
+            {% assign tag_title_2 = block.settings.tag_2 %}
+            {% assign tag_thumbnail_3 = block.settings.tag_thumbnail_3 %}
+            {% assign tag_title_3 = block.settings.tag_3 %}
+            {% assign tag_thumbnail_4 = block.settings.tag_thumbnail_4 %}
+            {% assign tag_title_4 = block.settings.tag_4 %}
+            {% assign targeting_title = block.settings.targeting_title %}
+            {% assign targeting_collection = block.settings.targeting_collection %}
+            {% assign targeting_custom_product_img = block.settings.targeting_custom_product_img %}
+            {% assign targeting_custom_product_title = block.settings.targeting_custom_product_title %}
+
+            <swiper-slide class="swiper-slide">
+              <div class="flex h-64 w-full items-center justify-center divide-x divide-black/15 lg:h-128 lg:flex-1 {{ card_bg_color }} border-b border-black/15">
+                <div class="h-full w-64 p-16 lg:w-80"></div>
+                <div class="flex h-full w-full flex-1 items-center justify-center gap-24 p-16 text-center ">
+                  {% if icon != blank %}
+                    <div class="relative aspect-square w-40 lg:w-64">
+                      {{
+                        icon
+                        | image_url: width: icon.width
+                        | image_tag:
+                          loading: 'lazy',
+                          sizes: '(min-width: 1024px) 50vw, 100vw',
+                          class: 'w-full h-full object-cover absolute inset-0 z-0'
+                      }}
+                    </div>
+                  {% endif %}
+                  {% if title != blank %}
+                    <h3 class="fn-tt-title-30 whitespace-nowrap font-medium text-black">
+                      {{ title }}
+                    </h3>
+                  {% endif %}
+                </div>
+                <div class="h-full w-64 p-16 lg:w-80"></div>
+              </div>
+
+              <div class="relative lg:flex lg:h-full lg:min-h-672 lg:flex-col lg:items-stretch">
+                {% if cause_description != blank
+                  or cause_title != blank
+                  or protection_title != blank
+                  or protection_description != blank
+                %}
+                  <div class="flex h-full w-full flex-1 flex-col divide-y divide-black/15 lg:flex-row lg:divide-x lg:divide-y-0 {{ card_bg_color }}">
+                    {% if cause_description != blank or cause_title != blank %}
+                      <div class="flex flex-1 flex-col gap-24 p-24 lg:px-40 lg:py-64">
+                        {% if cause_title != blank %}
+                          <h6 class="fn-tt-body-10 font-medium">{{ cause_title }}</h6>
+                        {% endif %}
+                        {% if cause_description != blank %}
+                          {% assign cause_description_with_sup = cause_description
+                            | replace: '¹', '<sup>1</sup>'
+                            | replace: '²', '<sup>2</sup>'
+                            | replace: '³', '<sup>3</sup>'
+                            | replace: '⁴', '<sup>4</sup>'
+                            | replace: '⁵', '<sup>5</sup>'
+                            | replace: '⁶', '<sup>6</sup>'
+                            | replace: '⁷', '<sup>7</sup>'
+                            | replace: '⁸', '<sup>8</sup>'
+                            | replace: '⁹', '<sup>9</sup>'
+                          %}
+
+                          <div class="fn-tt-body-20 inline-rich-text">{{ cause_description_with_sup }}</div>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+
+                    {% if protection_description != blank or protection_title != blank %}
+                      <div class="flex flex-1 flex-col gap-24 p-24 lg:px-40 lg:py-64">
+                        {% if protection_title != blank %}
+                          <h6 class="fn-tt-body-10 font-medium">
+                            {{ protection_title }}
+                          </h6>
+                        {% endif %}
+                        {% if protection_description != blank %}
+                          {% assign protection_description_with_sup = protection_description
+                            | replace: '¹', '<sup>1</sup>'
+                            | replace: '²', '<sup>2</sup>'
+                            | replace: '³', '<sup>3</sup>'
+                            | replace: '⁴', '<sup>4</sup>'
+                            | replace: '⁵', '<sup>5</sup>'
+                            | replace: '⁶', '<sup>6</sup>'
+                            | replace: '⁷', '<sup>7</sup>'
+                            | replace: '⁸', '<sup>8</sup>'
+                            | replace: '⁹', '<sup>9</sup>'
+                          %}
+                          <div class="fn-tt-body-20 inline-rich-text">{{ protection_description_with_sup }}</div>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+                {% if ingredients_description != blank
+                  or ingredients_title != blank
+                  or protection_title != blank
+                  or protection_description != blank
+                %}
+                  <div class="flex h-full w-full flex-1 flex-col divide-y divide-black/15 border-t border-black/15 lg:flex-row lg:divide-x lg:divide-y-0 {{ card_bg_color }}">
+                    {% if ingredients_description != blank or ingredients_title != blank %}
+                      <div class="flex flex-1 flex-col gap-24 p-24 lg:px-40 lg:py-64">
+                        {% if ingredients_title != blank %}
+                          <h6 class="fn-tt-body-10 font-medium ">
+                            {{ ingredients_title }}
+                          </h6>
+                        {% endif %}
+                        {% if ingredients_description != blank %}
+                          {% assign ingredients_description_with_sup = ingredients_description
+                            | replace: '¹', '<sup>1</sup>'
+                            | replace: '²', '<sup>2</sup>'
+                            | replace: '³', '<sup>3</sup>'
+                            | replace: '⁴', '<sup>4</sup>'
+                            | replace: '⁵', '<sup>5</sup>'
+                            | replace: '⁶', '<sup>6</sup>'
+                            | replace: '⁷', '<sup>7</sup>'
+                            | replace: '⁸', '<sup>8</sup>'
+                            | replace: '⁹', '<sup>9</sup>'
+                          %}
+                          <div class="fn-tt-body-20 inline-rich-text">{{ ingredients_description_with_sup }}</div>
+                        {% endif %}
+                        {% if tag_title_1 != blank %}
+                          <ul class="flex flex-wrap gap-8">
+                            {% if tag_title_1 != blank %}
+                              <li>
+                                {% render 'ingredient-badge',
+                                  tag_title: tag_title_1,
+                                  tag_thumbnail: tag_thumbnail_1,
+                                  text_color: 'text-black',
+                                  extra_classes: 'bg-offWhite'
+                                %}
+                              </li>
+                            {% endif %}
+                            {% if tag_title_2 != blank %}
+                              <li>
+                                {% render 'ingredient-badge',
+                                  tag_title: tag_title_2,
+                                  tag_thumbnail: tag_thumbnail_2,
+                                  text_color: 'text-black',
+                                  extra_classes: 'bg-offWhite'
+                                %}
+                              </li>
+                            {% endif %}
+                            {% if tag_title_3 != blank %}
+                              <li>
+                                {% render 'ingredient-badge',
+                                  tag_title: tag_title_3,
+                                  tag_thumbnail: tag_thumbnail_3,
+                                  text_color: 'text-black',
+                                  extra_classes: 'bg-offWhite'
+                                %}
+                              </li>
+                            {% endif %}
+                            {% if tag_title_4 != blank %}
+                              <li>
+                                {% render 'ingredient-badge',
+                                  tag_title: tag_title_4,
+                                  tag_thumbnail: tag_thumbnail_4,
+                                  text_color: 'text-black',
+                                  extra_classes: 'bg-offWhite'
+                                %}
+                              </li>
+                            {% endif %}
+                          </ul>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+
+                    {% if targeting_title != blank or targeting_collection != blank %}
+                      <div class="flex flex-1 flex-col gap-24 p-24 lg:px-40 lg:py-64">
+                        {% if targeting_title != blank %}
+                          <h6 class="fn-tt-body-10 font-medium">{{ targeting_title }}</h6>
+                        {% endif %}
+                        {% if targeting_collection != blank or targeting_custom_product_title != blank %}
+                          <div class="relative flex w-full flex-col flex-wrap gap-8 lg:flex-row">
+                            {% for targeting_product in targeting_collection.products %}
+                              <li>
+                                {% render 'product-badge',
+                                  product_title: targeting_product.title,
+                                  product_type: targeting_product.type,
+                                  product_image: targeting_product.featured_image,
+                                  product_url: targeting_product.url,
+                                  bg_color: 'bg-offWhite'
+                                %}
+                              </li>
+                            {% endfor %}
+
+                            {% if targeting_custom_product_title != blank %}
+                              <li>
+                                {% render 'product-badge',
+                                  bg_color: 'bg-offWhite',
+                                  product_title: targeting_custom_product_title,
+                                  product_image: targeting_custom_product_img,
+                                  bg_color: 'bg-offWhite'
+                                %}
+                              </li>
+                            {% endif %}
+                          </div>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            </swiper-slide>
+          {% endif %}
+        {% endfor %}
+      </swiper-container>
+    </div>
+  </causes-swiper-element>
+{% endif %}

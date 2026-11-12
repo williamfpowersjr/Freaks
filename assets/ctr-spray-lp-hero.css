@@ -1,0 +1,205 @@
+.ctr-spray-lp-hero {
+  background: var(--ctr-spray-lp-hero-bg-color);
+  background-image: var(--ctr-spray-lp-hero-bg-gradient);
+  color: var(--ctr-spray-lp-hero-text-color);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: center;
+  padding: var(--ctr-spray-lp-hero-padding-top-mobile) 20px var(--ctr-spray-lp-hero-padding-bottom-mobile);
+
+  @media (min-width: 1024px) {
+    padding: var(--ctr-spray-lp-hero-padding-top-desktop) 5.5% var(--ctr-spray-lp-hero-padding-bottom-desktop);
+  }
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__rating-row {
+  align-items: center;
+  color: var(--ctr-spray-lp-hero-rating-color);
+  display: flex;
+  gap: 12px;
+  text-transform: uppercase;
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__stars {
+  font-size: 12px;
+  letter-spacing: 2px;
+  line-height: 1;
+  color: #2D2B2E;
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__rating-text {
+  font-size: 14px;
+  line-height: 1.5;
+
+  @media (min-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__rating-text p {
+  margin: 0;
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__rating-text * {
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__title {
+  color: var(--ctr-spray-lp-hero-heading-color);
+  font-family: 'Alliance Neue', sans-serif;
+  font-size: clamp(40px, calc(40 * 1px + (34) * (100vw - 430 * 1px) / (1010)), 74px);
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__title p {
+  margin: 0;
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__title strong {
+  color: var(--ctr-spray-lp-hero-accent-color);
+  font: inherit;
+  font-weight: inherit;
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__title * {
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-transform: inherit;
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__text {
+  color: var(--ctr-spray-lp-hero-text-color);
+  max-width: 100%;
+
+  @media (min-width: 1024px) {
+    max-width: var(--ctr-spray-lp-hero-text-max-width-desktop, 100%);
+  }
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__text p {
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 0;
+
+  @media (min-width: 1024px) {
+    font-size: 20px;
+  }
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__text * {
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__button {
+  display: inline-flex;
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    max-width: 410px;
+  }
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__button-label {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__button-icon {
+  width: 14px;
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__button .icon-thick-small-arrow {
+  height: 14px;
+  width: 14px;
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__media {
+  min-height: 0;
+  padding: 20px 20px var(--ctr-spray-lp-hero-padding-bottom-mobile);
+  position: relative;
+
+  @media (min-width: 1024px) {
+    min-height: 100%;
+    padding: var(--ctr-spray-lp-hero-padding-top-desktop) 40px var(--ctr-spray-lp-hero-padding-bottom-desktop);
+  }
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__image,
+.ctr-spray-lp-hero .ctr-spray-lp-hero__video {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.ctr-spray-lp-hero__video--desktop {  
+  @media (min-width: 1024px) {
+    aspect-ratio: 640/537;
+  } 
+}
+
+.ctr-spray-lp-hero__video--mobile {
+  aspect-ratio: 390/285;
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__video--desktop,
+.ctr-spray-lp-hero .ctr-spray-lp-hero__image--desktop {
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: block;
+  }
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__video--mobile,
+.ctr-spray-lp-hero .ctr-spray-lp-hero__image--mobile {
+  display: block;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__badge-wrap {
+  left: 45px;
+  max-width: var(--ctr-spray-lp-hero-badge-max-width-mobile);
+  position: absolute;
+  top: 45px;
+  width: 100%;
+  z-index: 2;
+
+  @media (min-width: 1024px) {
+    max-width: var(--ctr-spray-lp-hero-badge-max-width-desktop);
+    left: 65px;
+    top: 65px;
+  }
+}
+
+.ctr-spray-lp-hero .ctr-spray-lp-hero__badge {
+  display: block;
+  height: auto;
+  object-fit: contain;
+  width: 100%;
+}

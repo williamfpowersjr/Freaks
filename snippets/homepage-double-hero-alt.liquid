@@ -1,0 +1,462 @@
+{% assign cta_blocks = section.blocks | where: 'type', 'cta' %}
+{% assign subtitle_blocks = section.blocks | where: 'type', 'subtitle' %}
+
+{% assign desktop_headline_left_1 = settings.desktop_headline_left_1 %}
+{% assign desktop_left_image_1 = settings.desktop_left_image_1 %}
+{% assign desktop_left_video_1 = settings.desktop_left_video_1 %}
+{% assign desktop_left_overlay_1 = settings.desktop_left_overlay_1 %}
+
+{% assign desktop_headline_left_2 = settings.desktop_headline_left_2 %}
+{% assign desktop_left_image_2 = settings.desktop_left_image_2 %}
+{% assign desktop_left_video_2 = settings.desktop_left_video_2 %}
+{% assign desktop_left_overlay_2 = settings.desktop_left_overlay_2 %}
+
+{% assign desktop_headline_right_1 = settings.desktop_headline_right_1 %}
+{% assign desktop_right_image_1 = settings.desktop_right_image_1 %}
+{% assign desktop_right_video_1 = settings.desktop_right_video_1 %}
+{% assign desktop_right_overlay_1 = settings.desktop_right_overlay_1 %}
+
+{% assign desktop_headline_right_2 = settings.desktop_headline_right_2 %}
+{% assign desktop_right_image_2 = settings.desktop_right_image_2 %}
+{% assign desktop_right_video_2 = settings.desktop_right_video_2 %}
+{% assign desktop_right_overlay_2 = settings.desktop_right_overlay_2 %}
+
+{% assign mobile_headline_1 = settings.mobile_headline_1 %}
+{% assign mobile_image_1 = settings.mobile_image_1 %}
+{% assign mobile_video_1 = settings.mobile_video_1 %}
+{% assign mobile_overlay_1 = settings.mobile_overlay_1 %}
+
+{% assign mobile_headline_2 = settings.mobile_headline_2 %}
+{% assign mobile_image_2 = settings.mobile_image_2 %}
+{% assign mobile_video_2 = settings.mobile_video_2 %}
+{% assign mobile_overlay_2 = settings.mobile_overlay_2 %}
+
+{% if mobile_headline_1 != blank %}
+  {% assign render_mobile_headline_1 = mobile_headline_1 %}
+{% elsif desktop_headline_left_1 != blank or desktop_headline_right_1 != blank %}
+  {% assign render_mobile_headline_1 = desktop_headline_left_1 | append: ' ' | append: desktop_headline_right_1 %}
+{% else %}
+  {% assign render_mobile_headline_1 = '' %}
+{% endif %}
+
+{% if mobile_headline_2 != blank %}
+  {% assign render_mobile_headline_2 = mobile_headline_2 %}
+{% elsif desktop_headline_left_2 != blank or desktop_headline_right_2 != blank %}
+  {% assign render_mobile_headline_2 = desktop_headline_left_2 | append: ' ' | append: desktop_headline_right_2 %}
+{% else %}
+  {% assign render_mobile_headline_2 = '' %}
+{% endif %}
+
+<div class="relative z-10 flex flex-col {{ section_height }}">
+  <div data-section class="group relative z-0 h-full lg:hidden lg:hover:cursor-pointer">
+    <div class="size-full">
+      {% comment %} mobile {% endcomment %}
+      <swiper-element class="double-hero" id="double-hero">
+        <swiper-container
+          class="swiper-wrapper"
+          effect="{{ transition_type }}"
+          loop="true"
+          init="false"
+          autoplay-delay="4000"
+        >
+          <swiper-slide>
+            <div class="h-full w-full">
+              {% if mobile_video_1 == blank %}
+                {% if mobile_image_1 != blank %}
+                  {{
+                    mobile_image_1
+                    | image_url: width: mobile_image_1.width
+                    | image_tag:
+                      loading: 'eager',
+                      preload: true,
+                      class: 'w-full h-full object-cover absolute inset-0 object-center'
+                  }}
+                {% elsif desktop_left_image_1 != blank %}
+                  {{
+                    desktop_left_image_1
+                    | image_url: width: desktop_left_image_1.width
+                    | image_tag:
+                      loading: 'eager',
+                      preload: true,
+                      class: 'w-full h-full object-cover absolute inset-0 object-center'
+                  }}
+                {% endif %}
+              {% endif %}
+              {% if mobile_video_1 != blank %}
+                {{
+                  mobile_video_1
+                  | video_tag:
+                    class: 'w-full h-full object-cover absolute inset-0 z-0 object-center',
+                    autoplay: true,
+                    loop: true,
+                    muted: true,
+                    controls: false,
+                    poster: mobile_video_1.preview_image,
+                    playsinline: true,
+                    data-autopause: true
+                }}
+              {% elsif desktop_left_video_1 != blank %}
+                {{
+                  desktop_left_video_1
+                  | video_tag:
+                    class: 'w-full h-full object-cover absolute inset-0 z-0 object-center',
+                    autoplay: true,
+                    loop: true,
+                    muted: true,
+                    controls: false,
+                    poster: desktop_left_video_1.preview_image,
+                    playsinline: true,
+                    data-autopause: true
+                }}
+              {% endif %}
+              {% if mobile_overlay_1 %}
+                <div class="absolute inset-0 bg-black/25"></div>
+              {% endif %}
+            </div>
+            {% if render_mobile_headline_1 != blank %}
+              <div class="absolute inset-0 flex size-full flex-col justify-between">
+                {% render 'title',
+                  title: render_mobile_headline_1,
+                  text_size: 'fn-tt-title-80',
+                  extra_wrapper_classes: 'text-center overflow-hidden mt-40',
+                  bg_lines: 'bg-white-lines',
+                  text_color: 'text-white',
+                  extra_text_classes: '!leading-[0.98]'
+                %}
+              </div>
+            {% endif %}
+          </swiper-slide>
+          <swiper-slide>
+            <div class="h-full w-full">
+              {% if mobile_video_2 == blank %}
+                {% if mobile_image_2 != blank %}
+                  {{
+                    mobile_image_2
+                    | image_url: width: mobile_image_2.width
+                    | image_tag:
+                      loading: 'eager',
+                      preload: true,
+                      class: 'w-full h-full object-cover absolute inset-0 object-center'
+                  }}
+                {% elsif desktop_left_image_2 != blank %}
+                  {{
+                    desktop_left_image_2
+                    | image_url: width: desktop_left_image_2.width
+                    | image_tag:
+                      loading: 'eager',
+                      preload: true,
+                      class: 'w-full h-full object-cover absolute inset-0 object-center'
+                  }}
+                {% endif %}
+              {% endif %}
+              {% if mobile_video_2 != blank %}
+                {{
+                  mobile_video_2
+                  | video_tag:
+                    class: 'w-full h-full object-cover absolute inset-0 z-0 object-center',
+                    autoplay: true,
+                    loop: true,
+                    muted: true,
+                    controls: false,
+                    poster: mobile_video_1.preview_image,
+                    playsinline: true,
+                    data-autopause: true
+                }}
+              {% elsif desktop_left_video_2 != blank %}
+                {{
+                  desktop_left_video_2
+                  | video_tag:
+                    class: 'w-full h-full object-cover absolute inset-0 z-0 object-center',
+                    autoplay: true,
+                    loop: true,
+                    muted: true,
+                    controls: false,
+                    poster: desktop_left_video_2.preview_image,
+                    playsinline: true,
+                    data-autopause: true
+                }}
+              {% endif %}
+              {% if mobile_overlay_2 %}
+                <div class="absolute inset-0 bg-black/25"></div>
+              {% endif %}
+            </div>
+            {% if render_mobile_headline_2 != blank %}
+              <div class="absolute inset-0 flex size-full flex-col justify-between">
+                {% render 'title',
+                  title: render_mobile_headline_2,
+                  text_size: 'fn-tt-title-80',
+                  extra_wrapper_classes: 'text-center overflow-hidden mt-40',
+                  bg_lines: 'bg-white-lines',
+                  text_color: 'text-white',
+                  extra_text_classes: '!leading-[0.98]'
+                %}
+              </div>
+            {% endif %}
+          </swiper-slide>
+        </swiper-container>
+      </swiper-element>
+
+      <div class="absolute inset-0 flex size-full flex-col justify-between">
+        <div class="relative z-10 flex grow flex-col justify-between pt-[calc(min(15vw,100px)_+_40px)]">
+          {% if subtitle_blocks[0] != blank %}
+            <p class="fn-tt-body-20 max-w-250 w-[80vw] text-pretty px-24 font-medium uppercase text-white">
+              {{ subtitle_blocks[0].settings.text }}
+            </p>
+          {% endif %}
+          {% if subtitle_blocks[1] != blank %}
+            <p class="fn-tt-body-20 max-w-250 ml-auto mt-auto w-[80vw] text-pretty px-24 text-right font-medium uppercase text-white">
+              {{ subtitle_blocks[1].settings.text }}
+            </p>
+          {% endif %}
+        </div>
+        <div class="flex flex-col gap-y-8 p-24">
+          {% if cta_blocks.size > 0 %}
+            {% for block in blocks %}
+              {% if block.type == 'cta' %}
+                {% render 'cta',
+                  text: block.settings.cta_text,
+                  as: 'a',
+                  href: block.settings.cta_link,
+                  extra_classes: 'w-full z-10',
+                  hasIcons: true,
+                  cta_color: block.settings.cta_color
+                %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} desktop {% endcomment %}
+  <div class="hidden size-full grid-cols-2 lg:grid">
+    <div class="relative">
+      <swiper-element class="double-hero left-desktop-slider" id="left-desktop-slider">
+        <swiper-container
+          class="swiper-wrapper"
+          effect="{{ transition_type }}"
+          loop="true"
+          init="false"
+          autoplay-delay="4000"
+        >
+          <swiper-slide>
+            <div class="absolute inset-0">
+              {% if desktop_left_video_1 != blank %}
+                {{
+                  desktop_left_video_1
+                  | video_tag:
+                    class: 'w-full h-full object-cover absolute inset-0 object-center',
+                    autoplay: true,
+                    loop: true,
+                    muted: true,
+                    controls: false,
+                    poster: desktop_left_video_1.preview_image,
+                    playsinline: true,
+                    data-autopause: true
+                }}
+              {% elsif desktop_left_image_1 != blank %}
+                {{
+                  desktop_left_image_1
+                  | image_url: width: desktop_left_image_1.width
+                  | image_tag:
+                    loading: 'eager',
+                    preload: true,
+                    class: 'w-full h-full object-cover absolute inset-0 object-center'
+                }}
+              {% endif %}
+            </div>
+            {% if desktop_left_overlay_1 %}
+              <div class="absolute inset-0 bg-black/25"></div>
+            {% endif %}
+            {% if desktop_headline_left_1 != blank %}
+              <div class="absolute inset-0 flex size-full flex-col justify-between">
+                {% render 'title',
+                  title: desktop_headline_left_1,
+                  text_size: 'fn-tt-title-80',
+                  extra_wrapper_classes: 'text-center overflow-hidden mt-40',
+                  bg_lines: 'bg-white-lines',
+                  text_color: 'text-white',
+                  extra_text_classes: '!leading-[0.98]'
+                %}
+              </div>
+            {% endif %}
+          </swiper-slide>
+          <swiper-slide>
+            <div class="absolute inset-0">
+              {% if desktop_left_video_2 != blank %}
+                {{
+                  desktop_left_video_2
+                  | video_tag:
+                    class: 'w-full h-full object-cover absolute inset-0 object-center',
+                    autoplay: true,
+                    loop: true,
+                    muted: true,
+                    controls: false,
+                    poster: desktop_left_video_2.preview_image,
+                    playsinline: true,
+                    data-autopause: true
+                }}
+              {% elsif desktop_left_image_2 != blank %}
+                {{
+                  desktop_left_image_2
+                  | image_url: width: desktop_left_image_2.width
+                  | image_tag:
+                    loading: 'eager',
+                    preload: true,
+                    class: 'w-full h-full object-cover absolute inset-0 object-center'
+                }}
+              {% endif %}
+            </div>
+            {% if desktop_left_overlay_2 %}
+              <div class="absolute inset-0 bg-black/25"></div>
+            {% endif %}
+            {% if desktop_headline_left_2 != blank %}
+              <div class="absolute inset-0 flex size-full flex-col justify-between">
+                {% render 'title',
+                  title: desktop_headline_left_2,
+                  text_size: 'fn-tt-title-80',
+                  extra_wrapper_classes: 'text-center overflow-hidden mt-40',
+                  bg_lines: 'bg-white-lines',
+                  text_color: 'text-white',
+                  extra_text_classes: '!leading-[0.98]'
+                %}
+              </div>
+            {% endif %}
+          </swiper-slide>
+        </swiper-container>
+      </swiper-element>
+      {% if cta_blocks[0] != blank %}
+        <div class="absolute inset-x-0 bottom-0 p-40">
+          {% render 'cta',
+            text: cta_blocks[0].settings.cta_text,
+            as: 'a',
+            href: cta_blocks[0].settings.cta_link,
+            extra_classes: 'w-full z-10',
+            hasIcons: true,
+            cta_color: cta_blocks[0].settings.cta_color
+          %}
+        </div>
+      {% endif %}
+      {% if subtitle_blocks[0] %}
+        <p class="fn-tt-body-20 absolute left-0 top-[17rem] z-20 w-1/2 text-pretty px-40 font-medium uppercase text-white">
+          {{ subtitle_blocks[0].settings.text }}
+        </p>
+      {% endif %}
+    </div>
+
+    <div class="relative">
+      <swiper-element class="double-hero left-desktop-slider" id="left-desktop-slider">
+        <swiper-container
+          class="swiper-wrapper"
+          effect="{{ transition_type }}"
+          loop="true"
+          init="false"
+          autoplay-delay="4000"
+        >
+          <swiper-slide>
+            <div class="absolute inset-0">
+              {% if desktop_right_video_1 != blank %}
+                {{
+                  desktop_right_video_1
+                  | video_tag:
+                    class: 'w-full h-full object-cover absolute inset-0 object-center',
+                    autoplay: true,
+                    loop: true,
+                    muted: true,
+                    controls: false,
+                    poster: desktop_right_video_1.preview_image,
+                    playsinline: true,
+                    data-autopause: true
+                }}
+              {% elsif desktop_right_image_1 != blank %}
+                {{
+                  desktop_right_image_1
+                  | image_url: width: desktop_right_image_1.width
+                  | image_tag:
+                    loading: 'eager',
+                    preload: true,
+                    class: 'w-full h-full object-cover absolute inset-0 object-center'
+                }}
+              {% endif %}
+            </div>
+            {% if desktop_right_overlay_1 %}
+              <div class="absolute inset-0 bg-black/25"></div>
+            {% endif %}
+            {% if desktop_headline_right_1 != blank %}
+              <div class="absolute inset-0 flex size-full flex-col justify-between">
+                {% render 'title',
+                  title: desktop_headline_right_1,
+                  text_size: 'fn-tt-title-80',
+                  extra_wrapper_classes: 'text-center overflow-hidden mt-40',
+                  bg_lines: 'bg-white-lines',
+                  text_color: 'text-white',
+                  extra_text_classes: '!leading-[0.98]'
+                %}
+              </div>
+            {% endif %}
+          </swiper-slide>
+          <swiper-slide>
+            <div class="absolute inset-0">
+              {% if desktop_right_video_2 != blank %}
+                {{
+                  desktop_right_video_2
+                  | video_tag:
+                    class: 'w-full h-full object-cover absolute inset-0 object-center',
+                    autoplay: true,
+                    loop: true,
+                    muted: true,
+                    controls: false,
+                    poster: desktop_right_video_2.preview_image,
+                    playsinline: true,
+                    data-autopause: true
+                }}
+              {% elsif desktop_right_image_2 != blank %}
+                {{
+                  desktop_right_image_2
+                  | image_url: width: desktop_right_image_2.width
+                  | image_tag:
+                    loading: 'eager',
+                    preload: true,
+                    class: 'w-full h-full object-cover absolute inset-0 object-center'
+                }}
+              {% endif %}
+            </div>
+            {% if desktop_right_overlay_2 %}
+              <div class="absolute inset-0 bg-black/25"></div>
+            {% endif %}
+            {% if desktop_headline_right_2 != blank %}
+              <div class="absolute inset-0 flex size-full flex-col justify-between">
+                {% render 'title',
+                  title: desktop_headline_right_2,
+                  text_size: 'fn-tt-title-80',
+                  extra_wrapper_classes: 'text-center overflow-hidden mt-40',
+                  bg_lines: 'bg-white-lines',
+                  text_color: 'text-white',
+                  extra_text_classes: '!leading-[0.98]'
+                %}
+              </div>
+            {% endif %}
+          </swiper-slide>
+        </swiper-container>
+      </swiper-element>
+      {% if cta_blocks[1] != blank %}
+        <div class="absolute inset-x-0 bottom-0 p-40">
+          {% render 'cta',
+            text: cta_blocks[1].settings.cta_text,
+            as: 'a',
+            href: cta_blocks[1].settings.cta_link,
+            extra_classes: 'w-full z-10',
+            hasIcons: true,
+            cta_color: cta_blocks[1].settings.cta_color
+          %}
+        </div>
+      {% endif %}
+      {% if subtitle_blocks[1] %}
+        <p class="fn-tt-body-20 absolute right-0 top-[17rem] z-20 w-1/2 text-pretty px-40 text-right font-medium uppercase text-white">
+          {{ subtitle_blocks[1].settings.text }}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+</div>

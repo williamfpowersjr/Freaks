@@ -1,0 +1,190 @@
+{% comment %}
+  Bundows — merchant-curated in-cart upsell cards from a hand-picked product
+  list (section setting, shown in the chosen order). In-cart + unavailable
+  products are skipped. Single-variant products add directly; multi-variant
+  products open the shared bottom-sheet variant picker (see <cart-variant-picker>
+  in the section + cart-variant-picker.ts). Add-to-cart uses liquid-ajax-cart's
+  <ajax-cart-product-form> (no custom JS).
+
+  Card prices are shown NET of the upsell discount (Figma 5200:3576: base price
+  struck through, discounted price beside it) — the % must match the
+  "Bundle & Save" discount that actually applies it at checkout.
+
+  @param {product[]} upsell_products
+  @param {string} upsell_heading
+  @param {number} upsell_discount_percent
+{% endcomment %}
+
+{% assign upsell_pct = upsell_discount_percent | default: 0 | plus: 0 %}
+{% assign upsell_factor = 100 | minus: upsell_pct %}
+
+{% if upsell_products != blank and upsell_products.size > 0 %}
+  {% capture upsell_cards %}
+    {% for upsell_product in upsell_products %}
+      {% assign already_in_cart = false %}
+      {% for item in cart.items %}
+        {% if item.product_id == upsell_product.id %}
+          {% assign already_in_cart = true %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+
+      {% unless already_in_cart or upsell_product.available == false %}
+        {% assign default_variant = upsell_product.selected_or_first_available_variant %}
+        {% assign has_variants = false %}
+        {% if upsell_product.variants.size > 1 %}
+          {% assign has_variants = true %}
+        {% endif %}
+
+        {% assign card_price = default_variant.price | times: upsell_factor | divided_by: 100.0 | round %}
+        {% assign card_compare = default_variant.price %}
+        {% if default_variant.compare_at_price > card_compare %}
+          {% assign card_compare = default_variant.compare_at_price %}
+        {% endif %}
+
+        {%- comment -%} No PDP links on image/title — keep shoppers in the cart (Figma 5200:3576). {%- endcomment -%}
+        {%- comment -%} Fixed one-third width: fewer cards leave empty space, more than three scroll. {%- endcomment -%}
+        <div data-upsell-card class="flex w-[calc((100%_-_8px)/3)] shrink-0 flex-col border-l border-r border-t border-black/[0.16] bg-white">
+          {% if upsell_product.featured_image %}
+            <div class="relative aspect-[4/3] w-full">
+              {{
+                upsell_product.featured_image
+                | image_url: width: 300
+                | image_tag: loading: 'lazy', class: 'absolute inset-0 h-full w-full object-contain', alt: upsell_product.featured_image.alt
+              }}
+            </div>
+          {% endif %}
+
+          <div class="flex flex-1 flex-col gap-[4px] p-[8px]">
+            <h3 class="flex-1 font-text text-[12px] font-medium leading-[1.5] text-[#232323]">
+              {{ upsell_product.title | escape }}
+            </h3>
+            <div class="flex items-center gap-[8px]">
+              {% if card_compare > card_price %}
+                <s class="font-text text-[10px] leading-[1.5] text-[#9a9a9a]">{{ card_compare | money }}</s>
+              {% endif %}
+              <span class="font-text text-[12px] font-semibold leading-[1.5] text-[#212121]">{{ card_price | money }}</span>
+            </div>
+          </div>
+
+          {% if has_variants %}
+            <button
+              type="button"
+              data-open-variant-picker
+              class="flex w-full items-center justify-center bg-blue px-[12px] py-[8px] font-text text-[16px] font-medium uppercase leading-[23.69px] text-white transition-colors lg:hover:bg-blue-DARK"
+            >
+              Add<span class="sr-only"> {{ upsell_product.title | escape }} — choose an option</span>
+            </button>
+
+            <template data-variant-picker-content>
+              <div class="flex items-center justify-center border-b border-l border-r border-t  border-black/[0.16] bg-offWhite px-[9px] py-[8px]">
+                <p class="font-text text-[16px] font-medium uppercase leading-[1.5] text-[#232323] lg:text-[18px]">Select an option</p>
+              </div>
+              <ajax-cart-product-form>
+                {% form 'product', upsell_product %}
+                  {%- comment -%}
+                    _ctr_upsell marks the line as added from THIS upsell — the
+                    "Bundle & Save" discount only applies to lines carrying it
+                    (and in the eligible collection), so PDP adds stay full
+                    price. `_` prefix keeps it invisible on the line item.
+                  {%- endcomment -%}
+                  <input type="hidden" name="properties[_ctr_upsell]" value="1">
+                  <div class="flex flex-col gap-16 p-20">
+                    <p class="flex flex-wrap items-baseline gap-x-8 font-text text-[14px] font-medium leading-[21px] text-[#212121]">
+                      <span>
+                        {{- upsell_product.options.first }}: <span data-selected-value>{{ default_variant.title }}</span>
+                      </span>
+                      <span class="flex items-baseline gap-4">
+                        <s
+                          data-selected-compare
+                          class="font-normal text-[#9a9a9a]{% unless card_compare > card_price %} hidden{% endunless %}"
+                        >
+                          {%- if card_compare > card_price -%}
+                            {{- card_compare | money -}}
+                          {%- endif -%}
+                        </s>
+                        <span data-selected-price>{{ card_price | money }}</span>
+                      </span>
+                    </p>
+                    <div class="flex flex-wrap gap-8">
+                      {% for variant in upsell_product.variants %}
+                        {% assign v_price = variant.price | times: upsell_factor | divided_by: 100.0 | round %}
+                        {% assign v_compare = variant.price %}
+                        {% if variant.compare_at_price > v_compare %}
+                          {% assign v_compare = variant.compare_at_price %}
+                        {% endif %}
+                        <label class="cursor-pointer">
+                          <input
+                            type="radio"
+                            name="id"
+                            value="{{ variant.id }}"
+                            class="peer sr-only"
+                            data-variant-title="{{ variant.title | escape }}"
+                            data-variant-price="{{ v_price | money }}"
+                            data-variant-compare="{% if v_compare > v_price %}{{ v_compare | money }}{% endif %}"
+                            {% if variant.id == default_variant.id %}checked{% endif %}
+                            {% unless variant.available %}disabled{% endunless %}
+                          >
+                          <span class="block size-72 border border-black/15 transition-colors peer-checked:border-black peer-disabled:opacity-40">
+                            {% if variant.image %}
+                              {{ variant.image | image_url: width: 144 | image_tag: class: 'h-full w-full object-cover', loading: 'lazy', alt: variant.title }}
+                            {% elsif upsell_product.featured_image %}
+                              {{ upsell_product.featured_image | image_url: width: 144 | image_tag: class: 'h-full w-full object-cover', loading: 'lazy', alt: variant.title }}
+                            {% endif %}
+                          </span>
+                          <span class="mt-4 block max-w-72 text-center font-text text-[10px] leading-[1.3] text-[#535353] peer-disabled:opacity-40">
+                            {{- v_price | money -}}
+                          </span>
+                          <span class="sr-only">{{ variant.title }}{% unless variant.available %} — sold out{% endunless %}</span>
+                        </label>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    name="add"
+                    data-upsell-add
+                    class="relative flex w-full items-center justify-center bg-blue px-[12px] py-[8px] font-text text-[16px] font-medium uppercase leading-[23.69px] text-white transition-colors lg:hover:bg-blue-DARK"
+                  >
+                    Add to cart
+                  </button>
+                  <div data-ajax-cart-errors="form" class="fn-tt-caption px-8 py-4 text-orange empty:hidden"></div>
+                {% endform %}
+              </ajax-cart-product-form>
+            </template>
+          {% else %}
+            <ajax-cart-product-form>
+              {% form 'product', upsell_product %}
+                <input type="hidden" name="id" value="{{ default_variant.id }}">
+                <input type="hidden" name="properties[_ctr_upsell]" value="1">
+                <button
+                  type="submit"
+                  name="add"
+                  data-upsell-add
+                  class="relative flex w-full items-center justify-center bg-blue px-[12px] py-[8px] font-text text-[16px] font-medium uppercase leading-[23.69px] text-white transition-colors lg:hover:bg-blue-DARK"
+                >
+                  Add<span class="sr-only"> {{ upsell_product.title | escape }} to cart</span>
+                </button>
+                <div data-ajax-cart-errors="form" class="fn-tt-caption px-8 py-4 text-orange empty:hidden"></div>
+              {% endform %}
+            </ajax-cart-product-form>
+          {% endif %}
+        </div>
+      {% endunless %}
+    {% endfor %}
+  {% endcapture %}
+
+  {% assign stripped_cards = upsell_cards | strip %}
+  {% if stripped_cards != blank %}
+    <div data-cart-bundle-upsell class="flex flex-col">
+      {% if upsell_heading != blank %}
+        <div class="flex items-center justify-center border-l border-r border-t border-black/[0.16] bg-offWhite px-[9px] py-[8px]">
+          <h3 class="font-text text-[16px] font-medium uppercase leading-[1.5] text-[#232323]">{{ upsell_heading }}</h3>
+        </div>
+      {% endif %}
+      <div class="flex gap-4 overflow-x-auto border border-black/[0.16] p-8">
+        {{ upsell_cards }}
+      </div>
+    </div>
+  {% endif %}
+{% endif %}

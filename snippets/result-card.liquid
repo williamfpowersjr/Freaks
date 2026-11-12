@@ -1,0 +1,145 @@
+{% comment %} text only card {% endcomment %}
+{% if result_before == blank and result_after == blank %}
+  <div
+    class="relative flex h-full min-h-448 w-full flex-1 flex-col xl:min-h-640 {% if result_background_image == blank %}{{ bg_color }} {{ text_color }}{% else %} text-white {% endif %} {% if is_slide == true %}w-[calc(100%-105px)] lg:w-fit{% endif %} {% if bg_color == 'bg-white' and is_slide != true and result_background_image == blank %}border-b border-black/15{% endif %}"
+  >
+    {% if result_background_image != blank %}
+      {{
+        result_background_image
+        | image_url: width: result_background_image.width
+        | image_tag:
+          loading: 'lazy',
+          sizes: '(min-width: 1024px) 50vw, 100vw',
+          class: 'z-0 w-full h-full object-cover absolute inset-0'
+      }}
+    {% endif %}
+    {% if result_percentage != blank %}
+      <div class="z-10 flex-1 p-24">
+        <p class="fn-tt-title-80 lg:fn-tt-title-80">{{ result_percentage }}</p>
+      </div>
+    {% endif %}
+
+    <div class="z-10 flex flex-col gap-24 {% if result_percentage == blank %}flex-1 h-full{% endif %}">
+      <div class="px-24 py-24 {% if result_percentage == blank %}flex-1{% endif %}">
+        <div class="{% if result_before != blank%}fn-tt-body-30{% else %}fn-tt-title-50{% endif %}">
+          {% assign text_with_sup = result_text
+            | replace: '¹', '<sup>1</sup>'
+            | replace: '²', '<sup>2</sup>'
+            | replace: '³', '<sup>3</sup>'
+            | replace: '⁴', '<sup>4</sup>'
+            | replace: '⁵', '<sup>5</sup>'
+            | replace: '⁶', '<sup>6</sup>'
+            | replace: '⁷', '<sup>7</sup>'
+            | replace: '⁸', '<sup>8</sup>'
+            | replace: '⁹', '<sup>9</sup>'
+          %}
+          {{ text_with_sup }}
+        </div>
+      </div>
+      {% if result_routine_title != blank or result_testimonial_name != blank %}
+        <div
+          class="flex w-full justify-between gap-8 p-16 lg:px-24  {% unless result_percentage %}border-t {% if result_card_color == 'orange' %}border-blue{% else %}border-white{% endif %}{% endunless %}"
+        >
+          {% if result_testimonial_name != blank %}
+            <p class="fn-tt-body-10">{{ result_testimonial_name }}</p>
+          {% endif %}
+          {% if result_routine_title != blank %}
+            <p class="fn-tt-body-10 text-right">{{ result_routine_title }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+{% else %}
+  {% comment %} image card before/after {% endcomment %}
+  <div
+    class="flex h-full min-h-448 w-full flex-1 flex-col xl:min-h-640 {% if is_slide != true %}border-b border-black/15{% endif %} {% if is_slide == true %}w-[calc(100%-105px)] lg:w-fit{% endif %}"
+  >
+    {% if result_before != blank and result_after != blank %}
+      <div class="relative">
+        <div
+          class="aspect-[1.3] overflow-hidden"
+        >
+          {{
+            result_before
+            | image_url: width: result_before.width
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 1024px) 50vw, 100vw',
+              class: 'w-1/2 h-full object-cover absolute inset-0'
+          }}
+
+          {{
+            result_after
+            | image_url: width: result_before.width
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 1024px) 50vw, 100vw',
+              class: 'w-1/2 h-full object-cover absolute inset-0 left-1/2 top-0'
+          }}
+        </div>
+
+        <div class="absolute left-0 top-0 bg-blue p-4">
+          <p class="fn-tt-caption uppercase leading-none text-white">Before</p>
+        </div>
+        <div class="absolute left-1/2 top-0 bg-blue p-4">
+          <p class="fn-tt-caption uppercase leading-none text-white">After</p>
+        </div>
+      </div>
+
+    {% else %}
+      {% if result_before != blank %}
+        <div class="relative">
+          <div
+            class="aspect-[1.3] overflow-hidden"
+          >
+            {{
+              result_before
+              | image_url: width: result_before.width
+              | image_tag:
+                loading: 'lazy',
+                sizes: '(min-width: 1024px) 50vw, 100vw',
+                class: 'w-full h-full object-cover absolute inset-0'
+            }}
+          </div>
+        </div>
+      {% endif %}
+      {% if result_after != blank %}
+        <div class="relative">
+          <div
+            class="aspect-[1.3] overflow-hidden"
+          >
+            {{
+              result_after
+              | image_url: width: result_after.width
+              | image_tag:
+                loading: 'lazy',
+                sizes: '(min-width: 1024px) 50vw, 100vw',
+                class: 'w-full h-full object-cover absolute inset-0'
+            }}
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    <div class="flex h-full flex-col justify-between gap-24">
+      <div class="p-16 lg:p-24">
+        <p class="fn-tt-body-30">{{ result_text }}</p>
+      </div>
+
+      {% if result_testimonial_name != blank or result_routine_title != blank %}
+        <div
+          class="flex w-full justify-between gap-8 border-t border-black/15 p-16"
+        >
+          {% if result_testimonial_name != blank %}
+            <p class="fn-tt-body-10">{{ result_testimonial_name }}</p>
+          {% endif %}
+          {% if result_routine_title != blank %}
+            <p class="fn-tt-body-10 text-right">{{ result_routine_title }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

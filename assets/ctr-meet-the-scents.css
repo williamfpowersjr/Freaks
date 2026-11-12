@@ -1,0 +1,409 @@
+.ctr-meet-the-scents {
+  --ctr-mts-text: #212121;
+  --ctr-mts-line: rgba(33, 33, 33, 0.15);
+
+  background: var(--ctr-mts-background);
+  color: var(--ctr-mts-text);
+  display: block;
+  padding: 40px 20px;
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    padding: 40px;
+  }
+}
+
+.ctr-meet-the-scents p {
+  margin: 0;
+}
+
+/* Layout: mobile stacks title > hint > stage > info > cta; desktop puts content left, stage right */
+.ctr-meet-the-scents .ctr-meet-the-scents__box {
+  background: rgba(0, 50, 160, 0.1);
+  border: 1px solid var(--ctr-mts-line);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    min-height: 438px;
+  }
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__content {
+  display: contents;
+
+  @media (min-width: 1024px) {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+    padding-top: 20px;
+  }
+}
+
+.ctr-meet-the-scents.is-idle .ctr-meet-the-scents__content {
+  @media (min-width: 1024px) {
+    padding-top: 100px;
+  }
+}
+
+/* Title */
+.ctr-meet-the-scents .ctr-meet-the-scents__title {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Alliance Neue', sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 20px 0 0;
+  order: 1;
+  text-align: center;
+  text-transform: uppercase;
+
+  @media (min-width: 1024px) {
+    font-size: 60px;
+    margin: 0;
+  }
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__title-line {
+  border-bottom: 1px solid var(--ctr-mts-line);
+  display: block;
+  padding: 4px 0;
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__title-line:first-child {
+  border-top: 1px solid var(--ctr-mts-line);
+}
+
+/* Hint (idle state only) */
+.ctr-meet-the-scents .ctr-meet-the-scents__hint {
+  align-items: center;
+  color: #000;
+  display: none;
+  font-family: 'Alliance Text', sans-serif;
+  font-size: 14px;
+  gap: 8px;
+  justify-content: center;
+  line-height: 1.5;
+  margin: 20px 0;
+  order: 2;
+
+  @media (min-width: 1024px) {
+    margin: 0;
+  }
+}
+
+.ctr-meet-the-scents.is-idle .ctr-meet-the-scents__hint {
+  display: flex;
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__hint-text--desktop {
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: inline;
+  }
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__hint-text--mobile {
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__hint-icon {
+  flex-shrink: 0;
+  height: 18px;
+  width: 18px;
+}
+
+/* Shared name / tagline */
+.ctr-meet-the-scents .ctr-meet-the-scents__name {
+  display: block;
+  font-family: 'Alliance Neue', sans-serif;
+  font-size: 18px;
+  line-height: 1.2;
+  white-space: nowrap;
+
+  @media (min-width: 1024px) {
+    font-size: 24px;
+  }
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__tagline {
+  display: block;
+  font-family: 'Alliance Text', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+
+  @media (min-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+/* Info (description + cards), items stacked in one grid cell so they can cross-fade */
+.ctr-meet-the-scents .ctr-meet-the-scents__info {
+  display: grid;
+  order: 4;
+  padding: 20px 12px 0;
+
+  @media (min-width: 1024px) {
+    padding: 0;
+  }
+}
+
+.ctr-meet-the-scents.is-idle .ctr-meet-the-scents__info {
+  display: none;
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__info-item {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__info-item.is-active {
+  visibility: visible;
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__info-head {
+  @media (min-width: 1024px) {
+    align-items: center;
+    display: flex;
+    gap: 20px;
+    padding: 0 40px;
+  }
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__name-wrap {
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    gap: 4px;
+    text-align: center;
+    width: 198px;
+  }
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__description {
+  font-family: 'Alliance Text', sans-serif;
+  font-size: 13.5px;
+  line-height: 20.61px;
+  text-align: center;
+
+  @media (min-width: 1024px) {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: left;
+  }
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__cards {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+
+  @media (min-width: 1024px) {
+    gap: 20px;
+    padding: 0 40px;
+  }
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__card {
+  backdrop-filter: blur(5px);
+  background: rgba(33, 33, 33, 0.09);
+  border: 1px solid rgba(33, 33, 33, 0.6);
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: flex-end;
+  min-width: 0;
+  padding: 10px;
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__card--for {
+  flex: 0 0 103px;
+
+  @media (min-width: 1024px) {
+    flex-basis: 144px;
+  }
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__card-tag {
+  align-self: flex-start;
+  background: var(--ctr-mts-accent);
+  color: #fff;
+  font-family: 'Alliance Text', sans-serif;
+  font-size: 12px;
+  line-height: 1.2;
+  padding: 4px 8px;
+  text-transform: uppercase;
+
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__card-text {
+  font-family: 'Alliance Text', sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
+}
+
+/* CTA */
+.ctr-meet-the-scents .ctr-meet-the-scents__cta {
+  margin-top: 20px;
+  order: 5;
+
+  @media (min-width: 1024px) {
+    margin-top: auto;
+  }
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__cta > a {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* Arrows point up (the CTA scrolls back to the buy box). */
+.ctr-meet-the-scents .ctr-meet-the-scents__cta svg {
+  transform: rotate(-90deg);
+}
+
+/* Stage (bottles) */
+.ctr-meet-the-scents .ctr-meet-the-scents__stage {
+  background: rgba(0, 50, 160, 0.2);
+  display: flex;
+  flex-direction: column;
+  order: 3;
+  padding: 12px 12px 20px;
+
+  @media (min-width: 1024px) {
+    flex: 0 0 56.2%;
+    margin: -1px -1px -1px 0;
+    padding: 40px 12px 20px;
+  }
+}
+
+.ctr-meet-the-scents.is-idle .ctr-meet-the-scents__stage {
+  padding-top: 40px;
+}
+
+/* Mobile: one centered label above the bottles */
+.ctr-meet-the-scents .ctr-meet-the-scents__stage-labels {
+  display: grid;
+  text-align: center;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.ctr-meet-the-scents.is-idle .ctr-meet-the-scents__stage-labels {
+  display: none;
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__stage-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  grid-area: 1 / 1;
+  opacity: 0;
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__stage-label.is-active {
+  opacity: 1;
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__bottles {
+  align-items: flex-end;
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__bottle {
+  appearance: none;
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: block;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0;
+  position: relative;
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__bottle:focus-visible {
+  outline: 1px solid #0032a0;
+  outline-offset: 2px;
+}
+
+/* Desktop: label floats above the selected bottle */
+.ctr-meet-the-scents .ctr-meet-the-scents__bottle-label {
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    left: 50%;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    text-align: center;
+    top: -15px;
+    transform: translateX(-50%);
+    width: 198px;
+    z-index: 1;
+  }
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__bottle.is-active .ctr-meet-the-scents__bottle-label {
+  opacity: 1;
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__bottle-media {
+  aspect-ratio: 457 / 925;
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__bottle-img {
+  height: 100%;
+  inset: 0;
+  object-fit: contain;
+  position: absolute;
+  width: 100%;
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__bottle-img--placeholder {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__bottle-img--open {
+  opacity: 0;
+}
+
+.ctr-meet-the-scents .ctr-meet-the-scents__bottle.is-active .ctr-meet-the-scents__bottle-img--open {
+  opacity: 1;
+}
+
+/* Only hide the closed bottle when an open image exists to replace it */
+.ctr-meet-the-scents .ctr-meet-the-scents__bottle.is-active .ctr-meet-the-scents__bottle-img--closed:has(+ .ctr-meet-the-scents__bottle-img--open) {
+  opacity: 0;
+}
+

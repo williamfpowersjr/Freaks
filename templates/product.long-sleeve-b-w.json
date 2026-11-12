@@ -1,0 +1,447 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "product_hero_HeXXWJ": {
+      "type": "product-hero",
+      "settings": {
+        "bg_color": "bg-white",
+        "title_size": "large",
+        "show_inventory_quantity": false,
+        "discount_tag": "+ Free Shipping",
+        "product_discount_heading": "",
+        "subsDefaultOption": "onetime",
+        "subsOrder": "onetime_top",
+        "subscription_title": "Subscribe",
+        "cta": "Add to cart",
+        "show_out_of_stock_banner": false,
+        "out_of_stock_banner_text": "",
+        "social_quote": "Check out this product!",
+        "social_profile_name": "",
+        "social_link": "",
+        "show_details": true,
+        "show_notify": true,
+        "notify_text": "Get notified when the product is available again",
+        "notify_placeholder": "Enter your email",
+        "notify_success": "Thank you! We will notify you when the product is back in stock.",
+        "klaviyo_api_key": "SdwbFd",
+        "klaviyo_list_id": "",
+        "notify_subtext": "<p>By signing up, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Service</a> and our <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a>.</p>",
+        "bundle_title": "Upgrade to our bundle"
+      }
+    },
+    "builder_system_DLwhq8": {
+      "type": "builder-system",
+      "disabled": true,
+      "settings": {
+        "video": "shopify://files/videos/OLÉOACTIF™ _ SEQUENCE _ H264 (1).mp4",
+        "hide_mute": false,
+        "title": "Freak Barrier Builder and Defense System™",
+        "description": "<p>A unique and proprietary blend of ingredients to help bio-hack your skin microbiome and strengthen & protect your skin barrier built around two unique formulas and ingredients: post-biotic <strong>Oléoactif™ Bacillus Ferment </strong>and biofabricated <strong>Neossance™ vegan shark Squalane.</strong></p>",
+        "icon": "shopify://shop_images/Bassilicus_x_Shark_bc01bcbc-801c-4001-b45c-6e749825c547.svg",
+        "cta": "Explore our ingredients",
+        "cta_link": "shopify://pages/ingredients",
+        "cta_color": "blue"
+      }
+    },
+    "divider_WtD3iT": {
+      "type": "divider",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "divider_color": "bg-black/15",
+        "divider_color_mobile": "bg-white"
+      }
+    },
+    "split_screen_KMqFnm": {
+      "type": "split-screen",
+      "blocks": {
+        "item_HUGCFT": {
+          "type": "item",
+          "settings": {
+            "title": "Material",
+            "description": "Long Sleeve Cotton Jersey Tee Transfers on Front and Back 100% Organic Cotton. \n\nMachine washable.",
+            "description_size": "big_text",
+            "image": "shopify://shop_images/Screenshot_2024-11-14_at_1.29.12_PM.png",
+            "caption": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_4kURfT": {
+          "type": "item",
+          "settings": {
+            "title": "Fit & Styling",
+            "description": "This is an oversized unisex fit. If a more fitted look is desired, we recommend sizing down.",
+            "description_size": "big_text",
+            "image": "shopify://shop_images/Screenshot_2024-11-14_at_1.30.38_PM.png",
+            "caption": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_qwFm9B": {
+          "type": "item",
+          "settings": {
+            "title": "Shipping & Returns",
+            "description": "Please reach out to hi@freaksofnature.com if your purchase is not satisfactory. Please note, returns will not be accepted outside of the United States.",
+            "description_size": "big_text",
+            "image": "shopify://shop_images/IMG_2514.jpg",
+            "caption": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        }
+      },
+      "block_order": [
+        "item_HUGCFT",
+        "item_4kURfT",
+        "item_qwFm9B"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "title": ""
+      }
+    },
+    "info_blocks_iCxJcQ": {
+      "type": "info-blocks",
+      "blocks": {
+        "item_HA3NVd": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/8.jpg",
+            "hide_mute": false,
+            "title": "",
+            "description": "",
+            "collection_caption": "",
+            "collection": ""
+          }
+        },
+        "item_kNThLV": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/13.jpg",
+            "hide_mute": false,
+            "title": "",
+            "description": "",
+            "collection_caption": "",
+            "collection": ""
+          }
+        },
+        "item_zErm9b": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/4.jpg",
+            "hide_mute": false,
+            "title": "",
+            "description": "",
+            "collection_caption": "",
+            "collection": ""
+          }
+        },
+        "item_VrC9Fk": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/10.jpg",
+            "hide_mute": false,
+            "title": "",
+            "description": "",
+            "collection_caption": "",
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_HA3NVd",
+        "item_kNThLV",
+        "item_zErm9b",
+        "item_VrC9Fk"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-offWhite",
+        "title": "Your Daily skin care System",
+        "cta": "",
+        "cta_link": "",
+        "cta_color": "blue"
+      }
+    },
+    "gallery_yXnGXK": {
+      "type": "gallery",
+      "blocks": {
+        "gallery_item_zdpibz": {
+          "type": "gallery_item",
+          "disabled": true,
+          "settings": {
+            "video": "shopify://files/videos/240506_Kelly_Interview_Product_Specific_16x9_H.264_Final_Delivery.mp4",
+            "hide_mute": false,
+            "title": "Kelly Slater",
+            "info_text": ""
+          }
+        },
+        "gallery_item_6GHnnr": {
+          "type": "gallery_item",
+          "disabled": true,
+          "settings": {
+            "video": "shopify://files/videos/240506_Ocean_Interview_Product_Specific_16x9_H.264_Final_Delivery.mp4",
+            "hide_mute": false,
+            "title": "Ocean Ramsey",
+            "info_text": ""
+          }
+        },
+        "gallery_item_3mVkTY": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/SPEED FREAK-FINAL-DRAFT.MP4",
+            "mobile_video": "shopify://files/videos/SPEED FREAK-FINAL-DRAFT.MP4",
+            "hide_mute": false,
+            "title": "",
+            "info_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "gallery_item_zdpibz",
+        "gallery_item_6GHnnr",
+        "gallery_item_3mVkTY"
+      ],
+      "settings": {
+        "show_video_controls": true
+      }
+    },
+    "product_carousel_x3Ukge": {
+      "type": "product-carousel",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Made for speed. Designed for Freaks.",
+        "title_style": "title_small",
+        "hide_mobile_title": false,
+        "cta": "Shop all products",
+        "cta_link": "shopify://collections/all",
+        "cta_color": "blue",
+        "collections": ["all-products"]
+      }
+    },
+    "results_G8VetW": {
+      "type": "results",
+      "blocks": {
+        "result_mNcX7D": {
+          "type": "result",
+          "settings": {
+            "card_color": "orange",
+            "percentage": "96%",
+            "text": "of users had an easier time to select their products based on their skin microbiome data.",
+            "routine_title": "After using Deeper Dive Moisutrizer for 6 weeks, may vary",
+            "testimonial_name": "Mary Anne"
+          }
+        },
+        "result_JMzyVe": {
+          "type": "result",
+          "settings": {
+            "card_color": "white",
+            "percentage": "",
+            "text": "\"I can see such a huge improvement with the acne, and my skin feels a lot more glowy. It's such an amazing feeling to look at yourself and really see the difference.\"",
+            "routine_title": "Using Deeper Dive Moisturizer",
+            "testimonial_name": "Name",
+            "before": "shopify://shop_images/fon-hero-loop-v3.jpg",
+            "after": "shopify://shop_images/oil_free.jpg"
+          }
+        },
+        "result_aUGkh9": {
+          "type": "result",
+          "settings": {
+            "card_color": "blue",
+            "percentage": "",
+            "text": "\"I can see such a huge improvement with the acne, and my skin feels a lot more glowy. It's such an amazing feeling to look at yourself and really see the difference.\"",
+            "routine_title": "Using Deeper Dive Moisturizer",
+            "testimonial_name": "Mary Anne"
+          }
+        },
+        "result_dxNBUQ": {
+          "type": "result",
+          "settings": {
+            "card_color": "orange",
+            "background_image": "shopify://shop_images/fon-hero-loop-v3.jpg",
+            "percentage": "",
+            "text": "\"It's such an amazing feeling to look at yourself and really see the difference.\"",
+            "routine_title": "Routine",
+            "testimonial_name": "Name"
+          }
+        },
+        "result_LrXKUz": {
+          "type": "result",
+          "settings": {
+            "card_color": "white",
+            "background_image": "shopify://shop_images/Media.png",
+            "percentage": "",
+            "text": "\"It's such an amazing feeling to look at yourself and really see the difference.\"",
+            "routine_title": "Using Deeper Dive Moisturizer",
+            "testimonial_name": "Mary"
+          }
+        },
+        "result_PBYakz": {
+          "type": "result",
+          "settings": {
+            "card_color": "orange",
+            "percentage": "",
+            "text": "Using Deeper Dive Moisturizer",
+            "routine_title": "Using Deeper Dive Moisturizer",
+            "testimonial_name": "Name"
+          }
+        }
+      },
+      "block_order": [
+        "result_mNcX7D",
+        "result_JMzyVe",
+        "result_aUGkh9",
+        "result_dxNBUQ",
+        "result_LrXKUz",
+        "result_PBYakz"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Results"
+      }
+    },
+    "reviews_section_fhewjz": {
+      "type": "reviews",
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-offWhite",
+        "title": "Reviews",
+        "hide_mute": false,
+        "full_bleed_media": false
+      }
+    },
+    "split_screen_4DTJqE": {
+      "type": "split-screen",
+      "blocks": {
+        "item_8BfaHH": {
+          "type": "item",
+          "settings": {
+            "title": "Collect your Sample",
+            "description": "Dip a fresh swab in a moistening buffer such as saline or distilled water. With one hand, stretch the skin site taut. With the other hand, hold the swab so the shaft is parallel to the skin surface.",
+            "description_size": "big_text",
+            "caption": "caption",
+            "video": "shopify://files/videos/fon-hero-loop-v3.mp4",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_YXTFTY": {
+          "type": "item",
+          "settings": {
+            "title": "Get your Results",
+            "description": "Lorem ipsum",
+            "description_size": "big_text",
+            "caption": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_HWgdWR": {
+          "type": "item",
+          "settings": {
+            "title": "Reset your Skin",
+            "description": "Lorem ipsum",
+            "description_size": "big_text",
+            "caption": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        }
+      },
+      "block_order": [
+        "item_8BfaHH",
+        "item_YXTFTY",
+        "item_HWgdWR"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-offWhite",
+        "title": "How it works"
+      }
+    },
+    "list_neTLzk": {
+      "type": "list",
+      "blocks": {
+        "list_item_Bxaw9b": {
+          "type": "list_item",
+          "settings": {
+            "title": "Item"
+          }
+        },
+        "list_item_GrmKF7": {
+          "type": "list_item",
+          "settings": {
+            "title": "Item"
+          }
+        },
+        "list_item_qMeKU6": {
+          "type": "list_item",
+          "settings": {
+            "title": "Item"
+          }
+        }
+      },
+      "block_order": [
+        "list_item_Bxaw9b",
+        "list_item_GrmKF7",
+        "list_item_qMeKU6"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Title"
+      }
+    },
+    "sticky_add_to_cart_button_YwHpbY": {
+      "type": "sticky-add-to-cart-button",
+      "settings": {
+        "show_sticky_add_to_cart": true,
+        "cta": "Add to cart",
+        "cta_color": "orange",
+        "text": "All options"
+      }
+    },
+    "1714745074980e55d9": {
+      "type": "apps",
+      "blocks": {
+        "recharge_subscriptions_subscription_widget_fVXL8i": {
+          "type": "shopify://apps/recharge-subscriptions/blocks/subscription-widget/371eed76-0b44-4869-9813-730372ea378e",
+          "disabled": true,
+          "settings": {
+            "product": "{{product}}"
+          }
+        }
+      },
+      "block_order": [
+        "recharge_subscriptions_subscription_widget_fVXL8i"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "product_hero_HeXXWJ",
+    "builder_system_DLwhq8",
+    "divider_WtD3iT",
+    "split_screen_KMqFnm",
+    "info_blocks_iCxJcQ",
+    "gallery_yXnGXK",
+    "product_carousel_x3Ukge",
+    "results_G8VetW",
+    "reviews_section_fhewjz",
+    "split_screen_4DTJqE",
+    "list_neTLzk",
+    "sticky_add_to_cart_button_YwHpbY",
+    "1714745074980e55d9"
+  ]
+}

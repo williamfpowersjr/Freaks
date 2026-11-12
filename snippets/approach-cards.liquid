@@ -1,0 +1,35 @@
+<ul class="p-24 pt-0 lg:grid lg:min-h-432 lg:grid-cols-3 lg:p-40 {{ border_class }} {% if count > 3 %}lg:grid-rows-2{% endif %}">
+  {% for approach in approaches limit: 3 %}
+    {% assign approach_number = approach.settings.approach_number %}
+    {% assign approach_text = approach.settings.text %}
+    {% assign approach_title = approach.settings.approach_title %}
+    {% assign approach_card_color = approach.settings.card_color %}
+
+    {% case approach_card_color %}
+      {% when 'orange' %}
+        {% assign bg_color = 'bg-orange' %}
+        {% assign text_color = 'text-blue' %}
+        {% assign border = 'border-0' %}
+
+      {% when 'blue' %}
+        {% assign bg_color = 'bg-blue' %}
+        {% assign text_color = 'text-white' %}
+        {% assign border = 'border-0' %}
+
+      {% else %}
+        {% assign bg_color = 'bg-white' %}
+        {% assign text_color = 'text-blue' %}
+        {% assign border = 'border border-black/15' %}
+    {% endcase %}
+    <li>
+      {% render 'approach-card',
+        approach_number: approach_number,
+        approach_text: approach_text,
+        approach_title: approach_title,
+        bg_color: bg_color,
+        text_color: text_color,
+        border: border
+      %}
+    </li>
+  {% endfor %}
+</ul>

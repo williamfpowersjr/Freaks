@@ -1,0 +1,329 @@
+<script src="{{ 'product-carousel.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign card_cta_arrow_icon_classes = ''
+  case section.settings.card_cta_arrow_direction
+    when 'top'
+      assign card_cta_arrow_icon_classes = '-rotate-90'
+    when 'down'
+      assign card_cta_arrow_icon_classes = 'rotate-90'
+    when 'left'
+      assign card_cta_arrow_icon_classes = 'rotate-180'
+  endcase
+-%}
+
+{% schema %}
+{
+  "name": "Product Carousel",
+  "tag": "section",
+  "class": "product-carousel-section",
+  "presets": [
+    {
+      "name": "Product Carousel",
+      "category": "Product Carousel",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Lorem ipsum",
+        "title_style": "title_small",
+        "hide_mobile_title": false,
+        "cta": "Lorem ipsum",
+        "cta_link": "#",
+        "cta_color": "blue",
+        "card_cta_text": "",
+        "card_cta_as_add_to_cart": false,
+        "card_cta_arrow_direction": "top"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "select",
+      "id": "title_style",
+      "label": "Title Style",
+      "options": [
+        {
+          "value": "title_big",
+          "label": "Big with lines"
+        },
+        {
+          "value": "title_small",
+          "label": "Small"
+        }
+      ],
+      "default": "title_small"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile_title",
+      "label": "Hide Title on Mobile",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Cta Text",
+      "info": "Cta is Optional"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Cta link"
+    },
+    {
+      "type": "select",
+      "id": "cta_color",
+      "label": "Cta Color",
+      "options": [
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "blue"
+    },
+    {
+      "type": "header",
+      "content": "Product cards"
+    },
+    {
+      "type": "text",
+      "id": "card_cta_text",
+      "label": "Card button text",
+      "info": "Optional. Overrides the default product card CTA text. Sold out, coming soon, and pre-order labels still use theme settings."
+    },
+    {
+      "type": "checkbox",
+      "id": "card_cta_as_add_to_cart",
+      "label": "Card button adds to cart",
+      "info": "When enabled, card buttons add the product to cart instead of opening the product page. Image and title still link to the PDP.",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "card_cta_arrow_direction",
+      "label": "Card button arrow direction",
+      "options": [
+        {
+          "value": "right",
+          "label": "Right"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "down",
+          "label": "Down"
+        }
+      ],
+      "default": "top"
+    },
+    {
+      "type": "collection_list",
+      "id": "collections",
+      "label": "Collections"
+    }
+  ]
+}
+{% endschema %}
+
+{% if section.settings.collections != blank %}
+  <product-carousel-element class="border-b border-black/15">
+    <tab-switch-element>
+      <div class="z-0 border-black/15 {% if section.settings.title_style != 'title_big' %}border-t{% else %}mt-40 lg:mt-80{% endif %} {{ section.settings.bg_color }}">
+        <div class="relative">
+          {% if section.settings.title != blank %}
+            {% if section.settings.title_style != 'title_big' %}
+              <div class="p-24 text-center lg:p-80 {% if section.settings.cta == blank %}border-b border-black/15{% endif %} {% if section.settings.hide_mobile_title == true %}hidden lg:block{% endif %}">
+                <h2 class="fn-tt-title-50">{{ section.settings.title }}</h2>
+              </div>
+            {% else %}
+              <div class="w-full flex-none border-b border-black/15 pb-40 lg:pb-80 {% if section.settings.hide_mobile_title == true %}hidden lg:block{% endif %}">
+                {% render 'title',
+                  title: section.settings.title,
+                  text_size: 'fn-tt-title-70',
+                  bg_color: section.settings.bg_color,
+                  extra_wrapper_classes: 'text-center px-24 lg:px-16 overflow-hidden',
+                  bg_lines: 'bg-grey-lines',
+                  extra_text_classes: '!leading-[0.98] lg:mx-auto !-mb-3 lg:!-mb-6 '
+                %}
+              </div>
+            {% endif %}
+          {% endif %}
+
+          {% if section.settings.cta != blank %}
+            <a href="{{ section.settings.cta_link }}" aria-label="{{ section.settings.cta }}">
+              <div class="lg:w-full">
+                {% render 'cta',
+                  as: 'button',
+                  text: section.settings.cta,
+                  extra_classes: 'w-full',
+                  hasIcons: true,
+                  cta_color: section.settings.cta_color
+                %}
+              </div>
+            </a>
+          {% endif %}
+        </div>
+
+        {% if section.settings.collections.size > 1 %}
+          <div class="border-b border-black/15 {{ section.settings.bg_color }}" role="tablist">
+            <swiper-element id="product-carousel-tabs-{{ section.id }}">
+              <swiper-container init="false" class="swiper-wrapper" center-insufficient-slides="true">
+                {% for collection in section.settings.collections %}
+                  {% if collection != blank %}
+                    <swiper-slide class="swiper-slide my-16 w-fit pr-8 first-of-type:ml-16 last-of-type:mr-16">
+                      <button
+                        type="button"
+                        id="tab-{{ section.id }}-{{ forloop.index0 }}"
+                        role="tab"
+                        data-tab-trigger
+                        data-index="collection-{{ forloop.index0 }}"
+                        aria-controls="collection-{{ forloop.index0 }}"
+                        class="fn-tt-body-20 flex h-40 items-center justify-center whitespace-nowrap bg-black/5 px-16 py-2 text-center font-medium text-black/60 transition-colors duration-300 ease-in-out hover:bg-black/10 lg:h-48 [&[data-active=true]]:bg-black [&[data-active=true]]:text-white"
+                        {% if forloop.first %}
+                          data-active="true" aria-selected="true" tabindex="0"
+                        {% else %}
+                          aria-selected="false" tabindex="-1"
+                        {% endif %}
+                      >
+                        <span>{{ collection.title }}</span>
+                      </button>
+                    </swiper-slide>
+                  {% endif %}
+                {% endfor %}
+              </swiper-container>
+            </swiper-element>
+          </div>
+        {% endif %}
+      </div>
+
+      {% for collection in section.settings.collections %}
+        {% if collection != blank %}
+          {% assign products = collection.products %}
+          {% capture carousel_id %}product-carousel-{{ section.id }}-{{ forloop.index0 }}{% endcapture %}
+          <div
+            role="tabpanel"
+            data-tab-content
+            id="collection-{{ forloop.index0 }}"
+            aria-labelledby="tab-{{ section.id }}-{{ forloop.index0 }}"
+            {% if forloop.first %}
+              tabindex="0"
+            {% else %}
+              tabindex="-1" style="display: none;"
+            {% endif %}
+          >
+            {% comment %} fallback to grid on desktop if <= 3 products {% endcomment %}
+            {% if products.size > 3 %}
+              {% capture slides %}
+                {% for product in products %}
+                  <swiper-slide class="swiper-slide h-auto w-1/2 lg:w-1/3">
+                    <div class="h-full lg:hidden">
+                      {% render 'product-card-big',
+                        product: product,
+                        has_reviews: true,
+                        cta_text_override: section.settings.card_cta_text,
+                        cta_as_add_to_cart: section.settings.card_cta_as_add_to_cart,
+                        cta_arrow_icon_classes: card_cta_arrow_icon_classes
+                      %}
+                    </div>
+                    <div class="hidden h-full lg:block">
+                      {% render 'product-card-medium',
+                        product: product,
+                        has_reviews: true,
+                        cta_text_override: section.settings.card_cta_text,
+                        cta_as_add_to_cart: section.settings.card_cta_as_add_to_cart,
+                        cta_arrow_icon_classes: card_cta_arrow_icon_classes
+                      %}
+                    </div>
+                  </swiper-slide>
+                {% endfor %}
+              {% endcapture %}
+              <div class="relative {% if section.settings.hide_mobile_title == true %} {% if section.settings.cta == blank %}border-t border-black/15 lg:border-t-0{% endif %}{% endif %}">
+                {% render 'carousel', slides: slides, carousel_id: carousel_id %}
+              </div>
+            {% else %}
+              {% capture slides %}
+                {% for product in products %}
+                  <swiper-slide class="swiper-slide h-auto w-1/2 lg:w-1/3">
+                    <div class="h-full lg:hidden">
+                      {% render 'product-card-big',
+                        product: product,
+                        has_reviews: true,
+                        cta_text_override: section.settings.card_cta_text,
+                        cta_as_add_to_cart: section.settings.card_cta_as_add_to_cart,
+                        cta_arrow_icon_classes: card_cta_arrow_icon_classes
+                      %}
+                    </div>
+                    <div class="hidden h-full lg:block">
+                      {% render 'product-card-medium',
+                        product: product,
+                        has_reviews: true,
+                        cta_text_override: section.settings.card_cta_text,
+                        cta_as_add_to_cart: section.settings.card_cta_as_add_to_cart,
+                        cta_arrow_icon_classes: card_cta_arrow_icon_classes
+                      %}
+                    </div>
+                  </swiper-slide>
+                {% endfor %}
+              {% endcapture %}
+              <div class="relative {% if section.settings.hide_mobile_title == true %} {% if section.settings.cta == blank %}border-t border-black/15 lg:border-t-0{% endif %}{% endif %}">
+                {% render 'carousel', slides: slides, extra_classes: 'lg:hidden', carousel_id: carousel_id %}
+                <ul class="hidden overflow-hidden lg:flex">
+                  {% for product in products limit: 3 %}
+                    <li class="flex flex-1 flex-col border-r border-black/15">
+                      {% render 'product-card-small',
+                        product: product,
+                        has_reviews: true,
+                        cta_text_override: section.settings.card_cta_text,
+                        cta_as_add_to_cart: section.settings.card_cta_as_add_to_cart,
+                        cta_arrow_icon_classes: card_cta_arrow_icon_classes
+                      %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </tab-switch-element>
+  </product-carousel-element>
+{% endif %}

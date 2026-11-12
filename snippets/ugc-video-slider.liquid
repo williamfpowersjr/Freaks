@@ -1,0 +1,46 @@
+<video-swiper-element id="ugc-video" class="ugc-video">
+  <div class="relative flex flex-col {{ bg_color }}">
+    <div class="w-full flex-none py-40 lg:py-80">
+      {%- render 'title',
+        title: title,
+        text_size: 'fn-tt-title-70',
+        bg_color: bg_color,
+        border_color: 'border-black/15',
+        extra_wrapper_classes: 'text-center px-24 lg:px-16 overflow-hidden',
+        bg_lines: 'bg-grey-lines',
+        extra_text_classes: '!leading-[0.98] lg:w-[800px] lg:mx-auto !-mb-3 lg:!-mb-6 '
+      -%}
+    </div>
+  </div>
+
+  <div class="border-b border-black/15">
+    <swiper-container
+      init="false"
+      class="swiper-wrapper divide-x divide-black/15 "
+    >
+      {% for ugc_video in ugc_videos %}
+        <swiper-slide class="swiper-slide" data-index="{{forloop.index0}}">
+          {%- render 'ugc-video',
+            ugc_video: ugc_video.video.value,
+            social_profile_name: ugc_video.social_profile_name,
+            social_profile_image: ugc_video.social_profile_image,
+            social_link: ugc_video.social_link,
+            vtt: ugc_video.vtt,
+            index: forloop.index
+          -%}
+        </swiper-slide>
+      {% endfor %}
+    </swiper-container>
+    <div class="align-center flex w-full border-t border-black/15 {% if ugc_videos.count <= 4 %}lg:hidden{% endif %} ">
+      <div class="relative flex w-full justify-center self-center px-24 lg:px-40">
+        <div class="swiper-scrollbar"></div>
+      </div>
+
+      <div class="border-x border-black/15">
+        <div class="swiper-button-prev" aria-label="Previous Slide {{ section.id }}" role="button"></div>
+      </div>
+
+      <div><div class="swiper-button-next" aria-label="Next Slide {{ section.id }}" role="button"></div></div>
+    </div>
+  </div>
+</video-swiper-element>

@@ -1,0 +1,187 @@
+{% schema %}
+{
+  "name": "Before After Facts Slider",
+  "tag": "section",
+  "class": "before-after-facts-slider-section",
+  "presets": [
+    {
+      "name": "Before After Facts Slider"
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "card_color",
+      "label": "Card Color",
+      "options": [
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "blue"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Here's what we found:"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Clinical Study Card",
+      "type": "clinical-study-card",
+      "settings": [
+        {
+          "type": "number",
+          "id": "yes_count",
+          "label": "Number of 'Yes' Responses"
+        },
+        {
+          "type": "number",
+          "id": "no_count",
+          "label": "Number of 'No' Responses"
+        },
+        {
+          "type": "text",
+          "id": "recommendation_text",
+          "label": "Recommendation Text",
+          "info": "Custom text to describe the recommendation"
+        },
+        {
+          "type": "select",
+          "id": "display_format",
+          "label": "Display Format",
+          "options": [
+            {
+              "value": "percentage",
+              "label": "Percentage"
+            },
+            {
+              "value": "fraction",
+              "label": "Fraction (X of Y)"
+            }
+          ],
+          "default": "percentage",
+          "info": "If 'Percentage' is selected, the percentage of 'Yes' responses will be displayed. If 'Fraction (X of Y)' is selected, the number of 'Yes' responses will be displayed as a fraction of the total number of responses."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% assign title = section.settings.title %}
+{% assign text = section.settings.text %}
+
+{% case section.settings.card_color %}
+  {% when 'orange' %}
+    {% assign bg_color = 'bg-orange' %}
+    {% assign text_color = 'text-blue' %}
+    {% assign border = 'border-0' %}
+
+  {% when 'blue' %}
+    {% assign bg_color = 'bg-blue' %}
+    {% assign text_color = 'text-white' %}
+    {% assign border = 'border-0' %}
+
+  {% else %}
+    {% assign bg_color = 'bg-white' %}
+    {% assign text_color = 'text-blue' %}
+    {% assign border = 'border border-black/15' %}
+{% endcase %}
+
+{% if section.blocks.size > 0 %}
+  <div class="flex flex-col overflow-hidden border-b border-black/15">
+    {% render 'fact-card',
+      text: text,
+      title: title,
+      additional_classes: 'lg:hidden',
+      bg_color: bg_color,
+      text_color: text_color,
+      border: border
+    %}
+    <div class="-mb-1">
+      <swiper-element
+        id="before-after-facts"
+        class="before-after-facts relative {% if section.blocks.size <= 2 %}lg:hidden{% endif %}"
+      >
+        <swiper-container init="false" class="swiper-wrapper divide-x divide-black/15">
+          <swiper-slide class="swiper-slide -ml-1 hidden aspect-[0.8] h-auto overflow-hidden lg:block lg:w-[calc(33.4%-15px)]">
+            {% render 'fact-card',
+              text: text,
+              title: title,
+              additional_classes: 'lg:w-[calc(33.333vw-16px)] lg:h-full',
+              bg_color: bg_color,
+              text_color: text_color,
+              border: border
+            %}
+          </swiper-slide>
+          {% for block in section.blocks %}
+            {% if block.type == 'clinical-study-card' %}
+              <swiper-slide class="swiper-slide aspect-[0.8] h-auto w-[calc(100%-53px)] overflow-hidden lg:-m-2 lg:w-[calc(33.4%-15px)]">
+                {% render 'clinical-study-card',
+                  yes_count: block.settings.yes_count,
+                  no_count: block.settings.no_count,
+                  recommendation_text: block.settings.recommendation_text,
+                  display_format: block.settings.display_format,
+                  additional_classes: 'border-0'
+                -%}
+              </swiper-slide>
+            {% endif %}
+          {% endfor %}
+        </swiper-container>
+
+        <div class="align-center flex w-full border-t border-black/15 ">
+          <div class="relative flex w-full justify-center self-center px-24 lg:px-40">
+            <div class="swiper-scrollbar"></div>
+          </div>
+
+          <div class="border-x border-black/15">
+            <div class="swiper-button-prev" aria-label="Previous Slide {{ section.id }}" role="button"></div>
+          </div>
+
+          <div><div class="swiper-button-next" aria-label="Next Slide {{ section.id }}" role="button"></div></div>
+        </div>
+      </swiper-element>
+    </div>
+
+    {% if section.blocks.size <= 2 %}
+      <div class="hidden grid-cols-1 divide-y divide-black/15 lg:grid lg:grid-cols-3 lg:divide-x lg:divide-y-0">
+        {% render 'fact-card',
+          text: text,
+          title: title,
+          additional_classes: 'lg:h-full',
+          bg_color: bg_color,
+          text_color: text_color,
+          border: border
+        %}
+        {% for block in section.blocks %}
+          {% if block.type == 'clinical-study-card' %}
+            {% render 'clinical-study-card',
+              yes_count: block.settings.yes_count,
+              no_count: block.settings.no_count,
+              recommendation_text: block.settings.recommendation_text,
+              display_format: block.settings.display_format,
+              additional_classes: 'border-y-0'
+            -%}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

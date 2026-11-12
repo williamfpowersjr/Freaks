@@ -1,0 +1,40 @@
+<form
+  novalidate
+  data-klaviyo-list-id="{{ klaviyo_list_id }}"
+  class="group"
+>
+  <div class="mb-16 flex flex-col gap-16 px-24 lg:px-40">
+    <div class="relative flex w-full gap-x-8 border border-blue/20 px-8 transition duration-200 ease-in-out group-has-[:focus]:border-blue group-has-[:hover]:border-blue lg:gap-x-22 lg:px-22">
+      <input
+        aria-label="Email (required)"
+        placeholder="{{ settings.newsletter_placeholder }}"
+        type="email"
+        name="email"
+        class="js-email-input fn-tt-title-70 focus-visible:blue w-full appearance-none bg-transparent uppercase text-blue placeholder-blue outline-none group-has-[:focus]:placeholder-blue/40 lg:-mb-10 lg:hover:cursor-pointer"
+      >
+      <button
+        aria-label="Submit"
+        type="submit"
+        class="lg:py-16"
+      >
+        {% render 'icon-thick-arrow', class: 'w-16 lg:w-48 text-blue' %}
+      </button>
+
+      <div class="js-newsletter-success absolute left-0 top-0 hidden h-full w-full bg-orange">
+        <div class="flex h-full w-full items-center justify-center bg-grey/15">
+          <p class="text-sm font-medium uppercase text-blue">
+            {{ settings.newsletter_success }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <p class="js-newsletter-error fn-tt-body-10 my-16 px-24 font-medium uppercase text-white lg:px-40"></p>
+  </div>
+  {% if settings.newsletter_policies != blank %}
+    <div class="fn-tt-caption lg:fn-tt-body-10 inline-rich-text mt-16 px-24 text-blue lg:px-40">
+      {{ settings.newsletter_policies }}
+    </div>
+  {% endif %}
+</form>

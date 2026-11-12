@@ -1,0 +1,184 @@
+.ctr-landing-comparison {
+  background: var(--ctr-landing-comparison-background);
+  background-image: var(--ctr-landing-comparison-background-gradient);
+  padding: var(--ctr-landing-comparison-padding-top-mobile) 20px var(--ctr-landing-comparison-padding-bottom-mobile);
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    padding: var(--ctr-landing-comparison-padding-top-desktop) 40px var(--ctr-landing-comparison-padding-bottom-desktop);
+  }
+}
+
+.ctr-landing-comparison .ctr-landing-comparison__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0 auto;
+  max-width: 100%;
+  width: 100%;
+}
+
+.ctr-landing-comparison .ctr-landing-comparison__title-wrap {
+  color: var(--ctr-landing-comparison-heading-color);
+  font-size: clamp(32px, calc(32 * 1px + (48) * (100vw - 430 * 1px) / (1225)), 60px);
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+  text-wrap: balance;
+  --lines-interval: calc(1em + 7px);
+  letter-spacing: -.4px;
+
+  @media (min-width: 1024px) {
+    --lines-interval: calc(1em + 12px);
+    letter-spacing: 0;
+  }
+}
+
+.ctr-landing-comparison .ctr-landing-comparison__title {
+  > * {
+    margin: 0;
+  }
+
+  strong {
+    color: var(--ctr-landing-comparison-accent-color);
+    font-weight: 400;
+  }
+}
+
+.ctr-landing-comparison .ctr-landing-comparison__panels {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+  }
+}
+
+.ctr-landing-comparison .ctr-landing-comparison__panel {
+  border: 1px solid var(--ctr-landing-comparison-border-color);
+  display: flex;
+  flex: 1 1 50%;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+  padding: 16px;
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    align-items: stretch;
+    flex-direction: row;
+    gap: 0;
+  }
+}
+
+.ctr-landing-comparison .ctr-landing-comparison__panel--highlight {
+  background: var(--ctr-landing-comparison-highlight-background);
+
+  @media (min-width: 1024px) {
+    border-bottom: 1px solid var(--ctr-landing-comparison-border-color);
+    border-right: 0;
+  }
+}
+
+.ctr-landing-comparison .ctr-landing-comparison__panel--conventional {
+  background: var(--ctr-landing-comparison-conventional-background);
+  border-top: 0;
+
+  @media (min-width: 1024px) {
+    border-top: 1px solid var(--ctr-landing-comparison-border-color);
+  }
+}
+
+.ctr-landing-comparison .ctr-landing-comparison__panel-media {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 241px;
+  min-width: 0;
+  position: relative;
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    align-self: stretch;
+    min-height: 100%;
+    flex: 1 1 50%;
+  }
+}
+
+.ctr-landing-comparison .ctr-landing-comparison__panel-image {
+  display: block;
+  height: auto;
+  margin: 0 auto;
+  max-height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.ctr-landing-comparison .ctr-landing-comparison__panel-image--desktop {
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: block;
+  }
+}
+
+.ctr-landing-comparison .ctr-landing-comparison__panel-image--mobile {
+  display: block;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.ctr-landing-comparison .ctr-landing-comparison__panel-features {
+  display: flex;
+  flex: 1 1 50%;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  width: 100%;
+}
+
+.ctr-landing-comparison .ctr-landing-comparison__feature {
+  align-items: flex-start;
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.ctr-landing-comparison .ctr-landing-comparison__feature-icon {
+  display: block;
+  flex-shrink: 0;
+  height: auto;
+  object-fit: contain;
+}
+
+.ctr-landing-comparison .ctr-landing-comparison__feature-icon--check {
+  margin-top: 2px;
+  width: var(--ctr-landing-comparison-check-icon-size);
+}
+
+.ctr-landing-comparison .ctr-landing-comparison__feature-icon--x {
+  margin-top: 0;
+  width: var(--ctr-landing-comparison-x-icon-size);
+}
+
+.ctr-landing-comparison .ctr-landing-comparison__feature-text {
+  color: var(--ctr-landing-comparison-text-color);
+  flex: 1 1 auto;
+  font-size: 14px;
+  line-height: 1.5;
+  min-width: 0;
+
+  @media (min-width: 1024px) {
+    font-size: 16px;
+  }
+
+  > * {
+    color: inherit;
+    font: inherit;
+    line-height: inherit;
+    margin: 0;
+  }
+}

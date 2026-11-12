@@ -1,0 +1,135 @@
+{% comment %} desktop {% endcomment %}
+{% assign announcement_blocks = blocks | where: 'type', 'announcement' %}
+<div data-announcement-bar class="bg-blue px-8 hidden lg:block py-4" style="height: var(--announcement-bar-height)">
+  <ul
+    class="announcement-bar__desktop-list flex items-center justify-center gap-x-8 lg:justify-between{% if announcement_blocks.size == 1 %} announcement-bar__desktop-list--single{% elsif announcement_blocks.size == 3 %} announcement-bar__desktop-list--three{% endif %}"
+    id="announcement-bar"
+  >
+    {% for block in announcement_blocks %}
+      <li class="announcement-bar__desktop-item hidden lg:block">
+        {%- if block.settings.announcement_url != blank -%}
+          <a href="{{ block.settings.announcement_url }}">
+        {%- endif -%}
+        <p class="text-xxs font-medium uppercase leading-none text-white">{{ block.settings.announcement_text }}</p>
+        {%- if block.settings.announcement_url != blank -%}
+          </a>
+        {%- endif -%}
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<style>
+  @media (min-width: 1024px) {
+    .announcement-bar__desktop-list--single {
+      justify-content: center;
+      width: 100%;
+    }
+
+    .announcement-bar__desktop-list--single .announcement-bar__desktop-item {
+      text-align: center;
+    }
+
+    .announcement-bar__desktop-list--three {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      width: 100%;
+    }
+
+    .announcement-bar__desktop-list--three .announcement-bar__desktop-item:nth-child(1) {
+      justify-self: start;
+      text-align: left;
+    }
+
+    .announcement-bar__desktop-list--three .announcement-bar__desktop-item:nth-child(2) {
+      justify-self: center;
+      text-align: center;
+    }
+
+    .announcement-bar__desktop-list--three .announcement-bar__desktop-item:nth-child(3) {
+      justify-self: end;
+      text-align: right;
+    }
+  }
+
+  #announcement-bar-{{section.id}} .mySwiper .swiper-slide {
+    height: var(--announcement-bar-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+    #announcement-bar-{{section.id}} .mySwiper2  {
+    height: var(--announcement-bar-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:absolute;
+    width: fit-content;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-10%);
+  }
+
+  #announcement-bar-{{section.id}} .mySwiper2 .swiper-slide  {
+    width: fit-content;
+    height: auto;
+
+  }
+
+  #announcement-bar-{{section.id}} .mySwiper2 .thumbnail-swiper__indicator {
+    opacity: 1;
+    width: 6px;
+    height: 6px;
+    background-color: var(--tw-color-grey);
+    opacity: 0.4;
+  }
+
+  #announcement-bar-{{section.id}} .mySwiper2 .swiper-slide-thumb-active .thumbnail-swiper__indicator {
+    opacity: 1;
+    width: 6px;
+    height: 6px;
+    background-color: var(--tw-color-white-100);
+  }
+</style>
+
+{% comment %}  mobile {% endcomment %}
+<auto-thumb-swiper-element class="lg:hidden" id="announcement-bar-{{section.id}}">
+  <div data-announcement-bar class="relative w-full bg-blue text-white" style="height: var(--announcement-bar-height)">
+    <swiper-container
+      init="false"
+      class="mySwiper swiper-wrapper divide-x divide-black/15 "
+    >
+      {% for block in blocks %}
+        {% if block.type == 'announcement' %}
+          <swiper-slide class="swiper-slide -ml-1 text-center height-full flex justify-center items-center ">
+            {%- if block.settings.announcement_url != blank -%}
+              <a
+                href="{{ block.settings.announcement_url }}"
+                class="flex h-full w-full items-center justify-center"
+              >
+            {%- endif -%}
+            <p class="text-xxs font-medium uppercase leading-none text-white">
+              {{ block.settings.announcement_text }}
+            </p>
+            {%- if block.settings.announcement_url != blank -%}
+              </a>
+            {%- endif -%}
+          </swiper-slide>
+        {% endif %}
+      {% endfor %}
+    </swiper-container>
+
+    <swiper-container
+      class="js-thumbnails mySwiper2"
+      init="false"
+    >
+      {% for block in blocks %}
+        {% if block.type == 'announcement' %}
+          <swiper-slide class="swiper-slide">
+            <div class="thumbnail-swiper__indicator transition-all rounded-full duration-300 ease-in-out mr-4"></div>
+          </swiper-slide>
+        {% endif %}
+      {% endfor %}
+    </swiper-container>
+  </div>
+</auto-thumb-swiper-element>

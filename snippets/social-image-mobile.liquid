@@ -1,0 +1,40 @@
+{% if social_image != blank %}
+  <div class="p-24 lg:hidden">
+    <div class="relative aspect-square max-h-[80vh] w-full overflow-hidden ">
+      {{
+        social_image
+        | image_url: width: social_image.width
+        | image_tag:
+          loading: 'lazy',
+          sizes: '(min-width: 1024px) 50vw, 100vw',
+          class: 'w-full h-full object-cover absolute inset-0 z-0'
+      }}
+    </div>
+    <div class=" left-16 flex flex-col gap-y-16 border border-t-0 border-black/15 bg-offWhite px-24 py-16">
+      {% if social_quote != blank %}
+        <p class="fn-tt-body-30">{{ social_quote }}</p>
+      {% endif %}
+      {% if social_link != blank %}
+        <a
+          href="{{ social_link.url }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex w-fit items-center justify-center gap-x-8"
+        >
+          {% if social_profile_image != blank %}
+            <div class="relative aspect-square h-24 overflow-hidden rounded-full">
+              {{
+                social_profile_image
+                | image_url: width: social_profile_image.width
+                | image_tag: loading: 'lazy', sizes: '20vw', class: 'size-full object-cover absolute inset-0 '
+              }}
+            </div>
+          {% endif %}
+          <p class="fn-tt-body-20 transition-opacity duration-300 ease-in-out">
+            {{ social_profile_name }}
+          </p>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

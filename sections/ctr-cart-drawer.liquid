@@ -1,0 +1,398 @@
+{% comment %}
+  CTR Cart Drawer — the store's side cart. Rendered unconditionally from theme.liquid.
+
+  - Native <dialog> + showModal(): focus trap, inert background, Esc-to-close for free.
+  - [data-ajax-cart-section] content is re-rendered server-side by liquid-ajax-cart on
+    every cart mutation — all pricing/discounts come from the fresh `cart` object.
+  - Header/close live OUTSIDE the ajax region so their listeners survive re-renders;
+    the count is synced by cart.ts via [data-cart-count].
+{% endcomment %}
+
+{% style %}
+  dialog.ctr-cart-drawer {
+    position: fixed;
+    inset: 0 0 0 auto;
+    height: 100dvh;
+    max-height: 100dvh;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 0 auto;
+    padding: 0;
+    border: none;
+    background: transparent;
+    translate: 100% 0;
+    transition:
+      translate 0.5s ease,
+      display 0.5s allow-discrete,
+      overlay 0.5s allow-discrete;
+  }
+
+  @media screen and (min-width: 768px) {
+    dialog.ctr-cart-drawer {
+      width: 546px;
+      max-width: 546px;
+    }
+  }
+
+  dialog.ctr-cart-drawer[open] {
+    translate: 0 0;
+  }
+
+  @starting-style {
+    dialog.ctr-cart-drawer[open] {
+      translate: 100% 0;
+    }
+  }
+
+  dialog.ctr-cart-drawer::backdrop {
+    background: color-mix(in srgb, var(--tw-color-blue, #2438c8) 20%, transparent);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    opacity: 0;
+    transition:
+      opacity 0.5s ease,
+      display 0.5s allow-discrete,
+      overlay 0.5s allow-discrete;
+  }
+
+  dialog.ctr-cart-drawer[open]::backdrop {
+    opacity: 1;
+  }
+
+  @starting-style {
+    dialog.ctr-cart-drawer[open]::backdrop {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    dialog.ctr-cart-drawer,
+    dialog.ctr-cart-drawer::backdrop {
+      transition-duration: 0.01ms;
+    }
+  }
+
+  .ctr-cart-drawer__items,
+  .ctr-cart-drawer__footer,
+  #ow-cart-banner-id {
+    position: relative;
+    transition:
+      opacity 0.2s,
+      visibility 0.2s;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .ctr-cart-drawer input {
+    border-radius: 0;
+    -webkit-appearance: none;
+  }
+
+  .ctr-cart-drawer :focus-visible {
+    outline: 2px solid var(--tw-color-blue, #2438c8);
+    outline-offset: 2px;
+  }
+
+  .ctr-cart-drawer #ow-cart-banner-id {
+    background-color: var(--tw-color-offWhite) !important;
+    border-radius: 0px !important;
+    padding: 16px !important;
+    gap: 16px !important;
+    margin: 8px !important;
+  }
+
+  .ctr-cart-drawer #ow-cart-title-id {
+    color: var(--tw-color-blue) !important;
+    font-weight: 500 !important;
+  }
+{% endstyle %}
+
+{% assign has_wholesale_item = false %}
+{% for line_item in cart.items %}
+  {% if line_item.product.tags contains 'Wholesale' %}
+    {% assign has_wholesale_item = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+<cart-drawer-element>
+  <dialog
+    class="ctr-cart-drawer"
+    aria-labelledby="CartDrawerTitle"
+    data-cart-dialog
+  >
+    <div class="pointer-events-auto relative flex h-full w-full flex-col overflow-hidden bg-white">
+      {% render 'cart-discount-debug', enabled: section.settings.debug_discounts %}
+      <div
+        class="flex min-h-[30px] items-center justify-between gap-x-8 border-b border-black/15 px-8 py-2 lg:min-h-[var(--total-navigation-height)]"
+      >
+        <h2 id="CartDrawerTitle" class="flex items-center gap-4 text-2xl font-medium leading-none">
+          Cart
+          <span aria-live="polite" aria-atomic="true">
+            (<span data-cart-count>{{- cart.item_count -}}</span>)
+          </span>
+        </h2>
+
+        <button
+          type="button"
+          data-close-cart
+          class="text-2xl font-medium leading-none"
+        >
+          Close<span class="sr-only"> cart</span>
+        </button>
+      </div>
+
+      {% comment %}
+        Free-shipping / GWP progress bar. Custom replacement for IG's
+        <ig-progress-bar> (which can't show free shipping for subscriptions):
+        cart-free-shipping.ts renders it from the bar config Intelligems ships
+        to the browser (igProgressBar.selectedWidget.config — tiers, copy,
+        icons), so IG dashboard changes flow through untouched; a subscription
+        in the cart unlocks the free-shipping tier. No config → no bar. Kept
+        OUTSIDE [data-ajax-cart-section] so it isn't torn down on re-renders.
+      {% endcomment %}
+      <div data-ctr-freeship hidden class="ctr-freeship bg-orange-LIGHT"></div>
+
+      <div data-ajax-cart-section class="relative flex w-full flex-1 flex-col overflow-hidden">
+        <div
+          data-ajax-cart-section-scroll
+          data-preserve-scroll
+          class="ctr-cart-drawer__items flex flex-1 flex-col overflow-y-auto overflow-x-hidden overscroll-contain"
+        >
+          {% if cart.empty? %}
+            <div data-cart-empty class="flex h-full flex-col">
+              {%- comment -%} Headline in the upper portion with the CTA directly under it; the bar above shows $0 progress. {%- endcomment -%}
+              <div class="flex flex-col items-center pt-24 lg:pt-32">
+                {% render 'title',
+                  title: settings.cart_empty_headline,
+                  text_size: 'fn-tt-title-70',
+                  border_color: 'border-black/15',
+                  extra_wrapper_classes: 'text-center px-24 lg:px-16 overflow-hidden pb-[1em] lg:pb-[1em]'
+                %}
+              </div>
+              {% render 'cta',
+                as: 'a',
+                href: settings.cart_empty_cta_link,
+                text: settings.cart_empty_cta,
+                extra_classes: 'w-full',
+                cta_color: 'orange',
+                hasIcons: true,
+                data_attributes: 'data-close-cart'
+              %}
+            </div>
+          {% else %}
+            {%- comment -%}
+              ReCharge dynamic bundles (CNV-6635) stay as one line per pick in the cart; when
+              grouping is on, the first line of each `_rc_bundle` renders the whole bundle as one row.
+            {%- endcomment -%}
+            {% assign rc_rendered = '|' %}
+            {% for line_item in cart.items %}
+              {% assign rc_bundle_id = line_item.properties._rc_bundle %}
+              {% if rc_bundle_id != blank and section.settings.group_recharge_bundles %}
+                {% assign rc_key = '|' | append: rc_bundle_id | append: '|' %}
+                {% if rc_rendered contains rc_key %}
+                  {% continue %}
+                {% endif %}
+                {% assign rc_rendered = rc_rendered | append: rc_bundle_id | append: '|' %}
+                <div class="border-b border-black/15">
+                  {% render 'ctr-cart-bundle-group', bundle_id: rc_bundle_id %}
+                </div>
+              {% else %}
+                <div class="border-b border-black/15">
+                  {% render 'cart-line-item', line_item: line_item, line_item_index: forloop.index %}
+                </div>
+              {% endif %}
+            {% endfor %}
+
+            {% comment %} Upsell + banners scroll WITH the items so they never pin over the cart. {% endcomment %}
+            {% render 'cart-bundle-upsell',
+              upsell_products: section.settings.upsell_products,
+              upsell_heading: section.settings.upsell_heading,
+              upsell_discount_percent: section.settings.upsell_discount_percent
+            %}
+
+            {% if section.settings.show_ow_banner and has_wholesale_item == false %}
+              <div id="ow-cart-banner-id" class="ow-cart-banner">
+                <img src="{{ 'ow_logo.png' | asset_url }}" width="50" height="50" loading="lazy" alt="Ocean Works Logo">
+                <div>
+                  <div id="ow-cart-title-id" class="ow-cart-title"></div>
+                  <div id="ow-cart-description-id" class="ow-cart-description"></div>
+                </div>
+              </div>
+            {% endif %}
+
+            {% if has_wholesale_item %}
+              <div class="px-8 pb-8">
+                <label for="CartDrawerPoNumber" class="sr-only">Purchase order number</label>
+                <input
+                  id="CartDrawerPoNumber"
+                  data-ajax-cart-property-input
+                  name="attributes[Invoice PO Number]"
+                  class="fn-tt-cta-40 flex w-full border border-black/15 bg-transparent p-16 uppercase placeholder-black transition duration-200 ease-in-out hover:border-black focus:border-black"
+                  type="text"
+                  placeholder="Enter PO Number"
+                  value="{{ cart.attributes['Invoice PO Number'] }}"
+                >
+              </div>
+            {% endif %}
+          {% endif %}
+        </div>
+
+        {% if cart.empty? == false %}
+          <div class="ctr-cart-drawer__footer flex shrink-0 flex-col">
+            {% render 'cart-order-summary' %}
+            {% form 'cart', cart %}
+              {%- comment -%}
+                Shared cta snippet — arrows both sides (Figma 5785:1602) with the
+                hero button's hover animation. data-cart-checkout: cart.ts disables
+                it while a cart mutation is in flight.
+              {%- endcomment -%}
+              {%- capture checkout_label -%}
+                Secure Checkout {% render 'icon-lock', class: 'inline h-[24px] w-auto align-middle ml-8 -mt-2' %}
+              {%- endcapture -%}
+              {% render 'cta',
+                as: 'button',
+                type: 'submit',
+                name: 'checkout',
+                aria_label: 'Secure checkout',
+                text: checkout_label,
+                hasIcons: true,
+                cta_color: 'orange',
+                extra_classes: 'w-full min-h-[48px] !py-12 lg:min-h-[56px] lg:!py-18',
+                extra_text_classes: 'font-text text-[19.7px] font-medium uppercase leading-[19.74px] tracking-[0.493px]',
+                data_attributes: 'data-cart-checkout'
+              %}
+            {% endform %}
+
+            {% render 'cart-trust-badges',
+              claim_1: section.settings.trust_claim_1,
+              claim_2: section.settings.trust_claim_2,
+              claim_3: section.settings.trust_claim_3,
+              free_shipping_fallback: section.settings.free_shipping_fallback
+            %}
+          </div>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Shared bottom-sheet variant picker (populated by cart-variant-picker.ts). {%- endcomment -%}
+      <cart-variant-picker hidden class="absolute inset-0 z-30">
+        <button
+          type="button"
+          data-variant-picker-close
+          aria-label="Close options"
+          class="absolute inset-0 bg-blue/20 opacity-0 backdrop-blur-sm transition-opacity duration-300"
+        ></button>
+        <div
+          data-variant-picker-sheet
+          class="pointer-events-auto absolute inset-x-0 bottom-0 translate-y-full bg-white transition-transform duration-300 ease-out"
+        ></div>
+      </cart-variant-picker>
+    </div>
+  </dialog>
+</cart-drawer-element>
+
+{% if section.settings.show_ow_banner %}
+  {{ 'ow-cart-banner.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'ow-get-cart-data.js' | asset_url }}" defer></script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "CTR Cart Drawer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "ReCharge bundles"
+    },
+    {
+      "type": "checkbox",
+      "id": "group_recharge_bundles",
+      "label": "Show ReCharge bundles as one item",
+      "default": true,
+      "info": "Off: each scent in a Build Your Pack bundle shows as its own line (quantities locked)."
+    },
+    {
+      "type": "header",
+      "content": "Bundle upsell (Bundows)"
+    },
+    {
+      "type": "text",
+      "id": "upsell_heading",
+      "label": "Upsell heading",
+      "info": "Must state the same percentage as \"Upsell discount\" below.",
+      "default": "Add a bundle and save 10%"
+    },
+    {
+      "type": "product_list",
+      "id": "upsell_products",
+      "label": "Upsell products",
+      "limit": 12,
+      "info": "Hand-picked products shown as add-a-bundle cards, in this order. Items already in the cart are hidden automatically."
+    },
+    {
+      "type": "range",
+      "id": "upsell_discount_percent",
+      "label": "Upsell discount",
+      "min": 0,
+      "max": 30,
+      "step": 5,
+      "unit": "%",
+      "default": 10,
+      "info": "Card prices show net of this discount with the base price struck through. Must match the \"Bundle & Save\" discount's percentage (admin → Discounts → Bundle & Save panel), or checkout won't honour the shown price."
+    },
+    {
+      "type": "header",
+      "content": "Trust badges"
+    },
+    {
+      "type": "text",
+      "id": "trust_claim_1",
+      "label": "Claim 1",
+      "default": "4.8 Stars. Loved by 80k+ Freaks"
+    },
+    {
+      "type": "text",
+      "id": "trust_claim_2",
+      "label": "Claim 2",
+      "info": "Use {amount} for the free-shipping threshold — it's filled live per market from Intelligems, falling back to the amount below.",
+      "default": "Free shipping on orders {amount}"
+    },
+    {
+      "type": "text",
+      "id": "trust_claim_3",
+      "label": "Claim 3",
+      "info": "Keep claims short — each gets a third of the drawer width and the row is built for two lines.",
+      "default": "Naturally-derived ingredients"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_fallback",
+      "label": "Free-shipping fallback amount",
+      "info": "Shown in the {amount} spot when Intelligems has no threshold for the shopper's market (e.g. uncovered markets). Leave empty to hide the claim there.",
+      "default": "$60+"
+    },
+    {
+      "type": "header",
+      "content": "Ocean Works"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_ow_banner",
+      "label": "Show Ocean Works impact banner",
+      "info": "The plastic-collection partnership banner below the cart items (message comes live from Ocean Works). Hidden automatically on wholesale carts.",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Developer"
+    },
+    {
+      "type": "checkbox",
+      "id": "debug_discounts",
+      "label": "Show discount debug panel",
+      "info": "Temporary: overlays a panel listing every discount applied to the cart (and logs it to the console). Turn off before launch.",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,28 @@
+{%- comment -%}
+  Single source of truth for a line's reference ("was") price — the line total in cents,
+  used by both cart-line-item.liquid (strikethrough) and cart-order-summary.liquid (reference
+  subtotal) so the two can never diverge.
+
+  was = max(variant.compare_at × qty, selling_plan.compare_at × qty, original_line_price),
+  floored at final_line_price. Free lines (final 0) return 0 — they render FREE and add nothing
+  to the summary, so no gift detection is needed here. Reads server-side Liquid fields, which
+  (unlike cart.js) keep variant.compare_at and original_price correct on subscription lines.
+
+  Outputs digits only so callers can `| plus: 0`.
+  @param {line_item} line_item
+{%- endcomment -%}
+{%- assign clrp_was = line_item.final_line_price -%}
+{%- if line_item.final_line_price > 0 -%}
+  {%- if line_item.variant.compare_at_price -%}
+    {%- assign clrp_variant = line_item.variant.compare_at_price | times: line_item.quantity -%}
+    {%- if clrp_variant > clrp_was -%}{%- assign clrp_was = clrp_variant -%}{%- endif -%}
+  {%- endif -%}
+  {%- if line_item.selling_plan_allocation.compare_at_price -%}
+    {%- assign clrp_plan = line_item.selling_plan_allocation.compare_at_price | times: line_item.quantity -%}
+    {%- if clrp_plan > clrp_was -%}{%- assign clrp_was = clrp_plan -%}{%- endif -%}
+  {%- endif -%}
+  {%- if line_item.original_line_price > clrp_was -%}
+    {%- assign clrp_was = line_item.original_line_price -%}
+  {%- endif -%}
+{%- endif -%}
+{{- clrp_was -}}

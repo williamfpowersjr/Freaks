@@ -1,0 +1,54 @@
+{% schema %}
+{
+  "name": "Socials",
+  "tag": "section",
+  "class": "socials-section",
+  "presets": [
+    {
+      "name": "Socials",
+      "category": "Socials",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "<p>Lorem ipsum</p>"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title"
+    }
+  ]
+}
+{% endschema %}
+
+<div id="socials" class="overflow-hidden [&>*:last-child]:-mb-22">
+  <div class="flex w-full flex-col border-t border-black/15 py-40 lg:py-80 {{ section.settings.bg_color }}">
+    {% render 'title',
+      title: section.settings.title,
+      text_size: 'fn-tt-title-70',
+      extra_wrapper_classes: 'overflow-hidden text-center px-24 lg:px-16 underline-links',
+      bg_lines: 'bg-grey-lines',
+      extra_text_classes: '!leading-[0.98]'
+    %}
+  </div>
+
+  <div class="social-widget-wrapper" data-widget-id="64571"></div>
+</div>

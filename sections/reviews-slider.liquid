@@ -1,0 +1,155 @@
+{% schema %}
+{
+  "name": "Reviews Slider",
+  "tag": "section",
+  "class": "reviews-slider-section",
+  "presets": [
+    {
+      "name": "Reviews Slider",
+      "category": "Reviews Slider",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Lorem ipsum"
+      },
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "title": "Lorem ipsum",
+            "review": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "name": "Lorem ipsum",
+            "stars": "5"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Lorem ipsum",
+            "review": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "name": "Lorem ipsum",
+            "stars": "5"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Lorem ipsum",
+            "review": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "name": "Lorem ipsum",
+            "stars": "5"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Lorem ipsum",
+            "review": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "name": "Lorem ipsum",
+            "stars": "5"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Lorem ipsum",
+            "review": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "name": "Lorem ipsum",
+            "stars": "5"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Review",
+      "type": "review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "review",
+          "label": "Review"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name"
+        },
+        {
+          "type": "select",
+          "id": "stars",
+          "label": "Stars Count",
+          "options": [
+            {
+              "value": "1",
+              "label": "One"
+            },
+            {
+              "value": "2",
+              "label": "Two"
+            },
+            {
+              "value": "3",
+              "label": "Three"
+            },
+            {
+              "value": "4",
+              "label": "Four"
+            },
+            {
+              "value": "5",
+              "label": "Five"
+            }
+          ],
+          "default": "5"
+        },
+        {
+          "type": "url",
+          "id": "rating_link",
+          "label": "Rating link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% render 'reviews-slider',
+  bg_color: section.settings.bg_color,
+  title: section.settings.title,
+  subtitle: section.settings.subtitle,
+  blocks: section.blocks
+%}

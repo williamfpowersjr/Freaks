@@ -1,0 +1,125 @@
+{% schema %}
+{
+  "name": "Title",
+  "tag": "section",
+  "class": "title-section",
+  "presets": [
+    {
+      "name": "Title",
+      "category": "Title",
+      "settings": {
+        "title": "Lorem ipsum",
+        "bg_color": "white",
+        "has_margin": false,
+        "text_align": "left"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "offWhite",
+          "label": "Off White"
+        },
+        {
+          "value": "orange",
+          "label": "Orange"
+        }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "info": "Adds an optional text to the section"
+    },
+    {
+      "type": "checkbox",
+      "id": "has_margin",
+      "label": "Margin Y",
+      "info": "Adds a margin to the top and bottom of the section",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "left"
+    }
+  ]
+}
+{% endschema %}
+
+{% case section.settings.bg_color %}
+  {% when 'offWhite' %}
+    {% assign bg_lines = 'bg-grey-lines' %}
+    {% assign text_color = 'text-black' %}
+    {% assign bg_color = 'bg-offWhite' %}
+
+  {% when 'orange' %}
+    {% assign bg_lines = 'bg-blue-lines' %}
+    {% assign text_color = 'text-blue' %}
+    {% assign bg_color = 'bg-orange' %}
+
+  {% else %}
+    {% assign bg_lines = 'bg-grey-lines' %}
+    {% assign text_color = 'text-black' %}
+    {% assign bg_color = 'bg-white' %}
+{% endcase %}
+
+{% assign extra_wrapper_classes = 'overflow-hidden px-8 lg:px-12 text-balance border-none -mb-1' %}
+
+{% assign extra_wrapper_classes = 'overflow-hidden px-8 lg:px-12 text-balance border-none -mb-1' %}
+
+{% if section.settings.text_align == 'center' %}
+  {% assign extra_wrapper_classes = extra_wrapper_classes | append: ' text-center' %}
+{% else %}
+  {% assign extra_wrapper_classes = extra_wrapper_classes | append: ' text-left' %}
+{% endif %}
+
+{% if section.settings.has_margin == true %}
+  <div class="py-40 lg:py-80 {{ bg_color }}">
+{% endif %}
+
+{% render 'title',
+  title: section.settings.title,
+  text_size: 'fn-tt-title-70',
+  extra_wrapper_classes: extra_wrapper_classes,
+  text_color: text_color,
+  bg_color: bg_color,
+  bg_lines: bg_lines,
+  extra_text_classes: '!leading-[0.98]'
+%}
+{% if section.settings.has_margin == true %}
+  </div>
+{% endif %}
+
+{% if section.settings.text != blank %}
+  <div class="flex items-center justify-center border-b border-black/15 px-24 pb-40">
+    <span class="fn-tt-body-30 mx-auto text-center lg:max-w-768">{{ section.settings.text }}</span>
+  </div>
+{% endif %}

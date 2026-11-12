@@ -1,0 +1,124 @@
+{% schema %}
+{
+  "name": "Split Hero",
+  "tag": "section",
+  "class": "split-hero-section",
+  "presets": [
+    {
+      "name": "Split Hero",
+      "category": "Split Hero",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Lorem ipsum",
+        "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+        "show_coin": false,
+        "cta": "Lorem ipsum",
+        "cta_section_link": "#",
+        "cta_color": "blue",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "If you want to have a still image, leave the video fields blank."
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "This video is going to loop in the index page hero."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_coin",
+      "label": "Show Spline Coin",
+      "default": false,
+      "info": "Show the Spline coin"
+    },
+    {
+      "type": "image_picker",
+      "id": "coin",
+      "label": "Coin",
+      "info": "Will only show if Spline Coin is not shown"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Cta Text"
+    },
+    {
+      "type": "text",
+      "id": "cta_section_link",
+      "label": "Cta Section Link",
+      "default": "#table-section"
+    },
+    {
+      "type": "select",
+      "id": "cta_color",
+      "label": "Cta Color",
+      "options": [
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "blue"
+    }
+  ]
+}
+{% endschema %}
+
+{% render 'split-hero',
+  title: section.settings.title,
+  text: section.settings.text,
+  cta: section.settings.cta,
+  cta_section_link: section.settings.cta_section_link,
+  cta_color: section.settings.cta_color,
+  hero_image: section.settings.image,
+  hero_video: section.settings.video,
+  bg_color: section.settings.bg_color,
+  coin: section.settings.coin,
+  show_coin: section.settings.show_coin
+%}

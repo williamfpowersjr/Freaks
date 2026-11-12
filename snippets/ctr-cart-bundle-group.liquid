@@ -1,0 +1,136 @@
+{% comment %}
+  One cart row for a ReCharge dynamic bundle (CNV-6635). ReCharge keeps each
+  pick as its own cart line (they carry the `_rc_bundle` properties its
+  discount Function and order creation depend on), so this only groups them
+  for display: contents list, summed price, the bundle discount label and a
+  remove that drops every line of the bundle. Mirrors cart-line-item styling.
+
+  @param {string} bundle_id   value of the lines' `_rc_bundle` property
+{% endcomment %}
+
+{% liquid
+  assign group_total = 0
+  assign group_was = 0
+  assign group_qty = 0
+  assign remove_url = '/cart/update?'
+  assign contents = ''
+  assign discount_titles = ''
+  assign plan_name = ''
+  assign parent_handle = ''
+  assign first_line = blank
+
+  for item in cart.items
+    if item.properties._rc_bundle != bundle_id
+      continue
+    endif
+    if first_line == blank
+      assign first_line = item
+    endif
+    assign group_total = group_total | plus: item.final_line_price
+    capture item_was
+      render 'cart-line-reference-price', line_item: item
+    endcapture
+    assign group_was = group_was | plus: item_was
+    assign group_qty = group_qty | plus: item.quantity
+    assign remove_url = remove_url | append: 'updates[' | append: item.key | append: ']=0&'
+    assign item_name = item.variant.title | split: ' / ' | first
+    assign contents = contents | append: item.quantity | append: '× ' | append: item_name | append: '|'
+    for alloc in item.line_level_discount_allocations
+      # ReCharge appends an internal code, e.g. "BUY MORE SAVE MORE (K4CC8-2)" — show the name only.
+      assign alloc_title = alloc.discount_application.title | split: ' (' | first
+      unless discount_titles contains alloc_title
+        assign discount_titles = discount_titles | append: alloc_title | append: '|'
+      endunless
+    endfor
+    if plan_name == blank and item.selling_plan_allocation
+      assign plan_name = item.selling_plan_allocation.selling_plan.name
+    endif
+    assign parent_handle = item.properties._rc_bundle_parent
+  endfor
+
+  assign parent = all_products[parent_handle]
+  assign group_title = parent.title | default: 'Bundle'
+  assign group_image = parent.featured_image | default: first_line.image
+
+  assign savings_pct = 0
+  if group_was > group_total
+    assign diff = group_was | minus: group_total
+    assign savings_pct = diff | times: 100.0 | divided_by: group_was | round
+  endif
+  assign contents_list = contents | split: '|'
+  assign discount_list = discount_titles | split: '|'
+%}
+
+{% if first_line != blank %}
+  <div class="flex items-stretch gap-10 p-20" data-cart-bundle="{{ bundle_id | escape }}">
+    <div class="flex w-[90px] shrink-0 flex-col items-center gap-8">
+      <div class="relative block size-[90px] overflow-hidden">
+        {% if group_image != blank %}
+          {{
+            group_image
+            | image_url: width: 180
+            | image_tag: loading: 'lazy', class: 'absolute inset-0 h-full w-full object-cover', sizes: '90px'
+          }}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="flex min-w-0 flex-1 flex-col gap-12">
+      <div class="flex items-start gap-8">
+        <div class="flex min-w-0 flex-1 flex-col">
+          <h3 class="pr-[30px] font-text text-[14px] font-medium leading-[1.5] text-[#232323] lg:text-[16px]">
+            {{ group_title | escape }}
+          </h3>
+          <p class="font-text text-[10px] leading-[1.5] text-[#535353] lg:text-[12px]">
+            {{ group_qty }} stick{% if group_qty != 1 %}s{% endif %}
+          </p>
+          <ul class="m-0 list-none p-0 pt-4">
+            {% for entry in contents_list %}
+              <li class="font-text text-[12px] leading-[1.5] text-[#232323]">{{ entry | escape }}</li>
+            {% endfor %}
+          </ul>
+          {% for title in discount_list %}
+            {% if title != blank %}
+              <p class="font-text text-[10px] leading-[1.5] text-[#44be70] lg:text-[12px]">{{ title }}</p>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="flex shrink-0 flex-col items-end gap-10 pt-[2px]">
+          <a
+            data-ajax-cart-request-button
+            href="{{ remove_url }}"
+            class="shrink-0 text-black/25 transition-colors duration-200 lg:hover:text-black"
+            aria-label="Remove {{ group_title | escape }}"
+          >
+            {% render 'icon-trash', class: 'h-20 w-20' %}
+          </a>
+          <div class="flex flex-col items-end">
+            <div class="flex items-center justify-end gap-4">
+              <span class="font-text text-[16px] font-medium leading-[1.5] text-[#212121]">
+                {{- group_total | money -}}
+              </span>
+              {% if group_was > group_total %}
+                <s class="font-text text-[12px] leading-[1.5] text-[#666]">{{ group_was | money }}</s>
+              {% endif %}
+            </div>
+            {% if savings_pct > 0 %}
+              <span class="flex items-center gap-6 bg-orange px-4 py-2 text-white">
+                {% render 'icon-tag', class: 'h-[12px] w-[12px] lg:h-13 lg:w-13' %}
+                <span class="font-text text-[10px] font-medium uppercase leading-[15.6px] lg:text-[12px]">
+                  Saving {{ savings_pct }}%
+                </span>
+              </span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      {% if plan_name != blank %}
+        <p class="mt-auto font-text text-[12px] leading-[1.5] text-[#535353]">
+          Delivered every {{ plan_name | downcase }}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

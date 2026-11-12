@@ -1,0 +1,114 @@
+{% comment %}
+  Renders a single ambassador Instagram slide.
+
+  Accepts:
+  - block: {Object} Section block
+  - slide_class: {String} Optional extra classes for the slide root
+{% endcomment %}
+
+{%- liquid
+  assign ctr_ai_instagram_url = block.settings.instagram_url
+  if ctr_ai_instagram_url == blank and block.settings.instagram_handle != blank
+    assign ctr_ai_instagram_url = 'https://instagram.com/' | append: block.settings.instagram_handle
+  endif
+
+  assign ctr_ai_media_focal_point = block.settings.media_focal_point | default: 'center center'
+  assign ctr_ai_name_color = block.settings.name_color | default: '#fb5219'
+
+  assign ctr_ai_show_overlay = true
+  if block.settings.show_overlay == false
+    assign ctr_ai_show_overlay = false
+  endif
+
+  assign ctr_ai_has_overlay_content = false
+  if block.settings.name != blank or block.settings.role != blank
+    assign ctr_ai_has_overlay_content = true
+  endif
+  if block.settings.instagram_handle != blank and ctr_ai_instagram_url != blank
+    assign ctr_ai_has_overlay_content = true
+  endif
+-%}
+
+<article
+  class="{{ slide_class }} relative flex flex-col justify-end overflow-hidden"
+  style="--ctr-ai-slide-focal-point: {{ ctr_ai_media_focal_point }};"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.media_video != blank or block.settings.media_image != blank %}
+    <div class="ctr-ambassador-instagram__media absolute inset-0 overflow-hidden" aria-hidden="true">
+      {% if block.settings.media_video != blank %}
+        {{
+          block.settings.media_video
+          | video_tag:
+            class: 'ctr-ambassador-instagram__media-el size-full object-cover',
+            autoplay: false,
+            loop: false,
+            muted: true,
+            controls: false,
+            playsinline: true,
+            preload: 'metadata'
+        }}
+      {% elsif block.settings.media_image != blank %}
+        {{
+          block.settings.media_image
+          | image_url: width: 1600
+          | image_tag:
+            loading: 'lazy',
+            widths: '400, 800, 1200, 1600',
+            sizes: '(min-width: 1024px) 33vw, 85vw',
+            class: 'ctr-ambassador-instagram__media-el absolute inset-0 size-full object-cover',
+            alt: block.settings.name
+        }}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if ctr_ai_show_overlay and ctr_ai_has_overlay_content %}
+    <div
+      class="ctr-ambassador-instagram__overlay-gradient pointer-events-none absolute inset-0"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative z-[1] flex flex-col gap-24 p-32">
+      {% if block.settings.name != blank or block.settings.role != blank %}
+        <div class="fn-tt-cta-40 flex items-start justify-between gap-16 uppercase leading-none">
+          {% if block.settings.name != blank %}
+            <span style="color: {{ ctr_ai_name_color }};">{{ block.settings.name }}</span>
+          {% endif %}
+
+          {% if block.settings.role != blank %}
+            <span class="shrink-0 text-right text-[#f4efeb]">{{ block.settings.role }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.instagram_handle != blank and ctr_ai_instagram_url != blank %}
+        <a
+          href="{{ ctr_ai_instagram_url }}"
+          class="group flex w-fit items-center gap-8 text-white"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {% if block.settings.profile_image != blank %}
+            <div class="relative size-28 shrink-0 overflow-hidden rounded-full">
+              {{
+                block.settings.profile_image
+                | image_url: width: 56
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '28, 56',
+                  sizes: '28px',
+                  class: 'absolute inset-0 size-full object-cover',
+                  alt: ''
+              }}
+            </div>
+          {% endif %}
+
+          <span class="fn-tt-body-20 font-medium leading-[20.61px] transition-opacity duration-300 group-hover:opacity-80">
+            @{{ block.settings.instagram_handle }}
+          </span>
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+</article>

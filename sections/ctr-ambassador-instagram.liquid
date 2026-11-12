@@ -1,0 +1,344 @@
+{% schema %}
+{
+  "name": "Ambassador Instagram CTR",
+  "tag": "section",
+  "class": "ctr-ambassador-instagram-section",
+  "presets": [
+    {
+      "name": "Ambassador Instagram CTR",
+      "category": "Ambassador",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "show_overlay": true,
+            "name": "Max Jolliffe",
+            "name_color": "#fb5219",
+            "role": "Ultrarunner",
+            "instagram_handle": "woah_max"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "show_overlay": true,
+            "name": "Rich Roll",
+            "name_color": "#fb5219",
+            "role": "Author + Podcast Host",
+            "instagram_handle": "richroll"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "show_overlay": true,
+            "name": "Bettylou Sakura",
+            "name_color": "#fb5219",
+            "role": "Surfer (World #5)",
+            "instagram_handle": "bettylou.sakura.johnson"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading line 1",
+      "default": "Join the"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Heading line 2",
+      "default": "Freak Team"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1_mobile",
+      "label": "Heading line 1 (mobile)",
+      "info": "Optional. Falls back to desktop line 1 when blank."
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2_mobile",
+      "label": "Heading line 2 (mobile)",
+      "info": "Optional. Falls back to desktop line 2 when blank."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top (desktop)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom (desktop)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top (mobile)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom (mobile)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "slide_height_desktop",
+      "label": "Slide height (desktop)",
+      "min": 320,
+      "max": 720,
+      "step": 4,
+      "unit": "px",
+      "default": 540
+    },
+    {
+      "type": "range",
+      "id": "slide_height_mobile",
+      "label": "Slide height (mobile)",
+      "min": 320,
+      "max": 640,
+      "step": 4,
+      "unit": "px",
+      "default": 480
+    },
+    {
+      "type": "range",
+      "id": "media_crop_scale",
+      "label": "Image crop (zoom)",
+      "info": "Zooms slide media slightly past the frame. 100% shows the full image with no extra crop.",
+      "min": 100,
+      "max": 130,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "media_image",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "media_video",
+          "label": "Video",
+          "info": "Optional. Replaces image when set."
+        },
+        {
+          "type": "header",
+          "content": "Overlay"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_overlay",
+          "label": "Show text overlay",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name"
+        },
+        {
+          "type": "color",
+          "id": "name_color",
+          "label": "Name color",
+          "default": "#fb5219"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Role"
+        },
+        {
+          "type": "image_picker",
+          "id": "profile_image",
+          "label": "Profile image"
+        },
+        {
+          "type": "text",
+          "id": "instagram_handle",
+          "label": "Instagram handle",
+          "info": "Without @. Used to build instagram.com URL when custom URL is blank."
+        },
+        {
+          "type": "url",
+          "id": "instagram_url",
+          "label": "Instagram URL",
+          "info": "Optional. Defaults to https://instagram.com/{handle}"
+        },
+        {
+          "type": "select",
+          "id": "media_focal_point",
+          "label": "Image focal point",
+          "options": [
+            { "value": "center center", "label": "Center" },
+            { "value": "top center", "label": "Top" },
+            { "value": "bottom center", "label": "Bottom" },
+            { "value": "left center", "label": "Left" },
+            { "value": "right center", "label": "Right" }
+          ],
+          "default": "center center"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{%- liquid
+  assign ctr_ai_heading_line_1_mobile = section.settings.heading_line_1_mobile | default: section.settings.heading_line_1
+  assign ctr_ai_heading_line_2_mobile = section.settings.heading_line_2_mobile | default: section.settings.heading_line_2
+  assign ctr_ai_swiper_id = 'ctr-ambassador-instagram-' | append: section.id
+-%}
+
+<section
+  class="ctr-ambassador-instagram flex flex-col"
+  style="
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    --ctr-ai-slide-height-desktop: {{ section.settings.slide_height_desktop }}px;
+    --ctr-ai-slide-height-mobile: {{ section.settings.slide_height_mobile }}px;
+    --ctr-ai-media-crop-percent: {{ section.settings.media_crop_scale | default: 100 }};
+  "
+>
+  <style>
+    @media (min-width: 1024px) {
+      #shopify-section-{{ section.id }} .ctr-ambassador-instagram {
+        padding-top: {{ section.settings.padding_top_desktop }}px;
+        padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+      }
+    }
+
+    #shopify-section-{{ section.id }} .ctr-ambassador-instagram__slide {
+      height: var(--ctr-ai-slide-height-mobile);
+    }
+
+    @media (min-width: 1024px) {
+      #shopify-section-{{ section.id }} .ctr-ambassador-instagram__slide {
+        height: var(--ctr-ai-slide-height-desktop);
+      }
+    }
+
+    #shopify-section-{{ section.id }} .ctr-ambassador-instagram__media-el {
+      object-position: var(--ctr-ai-slide-focal-point, center center);
+      transform: scale(calc(var(--ctr-ai-media-crop-percent, 100) / 100));
+      transform-origin: var(--ctr-ai-slide-focal-point, center center);
+    }
+
+    #shopify-section-{{ section.id }} .ctr-ambassador-instagram__overlay-gradient {
+      background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 59%, rgba(0, 0, 0, 0.78) 100%);
+    }
+  </style>
+
+  {% if section.settings.heading_line_1 != blank or section.settings.heading_line_2 != blank %}
+    <div class="flex w-full flex-col overflow-hidden pb-[38.5px] lg:pb-[78.5px]">
+      {% if section.settings.heading_line_1 != blank %}
+        <div class="flex w-full items-center justify-center border border-black/15 text-center lg:border-x-0 lg:border-b lg:border-t">
+          <h2 class="m-0 font-neue text-[40px] uppercase leading-[33.5px] text-black lg:text-[74px] lg:leading-[72.3px]">
+            <span class="lg:hidden">{{ ctr_ai_heading_line_1_mobile }}</span>
+            <span class="hidden lg:inline">{{ section.settings.heading_line_1 }}</span>
+          </h2>
+        </div>
+      {% endif %}
+
+      {% if section.settings.heading_line_2 != blank %}
+        <div class="flex w-full items-center justify-center border-b border-black/15 text-center{% if section.settings.heading_line_1 == blank %} border-x border-t{% endif %}">
+          <h2 class="m-0 font-neue text-[40px] uppercase leading-[33.5px] text-black lg:text-[74px] lg:leading-[72.3px]">
+            <span class="lg:hidden">{{ ctr_ai_heading_line_2_mobile }}</span>
+            <span class="hidden lg:inline">{{ section.settings.heading_line_2 }}</span>
+          </h2>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if section.blocks.size > 0 %}
+    <div class="hidden w-full border-b border-black/15 lg:grid lg:grid-cols-3 lg:divide-x lg:divide-black/15">
+      {% for block in section.blocks %}
+        {% if block.type == 'slide' %}
+          {% render 'ctr-ambassador-instagram-slide', block: block, slide_class: 'ctr-ambassador-instagram__slide' %}
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="border-b border-black/15 lg:hidden">
+      <swiper-element id="{{ ctr_ai_swiper_id }}" class="ctr-ambassador-instagram__mobile-swiper article-cards">
+        <swiper-container init="false" class="divide-x divide-black/15">
+          {% for block in section.blocks %}
+            {% if block.type == 'slide' %}
+              <swiper-slide class="swiper-slide h-auto">
+                {% render 'ctr-ambassador-instagram-slide',
+                  block: block,
+                  slide_class: 'ctr-ambassador-instagram__slide'
+                %}
+              </swiper-slide>
+            {% endif %}
+          {% endfor %}
+        </swiper-container>
+
+        {% if section.blocks.size > 1 %}
+          <div class="flex w-full items-center border-t border-black/15">
+            <div class="relative flex w-full justify-center self-center px-24">
+              <div class="swiper-scrollbar"></div>
+            </div>
+
+            <div class="border-x border-black/15">
+              <div
+                class="swiper-button-prev"
+                aria-label="Previous slide {{ section.id }}"
+                role="button"
+              ></div>
+            </div>
+
+            <div>
+              <div
+                class="swiper-button-next"
+                aria-label="Next slide {{ section.id }}"
+                role="button"
+              ></div>
+            </div>
+          </div>
+        {% endif %}
+      </swiper-element>
+    </div>
+  {% endif %}
+</section>

@@ -1,0 +1,190 @@
+.ctr-spray-lp-benefits {
+  background: var(--ctr-spray-lp-benefits-background);
+  background-image: var(--ctr-spray-lp-benefits-background-gradient);
+  padding: var(--ctr-spray-lp-benefits-padding-top-mobile) 20px var(--ctr-spray-lp-benefits-padding-bottom-mobile);
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    padding: var(--ctr-spray-lp-benefits-padding-top-desktop) 40px var(--ctr-spray-lp-benefits-padding-bottom-desktop);
+  }
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__title-wrap {
+  font-size: clamp(32px, calc(32 * 1px + (50) * (100vw - 430 * 1px) / (1225)), 60px);
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__title {
+  color: var(--ctr-spray-lp-benefits-heading-color);
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 0.92;
+  padding-top: 5px;
+
+  p {
+    font-family: 'Alliance Neue', sans-serif;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  
+  * {
+    font: inherit;
+    line-height: inherit;
+  }
+
+  strong {
+    color: var(--ctr-spray-lp-benefits-accent-color);
+  }
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__subtitle {
+  color: var(--ctr-spray-lp-benefits-subtitle-color);
+  margin: 16px auto 20px;
+  max-width: 900px;
+  text-align: center;
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__subtitle p {
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 0;
+
+  @media (min-width: 1024px) {
+    font-size: 24px;
+  }
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__subtitle * {
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__card {
+  background: var(--ctr-spray-lp-benefits-card-background);
+  border: 1px solid var(--ctr-spray-lp-benefits-border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 14px;
+
+  @media (min-width: 1024px) {
+    gap: 24px;
+    min-height: 100%;
+    padding: 17px;
+  }
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__icon {
+  display: block;
+  height: auto;
+  max-width: 54px;
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    max-width: 84px;
+  }
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__card-title {
+  color: var(--ctr-spray-lp-benefits-title-color);
+  text-wrap: balance;
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__card-title p {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 500;
+  margin: 0;
+
+  @media (min-width: 1024px) {
+    font-size: 20px;
+  }
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__card-title * {
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__card-text {
+  color: var(--ctr-spray-lp-benefits-text-color);
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__card-text p {
+  font-size: 10px;
+  line-height: 1.5;
+  margin: 0;
+
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__card-text * {
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__card--cta {
+  align-items: center;
+  background: var(--ctr-spray-lp-benefits-cta-background);
+  justify-content: center;
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__cta-image {
+  display: block;
+  height: auto;
+  max-width: 116px;
+  width: 100%;
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__cta-link {
+  align-items: center;
+  border-bottom: 1px solid var(--ctr-spray-lp-benefits-button-color);
+  color: var(--ctr-spray-lp-benefits-button-color);
+  display: inline-flex;
+  gap: 12px;
+  padding: 8px;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  &:hover {
+    .ctr-spray-lp-benefits__cta-arrow {
+      transform: translateX(4px);
+    }
+  }
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__cta-label {
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  font-weight: 500;
+
+  @media (min-width: 1024px) {
+    font-size: 20px;
+  }
+}
+
+.ctr-spray-lp-benefits .ctr-spray-lp-benefits__cta-arrow {
+  width: 14px;
+  transition: transform 0.25s linear;
+}

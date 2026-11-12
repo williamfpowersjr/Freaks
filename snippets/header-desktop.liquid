@@ -1,0 +1,206 @@
+<accordion-element>
+  <div
+    class="hidden border-b border-black/15 bg-white px-8 lg:block"
+  >
+    <div class="relative flex items-center justify-between gap-x-8" style="height: var(--total-navigation-height)">
+      {% if menu_links.size > 0 %}
+        <navigation id="desktop-navigation">
+          <ul class="flex items-center gap-x-24">
+            {% if products_title and header_collection != blank %}
+              <li data-accordion data-no-autoscroll class="relative">
+                <button
+                  aria-label="Product Content"
+                  data-accordion-hover-trigger
+                  aria-expanded="false"
+                  aria-controls="product-content"
+                  class="group flex w-full items-center justify-center gap-4 aria-expanded:text-blue"
+                >
+                  {% render 'header-nav-icons', is_desktop: true %}
+
+                  <a href="{{ products_cta_url }}" aria-label="{{ products_title }}">
+                    <p class="fn-tt-sub-title-30 font-medium ">{{ products_title }}</p>
+                  </a>
+                </button>
+                <div
+                  data-accordion-content
+                  id="product-content"
+                  style="max-height: 0;"
+                  class="absolute -left-8 z-behind h-fit max-h-0 overflow-hidden bg-white transition-all duration-300 ease-in-out will-change-[max-width]"
+                >
+                  <div class="flex divide-x divide-black/15">
+                    {% for product in header_collection.products limit: 4 %}
+                      {% render 'product-card-small',
+                        product: product,
+                        bg_color: 'bg-white',
+                        isHeader: true,
+                        extra_classes: 'transition-all duration-300 ease-in-out min-w-248 hover:bg-blue/20 h-full'
+                      %}
+                    {% endfor %}
+                  </div>
+                  {% if products_cta != blank %}
+                    {% render 'cta',
+                      as: 'a',
+                      href: products_cta_url,
+                      text: products_cta,
+                      extra_classes: 'w-full',
+                      cta_color: 'orange',
+                      hasIcons: true,
+                      is_slim: true
+                    %}
+                  {% endif %}
+                </div>
+              </li>
+            {% endif %}
+            {% if bundle_title and bundle_collection != blank %}
+              <li data-accordion data-no-autoscroll class="relative">
+                <button
+                  aria-label="Product Content"
+                  data-accordion-hover-trigger
+                  aria-expanded="false"
+                  aria-controls="product-content"
+                  class="group flex w-full items-center justify-center gap-4 aria-expanded:text-blue"
+                >
+                  {% render 'header-nav-icons', is_desktop: true %}
+
+                  <a href="{{ bundle_cta_url }}" aria-label="{{ bundle_title }}">
+                    <p class="fn-tt-sub-title-30 font-medium ">{{ bundle_title }}</p>
+                  </a>
+                </button>
+                <div
+                  data-accordion-content
+                  id="product-content"
+                  style="max-height: 0;"
+                  class="absolute -left-8 z-behind h-fit max-h-0 overflow-hidden bg-white transition-all duration-300 ease-in-out will-change-[max-width]"
+                >
+                  <div class="flex divide-x divide-black/15">
+                    {% for product in bundle_collection.products limit: 4 %}
+                      {% render 'product-card-small',
+                        product: product,
+                        bg_color: 'bg-white',
+                        isHeader: true,
+                        extra_classes: 'transition-all duration-300 ease-in-out min-w-248 hover:bg-blue/20 h-full'
+                      %}
+                    {% endfor %}
+                  </div>
+                  {% if bundle_cta != blank %}
+                    {% render 'cta',
+                      as: 'a',
+                      href: bundle_cta_url,
+                      text: bundle_cta,
+                      extra_classes: 'w-full',
+                      cta_color: 'orange',
+                      hasIcons: true,
+                      is_slim: true
+                    %}
+                  {% endif %}
+                </div>
+              </li>
+            {% endif %}
+
+            {% for link in menu_links %}
+              <li data-accordion class="relative">
+                {% unless link.links != blank %}<a href="{{ link.url }}">{% endunless %}
+                <button
+                  aria-label="Bundle Content"
+                  data-accordion-hover-trigger
+                  aria-expanded="false"
+                  aria-controls="content-{{ forloop.index0 }}"
+                  class="group flex w-full items-center justify-center gap-4 aria-expanded:text-blue"
+                >
+                  {% if link.links != blank %}
+                    {% render 'header-nav-icons', is_desktop: true %}
+                  {% endif %}
+                  <p class="fn-tt-sub-title-30 font-medium">{{ link.title }}</p>
+                </button>
+                {% unless link.links != blank %}</a>{% endunless %}
+                {% if link.links != blank %}
+                  <div
+                    data-accordion-content
+                    id="content-{{ forloop.index0 }}"
+                    style="max-height: 0;"
+                    class="absolute left-1/2 top-[calc(var(--total-navigation-height)-8px)] max-h-0 -translate-x-1/2 overflow-hidden border-l border-r border-black/15 bg-white transition-all duration-300 ease-in-out will-change-[max-width]"
+                  >
+                    <ul class="flex w-full flex-col border-b border-t border-black/15 ">
+                      {% for child_link in link.links -%}
+                        <li class="group whitespace-nowrap border-b border-black/15 last:border-b-0">
+                          {% render 'header-desktop-submenu-item', link: child_link.url, title: child_link.title %}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </navigation>
+      {% endif %}
+      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ">
+        <a href="/" aria-label="Index Page">
+          {% if logo %}
+            {{
+              logo
+              | image_url: width: logo.width
+              | image_tag: loading: 'lazy', sizes: '25vw', class: 'block', alt: site_name
+            }}
+          {% else %}
+            <span class="fn-tt-sub-title-30 font-medium">{{ site_name }}</span>
+          {% endif %}
+        </a>
+      </div>
+      <div class="flex items-center gap-x-24">
+        <div data-accordion class="relative">
+          <div>
+            <button
+              aria-label="Content"
+              data-accordion-hover-trigger
+              aria-expanded="false"
+              aria-controls="content-account"
+              class="group flex w-full items-center justify-center gap-4 aria-expanded:text-blue"
+            >
+              {% render 'header-nav-icons', is_desktop: true %}
+
+              <p class="fn-tt-sub-title-30 font-medium">Account</p>
+            </button>
+          </div>
+          <div
+            data-accordion-content
+            id="content-account"
+            style="max-height: 0;"
+            class="absolute left-1/2 max-h-0 -translate-x-1/2 overflow-hidden border-l border-r border-black/15 transition-all duration-300 ease-in-out will-change-[max-width]"
+          >
+            <ul class="flex w-full flex-col border-b border-t border-black/15 bg-white">
+              <li class="group whitespace-nowrap border-b border-black/15 last:border-b-0">
+                {% render 'header-desktop-submenu-item',
+                  link: '/tools/recurring/get-subscription-access',
+                  title: 'Manage Subscriptions'
+                %}
+              </li>
+              <li class="group whitespace-nowrap border-b border-black/15 last:border-b-0">
+                {% if customer %}
+                  {% render 'header-desktop-submenu-item', link: routes.account_logout_url, title: 'Log out' %}
+                {% else %}
+                  {% render 'header-desktop-submenu-item', link: routes.account_login_url, title: 'Wholesale Login' %}
+                {% endif %}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <button
+          aria-label="Open Cart"
+          class="flex items-center justify-center gap-4"
+          data-open-cart
+        >
+          <span class="sr-only">Cart</span>
+          <span class="fn-tt-sub-title-30 font-medium leading-none">Cart</span>
+
+          <span
+            class="fn-tt-body-10 mb-1 flex size-20 items-center justify-center rounded-full bg-blue/20 leading-none lg:size-24 lg:pt-1"
+            data-cart-count
+          >
+            {{- cart.item_count -}}
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</accordion-element>

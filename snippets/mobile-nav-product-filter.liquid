@@ -1,0 +1,50 @@
+{% assign collection_name = 'all-products' %}
+{% assign products_ = collections[collection_name].products %}
+
+<div
+  id="sticky-product-filter-nav"
+  class="group fixed top-[2.2rem] -z-10 max-h-[64px] w-full translate-y-[-100%] overflow-hidden border-b border-grey-DARK bg-grey-LIGHT opacity-0 transition-all duration-300 data-[visible='true']:z-50 data-[open='true']:max-h-[100%] data-[visible='true']:translate-y-0 data-[visible='true']:opacity-100 lg:hidden"
+>
+  <div class="flex items-start bg-grey-LIGHT">
+    <div class="flex w-full flex-col bg-grey-LIGHT" aria-label="Our Products">
+      {% for product in products_ %}
+        {% assign ingredients = product.metafields.custom.ingredients_list.value %}
+        {% if ingredients != null %}
+          <button
+            aria-label="Product"
+
+            class="product-button-sticky flex min-h-[64px] w-full border-r border-t border-grey-DARK bg-grey-LIGHT  transition-colors hover:bg-orange/15 data-[active='true']:order-[-1] data-[active='true']:bg-white"
+            data-product-id="{{ product.id }}"
+          >
+            <div class="fn-tt-body-10 flex items-center gap-8 p-8">
+              {% if product.featured_image %}
+                {{
+                  product.featured_image
+                  | image_url: width: product.featured_image.width
+                  | image_tag: loading: 'lazy', sizes: '15vw', class: 'aspect-1 w-[50px] lg:aspect-[85/64] lg:w-[85px]'
+                }}
+              {% endif %}
+              <div class="flex flex-col text-left">
+                <span>
+                  {{ product.title }}
+                </span>
+                <span class="text-black/60">
+                  {{ product.type }}
+                </span>
+              </div>
+            </div>
+          </button>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <button
+      aria-label="Product Filter"
+      id="toggle-product-filter-nav"
+      class="flex h-[65px] w-[65px] flex-shrink-0 items-center justify-center border-b border-grey-DARK bg-white"
+    >
+      {% render 'icon-caret',
+        class: "transition-transform rotate-180 group-data-[open='true']:scale-x-[1] group-data-[open='true']:scale-y-[-1]"
+      %}
+    </button>
+  </div>
+</div>

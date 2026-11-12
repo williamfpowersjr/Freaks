@@ -1,0 +1,90 @@
+{% schema %}
+{
+  "name": "404",
+  "tag": "section",
+  "presets": [
+    {
+      "name": "404",
+      "category": "404",
+      "settings": {
+        "title": "Lorem ipsum",
+        "copy": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+        "cta": "Lorem ipsum",
+        "cta_link": "/",
+        "cta_color": "black"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "copy",
+      "label": "Copy"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Cta Text"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Cta link",
+      "default": "/"
+    },
+    {
+      "type": "select",
+      "id": "cta_color",
+      "label": "Cta Color",
+      "options": [
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "black"
+    }
+  ]
+}
+{% endschema %}
+
+<div
+  class="flex min-h-[100svh] flex-col items-center justify-center whitespace-pre-wrap bg-orange  text-center"
+>
+  {% render 'title',
+    title: section.settings.title,
+    text_size: 'fn-tt-title-80',
+    extra_wrapper_classes: 'white-space-pre-wrap leading-[1.4] lg:leading-[1.2]'
+  %}
+  <p class="fn-tt-body-30 -mt-10 lg:mt-0 xl:max-w-[33rem]">
+    {{ section.settings.copy }}
+  </p>
+  {% if section.settings.cta %}
+    {% render 'cta',
+      as: 'a',
+      text: section.settings.cta,
+      href: section.settings.cta_link,
+      extra_classes: 'min-w-[140px] lg:min-w-[150px] lg:mt-10 lg:mb-20',
+      hasIcon: true,
+      extra_icon_classes: 'rotate-180',
+      cta_color: section.settings.cta_color
+    %}
+  {% endif %}
+</div>

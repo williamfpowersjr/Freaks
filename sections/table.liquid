@@ -1,0 +1,359 @@
+{% schema %}
+{
+  "name": "Table",
+  "tag": "section",
+  "class": "table-section",
+  "presets": [
+    {
+      "name": "Table",
+      "category": "Table",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Lorem ipsum",
+        "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+        "social_link": "https://www.instagram.com/",
+        "social_title": "Instagram",
+        "social_image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+        "cta_1": "Lorem ipsum",
+        "cta_1_link": "#",
+        "cta_1_color": "orange",
+        "cta_2": "Lorem ipsum",
+        "cta_2_link": "#",
+        "cta_2_color": "blue"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "social_link",
+      "label": "Social Link"
+    },
+    {
+      "type": "text",
+      "id": "social_title",
+      "label": "Social Title",
+      "info": "Will only show if link if Social Link is filled"
+    },
+    {
+      "type": "image_picker",
+      "id": "social_image",
+      "label": "Social Profile Image",
+      "info": "Will only show if link if Social Link is filled"
+    },
+    {
+      "type": "text",
+      "id": "cta_1",
+      "label": "Cta 1 Text"
+    },
+    {
+      "type": "url",
+      "id": "cta_1_link",
+      "label": "Cta link"
+    },
+    {
+      "type": "select",
+      "id": "cta_1_color",
+      "label": "Cta Color",
+      "options": [
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "blue"
+    },
+    {
+      "type": "text",
+      "id": "cta_2",
+      "label": "Cta 2 Text"
+    },
+    {
+      "type": "url",
+      "id": "cta_2_link",
+      "label": "Cta link"
+    },
+    {
+      "type": "select",
+      "id": "cta_2_color",
+      "label": "Cta Color",
+      "options": [
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "blue"
+    }
+  ]
+}
+{% endschema %}
+
+{% assign title = section.settings.title %}
+{% assign bg_color = section.settings.bg_color %}
+{% assign table_image = section.settings.image %}
+{% assign social_link = section.settings.social_link %}
+{% assign social_title = section.settings.social_title %}
+{% assign social_image = section.settings.social_image %}
+{% assign cta_1_text = section.settings.cta_1 %}
+{% assign cta_1_link = section.settings.cta_1_link %}
+{% assign cta_1_color = section.settings.cta_1_color %}
+{% assign cta_2_text = section.settings.cta_2 %}
+{% assign cta_2_link = section.settings.cta_2_link %}
+{% assign cta_2_color = section.settings.cta_2_color %}
+
+<div
+  id="table-section"
+  style="scroll-margin-top: var(--header-height)"
+  class="border-t border-black/15 py-40 lg:py-80 {{ bg_color }}"
+>
+  {% if title != blank %}
+    <div class="w-full overflow-hidden pb-40 lg:pb-80">
+      {% render 'title',
+        title: title,
+        text_size: 'fn-tt-title-70',
+        extra_wrapper_classes: 'overflow-hidden text-center {{ bg_color }}',
+        bg_lines: 'bg-grey-lines',
+        extra_text_classes: 'lg:w-[750px] lg:mx-auto !-mb-3 lg:!-mb-6'
+      %}
+    </div>
+  {% endif %}
+
+  <div
+    class="lg:grid lg:grid-cols-3 lg:px-40"
+  >
+    <div class="px-24 lg:p-0">
+      {% if table_image != blank %}
+        <div class="relative aspect-[4/5] w-full overflow-hidden lg:aspect-[unset] lg:h-full lg:min-h-512 ">
+          {{
+            table_image
+            | image_url: width: table_image.width
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 1024px) 50vw, 100vw',
+              class: 'w-full h-full object-cover absolute inset-0 z-0'
+          }}
+          {% if social_link != blank %}
+            <a
+              href="{{ social_link.url }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group absolute bottom-24 left-24 flex w-fit items-center justify-center gap-x-8"
+            >
+              {% if social_image != blank %}
+                <div class="relative aspect-square h-28 overflow-hidden rounded-full">
+                  {{
+                    social_image
+                    | image_url: width: social_image.width
+                    | image_tag: loading: 'lazy', sizes: '20vw', class: 'size-full object-cover absolute inset-0 '
+                  }}
+                </div>
+              {% endif %}
+              <p class="fn-tt-body-10 font-medium text-white transition-opacity duration-300 ease-in-out lg:group-hover:opacity-[0.8]">
+                {{ social_title }}
+              </p>
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+    <div class="pt-24 lg:col-span-2 lg:col-start-2 lg:py-0 lg:pl-40 lg:pr-0 ">
+      <table class="w-full table-fixed border-collapse content-center border-t border-black/15">
+        <thead>
+          <tr class="bg-gray-100 table-row">
+            <th></th>
+            <th class="fn-tt-cta-20 lg:fn-tt-sub-title-40 py-24 text-center font-medium uppercase leading-[120%] lg:px-24 lg:py-16">
+              Freak
+            </th>
+            <th class="fn-tt-cta-20 lg:fn-tt-sub-title-40 py-24 text-center font-medium uppercase leading-[120%] lg:px-24 lg:py-16">
+              Freak Ambassador
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-t border-black/15">
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 pl-16 font-medium text-black lg:py-24 lg:font-normal">
+              <p class="font-medium lg:font-normal">Admission</p>
+            </td>
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 px-8 py-24 text-center font-medium text-black lg:py-16 lg:font-normal">
+              <p class="font-medium text-orange lg:font-normal">Open Entry</p>
+            </td>
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 px-8 py-24 text-center font-medium text-black lg:py-16 lg:font-normal lg:text-black">
+              <p class="font-medium text-blue lg:font-normal">Application Based</p>
+            </td>
+          </tr>
+          {% comment %} ROW 1 {% endcomment %}
+          <tr class="border-t border-black/15">
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 py-8 pl-16 font-medium text-black lg:py-24 lg:font-normal">
+              <p>Points for purchases</p>
+            </td>
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 px-8 py-24 text-center font-medium lg:py-16 lg:font-normal">
+              {% render 'table-checkpoint', checked: true, orange: true %}
+            </td>
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 px-8 py-24 text-center font-medium lg:py-16 lg:font-normal">
+              {% render 'table-checkpoint', checked: true %}
+            </td>
+          </tr>
+          {% comment %} ROW 2 {% endcomment %}
+          <tr class="border-t border-black/15">
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 py-8 pl-16 font-medium text-black lg:py-24 lg:font-normal">
+              <p>Early access to launches</p>
+            </td>
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 px-8 py-24 text-center font-medium lg:py-16 lg:font-normal ">
+              {% render 'table-checkpoint', checked: true, orange: true %}
+            </td>
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 px-8 py-24 text-center font-medium lg:py-16 lg:font-normal ">
+              {% render 'table-checkpoint', checked: true %}
+            </td>
+          </tr>
+          {% comment %} ROW 3 {% endcomment %}
+          <tr class="border-t border-black/15">
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 py-8 pl-16 font-medium text-black lg:py-24 lg:font-normal">
+              <p>Product giveaways</p>
+            </td>
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 px-8 py-24 text-center font-medium lg:py-16 lg:font-normal ">
+              {% render 'table-checkpoint', checked: true, orange: true %}
+            </td>
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 px-8 py-24 text-center font-medium lg:py-16 lg:font-normal ">
+              {% render 'table-checkpoint', checked: true %}
+            </td>
+          </tr>
+          {% comment %} ROW 4 {% endcomment %}
+          <tr class="border-t border-black/15">
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 py-8 pl-16 font-medium text-black lg:py-24 lg:font-normal">
+              <p>Complete challenges and earn rewards for discounts on our website</p>
+            </td>
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 px-8 py-24 text-center font-medium lg:py-16 lg:font-normal ">
+              {% render 'table-checkpoint', checked: true, orange: true %}
+            </td>
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 px-8 py-24 text-center font-medium lg:py-16 lg:font-normal ">
+              {% render 'table-checkpoint', checked: true %}
+            </td>
+          </tr>
+          {% comment %} ROW 5 {% endcomment %}
+          <tr class="border-t border-black/15">
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 py-8 pl-16 font-medium text-black lg:py-24 lg:font-normal">
+              <p>Stipend to pursue freak pursuits</p>
+            </td>
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 px-8 py-24 text-center font-medium lg:py-16 lg:font-normal ">
+              {% render 'table-checkpoint', checked: false %}
+            </td>
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 px-8 py-24 text-center font-medium lg:py-16 lg:font-normal ">
+              {% render 'table-checkpoint', checked: true %}
+            </td>
+          </tr>
+          {% comment %} ROW 6 {% endcomment %}
+          <tr class="border-t border-black/15">
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 py-8 pl-16 font-medium text-black lg:py-24 lg:font-normal">
+              <p>First access to events</p>
+            </td>
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 px-8 py-24 text-center font-medium lg:py-16 lg:font-normal">
+              {% render 'table-checkpoint', checked: false %}
+            </td>
+            <td class="lg:fn-tt-body-20 fn-tt-body-10 px-8 py-24 text-center font-medium lg:py-16 lg:font-normal">
+              {% render 'table-checkpoint', checked: true %}
+            </td>
+          </tr>
+          {% comment %} ROW 7 {% endcomment %}
+          <tr class="table-row border-t border-black/15">
+            <td
+              class="px-8 lg:px-8 lg:py-12"
+            ></td>
+            <td
+              class="py-8 pl-8 pr-4 text-center lg:px-8  lg:py-12"
+            >
+              {% if cta_1_link != blank %}
+                <a
+                  href="{{ cta_1_link.url }}"
+                  aria-label="{{ cta_1_text }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {% render 'cta',
+                    as: 'button',
+                    text: cta_1_text,
+                    extra_classes: 'w-full',
+                    hasIcons: true,
+                    cta_color: cta_1_color,
+                    extra_icon_classes: 'hidden lg:block'
+                  %}
+                </a>
+              {% endif %}
+            </td>
+            <td
+              class="py-8 pl-4 pr-8 text-center lg:px-8 lg:py-12"
+            >
+              {% if cta_2_link != blank %}
+                <a
+                  href="{{ cta_2_link.url }}"
+                  aria-label="{{ cta_2_text }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {% render 'cta',
+                    as: 'button',
+                    text: cta_2_text,
+                    extra_classes: 'w-full',
+                    hasIcons: true,
+                    cta_color: cta_2_color,
+                    extra_icon_classes: 'hidden lg:block'
+                  %}
+                </a>
+              {% endif %}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "parent": "header-group.json",
+  "context": {
+    "market": "australia"
+  },
+  "sections": {
+    "header": {
+      "settings": {},
+      "blocks": {
+        "announcement_zriCAx": {
+          "disabled": false,
+          "settings": {
+            "announcement_text": "FREE SHIPPING ON ALL ORDERS OVER $110"
+          }
+        },
+        "announcement_bjX4d": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "announcement_text": "INTRODUCING <a href=\"/products/skin-support-electrolyte\" title=\"Skin Support Electrolyte\">SKIN SUPPORT ELECTROLYTE</a>"
+          }
+        },
+        "announcement_FdQEN": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "announcement_text": "BLACK FRIDAY: UP TO 30% OFF & FREE GIFT OVER $125"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_zriCAx",
+        "announcement_bjX4d",
+        "announcement_FdQEN",
+        "announcement_E83pFM",
+        "mobile_subnavigation_item_f9yeAn",
+        "mobile_subnavigation_item_KRnA86",
+        "mobile_subnavigation_item_fctPiG",
+        "mobile_subnavigation_item_qCL7LX"
+      ]
+    },
+    "17314165753ff41c46": {
+      "disabled": false,
+      "settings": {},
+      "blocks": {}
+    }
+  }
+}

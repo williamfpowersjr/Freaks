@@ -1,0 +1,331 @@
+{% schema %}
+{
+  "name": "Ambassador Benefits (CTR)",
+  "tag": "section",
+  "class": "ctr-ambassador-benefits-section",
+  "presets": [
+    {
+      "name": "Ambassador Benefits (CTR)",
+      "category": "Ambassador",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Exclusive Discount Code",
+            "description": "Earn commissions on sales when you share a personalized link with your community."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Product Drops",
+            "description": "Get early access to new launches, limited releases, and upcoming campaigns."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Community Events",
+            "description": "Invitations to Freaks of Nature events, activations, and community experiences."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Social Features",
+            "description": "Opportunities to be featured across Freaks of Nature social channels and campaigns."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Athlete + Creator Opportunities",
+            "description": "Potential collaborations for paid partnerships, content campaigns, and brand initiatives."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Insider Access",
+            "description": "Direct connection with the Freaks team and feedback opportunities on future products."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Built for the Active",
+            "description": "Join a community centered around movement, adventure, travel, and skincare that performs outdoors."
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Ambassador Program Perks"
+    },
+    {
+      "type": "text",
+      "id": "heading_mobile",
+      "label": "Heading (mobile)",
+      "info": "Optional. Falls back to desktop heading when blank."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f0ede7"
+    },
+    {
+      "type": "color",
+      "id": "cta_cell_background",
+      "label": "CTA cell background",
+      "default": "#ede4d1"
+    },
+    {
+      "type": "image_picker",
+      "id": "cta_logo",
+      "label": "CTA cell logo"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "Apply Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link"
+    },
+    {
+      "type": "checkbox",
+      "id": "cta_open_new_tab",
+      "label": "Open CTA in new tab",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top (desktop)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom (desktop)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top (mobile)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom (mobile)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "limit": 7,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "range",
+          "id": "mobile_grid_order",
+          "label": "Mobile grid order",
+          "info": "Controls tile order below 1024px. Desktop order follows block list.",
+          "min": 1,
+          "max": 7,
+          "step": 1,
+          "default": 1
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div
+  class="ctr-ambassador-benefits flex flex-col items-center gap-20 px-20 lg:px-40"
+  style="
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  <style>
+    #shopify-section-{{ section.id }} .ctr-ambassador-benefits__grid {
+      display: grid;
+    }
+
+    #shopify-section-{{ section.id }} .ctr-ambassador-benefits__cell {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #shopify-section-{{ section.id }} .ctr-ambassador-benefits__cell h3,
+    #shopify-section-{{ section.id }} .ctr-ambassador-benefits__cell p {
+      margin: 0;
+    }
+
+    #shopify-section-{{ section.id }} .ctr-ambassador-benefits__heading {
+      font-family: "Alliance Neue", sans-serif;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1;
+    }
+
+    #shopify-section-{{ section.id }} .ctr-ambassador-benefits__cell h3 {
+      font-family: "Alliance Text", sans-serif;
+      font-weight: 500;
+    }
+
+    #shopify-section-{{ section.id }} .ctr-ambassador-benefits__cell p {
+      font-family: "Alliance Text", sans-serif;
+      font-weight: 400;
+    }
+
+    @media (max-width: 1023.98px) {
+      #shopify-section-{{ section.id }} .ctr-ambassador-benefits__grid > .ctr-ambassador-benefits__cell {
+        order: var(--ctr-ab-mobile-order, 0);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      #shopify-section-{{ section.id }}.ctr-ambassador-benefits {
+        padding-top: {{ section.settings.padding_top_desktop }}px;
+        padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+      }
+
+      #shopify-section-{{ section.id }} .ctr-ambassador-benefits__grid > .ctr-ambassador-benefits__cell {
+        order: unset;
+      }
+    }
+  </style>
+
+  {% if section.settings.heading != blank %}
+    <div class="w-full border-y border-black/15 py-8 text-center">
+      <h2 class="ctr-ambassador-benefits__heading fn-tt-title-70 lg:fn-tt-title-60 font-neue uppercase text-black">
+        {% if section.settings.heading_mobile != blank %}
+          <span class="lg:hidden">{{ section.settings.heading_mobile }}</span>
+          <span class="hidden lg:inline">{{ section.settings.heading }}</span>
+        {% else %}
+          {{ section.settings.heading }}
+        {% endif %}
+      </h2>
+    </div>
+  {% endif %}
+
+  {% if section.blocks.size > 0 or section.settings.cta_text != blank %}
+    <div class="ctr-ambassador-benefits__grid grid w-full grid-cols-2 border-l border-t border-black/15 lg:grid-cols-4">
+      {% for block in section.blocks %}
+        {% if block.type == 'benefit' %}
+          <article
+            class="ctr-ambassador-benefits__cell flex flex-col gap-12 border-b border-r border-black/15 px-9 py-13 lg:gap-24 lg:p-17"
+            style="--ctr-ab-mobile-order: {{ block.settings.mobile_grid_order | default: forloop.index }};"
+            {{ block.shopify_attributes }}
+          >
+            {% if block.settings.icon != blank %}
+              {{
+                block.settings.icon
+                | image_url: width: 168
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '54, 84, 168',
+                  sizes: '(min-width: 1024px) 84px, 54px',
+                  class: 'size-54 shrink-0 object-contain lg:size-84',
+                  alt: block.settings.title
+              }}
+            {% endif %}
+
+            <div class="flex flex-col gap-8 text-black">
+              {% if block.settings.title != blank %}
+                <h3 class="fn-tt-body-20 lg:fn-tt-sub-title-30 font-medium">
+                  {{ block.settings.title }}
+                </h3>
+              {% endif %}
+
+              {% if block.settings.description != blank %}
+                <p class="fn-tt-body-10 lg:fn-tt-body-10">
+                  {{ block.settings.description }}
+                </p>
+              {% endif %}
+            </div>
+          </article>
+        {% endif %}
+      {% endfor %}
+
+      {% if section.settings.cta_text != blank and section.settings.cta_link != blank %}
+        <div
+          class="ctr-ambassador-benefits__cell flex min-h-[187px] flex-col items-center justify-center gap-12 border-b border-r border-black/15 px-9 py-13 lg:min-h-0 lg:gap-12 lg:p-17"
+          style="--ctr-ab-mobile-order: 8; background-color: {{ section.settings.cta_cell_background }};"
+        >
+          {% if section.settings.cta_logo != blank %}
+            {{
+              section.settings.cta_logo
+              | image_url: width: 232
+              | image_tag:
+                loading: 'lazy',
+                widths: '64, 116, 232',
+                sizes: '(min-width: 1024px) 116px, 64px',
+                class: 'aspect-square w-64 shrink-0 object-contain lg:w-116',
+                alt: ''
+            }}
+          {% endif %}
+
+          <a
+            href="{{ section.settings.cta_link }}"
+            class="fn-tt-cta-20 flex items-center gap-18 border-b border-blue px-8 py-8 uppercase text-blue"
+            {% if section.settings.cta_open_new_tab %}
+              target="_blank"
+              rel="noopener noreferrer"
+            {% endif %}
+          >
+            <span>{{ section.settings.cta_text }}</span>
+            {% render 'icon-thick-small-arrow', class: 'w-12 shrink-0 lg:w-14' %}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>

@@ -1,0 +1,40 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+      }
+    },
+    "title_EBFTUP": {
+      "type": "title",
+      "settings": {
+        "bg_color": "orange",
+        "title": "test"
+      }
+    },
+    "builder_system_WaEKaU": {
+      "type": "builder-system",
+      "settings": {
+        "title": "",
+        "description": "",
+        "cta": "",
+        "cta_link": "",
+        "cta_color": "blue"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "title_EBFTUP",
+    "builder_system_WaEKaU"
+  ]
+}

@@ -1,0 +1,388 @@
+{% schema %}
+{
+  "name": "Info Blocks",
+  "tag": "section",
+  "class": "info-blocks-section",
+  "presets": [
+    {
+      "name": "Info Blocks",
+      "category": "Info Blocks",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Lorem ipsum",
+        "cta": "Lorem ipsum",
+        "cta_link": "#",
+        "cta_color": "blue"
+      },
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "icon": "shopify://shop_images/Bassilicus_x_Shark_bc01bcbc-801c-4001-b45c-6e749825c547.svg",
+            "title": "Lorem ipsum",
+            "description": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>",
+            "collection_caption": "Lorem ipsum",
+            "collection": "all-products"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Cta Text"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Cta link"
+    },
+    {
+      "type": "select",
+      "id": "cta_color",
+      "label": "Cta Color",
+      "options": [
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "blue"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+          "info": "If you add a video, it will be shown. If you want to have a still image, leave the video field blank."
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_mute",
+          "label": "Hide Mute",
+          "info": "Check on if you would like to hide the mute/unmute control button for the video.",
+          "default": false
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "collection_caption",
+          "label": "Collection Caption"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection",
+          "info": "Will be limited to the first 3 products of the selected collection."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<info-block-element>
+  <div class="relative flex flex-col {{ section.settings.bg_color }} h-[var(--split-section-height)]">
+    <div class="w-full flex-none py-40 lg:py-80">
+      {% render 'title',
+        title: section.settings.title,
+        text_size: 'fn-tt-title-70',
+        bg_color: section.settings.bg_color,
+        border_color: 'border-black/15',
+        extra_wrapper_classes: 'text-center px-24 lg:px-16 overflow-hidden',
+        bg_lines: 'bg-grey-lines',
+        extra_text_classes: '!leading-[0.98]'
+      %}
+    </div>
+
+    <div class="flex flex-1 flex-col overflow-hidden lg:flex-row" data-accordion data-no-autoscroll>
+      <div class="flex max-h-full flex-col lg:w-1/2 lg:border-r lg:border-black/15 ">
+        {% for block in section.blocks %}
+          {% if block.type == 'item' %}
+            {% assign item_title = block.settings.title %}
+            {% assign item_description = block.settings.description %}
+            {% assign item_collection_caption = block.settings.collection_caption %}
+            {% assign item_collection = block.settings.collection %}
+            {% assign item_image = block.settings.image %}
+            {% assign item_video = block.settings.video %}
+            {% assign hide_mute = block.settings.hide_mute %}
+            {% assign item_icon = block.settings.icon %}
+            {% assign is_first = forloop.first %}
+
+            <button
+              aria-label="Info {{ forloop.index }}"
+              data-accordion-trigger
+              aria-expanded="{{ is_first }}"
+              aria-controls="content-{{ forloop.index0 }}"
+              class="group flex w-full scroll-m-[var(--total-navigation-height)] items-center gap-8 border-t border-black/15 px-24 py-24 text-left lg:min-h-88 lg:gap-32 lg:px-0 lg:py-0"
+            >
+              <div
+                data-accordion-indicator-center
+                class="h-8 w-8 rounded-full {% if is_first %}bg-blue{% else %}bg-blue/40{% endif %} lg:hidden"
+              ></div>
+              <div class="relative lg:pl-40">
+                <h3
+                  data-title
+                  class="fn-tt-title-30 transition-opacity duration-300 ease-in-out lg:pl-40 {% unless is_first %}opacity-60 group-hover:opacity-100{% endunless %}"
+                >
+                  <div
+                    data-accordion-indicator-circle
+                    class="hidden lg:absolute lg:left-40 lg:top-8 lg:flex lg:h-16 lg:w-16 lg:items-center lg:justify-center lg:rounded-full lg:bg-blue/20"
+                  >
+                    <div
+                      data-accordion-indicator-center
+                      class="lg:h-8 lg:w-8 lg:rounded-full {% if is_first %}bg-blue{% else %}bg-blue/40{% endif %}"
+                    ></div>
+                  </div>
+                  {{ item_title }}
+                </h3>
+              </div>
+            </button>
+
+            <div
+              data-accordion-content
+              class="lg:no-scrollbar delay-550 flex h-full flex-col overflow-hidden transition-[max-height] ease-out will-change-[max-height] lg:overflow-y-scroll "
+              id="content-{{ forloop.index0 }}"
+              {% if is_first %}
+                style="max-height: 100%;"
+              {% else %}
+                style="max-height: 0;"
+              {% endif %}
+            >
+              <div class="flex h-auto flex-1 flex-col justify-between gap-24 px-24 lg:gap-0 lg:px-40">
+                {% comment %} mobile image starts here {% endcomment %}
+                <div class="relative overflow-hidden lg:hidden">
+                  {% if item_icon != blank %}
+                    <div
+                      class="absolute bottom-0 left-0 z-10 flex h-48 w-48 items-center justify-center border-b border-l border-black/15 text-black {{ section.settings.bg_color}}"
+                    >
+                      {{
+                        item_icon
+                        | image_url: width: item_icon.width
+                        | image_tag: loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', class: 'w-48 h-48'
+                      }}
+                    </div>
+                  {% endif %}
+                  <div
+                    class="aspect-[1.3] overflow-hidden"
+                  >
+                    {% if item_image != blank %}
+                      {% if item_video == blank %}
+                        {{
+                          item_image
+                          | image_url: width: item_image.width
+                          | image_tag:
+                            loading: 'lazy',
+                            sizes: '(min-width: 1024px) 50vw, 100vw',
+                            class: 'w-full h-full object-cover absolute inset-0'
+                        }}
+                      {% endif %}
+                    {% endif %}
+                    {% if item_video != blank %}
+                      <video-element data-video-id="video-{{ forloop.index }}">
+                        {% assign preview_image = item_video.preview_image.src | image_url: width: 1000 %}
+
+                        {% render 'lazy-video',
+                          video: item_video,
+                          class: 'w-full h-full object-cover absolute inset-0',
+                          poster: preview_image
+                        %}
+
+                        {% render 'video-controls',
+                          hide_mute: hide_mute,
+                          icons_class: 'absolute w-fit m-16 top-0 right-0 z-100',
+                          data_video_id: 'video-{{ forloop.index }}'
+                        %}
+                      </video-element>
+                    {% endif %}
+                  </div>
+                </div>
+
+                {% comment %} mobile image ends here {% endcomment %}
+
+                <p class="fn-tt-body-20 h-auto flex-1 lg:px-40 lg:pr-40">
+                  {{ item_description }}
+                </p>
+
+                {% if item_collection != blank %}
+                  {% assign collection = collections[item_collection] %}
+
+                  <div class="flex flex-col gap-16 lg:pl-40 lg:pt-24">
+                    <p class="fn-tt-caption">
+                      {{ item_collection_caption }}
+                    </p>
+                    <div class="mb-24 flex flex-col flex-wrap gap-4 lg:flex-row lg:gap-8">
+                      {% for product in collection.products limit: 3 %}
+                        {% unless product.tags contains 'price_test' %}
+                          <div class="lg:max-w-[calc(50% - 0.8rem)] ">
+                            {% render 'product-card-mini',
+                              product: product,
+                              extra_classes: 'flex-1 w-full lg:w-fit',
+                              bg_color: 'bg-white'
+                            %}
+                          </div>
+                        {% endunless %}
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% comment %} desktop media starts here {% endcomment %}
+      <div class="group/item hidden lg:relative lg:block lg:h-full lg:w-1/2 lg:border-t lg:border-black/15">
+        {% for block in section.blocks %}
+          {% if block.type == 'item' %}
+            {% assign item_image = block.settings.image %}
+            {% assign item_video = block.settings.video %}
+            {% assign hide_mute = block.settings.hide_mute %}
+            {% assign item_icon = block.settings.icon %}
+            {% assign is_first = forloop.first %}
+
+            <div
+              data-accordion-desktop-media
+              id="content-{{ forloop.index0 }}"
+              class="transition-opacity delay-[10ms] duration-300 ease-in-out lg:absolute lg:h-full lg:w-full lg:overflow-hidden"
+            >
+              {% if item_icon != blank %}
+                <div
+                  class="z-10 border-r lg:absolute lg:left-0 lg:top-0 lg:flex lg:h-88 lg:w-88 lg:items-center lg:justify-center lg:overflow-hidden lg:border-b lg:border-black/15 {{ section.settings.bg_color}} lg:text-black"
+                >
+                  {{
+                    item_icon
+                    | image_url: width: item_icon.width
+                    | image_tag: loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', class: 'lg:w-72 lg:h-72'
+                  }}
+                </div>
+              {% endif %}
+              <div
+                class="lg:absolute lg:h-full lg:w-full lg:overflow-hidden"
+              >
+                {% if item_image != blank %}
+                  {% if item_video == blank %}
+                    {{
+                      item_image
+                      | image_url: width: item_image.width
+                      | image_tag:
+                        loading: 'lazy',
+                        sizes: '(min-width: 1024px) 50vw, 100vw',
+                        class: 'accordion-media w-full h-full object-cover absolute inset-0'
+                    }}
+                  {% endif %}
+                {% endif %}
+
+                {% if item_video != blank %}
+                  <video-element>
+                    {% assign preview_image = item_video.preview_image.src | image_url: width: 1000 %}
+
+                    {% render 'lazy-video',
+                      video: item_video,
+                      class: 'accordion-media w-full h-full object-cover absolute inset-0 z-0',
+                      poster: preview_image
+                    %}
+
+                    <div class="transition-opacity duration-300 ease-in-out lg:opacity-0 lg:group-hover/item:opacity-100">
+                      {% render 'video-controls',
+                        hide_mute: hide_mute,
+                        icons_class: 'absolute w-fit m-16 top-0 right-0'
+                      %}
+                    </div>
+                  </video-element>
+                {% endif %}
+              </div>
+              {% if section.settings.cta != blank %}
+                <a href="{{ section.settings.cta_link }}" aria-label="{{ section.settings.cta }}">
+                  <div class="p-24 lg:absolute lg:bottom-0 lg:left-0 lg:w-full">
+                    {% render 'cta',
+                      as: 'button',
+                      text: section.settings.cta,
+                      extra_classes: 'w-full z-10',
+                      hasIcons: true,
+                      cta_color: section.settings.cta_color
+                    %}
+                  </div>
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% comment %} desktop media ends here {% endcomment %}
+    </div>
+    {% if section.settings.cta != blank %}
+      <a href="{{ section.settings.cta_link }}" aria-label="{{ section.settings.cta }}">
+        <div class="w-full border-t border-black/15 p-24 lg:hidden">
+          {% render 'cta',
+            as: 'button',
+            text: section.settings.cta,
+            extra_classes: 'w-full',
+            hasIcons: true,
+            cta_color: section.settings.cta_color
+          %}
+        </div>
+      </a>
+    {% endif %}
+  </div>
+</info-block-element>

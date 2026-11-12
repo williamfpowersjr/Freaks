@@ -1,0 +1,113 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "title_EBFTUP": {
+      "type": "title",
+      "settings": {
+        "bg_color": "orange",
+        "title": "test",
+        "has_margin": false,
+        "text_align": "left"
+      }
+    },
+    "builder_system_WaEKaU": {
+      "type": "builder-system",
+      "settings": {
+        "hide_mute": false,
+        "title": "",
+        "description": "",
+        "cta": "",
+        "cta_link": "",
+        "cta_color": "blue"
+      }
+    },
+    "results_mbAzFn": {
+      "type": "results",
+      "blocks": {
+        "result_nxYyRd": {
+          "type": "result",
+          "settings": {
+            "card_color": "blue",
+            "percentage": "50%",
+            "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+            "routine_title": "Lorem ipsum",
+            "testimonial_name": "Lorem ipsum"
+          }
+        },
+        "result_ci8j3x": {
+          "type": "result",
+          "settings": {
+            "card_color": "white",
+            "percentage": "100%",
+            "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+            "routine_title": "Title",
+            "testimonial_name": "Testimonial Name",
+            "before": "shopify://shop_images/Screenshot_2024-11-14_at_1.30.38_PM.png",
+            "after": "shopify://shop_images/Screenshot_2024-11-14_at_1.29.22_PM.png"
+          }
+        },
+        "result_bUeKi8": {
+          "type": "result",
+          "settings": {
+            "card_color": "orange",
+            "percentage": "100%",
+            "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+            "routine_title": "Lorem ipsum",
+            "testimonial_name": "Lorem ipsum"
+          }
+        },
+        "result_6jLXR3": {
+          "type": "result",
+          "settings": {
+            "card_color": "orange",
+            "percentage": "1%",
+            "text": "Test",
+            "routine_title": "",
+            "testimonial_name": ""
+          }
+        },
+        "result_j6tzCt": {
+          "type": "result",
+          "settings": {
+            "card_color": "white",
+            "percentage": "",
+            "text": "YES",
+            "routine_title": "",
+            "testimonial_name": "",
+            "before": "shopify://shop_images/Freaks-of-Nature-Gift-Card-50-_Compressify.io.jpg",
+            "after": "shopify://shop_images/1_8bda08eb-fb9a-4663-bb27-47bd8eb8d8c6.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "result_nxYyRd",
+        "result_ci8j3x",
+        "result_bUeKi8",
+        "result_6jLXR3",
+        "result_j6tzCt"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Lorem ipsum"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "title_EBFTUP",
+    "builder_system_WaEKaU",
+    "results_mbAzFn"
+  ]
+}

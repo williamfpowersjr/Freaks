@@ -1,0 +1,208 @@
+{{ 'AllianceNeue-Regular.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+{{ 'AllianceText-Regular.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+{{ 'AllianceText-Medium.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+<style>
+    @font-face {
+      font-family: 'Alliance Neue';
+      src: url({{'AllianceNeue-Regular.woff2'|asset_url}}) format('woff2'),
+        url({{'AllianceNeue-Regular.woff'|asset_url}}) format('woff');
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Alliance Text';
+      src: url({{'AllianceText-Regular.woff2'|asset_url}}) format('woff2'),
+        url({{'AllianceText-Regular.woff'|asset_url}}) format('woff');
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Alliance Text';
+      src: url({{'AllianceText-Medium.woff2'|asset_url}}) format('woff2'),
+        url({{'AllianceText-Medium.woff'|asset_url}}) format('woff');
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Alliance Platt';
+      src: url('https://cdn.shopify.com/s/files/1/0860/8035/6657/files/Alliance-PlattMedium.otf?v=1793633270') format('opentype');
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Alliance Platt';
+      src: url('https://cdn.shopify.com/s/files/1/0860/8035/6657/files/Alliance-PlattSemiBold.otf?v=1793633707') format('opentype');
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+
+    :root {
+      --subnavigation-bar-height: 0px;
+      --lines-interval: calc(1em - .5px);
+      --swiper-scrollbar-drag-bg-color: var(--tw-color-black);
+      --swiper-scrollbar-bg-color: rgba(34, 32, 47, 0.16);
+      --coming-soon-section-height: calc(100svh - var(--menu-bar-height) + 1px);
+      --coming-soon-section-height: calc(100dvh - var(--menu-bar-height) + 1px);
+    }
+
+    :root:has(#mobile-subnavigation) {
+        --subnavigation-bar-height: 40px;
+      }
+  :root[data-scroll-direction='down']:has(#mobile-subnavigation) {
+        --subnavigation-bar-height: 0px;
+      }
+
+    @media (min-width: 1024px) {
+      :root {
+        --coming-soon-section-height: calc(100svh - var(--menu-bar-height) + 1px);
+      }
+              :root:has(#mobile-subnavigation) {
+        --subnavigation-bar-height: 0px;
+      }
+    }
+
+    body.sticky-add-to-cart-button-visible .sticky-add-to-cart-button {
+    transform: translateY(0%);
+  }
+
+    {% if request.design_mode %}
+      #mayple-multi-modal {
+        display: none !important;
+      }
+
+      body {
+        overflow: visible !important;
+      }
+    {% endif %}
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
+
+{% comment %} ANNOUNCEMENT BAR {% endcomment %}
+
+{% if settings.show_announcement == true %}
+  {% style %}
+    :root {
+      --announcement-bar-height: 32px;
+      --menu-bar-height: 40px;
+      --header-height: calc(var(--announcement-bar-height) + var(--menu-bar-height) + var(--subnavigation-bar-height));
+      --total-navigation-height: calc(var(--menu-bar-height) + var(--subnavigation-bar-height));
+      --section-height: calc(100svh - var(--header-height));
+      --split-section-height: fit-content;
+    }
+    html {
+      --dynamic-header-height: var(--menu-bar-height);
+    }
+    html:not([data-scrolled='true']) {
+      --dynamic-header-height: calc(var(--announcement-bar-height) + var(--menu-bar-height));
+    }
+    .menu-bar--offset {
+      padding-top: 0;
+    }
+
+    @media (min-width: 1024px) {
+      :root {
+        --announcement-bar-height: 18px;
+        --section-height: calc(100svh - var(--header-height));
+        --split-section-height: calc(100svh - var(--announcement-bar-height));
+        --top-split-section-height: calc(100svh - var(--header-height));
+      }
+    }
+    .menu-bar--offset {
+      padding-top: calc(var(--header-height) - 2px);
+    }
+  {% endstyle %}
+
+  {% unless request.path contains '/products' %}
+    {% style %}
+      main > wlm > .shopify-section:first-of-type {
+        padding-top: calc(var(--header-height) - 2px);
+      }
+    {% endstyle %}
+  {% endunless %}
+  {% if request.path contains '/policies' %}
+    {% style %}
+      main > wlm > div:first-of-type {
+        padding-top: calc(var(--header-height) - 2px);
+      }
+    {% endstyle %}
+  {% endif %}
+{% else %}
+  {% style %}
+    :root {
+      --announcement-bar-height: 0px;
+      --menu-bar-height: 40px;
+      --header-height: calc(var(--announcement-bar-height) + var(--menu-bar-height));
+      --section-height: calc(100svh - var(--announcement-bar-height));
+      --split-section-height: fit-content;
+    }
+
+    .menu-bar--offset {
+      padding-top: 0;
+    }
+
+    @media (min-width: 1024px) {
+      :root {
+        --section-height: calc(100svh - var(--announcement-bar-height));
+        --split-section-height: calc(100svh - var(--announcement-bar-height));
+      }
+
+      .menu-bar--offset {
+        padding-top: calc(var(--menu-bar-height) - 2px);
+      }
+    }
+  {% endstyle %}
+  {% unless request.path contains '/products' %}
+    {% style %}
+      main > wlm > section:first-of-type {
+        padding-top: calc(var(--menu-bar-height) - 2px);
+      }
+    {% endstyle %}
+  {% endunless %}
+  {% unless request.path contains '/products' %}
+    {% style %}
+      main > wlm > section:first-of-type {
+        padding-top: calc(var(--menu-bar-height) - 2px);
+      }
+    {% endstyle %}
+  {% endunless %}
+  {% if request.path contains '/policies' %}
+    {% style %}
+      main > wlm > div:first-of-type {
+        padding-top: calc(var(--menu-bar-height) - 2px);
+      }
+    {% endstyle %}
+  {% endif %}
+{% endif %}
+
+{% if request.path contains '/password' %}
+  {% style %}
+    :root {
+      --announcement-bar-height: 0;
+    }
+  {% endstyle %}
+{% endif %}
+
+{% if request.path contains '/recurring' %}
+  {% render 'recurring-styles' %}
+{% endif %}

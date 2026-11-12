@@ -1,0 +1,246 @@
+{{ 'ctr-as-seen-in.css' | asset_url | stylesheet_tag }}
+
+<section
+  id="shopify-section-{{ section.id }}"
+  class="ctr-as-seen-in"
+  style="
+    --ctr-as-seen-in-bg: {% if section.settings.background_gradient != blank %}{{ section.settings.background_gradient }}{% else %}{{ section.settings.background_color }}{% endif %};
+    --ctr-as-seen-in-panel-bg: {{ section.settings.panel_background }};
+    --ctr-as-seen-in-text-color: {{ section.settings.text_color }};
+    --ctr-as-seen-in-border-color: {{ section.settings.border_color }};
+    --ctr-as-seen-in-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-as-seen-in-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-as-seen-in-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-as-seen-in-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  <div class="ctr-as-seen-in__inner">
+    {% if section.settings.title != blank %}
+      <div class="ctr-as-seen-in__title">
+        {{ section.settings.title }}
+      </div>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="ctr-as-seen-in__logos">
+        {% for block in section.blocks %}
+          {% if block.type == 'logo' and block.settings.logo != blank %}
+            <div
+              class="ctr-as-seen-in__logo"
+              style="
+                --ctr-as-seen-in-logo-opacity: {{ block.settings.opacity | divided_by: 100.0 }};
+                --ctr-as-seen-in-logo-height-desktop: {{ block.settings.logo_height_desktop }}px;
+                --ctr-as-seen-in-logo-height-mobile: {{ block.settings.logo_height_mobile }}px;
+              "
+              {{ block.shopify_attributes }}
+            >
+              {% if block.settings.link != blank %}
+                <a
+                  class="ctr-as-seen-in__logo-link"
+                  href="{{ block.settings.link }}"
+                  {% if block.settings.open_in_new_tab %}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  {% endif %}
+                >
+                  <img
+                    class="ctr-as-seen-in__logo-image"
+                    src="{{ block.settings.logo | img_url: '600x' }}"
+                    alt="{{ block.settings.logo.alt | default: block.settings.logo_alt | escape }}"
+                    loading="lazy"
+                    width="{{ block.settings.logo.width }}"
+                    height="{{ block.settings.logo.height }}"
+                  >
+                </a>
+              {% else %}
+                <img
+                  class="ctr-as-seen-in__logo-image"
+                  src="{{ block.settings.logo | img_url: '600x' }}"
+                  alt="{{ block.settings.logo.alt | default: block.settings.logo_alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.logo.width }}"
+                  height="{{ block.settings.logo.height }}"
+                >
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "As Seen In (CTR)",
+  "tag": "section",
+  "class": "ctr-as-seen-in-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>as seen in</p>"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F9F9F9"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Background gradient",
+      "info": "Optional. Example: linear-gradient(180deg, #FFF 0%, #FFF2E9 100%). Overrides background color when set."
+    },
+    {
+      "type": "color",
+      "id": "panel_background",
+      "label": "Panel background",
+      "default": "#F9F9F9"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "alpha": true,
+      "default": "#22202F26"
+    },
+    {
+      "type": "header",
+      "content": "Padding desktop"
+    },
+    {
+      "type": "number",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Padding mobile"
+    },
+    {
+      "type": "number",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        },
+        {
+          "type": "text",
+          "id": "logo_alt",
+          "label": "Logo alt text",
+          "info": "Used when the image has no alt text."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_in_new_tab",
+          "label": "Open link in new tab",
+          "default": false
+        },
+        {
+          "type": "number",
+          "id": "logo_height_desktop",
+          "label": "Logo height desktop",
+          "default": 72
+        },
+        {
+          "type": "number",
+          "id": "logo_height_mobile",
+          "label": "Logo height mobile",
+          "default": 48
+        },
+        {
+          "type": "range",
+          "id": "opacity",
+          "label": "Opacity",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 100
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "As Seen In (CTR)",
+      "category": "CTR Sections",
+      "blocks": [
+        {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "Men's Health",
+            "opacity": 100
+          }
+        },
+        {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "Surfer",
+            "opacity": 100
+          }
+        },
+        {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "People",
+            "opacity": 60
+          }
+        },
+        {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "Outside",
+            "opacity": 60
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

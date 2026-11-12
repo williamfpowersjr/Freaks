@@ -1,0 +1,519 @@
+{% schema %}
+{
+  "name": "Product Hero Alternative",
+  "tag": "section",
+  "class": "product-hero-alternative",
+  "presets": [
+    {
+      "name": "Product Hero Alternative",
+      "category": "Product Hero Alternative",
+      "settings": {
+        "bg_color": "bg-white",
+        "title_size": "large",
+        "show_inventory_quantity": false,
+        "bar_color": "bg-blue",
+        "subsDefaultOption": "onetime",
+        "subsOrder": "onetime_top",
+        "subscription_title": "Subscribe",
+        "subscription_description": "<p><strong>Free Shipping.</strong> Pause or cancel anytime.</p>",
+        "cta": "Add to cart",
+        "show_details": true,
+        "show_notify": true,
+        "notify_text": "Get notified when the product is available again",
+        "notify_placeholder": "Enter your email",
+        "notify_success": "Thank you! We will notify you when the product is back in stock.",
+        "klaviyo_api_key": "SdwbFd",
+        "klaviyo_list_id": "",
+        "notify_subtext": "<p>By signing up, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Service</a> and our <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a>.</p>",
+        "bundle_product": "",
+        "bundle_title": "Upgrade to our bundle",
+        "bundle_cta": "",
+        "bundle_cta_color": "blue"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": "Title Size",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_inventory_quantity",
+      "label": "Show Inventory Quantity",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "product_announcement_1",
+      "label": "Product Announcement #1 for Lines Bar",
+      "info": "Optional: Add up to 4 Announcements. If you don't add at least one value, the lines bar won't show."
+    },
+    {
+      "type": "text",
+      "id": "product_announcement_2",
+      "label": "Product Announcement #2 for Lines Bar",
+      "info": "Optional: Add up to 4 Announcements. If you don't add at least one value, the lines bar won't show."
+    },
+    {
+      "type": "text",
+      "id": "product_announcement_3",
+      "label": "Product Announcement #3 for Lines Bar",
+      "info": "Optional: Add up to 4 Announcements. If you don't add at least one value, the lines bar won't show."
+    },
+    {
+      "type": "text",
+      "id": "product_announcement_4",
+      "label": "Product Announcement #4 for Lines Bar",
+      "info": "Optional: Add up to 4 Announcements. If you don't add at least one value, the lines bar won't show."
+    },
+    {
+      "type": "select",
+      "id": "bar_color",
+      "label": "Product Announcement Bar Color",
+      "options": [
+        {
+          "value": "bg-orange",
+          "label": "Orange"
+        },
+        {
+          "value": "bg-blue",
+          "label": "Blue"
+        },
+        {
+          "value": "bg-black",
+          "label": "Black"
+        }
+      ],
+      "default": "bg-blue"
+    },
+    {
+      "type": "select",
+      "id": "subsDefaultOption",
+      "label": "Subs: Default Selection",
+      "options": [
+        {
+          "value": "subscriptions",
+          "label": "Subscriptions"
+        },
+        {
+          "value": "onetime",
+          "label": "One Time Purchase"
+        }
+      ],
+      "default": "onetime"
+    },
+    {
+      "type": "select",
+      "id": "subsOrder",
+      "label": "Subs: Order",
+      "options": [
+        {
+          "value": "subs_top",
+          "label": "Subscription Purchase on top"
+        },
+        {
+          "value": "onetime_top",
+          "label": "One Time Purchase on top"
+        }
+      ],
+      "default": "onetime_top"
+    },
+    {
+      "type": "text",
+      "id": "subscription_title",
+      "label": "Subscription Title",
+      "default": "Subscribe"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_extra_in_saving_badge",
+      "label": "Add EXTRA to Saving Badge for Badged Variants",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "subscription_description",
+      "label": "Subscription Description",
+      "default": "<p><strong>Free Shipping.</strong> Pause or cancel anytime.</p>"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Add to cart Cta Text",
+      "default": "Add to cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_details",
+      "label": "Show details",
+      "default": true,
+      "info": "Check on if you would like to show the products details. Find the 'Product Hero Details' definition in the product's metafields."
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_notify",
+      "label": "Show Notify Me Signup",
+      "default": true,
+      "info": "Check on if you would like to show the the 'Notify Me' signup when a product is out of stock."
+    },
+    {
+      "type": "text",
+      "id": "notify_text",
+      "label": "Notify Me Text",
+      "default": "Get notified when the product is available again"
+    },
+    {
+      "type": "text",
+      "id": "notify_placeholder",
+      "label": "Notify Me Placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "notify_success",
+      "label": "Notify Me Success Message",
+      "default": "Thank you! We will notify you when the product is back in stock."
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_api_key",
+      "label": "Klaviyo Public API Key",
+      "default": "SdwbFd"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_list_id",
+      "label": "Klaviyo List ID"
+    },
+    {
+      "type": "richtext",
+      "id": "notify_subtext",
+      "label": "Notify Me Subtext",
+      "default": "<p>By signing up, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Service</a> and our <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a>.</p>"
+    },
+    {
+      "type": "product",
+      "id": "bundle_product",
+      "label": "Product Bundle",
+      "info": "Fill this field if you would like the product bundle recommendation to show in the hero."
+    },
+    {
+      "type": "text",
+      "id": "bundle_title",
+      "label": "Bundle Title",
+      "default": "Upgrade to our bundle"
+    },
+    {
+      "type": "text",
+      "id": "bundle_cta",
+      "label": "Bundle Cta Text"
+    },
+
+    {
+      "type": "select",
+      "id": "bundle_cta_color",
+      "label": "Bundle Cta Color",
+      "options": [
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "blue"
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "name": "Accordion",
+      "type": "accordion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Accordion Title"
+        },
+        {
+          "type": "richtext",
+          "id": "richtext",
+          "label": "Accordion Text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+{% endstyle %}
+
+{% assign product_details = product.metafields.custom.details.value %}
+{% assign product_volume = product.metafields.custom.volume.value %}
+{% assign product_is_available = product.selected_or_first_available_variant.available %}
+
+{% assign has_accordion = '' %}
+{% for block in section.blocks %}
+  {% if block.type == 'accordion' %}
+    {% assign has_accordion = true %}
+  {% endif %}
+{% endfor %}
+
+<div
+  style="scroll-margin-top: var(--header-height)"
+  class="relative flex flex-col border-b border-t border-black/15 lg:flex-row lg:border-t-0"
+>
+  <div
+    class="lg:sticky lg:z-20 lg:top-[--dynamic-header-height] relative flex h-full flex-col overflow-hidden lg:w-1/2"
+  >
+    {% render 'product-gallery-mobile', product_images: product.media %}
+    {% render 'product-gallery-desktop', product_images: product.media %}
+  </div>
+
+  <div class="relative flex h-fit w-full flex-col lg:w-1/2 lg:border-l lg:border-black/15 ">
+    <div data-pdp-hero>
+      <div class="lg:hidden">
+        {% if section.settings.title_size == 'small' %}
+          {% assign text_size = 'fn-tt-title-50' %}
+        {% else %}
+          {% assign text_size = 'fn-tt-title-80 lg:fn-tt-title-70' %}
+        {% endif %}
+        {% render 'title',
+          title: product.title,
+          text_size: text_size,
+          extra_wrapper_classes: 'overflow-hidden text-center ',
+          isH1: true,
+          bg_lines: 'bg-grey-lines',
+          bg_color: section.settings.bg_color,
+          extra_text_classes: '!leading-[0.98]'
+        %}
+
+        {% render 'title',
+          title: product.type,
+          text_size: text_size,
+          extra_wrapper_classes: 'overflow-hidden text-black/60 text-center',
+          isH1: true,
+          bg_lines: 'bg-grey-lines',
+          bg_color: section.settings.bg_color,
+          extra_text_classes: '!leading-[0.98]'
+        %}
+        {% if section.settings.show_inventory_quantity == true %}
+          {% render 'inventory-quantity', quantity: product.variants[0].inventory_quantity %}
+        {% endif %}
+      </div>
+
+      <div class="menu-bar--offset hidden lg:block">
+        {% render 'title',
+          title: product.title,
+          text_size: text_size,
+          extra_wrapper_classes: 'overflow-hidden text-center ',
+          isH1: true,
+          bg_lines: 'bg-grey-lines',
+          bg_color: section.settings.bg_color,
+          extra_text_classes: '!leading-[0.98]'
+        %}
+
+        {% render 'title',
+          title: product.type,
+          text_size: text_size,
+          extra_wrapper_classes: 'overflow-hidden text-black/60 text-center',
+          isH1: true,
+          bg_lines: 'bg-grey-lines',
+          bg_color: section.settings.bg_color,
+          extra_text_classes: '!leading-[0.98]'
+        %}
+        {% if section.settings.show_inventory_quantity == true %}
+          {% render 'inventory-quantity', quantity: product.variants[0].inventory_quantity %}
+        {% endif %}
+      </div>
+
+      {% if section.settings.product_announcement_1 != blank
+        or section.settings.product_announcement_2 != blank
+        or section.settings.product_announcement_3 != blank
+        or section.settings.product_announcement_4 != blank
+      %}
+        {% render 'product-lines-bar',
+          product_announcement_1: section.settings.product_announcement_1,
+          product_announcement_2: section.settings.product_announcement_2,
+          product_announcement_3: section.settings.product_announcement_3,
+          product_announcement_4: section.settings.product_announcement_4,
+          bar_color: section.settings.bar_color
+        %}
+      {% endif %}
+      <div class="relative flex flex-1 flex-col items-center p-24 lg:px-64 lg:pb-64 lg:pt-40 xl:px-80 xl:pb-80">
+        <div class="hidden flex-wrap lg:flex lg:w-full lg:items-center lg:justify-center lg:gap-24">
+          {% render 'junip-product-summary', product: product %}
+          {% if product_volume != blank %}
+            {% render 'label', text: product_volume, hasPadding: false %}
+          {% endif %}
+        </div>
+
+        {% if product.description != blank %}
+          <div class="fn-tt-body-20 lg:fn-tt-body-10 inline-rich-text hidden pb-24 lg:block lg:pb-40 lg:pt-40 lg:text-center">
+            {{ product.description }}
+          </div>
+        {% endif %}
+
+        {% render 'product-form', cta: section.settings.cta, product_is_available: product_is_available %}
+
+        <div class="flex w-full flex-wrap items-center justify-between pb-24 pt-8 lg:hidden">
+          {% render 'junip-product-summary', product: product %}
+          {% if product_volume != blank %}
+            {% render 'label', text: product_volume, hasPadding: false %}
+          {% endif %}
+        </div>
+        {% if product.description != blank %}
+          <div class="fn-tt-body-20 inline-rich-text pb-24 lg:hidden">
+            {{ product.description }}
+          </div>
+        {% endif %}
+
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when '@app' %}
+              <div class="flex w-full justify-stretch">
+                {% render block %}
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {% if section.settings.show_details == true %}
+      {% if product_details != blank %}
+        <div class="border-t border-black/15">
+          {% render 'product-details', product_details: product_details %}
+        </div>
+      {% endif %}
+    {% endif %}
+    {% if product_details == blank %}
+      {% assign has_top_border = true %}
+    {% endif %}
+    {% if has_accordion == true %}
+      {% render 'product-accordions', blocks: section.blocks, has_top_border: has_top_border %}
+    {% endif %}
+
+    {% if section.settings.bundle_product != blank %}
+      {% render 'product-bundle',
+        bundle_title: section.settings.bundle_title,
+        bundle_product: section.settings.bundle_product,
+        bundle_cta: section.settings.bundle_cta,
+        bundle_cta_color: section.settings.bundle_cta_color
+      %}
+    {% endif %}
+  </div>
+</div>
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "url": {{ request.origin | append: product.url | json }},
+    {% if seo_media %}
+      "image": [
+        {{ seo_media | image_url: width: 1920 | prepend: "https:" | json }}
+      ],
+    {% endif %}
+    "description": {{ product.description | strip_html | json }},
+    {% if product.selected_or_first_available_variant.sku != blank %}
+      "sku": {{ product.selected_or_first_available_variant.sku | json }},
+    {% endif %}
+    "brand": {
+      "@type": "Brand",
+      "name": {{ product.vendor | json }}
+    },
+    "offers": [
+      {% for variant in product.variants %}
+        {
+          "@type" : "Offer",
+          {% if variant.sku != blank %}
+            "sku": {{ variant.sku | json }},
+          {% endif %}
+          {% if variant.barcode.size == 12 %}
+            "gtin12": {{ variant.barcode }},
+          {% endif %}
+          {% if variant.barcode.size == 13 %}
+            "gtin13": {{ variant.barcode }},
+          {% endif %}
+          {% if variant.barcode.size == 14 %}
+            "gtin14": {{ variant.barcode }},
+          {% endif %}
+          "availability" : "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+          "price" : {{ variant.price | divided_by: 100.00 | json }},
+          "priceCurrency" : {{ cart.currency.iso_code | json }},
+          "url" : {{ request.origin | append: variant.url | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  }
+</script>
+
+{% if product.metafields.reviews.rating.value != blank %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "Product",
+        "name": {{ product.title | json }},
+        "url": {{ shop.url | append: product.url | json }}
+      },
+      "ratingValue": {{ product.metafields.reviews.rating.value | json }},
+      "bestRating": {{ product.metafields.reviews.rating.value.scale_max | json }},
+      "ratingCount": {{ product.metafields.reviews.rating_count | json }}
+    }
+  </script>
+{% endif %}

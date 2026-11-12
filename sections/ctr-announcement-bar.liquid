@@ -1,0 +1,267 @@
+{{ 'ctr-announcement-bar.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ctr-announcement-bar.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign timer_duration_hours = section.settings.timer_duration_hours | default: 24
+  assign timer_duration_minutes = section.settings.timer_duration_minutes | default: 0
+  assign timer_total_minutes = timer_duration_hours | times: 60 | plus: timer_duration_minutes
+  assign timer_show_hours_segment = false
+  if timer_total_minutes > 60
+    assign timer_show_hours_segment = true
+  endif
+%}
+
+<ctr-announcement-bar
+  id="shopify-section-{{ section.id }}"
+  class="ctr-announcement-bar"
+  data-section-id="{{ section.id }}"
+  data-timer-duration-hours="{{ timer_duration_hours }}"
+  data-timer-duration-minutes="{{ timer_duration_minutes }}"
+  style="
+    --ctr-announcement-bar-background: {{ section.settings.background_color }};
+    --ctr-announcement-bar-text-color: {{ section.settings.text_color }};
+    --ctr-announcement-bar-indicator-color: {{ section.settings.indicator_color }};
+    --ctr-announcement-bar-indicator-active-color: {{ section.settings.indicator_active_color }};
+    --ctr-announcement-bar-height-mobile: {{ section.settings.height_mobile }}px;
+    --ctr-announcement-bar-height-desktop: {{ section.settings.height_desktop }}px;
+  "
+>
+  <div class="ctr-announcement-bar__desktop" aria-hidden="true">
+    <ul
+      class="ctr-announcement-bar__desktop-list{% if section.blocks.size == 1 %} ctr-announcement-bar__desktop-list--single {% endif %}"
+      id="ctr-announcement-bar-desktop-{{ section.id }}"
+    >
+      {% for block in section.blocks %}
+        {% if block.type == 'announcement' %}
+          <li class="ctr-announcement-bar__desktop-item" {{ block.shopify_attributes }}>
+            {%- if block.settings.announcement_url != blank -%}
+              <a class="ctr-announcement-bar__link" href="{{ block.settings.announcement_url }}">
+            {%- endif -%}
+            <div class="ctr-announcement-bar__message">
+              <div class="ctr-announcement-bar__text inline-rich-text text-xxs font-medium">
+                {{ block.settings.announcement_text }}
+              </div>
+              {% if section.settings.show_timer and forloop.first %}
+                <span class="ctr-announcement-bar__timer" data-ctr-announcement-timer>
+                  {% if timer_show_hours_segment %}
+                    <span class="ctr-announcement-bar__timer-segment" data-ctr-announcement-timer-segment="hours">
+                      <span class="ctr-announcement-bar__timer-value" data-ctr-announcement-timer-value="hours">
+                        {{- timer_duration_hours -}}
+                      </span>
+                      <span class="ctr-announcement-bar__timer-label">HRS</span>
+                    </span>
+                  {% endif %}
+                  <span class="ctr-announcement-bar__timer-segment">
+                    <span class="ctr-announcement-bar__timer-value" data-ctr-announcement-timer-value="minutes"
+                      >00</span
+                    >
+                    <span class="ctr-announcement-bar__timer-label">MIN</span>
+                  </span>
+                  <span class="ctr-announcement-bar__timer-segment">
+                    <span class="ctr-announcement-bar__timer-value" data-ctr-announcement-timer-value="seconds"
+                      >00</span
+                    >
+                    <span class="ctr-announcement-bar__timer-label">SEC</span>
+                  </span>
+                </span>
+              {% endif %}
+            </div>
+            {%- if block.settings.announcement_url != blank -%}
+              </a>
+            {%- endif -%}
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+
+  <auto-thumb-swiper-element
+    class="ctr-announcement-bar__mobile{% if section.blocks.size == 1 %} ctr-announcement-bar__mobile--single {% endif %}"
+    id="ctr-announcement-bar-mobile-{{ section.id }}"
+  >
+    <div class="ctr-announcement-bar__mobile-shell">
+      <swiper-container init="false" class="ctr-announcement-bar__swiper js-main-swiper">
+        {% for block in section.blocks %}
+          {% if block.type == 'announcement' %}
+            <swiper-slide class="ctr-announcement-bar__slide" {{ block.shopify_attributes }}>
+              {%- if block.settings.announcement_url != blank -%}
+                <a href="{{ block.settings.announcement_url }}" class="ctr-announcement-bar__slide-link">
+              {%- endif -%}
+              <div class="ctr-announcement-bar__message">
+                <div class="ctr-announcement-bar__text inline-rich-text text-xxs font-medium">
+                  {{ block.settings.announcement_text }}
+                </div>
+                {% if section.settings.show_timer and forloop.first %}
+                  <span class="ctr-announcement-bar__timer" data-ctr-announcement-timer>
+                    {% if timer_show_hours_segment %}
+                      <span class="ctr-announcement-bar__timer-segment" data-ctr-announcement-timer-segment="hours">
+                        <span class="ctr-announcement-bar__timer-value" data-ctr-announcement-timer-value="hours">
+                          {{- timer_duration_hours -}}
+                        </span>
+                        <span class="ctr-announcement-bar__timer-label">HRS</span>
+                      </span>
+                    {% endif %}
+                    <span class="ctr-announcement-bar__timer-segment">
+                      <span class="ctr-announcement-bar__timer-value" data-ctr-announcement-timer-value="minutes">
+                        {{- timer_duration_minutes -}}
+                      </span>
+                      <span class="ctr-announcement-bar__timer-label">MIN</span>
+                    </span>
+                    <span class="ctr-announcement-bar__timer-segment">
+                      <span class="ctr-announcement-bar__timer-value" data-ctr-announcement-timer-value="seconds"
+                        >00</span
+                      >
+                      <span class="ctr-announcement-bar__timer-label">SEC</span>
+                    </span>
+                  </span>
+                {% endif %}
+              </div>
+              {%- if block.settings.announcement_url != blank -%}
+                </a>
+              {%- endif -%}
+            </swiper-slide>
+          {% endif %}
+        {% endfor %}
+      </swiper-container>
+
+      <swiper-container class="ctr-announcement-bar__thumbs js-thumbnails" init="false">
+        {% for block in section.blocks %}
+          {% if block.type == 'announcement' %}
+            <swiper-slide class="ctr-announcement-bar__thumb-slide">
+              {% if section.blocks.size > 1 %}
+                <div class="ctr-announcement-bar__indicator"></div>
+              {% endif %}
+            </swiper-slide>
+          {% endif %}
+        {% endfor %}
+      </swiper-container>
+    </div>
+  </auto-thumb-swiper-element>
+</ctr-announcement-bar>
+
+{% schema %}
+{
+  "name": "Announcement Bar (CTR)",
+  "tag": "section",
+  "class": "ctr-announcement-bar-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#0032A0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "indicator_color",
+      "label": "Indicator color",
+      "default": "#C6C6C6"
+    },
+    {
+      "type": "color",
+      "id": "indicator_active_color",
+      "label": "Indicator active color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "label": "Height mobile",
+      "min": 24,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "height_desktop",
+      "label": "Height desktop",
+      "min": 14,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "checkbox",
+      "id": "show_timer",
+      "label": "Show timer",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "timer_duration_hours",
+      "label": "Timer duration (hours)",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "unit": "h",
+      "default": 24,
+      "visible_if": "{{ section.settings.show_timer == true }}"
+    },
+    {
+      "type": "range",
+      "id": "timer_duration_minutes",
+      "label": "Timer duration (minutes)",
+      "min": 0,
+      "max": 59,
+      "step": 1,
+      "unit": "m",
+      "default": 0,
+      "visible_if": "{{ section.settings.show_timer == true }}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement (CTR)",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "announcement_text",
+          "label": "Announcement text",
+          "default": "<p>Free shipping on your first delivery</p>"
+        },
+        {
+          "type": "url",
+          "id": "announcement_url",
+          "label": "Announcement link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar (CTR)",
+      "category": "CTR Sections",
+      "blocks": [
+        {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "<p>Free shipping on your first delivery</p>"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "<p>15% off + free flask on subscriptions</p>"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "<p>Clinically-backed hydration + skin support</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

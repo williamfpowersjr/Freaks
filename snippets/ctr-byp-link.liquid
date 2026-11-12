@@ -1,0 +1,127 @@
+{% comment %}
+  "Build Your Pack" row in the PDP buy box (CNV-6635). Looks like a purchase
+  option but is only an anchor to the ctr-build-your-pack section. The radio
+  never fills (QA): Restock stays the only selected-looking option.
+
+  Accepts:
+  - block (Block): ctr-product-hero block of type 'byp_link'
+{% endcomment %}
+
+{% assign byp_anchor = block.settings.anchor_id | default: 'build-your-pack' | handleize %}
+
+<a
+  href="#{{ byp_anchor }}"
+  class="ctr-byp-link"
+  data-byp-anchor="{{ byp_anchor }}"
+  {{ block.shopify_attributes }}
+>
+  <span class="ctr-byp-link__radio" aria-hidden="true"></span>
+  <span class="ctr-byp-link__text">
+    <span class="ctr-byp-link__label">{{ block.settings.label | default: 'Customize your pack' }}</span>
+    {% if block.settings.subhead != blank %}
+      <span class="ctr-byp-link__subhead">{{ block.settings.subhead }}</span>
+    {% endif %}
+  </span>
+  {% if block.settings.sublabel != blank %}
+    <span class="ctr-byp-link__sublabel">{{ block.settings.sublabel }}</span>
+  {% endif %}
+</a>
+
+<style>
+  .ctr-byp-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 16px;
+    padding: 18px 12px;
+    background: #ffffff;
+    border: 1px solid rgba(33, 33, 33, 0.15);
+    color: #212121;
+    text-decoration: none;
+    transition: border-color 0.2s ease;
+  }
+  .ctr-byp-link:hover {
+    border-color: #212121;
+  }
+  .ctr-byp-link__radio {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    border: 1px solid rgba(33, 33, 33, 0.15);
+    border-radius: 50%;
+    background: #ffffff;
+  }
+  .ctr-byp-link__text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .ctr-byp-link__subhead {
+    font-size: 14px;
+    line-height: 1.4;
+    opacity: 0.7;
+  }
+  .ctr-byp-link__label {
+    font-size: 17.7px;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  /*
+    Figma order (card → Build Your Pack row → ATC). The tertiary card wraps
+    label, ATC and benefits in one bordered box, so when this row is present
+    the box border moves onto the label + benefits and the ATC (with this
+    row) drops below them. Scoped by :has(), so the control buy box is untouched.
+  */
+  .ctr-subscription-tertiary__card:has(.ctr-byp-link) {
+    display: flex;
+    flex-direction: column;
+    border: 0;
+    background: transparent;
+  }
+  .ctr-subscription-tertiary__card:has(.ctr-byp-link) > .subscription-group {
+    order: 1;
+    border: 1px solid rgba(33, 33, 33, 0.15);
+    border-bottom: 0;
+  }
+  .ctr-subscription-tertiary__card:has(.ctr-byp-link) > .ctr-subscription-tertiary__benefits {
+    order: 2;
+    border: 1px solid rgba(33, 33, 33, 0.15);
+    border-top: 0;
+  }
+  .ctr-subscription-tertiary__card:has(.ctr-byp-link) > .ctr-subscription-tertiary__atc {
+    order: 3;
+    padding: 20px 0 0;
+  }
+  /*
+    One-time link under the ATC: match the compare price to the title's size/baseline
+    so the strike reads as a strike, not a superscript (QA). Scoped like the rules
+    above so other tertiary buy boxes are untouched.
+  */
+  .ctr-subscription-tertiary:has(.ctr-byp-link) .ctr-subscription-tertiary__onetime-price {
+    align-items: baseline;
+    gap: 6px;
+  }
+  .ctr-subscription-tertiary:has(.ctr-byp-link) .ctr-subscription-tertiary__onetime-price [data-base-compare-at-price] {
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: 400;
+    opacity: 0.6;
+    text-decoration-thickness: 1px;
+  }
+  .ctr-byp-link__sublabel {
+    font-size: 17.7px;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+  .ctr-byp-link__label {
+    white-space: nowrap;
+  }
+  @media (max-width: 389px) {
+    .ctr-byp-link__label,
+    .ctr-byp-link__sublabel {
+      font-size: 15px;
+    }
+  }
+</style>

@@ -1,0 +1,56 @@
+{% schema %}
+{
+  "name": "Video Card",
+  "settings": [
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mute",
+      "label": "Hide Mute",
+      "info": "Check on if you would like to hide the mute/unmute control button for the video.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_control",
+      "label": "Hide Control",
+      "info": "Check on if you would like to hide the play/pause control button for the video.",
+      "default": true
+    }
+  ],
+  "blocks": [],
+  "presets": [{ "name": "Video Card" }]
+}
+{% endschema %}
+
+{% assign video = block.settings.video %}
+{% assign hide_mute = block.settings.hide_mute %}
+{% assign hide_control = block.settings.hide_control %}
+{% assign preview_image = video.preview_image.src | image_url: width: 1000 %}
+
+{% if video != blank %}
+  <div class="size-full p-24 lg:p-40">
+    <div class="relative size-full h-full">
+      <video-element>
+        {% assign preview_image = video.preview_image.src | image_url: width: 1000 %}
+
+        {% render 'lazy-video',
+          video: video,
+          class: 'w-full h-full object-cover absolute inset-0',
+          poster: preview_image
+        %}
+
+        {% render 'video-controls',
+          hide_mute: hide_mute,
+          hide_control: hide_control,
+          icons_class: 'absolute w-fit m-16 top-0 right-0 z-100',
+          data_video_id: 'video-{{ forloop.index }}'
+        %}
+      </video-element>
+    </div>
+  </div>
+{% endif %}

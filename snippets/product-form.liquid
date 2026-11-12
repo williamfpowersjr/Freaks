@@ -1,0 +1,174 @@
+<style>
+  .error-message {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 16px;
+
+    text-transform: uppercase;
+    color: #ff0000;
+  }
+
+  .error-message::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23clip0_3805_17250)'%3E%3Cpath d='M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z' stroke='%23FF0000' stroke-miterlimit='10'/%3E%3Cpath d='M10 10.625V6.25' stroke='%23FF0000' stroke-linecap='square' stroke-linejoin='round'/%3E%3Cpath d='M10 13.5C10.4142 13.5 10.75 13.1642 10.75 12.75C10.75 12.3358 10.4142 12 10 12C9.58579 12 9.25 12.3358 9.25 12.75C9.25 13.1642 9.58579 13.5 10 13.5Z' fill='%23FF0000'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0_3805_17250'%3E%3Crect width='20' height='20' fill='white'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+    background-size: cover;
+    margin-right: 8px;
+  }
+
+  .error-message:empty::before {
+    display: none;
+  }
+</style>
+
+{% assign pre_order = false %}
+{% for selling_plan_group in product.selling_plan_groups %}
+  {% if selling_plan_group.name == 'Pre Order' %}
+    {% assign pre_order = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+{% assign hide_purchase_selector_resolved = hide_purchase_selector %}
+{% if hide_purchase_selector_resolved == null %}
+  {% assign hide_purchase_selector_resolved = section.settings.hide_purchase_selector %}
+{% endif %}
+{% if hide_purchase_selector_resolved == null %}
+  {% assign hide_purchase_selector_resolved = section.settings.hide_subscription_item %}
+{% endif %}
+{% assign hide_purchase_selector_resolved = hide_purchase_selector_resolved | default: false %}
+{% assign show_quantity_input_for_subscription_resolved = show_quantity_input_for_subscription %}
+{% if show_quantity_input_for_subscription_resolved == null %}
+  {% assign show_quantity_input_for_subscription_resolved = section.settings.show_quantity_input_for_subscription %}
+{% endif %}
+{% assign show_quantity_input_for_subscription_resolved = show_quantity_input_for_subscription_resolved
+  | default: false
+%}
+
+<div
+  id="product-form"
+  class="flex w-full flex-col {% if additional_classes != blank %}{{ additional_classes }}{% endif %}"
+  style="scroll-margin-top: var(--header-height)"
+>
+  {%- if show_siblings -%}
+    {%- for entry in metaobjects[settings.theme_siblings].values -%}
+      {%- assign sibling_products = entry.product_list.value -%}
+      {%- assign has_siblings = sibling_products | has: 'id', product.id -%}
+
+      {%- if has_siblings -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if has_siblings and sibling_products != blank -%}
+      {%- assign sib_variants = '' | split: '' -%}
+      <product-siblings
+        class="js product-form__input product-form__input--pill flex w-full flex-col gap-16 pb-16"
+        {% if section.settings.is_landing_page %}
+          data-landing-page="true"
+        {% endif %}
+      >
+        <h3 class="text-[14px]/[1.5] font-medium">Size:</h3>
+        <div class="flex flex-wrap gap-6 lg:gap-8">
+          {%- for sib_product in sibling_products limit: 50 -%}
+            {%- liquid
+              assign classes = 'fn-tt-body-10 h-full flex-row text-center uppercase flex items-center cursor-pointer border p-[5px] border-[#22202F29] w-[160px] lg:p-[6px] lg:w-[180px]'
+              if sib_product.handle == product.handle
+                assign classes = classes | append: ' !border-[#000] bg-blue/20'
+              endif
+
+              if sib_product.available == false
+                assign classes = classes | append: ' line-through'
+              endif
+
+              assign title = sib_product.metafields.custom.sibling_title | default: sib_product.title
+              assign sib_variant_id = sib_product.selected_or_first_available_variant.id | default: sib_product.variants.first.id
+              assign sib_variants = sib_variants | concat: sib_product.variants
+            -%}
+
+            {% capture label_unavailable %}
+              <span class="label-unavailable sr-only">
+                Sold Out
+              </span>
+            {% endcapture %}
+
+            <a
+              href="{{ sib_product.url }}"
+              data-swap-url="{{ sib_product.url }}"
+              data-swap-variant-id="{{ sib_variant_id }}"
+              class="{{ classes }}"
+            >
+              {% assign option_value_container_classes = 'size-[42px] relative shrink-0 lg:size-[52px] ' %}
+
+              <span class="{{ option_value_container_classes }}">
+                <span class="flex flex-col items-center gap-2 lg:gap-8">
+                  {% if sib_product.featured_image != blank %}
+                    <span class="sr-only">{{ title }}</span>
+                    {{
+                      sib_product.featured_image
+                      | image_url: width: 200, height: 200
+                      | image_tag: class: 'size-full'
+                    }}
+                  {% endif %}
+
+                  {% unless sib_product.available %}
+                    {{ label_unavailable }}
+                  {% endunless %}
+                </span>
+              </span>
+              <span class="pl-[12px] pr-[6px] text-left text-[14px] capitalize">{{ title }}</span>
+            </a>
+          {%- endfor -%}
+        </div>
+
+        <script type="application/json" data-variants>
+          {{ sib_variants | json }}
+        </script>
+      </product-siblings>
+    {%- endif -%}
+  {%- endif -%}
+
+  {% unless product.available != true and product.metafields.custom.coming_soon == true %}
+    {% if product.selling_plan_groups.size < 1 or pre_order == true -%}
+      {% render 'product-form-one-time',
+        product: product,
+        cta: cta,
+        product_is_available: product_is_available,
+        show_unit_price: show_unit_price,
+        show_prices_in_variant_picker: show_prices_in_variant_picker,
+        variant_picker_style: variant_picker_style,
+        unit_name: unit_name,
+        hide_quantity_input: hide_quantity_input,
+        hide_purchase_selector: hide_purchase_selector_resolved,
+        product_discount_heading: product_discount_heading,
+        variant_product_option_blocks: variant_product_option_blocks
+      %}
+    {% else %}
+      {% render 'product-form-subscriptions',
+        product: product,
+        cta: cta,
+        product_is_available: product_is_available,
+        additional_form_classes: additional_form_classes,
+        additional_button_classes: additional_button_classes,
+        subscription_discounted_price: subscription_discounted_price,
+        price_adjustment_value_type: price_adjustment_value_type,
+        price_adjustment_value: price_adjustment_value,
+        product_discount_heading: product_discount_heading,
+        show_prices_in_variant_picker: show_prices_in_variant_picker,
+        variant_picker_style: variant_picker_style,
+        hide_purchase_selector: hide_purchase_selector_resolved,
+        hide_quantity_input: hide_quantity_input,
+        show_quantity_input_for_subscription: show_quantity_input_for_subscription_resolved,
+        subscription_form_style: subscription_form_style,
+        variant_product_option_blocks: variant_product_option_blocks
+      %}
+    {% endif %}
+  {% endunless %}
+
+  {% if product.available != true and section.settings.show_notify == true %}
+    {% render 'notify-me-signup' %}
+  {% endif %}
+</div>

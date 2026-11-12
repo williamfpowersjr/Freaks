@@ -1,0 +1,348 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "sticky-navigation",
+      "settings": {
+        "show_sticky_navigation": true
+      }
+    },
+    "simple_hero_XMUwWQ": {
+      "type": "simple-hero",
+      "settings": {
+        "image": "shopify://shop_images/FREAKS_OF_NATURE2916.jpg",
+        "title": "5 Reasons Freaks of Nature is the only SPF you need this summer",
+        "bg_color": "white",
+        "section_height": "height_100"
+      }
+    },
+    "title_dpUMDH": {
+      "type": "title",
+      "settings": {
+        "bg_color": "white",
+        "title": "BE A FREAK ALL SUMMER",
+        "text": "",
+        "has_margin": false,
+        "text_align": "left"
+      }
+    },
+    "text_divider_RJHqRF": {
+      "type": "text-divider",
+      "settings": {
+        "text": "<p>Freaks of Nature is the first 100% mineral sunscreen that combines peak performance with peak safety standards, founded by 11x world champion surfer Kelly Slater. </p><p><a href=\"https://freaksofnature.com/collections/all-products\" target=\"_blank\" title=\"https://freaksofnature.com/collections/all-products\"><em>SHOP NOW</em></a></p>",
+        "bg_color": "bg-white"
+      }
+    },
+    "title_with_navigation_iQPkW4": {
+      "type": "title-with-navigation",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "section_title": "No chemical filters",
+        "title": "1. No chemical filters"
+      }
+    },
+    "cards_yFX89b": {
+      "type": "cards",
+      "blocks": {
+        "card_LH9BKV": {
+          "type": "card",
+          "settings": {
+            "card_color": "orange",
+            "background_image": "shopify://shop_images/02_SLATER_1149_rt2_2705a2ea-7eb0-45ed-899a-5113dbb40193.jpg",
+            "main_text": "",
+            "secondary_text": ""
+          }
+        },
+        "card_qwizFB": {
+          "type": "card",
+          "settings": {
+            "card_color": "blue",
+            "background_image": "shopify://shop_images/20250129_FREAKS-OF-NATURE_OVERBECK_2115.jpg",
+            "main_text": "",
+            "secondary_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_LH9BKV",
+        "card_qwizFB"
+      ],
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white"
+      }
+    },
+    "copy_media_aMaxza": {
+      "type": "copy-media",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "text": "<h4>80% of sunscreens were deemed ineffective or unsafe by the EWG in their Sunscreen Guide. Freaks of Nature was formulated with Kelly Slater to be the sunscreen you can actually trust – no microplastics, no chemical filters, no oxybenzone, and always reef safe. While most sunscreens rely on harsh additives, we left them out entirely. The result? Clean, high-performance protection that’s safe for your skin, your barrier, and the ocean.</h4>",
+        "expansion_text": "",
+        "caption": "",
+        "hide_mute": false,
+        "alignment": "lg:flex-row",
+        "text_alignment": "text-left",
+        "border_top": false,
+        "media_aspect_square": false
+      }
+    },
+    "divider_ytTrtq": {
+      "type": "divider",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "divider_color": "bg-black/15",
+        "divider_color_mobile": "bg-white"
+      }
+    },
+    "title_with_navigation_y9tDCL": {
+      "type": "title-with-navigation",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "section_title": "Freakishly easy to use",
+        "title": "2. Freakishly easy to use"
+      }
+    },
+    "copy_media_jQehM4": {
+      "type": "copy-media",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "text": "<h4>Your SPF routine should be the easiest part of your day. The Freaks of Nature Sun Stick glides on smoothly – no mess and no white cast. It’s water-resistant for up to 80 minutes, so it stays put without stinging your eyes. Compact enough to toss in any bag, it's made for effortless reapplication anytime, anywhere. High protection, zero hassle.</h4>",
+        "expansion_text": "",
+        "image": "shopify://shop_images/TB_CHILE25_FON_4X5_0286.jpg",
+        "caption": "",
+        "hide_mute": false,
+        "alignment": "flex",
+        "text_alignment": "lg:text-left",
+        "border_top": false,
+        "media_aspect_square": false
+      }
+    },
+    "divider_raAie4": {
+      "type": "divider",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-offWhite",
+        "divider_color": "bg-black/15",
+        "divider_color_mobile": "bg-white"
+      }
+    },
+    "title_with_navigation_r7cHid": {
+      "type": "title-with-navigation",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-offWhite",
+        "section_title": "Minimal white cast",
+        "title": "3. Innovative formulas to minimize white cast"
+      }
+    },
+    "copy_media_7Wg4wb": {
+      "type": "copy-media",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-offWhite",
+        "text": "<h4>While mineral sunscreens are safer, they can leave you looking like a ghost and struggle with long-lasting protection when up against sweat and water. Our team of dermatologists worked hard to create a formula you actually wanted to wear. No white cast. No weird smell. No sticky handfeel. Plus, it’s super breathable so your skin doesn’t feel like it’s suffocating. Just 100% mineral broad spectrum protection. </h4>",
+        "expansion_text": "",
+        "image": "shopify://shop_images/freaks-of-nature-spf-stick-face.jpg",
+        "caption": "",
+        "hide_mute": false,
+        "alignment": "lg:flex-row",
+        "text_alignment": "text-left",
+        "border_top": false,
+        "media_aspect_square": false
+      }
+    },
+    "copy_media_RaQbx4": {
+      "type": "copy-media",
+      "disabled": true,
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-offWhite",
+        "text": "<p>Please note that the skin barrier and particularly the science of the skin microbiome are still poorly understood, especially in (outdoor) athletes, and requires a lot more research. At Freaks of Nature we are committed to contribute to this needed scientific work by conducting regular clinical trials with our research partner HelloBiome. But here are the key causes for outdoor athletes skin barrier to be compromised. These are also the key areas of focus which drive our current formulations and future product development pipeline.</p>",
+        "expansion_text": "",
+        "caption": "",
+        "hide_mute": false,
+        "alignment": "lg:flex-row",
+        "text_alignment": "text-center",
+        "border_top": false,
+        "media_aspect_square": false
+      }
+    },
+    "divider_YnhDcp": {
+      "type": "divider",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "divider_color": "bg-black/15",
+        "divider_color_mobile": "bg-white"
+      }
+    },
+    "title_with_navigation_XPLVcV": {
+      "type": "title-with-navigation",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "section_title": "Skin barrier",
+        "title": "4. Built-in skin barrier support"
+      }
+    },
+    "copy_media_pHTqeg": {
+      "type": "copy-media",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "text": "<h4>Believe it or not, SPF formulas are usually not developed with your skin’s barrier and microbiome in mind. Most rely on harsh chemicals and fillers that can disrupt the very systems that keep your skin healthy. At Freaks of Nature, we do things differently – formulating with ingredients that protect <em>and</em> support your skin’s natural defenses, so you’re covered in every sense of the word.</h4>",
+        "expansion_text": "",
+        "image": "shopify://shop_images/Screenshot_2025-02-12_at_12.48.12_PM.png",
+        "caption": "",
+        "hide_mute": false,
+        "alignment": "lg:flex-row",
+        "text_alignment": "text-left",
+        "border_top": true,
+        "media_aspect_square": true
+      }
+    },
+    "divider_tqkAFW": {
+      "type": "divider",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "divider_color": "bg-black/15",
+        "divider_color_mobile": "bg-white"
+      }
+    },
+    "title_with_navigation_af83Ux": {
+      "type": "title-with-navigation",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "section_title": "For the runners",
+        "title": "5. Selling out as we speak"
+      }
+    },
+    "copy_media_HTpJEM": {
+      "type": "copy-media",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "text": "<h4>With over x 5 star reviews and the fan favorite SPF of editors at GQ, Surf Magazine, and more, our sunscreens won’t stay in stock for long. Order now to get yours before it’s too late. </h4>",
+        "expansion_text": "",
+        "image": "shopify://shop_images/Screenshot_2025-02-12_at_12.51.34_PM.png",
+        "caption": "",
+        "hide_mute": false,
+        "alignment": "lg:flex-row",
+        "text_alignment": "text-left",
+        "border_top": true,
+        "media_aspect_square": true
+      }
+    },
+    "product_grid_chJYDh": {
+      "type": "product-grid",
+      "blocks": {
+        "product_UDE4xq": {
+          "type": "product",
+          "settings": {
+            "product": "peak-performance-sunscreen",
+            "feature_1": "﻿﻿80 min Water Resistant + 40 min Sweat Resistant",
+            "feature_2": "﻿﻿Dermatologist tested + Fragrance free",
+            "feature_3": "﻿﻿Broad Spectrum UV Protection",
+            "cta_color": "orange"
+          }
+        },
+        "product_kxaMPN": {
+          "type": "product",
+          "settings": {
+            "product": "daily-defender-sunscreen",
+            "feature_1": "﻿﻿40 min Water Resistant + 40 min Sweat Resistant",
+            "feature_2": "﻿﻿Dermatologist tested + Fragrance free",
+            "feature_3": "﻿﻿Broad Spectrum UV Protection",
+            "cta_color": "orange"
+          }
+        },
+        "product_PmiCPD": {
+          "type": "product",
+          "settings": {
+            "product": "deeper-dive-moisturizer",
+            "feature_1": "﻿﻿Clinically proven to improve skin barrier",
+            "feature_2": "﻿﻿Moisture-locking",
+            "feature_3": "﻿﻿Non-comodogenic (Doesn't clog pores!)",
+            "cta_color": "orange"
+          }
+        }
+      },
+      "block_order": [
+        "product_UDE4xq",
+        "product_kxaMPN",
+        "product_PmiCPD"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "headline": "",
+        "text": ""
+      }
+    },
+    "footnotes_qeQcEm": {
+      "type": "footnotes",
+      "settings": {
+        "footnotes": "<p><em>1 </em><a href=\"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2671032/\"><span style=\"text-decoration:underline\"><em>The Protective Role of Melanin Against UV Damage in Human Skin</em></span></a><em>. - National Library of Medicine.</em></p><p><em>2 </em><a href=\"https://www.sciencedirect.com/science/article/pii/S2405580819300688#:~:text=UV%20light%20increases%20stress%20and,and%20cohesiveness%20regardless%20of%20UV.\"><span style=\"text-decoration:underline\"><em>Role of sunscreen formulation and photostability to protect the biomechanical barrier function of skin</em></span></a><em> </em>- Science Direct.</p><p><em>3 </em><a href=\"https://www.cancer.org/research/cancer-facts-statistics/all-cancer-facts-figures/2024-cancer-facts-figures.html\"><span style=\"text-decoration:underline\"><em>Cancer Facts and Figures 2024. </em></span></a>- American Cancer Society.</p><p><em>4 </em><a href=\"https://www.amnh.org/explore/science-topics/microbiome-health/meet-your-microbiome\"><span style=\"text-decoration:underline\"><em>DR. MARTIN BLASER Author of \"Missing Microbes\"</em></span></a>.</p><p><em>5 </em><a href=\"https://www.researchgate.net/publication/364511957_Short_Communication_Could_The_Skin_Microbiome_Affect_Sports_Recovery_And_Performance\" target=\"_blank\" title=\"https://www.researchgate.net/publication/364511957_Short_Communication_Could_The_Skin_Microbiome_Affect_Sports_Recovery_And_Performance\"><em>Could The Skin Microbiome Affect Sports Recovery And Performance?</em></a><em> - </em>Christopher and Sam Wallen-Russell at Pavane Research Centre.</p><p><em>6. </em><a href=\"https://www.nature.com/articles/s41598-023-50182-5?utm_medium=affiliate&utm_source=commission_junction&utm_campaign=CONR_PF018_ECOM_GL_PBOK_ALWYS_DEEPLINK&utm_content=textlink&utm_term=PID100052172&CJEVENT=9c177cf1113a11ef835702970a82b839\" title=\"https://www.nature.com/articles/s41598-023-50182-5?utm_medium=affiliate&utm_source=commission_junction&utm_campaign=CONR_PF018_ECOM_GL_PBOK_ALWYS_DEEPLINK&utm_content=textlink&utm_term=PID100052172&CJEVENT=9c177cf1113a11ef835702970a82b839\"><em>Identification of human skin microbiome odorants that manipulate mosquito landing behavior</em></a> - Iliano V. Coutinho Abreu, Omid Jamshidi, Robyn Raban, Katayoon Atabakhsh, Joseph A. Merriman & Omar S. Akbari.</p><p>7. <a href=\"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4316401/#:~:text=Human%20axillary%20odour%20is%20commonly,these%20data%20with%20olfactory%20analysis.\" title=\"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4316401/#:~:text=Human%20axillary%20odour%20is%20commonly,these%20data%20with%20olfactory%20analysis.\"><em>Mapping axillary microbiota responsible for body odours using a culture-independent approach</em></a><em> - </em>Myriam Troccaz,Nadia Gaïa, Sabine Beccucci, Jacques Schrenzel, Isabelle Cayeux, Christian Starkenmann, andVladimir Lazarevic.</p>"
+      }
+    },
+    "image_card_84QgCc": {
+      "type": "image-card",
+      "disabled": true,
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "bg_card_color": "bg-offWhite",
+        "card_bg_color": "bg-offWhite",
+        "section_padding": true,
+        "alignment": "lg:flex-row",
+        "title": "Title",
+        "subtitle": "Subtitle",
+        "description": "<p>Lorem ipsum dolor sit amet consectetur. Nibh pellentesque viverra integer mattis. Et ridiculus rhoncus in tortor at vitae et arcu. Quis pellentesque ac integer nunc adipiscing. In porttitor nulla sed orci a sed.</p>",
+        "label": "label",
+        "label_link": "shopify://pages/ingredients",
+        "image": "shopify://shop_images/soy_bean_free.jpg",
+        "caption": "caption",
+        "full_bleed_media": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "simple_hero_XMUwWQ",
+    "title_dpUMDH",
+    "text_divider_RJHqRF",
+    "title_with_navigation_iQPkW4",
+    "cards_yFX89b",
+    "copy_media_aMaxza",
+    "divider_ytTrtq",
+    "title_with_navigation_y9tDCL",
+    "copy_media_jQehM4",
+    "divider_raAie4",
+    "title_with_navigation_r7cHid",
+    "copy_media_7Wg4wb",
+    "copy_media_RaQbx4",
+    "divider_YnhDcp",
+    "title_with_navigation_XPLVcV",
+    "copy_media_pHTqeg",
+    "divider_tqkAFW",
+    "title_with_navigation_af83Ux",
+    "copy_media_HTpJEM",
+    "product_grid_chJYDh",
+    "footnotes_qeQcEm",
+    "image_card_84QgCc"
+  ]
+}

@@ -1,0 +1,156 @@
+{% schema %}
+{
+  "name": "Homepage Double Hero",
+  "tag": "section",
+  "class": "homepage-split-hero-section",
+  "presets": [
+    {
+      "name": "Homepage Double Hero",
+      "settings": {
+        "subtitle": "Lorem ipsum",
+        "section_height": "height_60"
+      },
+      "blocks": [
+        {
+          "type": "cta",
+          "settings": {
+            "cta_text": "Lorem ipsum",
+            "cta_link": "#",
+            "cta_color": "orange"
+          }
+        },
+        {
+          "type": "cta",
+          "settings": {
+            "cta_text": "Lorem ipsum",
+            "cta_link": "#",
+            "cta_color": "blue"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "mobile_headline",
+      "label": "Mobile Headline",
+      "info": "The headline image will be displayed over the images on mobile devices."
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_headline",
+      "label": "Desktop Headline",
+      "info": "The headline image will be displayed over the images on desktop devices."
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image",
+      "label": "Left Image",
+      "info": "If you want to have a still image, leave the video fields blank."
+    },
+    {
+      "type": "video",
+      "id": "left_video",
+      "label": "Left Video",
+      "info": "This video is going to loop on the left side of the index page hero."
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image",
+      "label": "Right Image",
+      "info": "If you want to have a still image, leave the video fields blank."
+    },
+    {
+      "type": "video",
+      "id": "right_video",
+      "label": "Right Video",
+      "info": "This video is going to loop on the right side of the index page hero."
+    },
+
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "Section Height",
+      "options": [
+        {
+          "value": "height_60",
+          "label": "60%"
+        },
+        {
+          "value": "height_80",
+          "label": "80%"
+        },
+        {
+          "value": "height_100",
+          "label": "100%"
+        }
+      ],
+      "default": "height_60"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "cta",
+      "name": "Cta",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Cta Text"
+        },
+        {
+          "type": "url",
+          "id": "cta_link",
+          "label": "Cta Link"
+        },
+        {
+          "type": "select",
+          "id": "cta_color",
+          "label": "Cta Mobile Color",
+          "options": [
+            {
+              "value": "orange",
+              "label": "Orange"
+            },
+            {
+              "value": "blue",
+              "label": "Blue"
+            },
+            {
+              "value": "black",
+              "label": "Black"
+            },
+            {
+              "value": "white",
+              "label": "White"
+            }
+          ],
+          "default": "blue"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% assign section_height = 'h-[var(--section-height)]' %}
+
+{% if section.settings.section_height == 'height_60' %}
+  {% assign section_height = 'h-[60vh]' %}
+{% endif %}
+{% if section.settings.section_height == 'height_80' %}
+  {% assign section_height = 'h-[80vh]' %}
+{% endif %}
+
+{% render 'homepage-double-hero',
+  blocks: section.blocks,
+  title: section.settings.title,
+  section_height: section_height
+%}

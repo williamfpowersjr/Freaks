@@ -1,0 +1,929 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_liquid_6fiee9": {
+      "type": "custom-liquid",
+      "name": "Styles",
+      "settings": {
+        "custom_liquid": "<style>\n#shopify-section-{{section.id}} {\n  padding-top: 0;\n}\n\nheader #mobile-subnavigation, header mobile-header-element,\nheader accordion-element {\n  display: none;\n}\n\nfooter:not(cart-drawer footer), #shopify-section-footer, #shopify-section-banner-image, .footer-section, #shopify-section-new-footer, #shopify-section-layout-footer, [id^=\"shopify-section-footer\"], #footer:not(#replo-fullpage-element #footer), .main-footer, .shopify-section-group-footer-group {\n  display: block!important;\n}\n\n[data-announcement-bar] {\n   opacity: 0;\n}\n\n//buy box section styles\n\n#product-gallery product-gallery > div {\n  padding-top: 0 !important;\n}\n.pdp-main-title {\n  font-size: clamp(\n    32px,\n    calc(32 * 1px + (48) * (100vw - 375 * 1px) / (1225)),\n    56px\n  );\n\n  h1 {\n   text-wrap: balance;\n  }\n}\n</style>",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "ctr_announcement_bar_wi8hzM": {
+      "type": "ctr-announcement-bar",
+      "blocks": {
+        "announcement_zj4BUC": {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "<p>Stock up and save up to 20%</p>",
+            "announcement_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_zj4BUC"
+      ],
+      "name": "Announcement Bar (CTR)",
+      "settings": {
+        "background_color": "#0032a0",
+        "text_color": "#ffffff",
+        "indicator_color": "#c6c6c6",
+        "indicator_active_color": "#ffffff",
+        "height_mobile": 32,
+        "height_desktop": 18,
+        "show_timer": false,
+        "timer_duration_hours": 24,
+        "timer_duration_minutes": 0
+      }
+    },
+    "ctr_nav_section_MjWmmF": {
+      "type": "ctr-nav-section",
+      "name": "Nav Section (CTR)",
+      "settings": {
+        "logo": "shopify://shop_images/fon-logo.svg",
+        "logo_link": "",
+        "show_account": false,
+        "show_cart": true,
+        "enable_sticky_header": true,
+        "background_color": "#ffffff",
+        "border_color": "#21212126",
+        "text_color": "#212121",
+        "icon_bubble_background": "#0032a033",
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "ctr_spray_lp_hero_g7ADx8": {
+      "type": "ctr-spray-lp-hero",
+      "custom_css": [
+        ".ctr-spray-lp-hero__rating-text strong {text-decoration: underline;}"
+      ],
+      "name": "Spray LP Hero (CTR)",
+      "settings": {
+        "desktop_video": "shopify://files/videos/White cast 2_9X16.mp4",
+        "badge_image": "shopify://shop_images/image_36.png",
+        "badge_max_width_desktop": 250,
+        "badge_max_width_mobile": 120,
+        "rating_link": "#reviews-section",
+        "rating_text": "<p><strong>4.9</strong> · 80,000+ sun sticks sold</p>",
+        "title": "<p>HOW OUR minimal WHITE CAST SUN STICK CHANGED THE GAME</p>",
+        "text": "<p>After 35 years in the water, Kelly knew exactly what was wrong with conventional SPF. So he built something better.</p>",
+        "text_max_width_desktop": 660,
+        "button_label": "shop sun stick",
+        "button_link": "#product-hero-content",
+        "button_arrow_direction": "down",
+        "background_color": "#dadde5",
+        "background_gradient": "linear-gradient(180deg, #DADDE5 0%, #DDE2EC 100%)",
+        "heading_color": "#232323",
+        "text_color": "#232323",
+        "accent_color": "#fe5000",
+        "rating_color": "#212121ba",
+        "button_background": "#fe5000",
+        "button_text_color": "#ffffff",
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 20
+      }
+    },
+    "ctr_five_systems_qB4MTk": {
+      "type": "ctr-five-systems",
+      "blocks": {
+        "text_block_R36NYY": {
+          "type": "text_block",
+          "settings": {
+            "text": "<p>Most sunscreens protect you from the sun while quietly working against everything else. Chemical filters that absorb into your skin. Synthetic compounds that disrupt your microbiome. Ingredients that don't belong in your body or the ocean.</p>"
+          }
+        },
+        "text_block_Ge4XBh": {
+          "type": "text_block",
+          "settings": {
+            "text": "<p>Kelly spent decades in the harshest conditions on earth and saw firsthand what conventional SPF left behind. That's why he built Freaks of Nature.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_R36NYY",
+        "text_block_Ge4XBh"
+      ],
+      "custom_css": [
+        ".ctr-five-systems__title-wrap {font-size: clamp( 32px, calc(32 * 1px + (50) * (100vw - 430 * 1px) / (1225)), 60px ); --lines-interval: calc(1em + 6px); line-height: 1.2;}",
+        ".ctr-five-systems__content {padding-left: 20px; padding-right: 20px;}",
+        ".ctr-five-systems__video {aspect-ratio: 348/312;}",
+        "@media (min-width: 1024px) {.ctr-five-systems__video {position: absolute; aspect-ratio: auto; height: calc(100% - 80px); object-fit: cover; width: calc(100% - 80px); } .ctr-five-systems__title-wrap {--lines-interval: calc(1em + 12px); }}"
+      ],
+      "name": "Five Systems (CTR)",
+      "settings": {
+        "title": "<p>MOST SPF IS DOING MORE HARM THAN YOU THINK.</p>",
+        "media_video_desktop": "shopify://files/videos/1dfdfbe90563469aab37ad87120371e7.HD-1080p-7.2Mbps-44140811.mp4",
+        "show_video_controls": true,
+        "desktop_media_left": false,
+        "use_container": true,
+        "container_background_color": "#f9f9f9",
+        "background_color": "#ffffff03",
+        "background_gradient": "",
+        "border_color": "#d9d9d9",
+        "text_color": "#232323",
+        "heading_color": "#232323",
+        "accent_color": "#fe5000",
+        "product_card_background": "#ffffff52",
+        "product_card_button_background": "#0032a0",
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 0,
+        "content_gap_desktop": 40,
+        "content_gap_mobile": 20,
+        "section_padding_top_desktop": 40,
+        "section_padding_bottom_desktop": 40,
+        "section_padding_top_mobile": 20,
+        "section_padding_bottom_mobile": 20
+      }
+    },
+    "ctr_landing_reason_aNrbhr": {
+      "type": "ctr-landing-reason",
+      "blocks": {
+        "text_7Kp3mN": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Most mineral sunscreens work but leave you looking like you just dusted your face with chalk. That's because they rely on heavy zinc formulas that sit visibly on the skin.</p>"
+          }
+        },
+        "text_8Lq4oP": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The Peak Performance Sun Stick SPF50 uses a lightweight mineral formula that goes on clear. 100% non-nano mineral zinc oxide that blends in effortlessly leaving nothing behind but protection.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_7Kp3mN",
+        "text_8Lq4oP"
+      ],
+      "custom_css": [
+        "@media (max-width: 768px) {.ctr-landing-reason__overlay-text {max-width: 280px; }}"
+      ],
+      "name": "Landing Reason 1 (CTR)",
+      "settings": {
+        "image": "shopify://shop_images/Good_For.png_7.png",
+        "show_video_controls": false,
+        "overlay_icon": "shopify://shop_images/Claims_cb4047e2-f9c9-4a48-843d-27b3352321cf.png",
+        "overlay_text": "<p>Lightweight Mineral Formula. minimal White Cast.</p>",
+        "desktop_media_left": true,
+        "badge": "<p>REASON #1</p>",
+        "title": "<p>MOST SUN STICKS LEAVE A WHITE CAST. OURS DOESN'T.</p>",
+        "button_label": "shop sun stick",
+        "button_link": "#product-hero-content",
+        "button_open_new_tab": false,
+        "button_arrow_direction": "down",
+        "background_color": "#ffffff",
+        "background_gradient": "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 100%)",
+        "card_background": "#f9f9f9",
+        "border_color": "#21212126",
+        "badge_background": "#0032a0",
+        "badge_color": "#ffffff",
+        "heading_color": "#212121",
+        "text_color": "#232323",
+        "overlay_background": "#fe5000",
+        "overlay_color": "#ffffff",
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20
+      }
+    },
+    "ctr_landing_reason_AfefX7": {
+      "type": "ctr-landing-reason",
+      "blocks": {
+        "text_wbAd8p": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Your skin microbiome is a complex ecosystem that protects your skin barrier, regulates inflammation and supports healing. Most conventional SPF formulas loaded with synthetic preservatives and artificial fragrances disrupt it without you even knowing.</p>"
+          }
+        },
+        "text_9cCkBX": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The Peak Performance Sun Stick is formulated with lightweight microbiome-strengthening ingredients that absorb effortlessly into skin with no heavy residue. It fortifies your skin barrier leaving it calmer, healthier and more resilient with every use.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_wbAd8p",
+        "text_9cCkBX"
+      ],
+      "name": "Landing Reason 2 (CTR)",
+      "settings": {
+        "image": "shopify://shop_images/Good_For.png_8.png",
+        "show_video_controls": false,
+        "overlay_icon": "shopify://shop_images/Claims_cae71275-ba30-4634-9977-cbfbfb489fd4.png",
+        "overlay_text": "<p>Clinically Tested to Support the Skin Microbiome</p>",
+        "desktop_media_left": true,
+        "badge": "<p>REASON #2</p>",
+        "title": "<p>MOST SUNSCREENS DESTROY YOUR SKIN MICROBIOME.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_open_new_tab": false,
+        "button_arrow_direction": "down",
+        "background_color": "#ffffff",
+        "background_gradient": "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 100%)",
+        "card_background": "#f9f9f9",
+        "border_color": "#21212126",
+        "badge_background": "#0032a0",
+        "badge_color": "#ffffff",
+        "heading_color": "#212121",
+        "text_color": "#232323",
+        "overlay_background": "#fe5000",
+        "overlay_color": "#ffffff",
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20
+      }
+    },
+    "ctr_landing_reason_9KPAHr": {
+      "type": "ctr-landing-reason",
+      "blocks": {
+        "text_3rFxnk": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Most sunscreens make reapplying a hassle. Greasy hands, spilled bottles, liquid that goes everywhere but where you need it. So people skip it and call it good enough.</p>"
+          }
+        },
+        "text_fcmrKw": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The Peak Performance Sun Stick fits in your pocket, glides on in seconds and leaves no mess behind. Travel-size. No liquids. No excuses not to reapply.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_3rFxnk",
+        "text_fcmrKw"
+      ],
+      "custom_css": [
+        "@media (max-width: 1023.98px) {.ctr-landing-reason .ctr-landing-reason__title-wrap {text-wrap: unset; }}"
+      ],
+      "name": "Landing Reason 3 (CTR)",
+      "settings": {
+        "image": "shopify://shop_images/Good_For.png_9.png",
+        "show_video_controls": false,
+        "overlay_icon": "shopify://shop_images/Claims_cb4047e2-f9c9-4a48-843d-27b3352321cf.png",
+        "overlay_text": "<p>Pocket-Sized. Always On Hand.</p>",
+        "desktop_media_left": true,
+        "badge": "<p>REASON #3</p>",
+        "title": "<p>THE SUNSCREEN YOU'LL ACTUALLY REMEMBER TO REAPPLY.</p>",
+        "button_label": "shop sun stick",
+        "button_link": "#product-hero-content",
+        "button_open_new_tab": false,
+        "button_arrow_direction": "down",
+        "background_color": "#ffffff",
+        "background_gradient": "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 100%)",
+        "card_background": "#f9f9f9",
+        "border_color": "#21212126",
+        "badge_background": "#0032a0",
+        "badge_color": "#ffffff",
+        "heading_color": "#212121",
+        "text_color": "#232323",
+        "overlay_background": "#fe5000",
+        "overlay_color": "#ffffff",
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20
+      }
+    },
+    "ctr_landing_reason_dhtnJ4": {
+      "type": "ctr-landing-reason",
+      "blocks": {
+        "text_Y4aHYn": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Water resistance matters more than most brands admit. Most sunscreens lose efficacy the moment they hit water and the FDA only requires a minimum of 40 minutes for a water resistant claim. If you're surfing, swimming or training in the heat that's simply not enough.</p>"
+          }
+        },
+        "text_6b8whL": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The Peak Performance Sun Stick is water resistant for 80 minutes with a lightweight formula that stays put without feeling heavy or greasy. Built for the people who spend more time in the water than out of it.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_Y4aHYn",
+        "text_6b8whL"
+      ],
+      "custom_css": [
+        "@media (max-width: 768px) {.ctr-landing-reason__overlay-text {max-width: 270px; }}"
+      ],
+      "name": "Landing Reason 4 (CTR)",
+      "settings": {
+        "image": "shopify://shop_images/Good_For.png_10.png",
+        "video": "shopify://files/videos/07.mp4",
+        "show_video_controls": false,
+        "overlay_icon": "shopify://shop_images/Claims_17a4c651-eeda-4381-a8d5-1e3417917b31.png",
+        "overlay_text": "<p>80-Min Water Resistance. FDA Tested.</p>",
+        "desktop_media_left": true,
+        "badge": "<p>REASON #4</p>",
+        "title": "<p>80 MINUTES OF WATER RESISTANCE. MOST DON'T COME CLOSE.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_open_new_tab": false,
+        "button_arrow_direction": "down",
+        "background_color": "#ffffff",
+        "background_gradient": "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 100%)",
+        "card_background": "#f9f9f9",
+        "border_color": "#21212126",
+        "badge_background": "#0032a0",
+        "badge_color": "#ffffff",
+        "heading_color": "#212121",
+        "text_color": "#232323",
+        "overlay_background": "#fe5000",
+        "overlay_color": "#ffffff",
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20
+      }
+    },
+    "ctr_landing_reason_jPm4Vd": {
+      "type": "ctr-landing-reason",
+      "blocks": {
+        "text_HNWRhN": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Oxybenzone and octinoxate are the two most common chemical UV filters and they are banned in Hawaii under Act 104 because of the damage they cause to coral reefs. Most sunscreens still contain them and most people have no idea.</p>"
+          }
+        },
+        "text_RFtjr7": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The Peak Performance Sun Stick is Hawaii Act 104 compliant, 100% biodegradable and reef safe. Because when the ocean is your office what you leave in it matters as much as what you put on your skin.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_HNWRhN",
+        "text_RFtjr7"
+      ],
+      "custom_css": [
+        "@media (max-width: 768px) {.ctr-landing-reason__overlay-text {max-width: 260px; }}"
+      ],
+      "name": "Landing Reason 5 (CTR)",
+      "settings": {
+        "image": "shopify://shop_images/Good_For.png_11.png",
+        "show_video_controls": false,
+        "overlay_icon": "shopify://shop_images/Claims_701c4c8e-d7b7-4969-bc2d-4fe0c2c40c6e.png",
+        "overlay_text": "<p>Hawaii Act 104 Compliant. Reef Safe.</p>",
+        "desktop_media_left": true,
+        "badge": "<p>REASON #5</p>",
+        "title": "<p>WHAT YOU LEAVE IN THE OCEAN MATTERS.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_open_new_tab": false,
+        "button_arrow_direction": "down",
+        "background_color": "#ffffff",
+        "background_gradient": "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 100%)",
+        "card_background": "#f9f9f9",
+        "border_color": "#21212126",
+        "badge_background": "#0032a0",
+        "badge_color": "#ffffff",
+        "heading_color": "#212121",
+        "text_color": "#232323",
+        "overlay_background": "#fe5000",
+        "overlay_color": "#ffffff",
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20
+      }
+    },
+    "ctr_landing_comparison_i9kxpf": {
+      "type": "ctr-landing-comparison",
+      "blocks": {
+        "highlight_feature_NFcL9m": {
+          "type": "highlight_feature",
+          "settings": {
+            "text": "<p>100% non-nano mineral zinc oxide</p>"
+          }
+        },
+        "highlight_feature_7dRdFt": {
+          "type": "highlight_feature",
+          "settings": {
+            "text": "<p>Sits on top of skin — blocks UV before it penetrates</p>"
+          }
+        },
+        "highlight_feature_Eap8xf": {
+          "type": "highlight_feature",
+          "settings": {
+            "text": "<p>Microbiome-strengthening formula</p>"
+          }
+        },
+        "highlight_feature_9tCTT8": {
+          "type": "highlight_feature",
+          "settings": {
+            "text": "<p>80-min water resistance. FDA tested.</p>"
+          }
+        },
+        "highlight_feature_rjULyY": {
+          "type": "highlight_feature",
+          "settings": {
+            "text": "<p>Hawaii Act 104 reef safe certified</p>"
+          }
+        },
+        "highlight_feature_yyeUDj": {
+          "type": "highlight_feature",
+          "settings": {
+            "text": "<p>Non-melting. Won't warp, slip, or sting.</p>"
+          }
+        },
+        "conventional_feature_W3igkE": {
+          "type": "conventional_feature",
+          "settings": {
+            "text": "<p>Chemical UV filters that absorb into your skin</p>"
+          }
+        },
+        "conventional_feature_QNJ4NA": {
+          "type": "conventional_feature",
+          "settings": {
+            "text": "<p>Penetrates the bloodstream after a single application</p>"
+          }
+        },
+        "conventional_feature_8jKqqE": {
+          "type": "conventional_feature",
+          "settings": {
+            "text": "<p>Disrupts your skin microbiome</p>"
+          }
+        },
+        "conventional_feature_KAGDxF": {
+          "type": "conventional_feature",
+          "settings": {
+            "text": "<p>Loses efficacy fast in water</p>"
+          }
+        },
+        "conventional_feature_KymMfH": {
+          "type": "conventional_feature",
+          "settings": {
+            "text": "<p>Contains oxybenzone — banned in Hawaii</p>"
+          }
+        },
+        "conventional_feature_r6hQ74": {
+          "type": "conventional_feature",
+          "settings": {
+            "text": "<p>Melts under heat. Stings your eyes.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "highlight_feature_NFcL9m",
+        "highlight_feature_7dRdFt",
+        "highlight_feature_Eap8xf",
+        "highlight_feature_9tCTT8",
+        "highlight_feature_rjULyY",
+        "highlight_feature_yyeUDj",
+        "conventional_feature_W3igkE",
+        "conventional_feature_QNJ4NA",
+        "conventional_feature_8jKqqE",
+        "conventional_feature_KAGDxF",
+        "conventional_feature_KymMfH",
+        "conventional_feature_r6hQ74"
+      ],
+      "custom_css": [
+        "@media (min-width: 1024px) {.ctr-landing-comparison {margin-bottom: 64px; }}"
+      ],
+      "name": "Landing Comparison (CTR)",
+      "settings": {
+        "title": "<p>How Are We<strong> Different?</strong></p>",
+        "highlight_image": "shopify://shop_images/Frame_2147224697.png",
+        "highlight_image_mobile": "shopify://shop_images/Frame_2147224697_3.png",
+        "conventional_image": "shopify://shop_images/Frame_2147224697_1.png",
+        "conventional_image_mobile": "shopify://shop_images/Frame_2147224697_4.png",
+        "check_icon": "shopify://shop_images/Circle_1.png",
+        "x_icon": "shopify://shop_images/XCircle.png",
+        "check_icon_size": 21,
+        "x_icon_size": 24,
+        "background_color": "#f9f9f9",
+        "background_gradient": "linear-gradient(180deg, #F9F9F9 0%, #F9F9F9 100%)",
+        "highlight_background": "#fae0d4",
+        "conventional_background": "#f9f9f9",
+        "border_color": "#21212126",
+        "heading_color": "#212121",
+        "accent_color": "#fe5000",
+        "text_color": "#212121",
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40
+      }
+    },
+    "steps_CirmEA": {
+      "type": "steps",
+      "blocks": {
+        "item_N7cq33": {
+          "type": "item",
+          "settings": {
+            "title": "Step 1",
+            "description": "<p>Shake well before use and apply 15 minutes before sun exposure. </p>",
+            "image": "shopify://shop_images/video-element.png",
+            "video": "shopify://files/videos/new-01.mp4",
+            "hide_mute": true,
+            "full_bleed_media": false
+          }
+        },
+        "item_f8R4LL": {
+          "type": "item",
+          "settings": {
+            "title": "Step 2",
+            "description": "<p>Hold container 4–6 inches from skin and spray liberally and evenly across the body. Rub into skin.</p>",
+            "image": "shopify://shop_images/video-element_1.png",
+            "video": "shopify://files/videos/new-02.mp4",
+            "hide_mute": true,
+            "full_bleed_media": false
+          }
+        },
+        "item_8w88hN": {
+          "type": "item",
+          "settings": {
+            "title": "Step 3",
+            "description": "<p>Reapply after 40 minutes of swimming or sweating, immediately after towel drying, and at least every 2 hours.</p>",
+            "image": "shopify://shop_images/video-element_3.png",
+            "video": "shopify://files/videos/new-03.mp4",
+            "hide_mute": true,
+            "full_bleed_media": false
+          }
+        }
+      },
+      "block_order": [
+        "item_N7cq33",
+        "item_f8R4LL",
+        "item_8w88hN"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "steps-accordion-element,steps-swiper-element > div {background-color: #f9f9f9;}"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "How to Apply"
+      }
+    },
+    "product_hero_WffQp3": {
+      "type": "product-hero",
+      "blocks": {
+        "variant_product_option_ygfhCb": {
+          "type": "variant_product_option",
+          "settings": {
+            "product": "sun-stick-spf50",
+            "variant_id": "",
+            "preselected_selling_plan_id": "",
+            "option_label": "Original",
+            "badge_label": "",
+            "image_override": "shopify://shop_images/Label_3.png"
+          }
+        },
+        "variant_product_option_868aTK": {
+          "type": "variant_product_option",
+          "settings": {
+            "product": "jumbo-sun-stick",
+            "variant_id": "",
+            "preselected_selling_plan_id": "",
+            "option_label": "Jumbo",
+            "badge_label": "",
+            "image_override": "shopify://shop_images/Label_5.png"
+          }
+        },
+        "variant_product_option_wtf4xF": {
+          "type": "variant_product_option",
+          "settings": {
+            "product": "sun-stick-set",
+            "variant_id": "",
+            "preselected_selling_plan_id": "",
+            "option_label": "Combo",
+            "badge_label": "",
+            "image_override": "shopify://shop_images/Label_6.png"
+          }
+        },
+        "summary_cQBRJi": {
+          "type": "summary",
+          "settings": {
+            "title": "100% mineral protection"
+          }
+        },
+        "summary_qPrUJn": {
+          "type": "summary",
+          "settings": {
+            "title": "Air-powered continuous spray"
+          }
+        },
+        "summary_63TWc9": {
+          "type": "summary",
+          "settings": {
+            "title": "Minimal white cast"
+          }
+        },
+        "summary_jqFFpA": {
+          "type": "summary",
+          "settings": {
+            "title": "Hydrates + soothes"
+          }
+        },
+        "summary_gAFqzz": {
+          "type": "summary",
+          "settings": {
+            "title": "Protects + strengthens skin barrier"
+          }
+        },
+        "summary_URegVL": {
+          "type": "summary",
+          "settings": {
+            "title": "No chemical filters"
+          }
+        },
+        "summary_aCKgNr": {
+          "type": "summary",
+          "settings": {
+            "title": "Water resistant (40 min)"
+          }
+        },
+        "summary_VGR6VA": {
+          "type": "summary",
+          "settings": {
+            "title": "Dermatologist tested"
+          }
+        },
+        "summary_Pyi9bE": {
+          "type": "summary",
+          "settings": {
+            "title": "Broad spectrum UV protection"
+          }
+        },
+        "summary_w7y9Y7": {
+          "type": "summary",
+          "settings": {
+            "title": "Reef safe"
+          }
+        },
+        "summary_PMq86q": {
+          "type": "summary",
+          "settings": {
+            "title": "Fragrance free"
+          }
+        },
+        "subscription_benefit_rNK8k6": {
+          "type": "subscription_benefit",
+          "settings": {
+            "title": "Free shipping on your first order",
+            "benefit_variant_ids": ""
+          }
+        },
+        "subscription_benefit_LNJQej": {
+          "type": "subscription_benefit",
+          "settings": {
+            "title": "Skip, pause or cancel anytime",
+            "benefit_variant_ids": ""
+          }
+        }
+      },
+      "block_order": [
+        "variant_product_option_ygfhCb",
+        "variant_product_option_868aTK",
+        "variant_product_option_wtf4xF",
+        "summary_cQBRJi",
+        "summary_qPrUJn",
+        "summary_63TWc9",
+        "summary_jqFFpA",
+        "summary_gAFqzz",
+        "summary_URegVL",
+        "summary_aCKgNr",
+        "summary_VGR6VA",
+        "summary_Pyi9bE",
+        "summary_w7y9Y7",
+        "summary_PMq86q",
+        "subscription_benefit_rNK8k6",
+        "subscription_benefit_LNJQej"
+      ],
+      "custom_css": [
+        "#product-gallery product-gallery > div {padding-top: 0 !important;}",
+        "#product-form {margin-bottom: 0;}",
+        "swiper-slide video {aspect-ratio: 1/1;}",
+        "section-renderer > div {border-top: 1px solid #21212126;}",
+        ".m-active {--tw-ring-color: #000; border: none;}",
+        "product-siblings-variant-options {gap: 16px;}",
+        "@media (min-width: 1024px) {.product-hero__content {padding: 40px; } .product-hero__bundle-products {margin-inline: 40px; margin-bottom: 40px; } [data-landing-page] {padding-bottom: 40px; }}"
+      ],
+      "name": "Product Hero",
+      "settings": {
+        "product_override": "sun-stick-spf50",
+        "is_landing_page": true,
+        "bg_color": "bg-white",
+        "title_size": "large",
+        "show_inventory_quantity": false,
+        "gallery_badge_first_image_only": false,
+        "use_variant_media": false,
+        "discount_tag": "+ Free Shipping",
+        "hide_from_price_and_discount": false,
+        "hide_description": true,
+        "hide_summary": true,
+        "show_siblings": false,
+        "product_discount_heading": "",
+        "subscription_badge_type": "auto",
+        "subscription_badge_text": "Save 25%",
+        "subscription_badge_custom_text": "[extra] [saving] OFF",
+        "show_extra_in_saving_badge": false,
+        "show_unit_price": false,
+        "unit_name": "",
+        "show_variant_title_in_variant_picker": false,
+        "show_prices_in_variant_picker": false,
+        "hide_default_variant_picker": false,
+        "variant_product_option_label": "Size",
+        "hide_variant_product_option_badges": true,
+        "variant_picker_style": "title",
+        "hide_quantity_input": false,
+        "show_quantity_input_for_subscription": false,
+        "hide_purchase_selector": false,
+        "one_time_purchase_badge_text": "",
+        "subsDefaultOption": "subscriptions",
+        "subsOrder": "subs_top",
+        "subscription_form_style": "stacked",
+        "subscription_style_variant": "secondary",
+        "split_subscriptions_by_variants": false,
+        "subscription_title": "Subscribe",
+        "one_time_title": "One-time",
+        "subscription_delivered_every_text": "<p>Delivered Every</p>",
+        "reverse_selling_plan_order": true,
+        "show_subscription_saving_message": true,
+        "cta": "Add to cart",
+        "cta_link": "",
+        "show_out_of_stock_banner": false,
+        "out_of_stock_banner_text": "",
+        "social_quote": "Between the ocean, the trails, and everything else, my skin is always on the front lines. I need sun protection that's clean, natural, and can keep up with whatever I'm doing. The Sun Stick does exactly that: mineral protection, minimal white cast, and effortless application whether I'm in the water or in the desert. I can focus on pushing my limits, not what I'm putting on my skin.\"",
+        "social_profile_name": "Max Jolliffe (@woah_max)",
+        "social_link": "https://www.instagram.com/woah_max",
+        "show_details": false,
+        "show_notify": true,
+        "notify_text": "Get notified when the product is available again",
+        "notify_placeholder": "Enter your email",
+        "notify_success": "Thank you! We will notify you when the product is back in stock.",
+        "klaviyo_api_key": "SdwbFd",
+        "klaviyo_list_id": "",
+        "notify_subtext": "<p>By signing up, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Service</a> and our <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a>.</p>",
+        "bundle_title": "Upgrade to our bundle",
+        "video_carousel_heading": "STRAIGHT FROM THE FREAKS"
+      }
+    },
+    "faqs_piVy8Y": {
+      "type": "faqs",
+      "blocks": {
+        "accordion_nUMJH9": {
+          "type": "accordion",
+          "settings": {
+            "title": "Can I use Freaks of Nature on my children?",
+            "description": "<p>Yes, all of our products are 100% mineral sunscreens and safe enough for your children. If you have a child 6 months or younger please consult with a physician.</p>"
+          }
+        },
+        "accordion_F7xCWR": {
+          "type": "accordion",
+          "settings": {
+            "title": "Do your products expire?",
+            "description": "<p>Expiration dates are printed on the bottom of our SPF products and expire within 36 months. We recommend all products be used 6 months after opening to maintain freshness and efficacy.</p>"
+          }
+        },
+        "accordion_GKVmNH": {
+          "type": "accordion",
+          "settings": {
+            "title": "Do your products contain nano-particles?",
+            "description": "<p>No, all Freaks of Nature products are proudly made with non-nano particles.</p>"
+          }
+        },
+        "accordion_pUUQLG": {
+          "type": "accordion",
+          "settings": {
+            "title": "Are your products reef safe?",
+            "description": "<p>Yes, our products are Hawaii Reef Compliant Act 104.</p>"
+          }
+        },
+        "accordion_kdR8mj": {
+          "type": "accordion",
+          "settings": {
+            "title": "Are your products fragrance-free?",
+            "description": "<p>Yes, all of our products are formulated without fragrance.</p>"
+          }
+        },
+        "accordion_BKLdqU": {
+          "type": "accordion",
+          "settings": {
+            "title": "What skin types are Freaks of Nature products suitable for?",
+            "description": "<p>Freaks of Nature products are proudly formulated for all skin types. All of our products are dermatologist tested for safety and all ingredients are deemed non-comedogenic. If you have any questions about a specific ingredient, please review our ingredient page. If you have any concerns, we recommend conducting a patch test or sharing our ingredient list with your healthcare provider.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_nUMJH9",
+        "accordion_F7xCWR",
+        "accordion_GKVmNH",
+        "accordion_pUUQLG",
+        "accordion_kdR8mj",
+        "accordion_BKLdqU"
+      ],
+      "custom_css": [
+        ".faqs-section {border-bottom: 1px solid #21212126;}",
+        "[data-title] + div {display: none;}",
+        "[data-title] {font-size: clamp( 32px, calc(32 * 1px + (50) * (100vw - 430 * 1px) / (1225)), 74px ); line-height: 1.08; --lines-interval: calc(1em + 6px); background-image: repeating-linear-gradient( 180deg, #d9d9d9, #d9d9d9 1px, transparent 1px, transparent var(--lines-interval) ), linear-gradient( 0deg, #d9d9d9, #d9d9d9 1px, transparent 1px, transparent 100% );}"
+      ],
+      "name": "Faqs",
+      "settings": {
+        "title": "frequently asked questions",
+        "bg_color": "bg-white",
+        "enable_autoscroll": false,
+        "padding_top_desktop": 64,
+        "padding_bottom_desktop": 0,
+        "padding_top_mobile": 50,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "reviews_R89Br9": {
+      "type": "reviews",
+      "custom_css": [
+        ".reviews-section > .border-y {border-top-width: 0;}",
+        "@media (min-width: 1024px) {.reviews-section > div > div:first-of-type {padding: 64px 0 40px; }}"
+      ],
+      "settings": {
+        "product_override": "sun-stick-spf50",
+        "bg_color": "bg-white",
+        "title": "Loved by 80,000+ Freaks",
+        "image": "shopify://shop_images/Performance2_png.png",
+        "hide_mute": false,
+        "full_bleed_media": false
+      }
+    },
+    "ctr_routine_hero_at6Rxp": {
+      "type": "ctr-routine-hero",
+      "custom_css": [
+        ".ctr-routine-hero__title {letter-spacing: 0;}",
+        ".ctr-routine-hero__subtitle {max-width: 527px;}",
+        "@media (max-width: 550px) {.ctr-routine-hero__title {max-width: 305px; }}"
+      ],
+      "name": "Routine Hero (CTR)",
+      "settings": {
+        "desktop_image": "shopify://shop_images/Container_49.png",
+        "desktop_image_position": "center center",
+        "mobile_image": "shopify://shop_images/Container_50.png",
+        "mobile_image_position": "top center",
+        "title": "<p>ZERO WHITE CAST. <strong>BUILT TO PERFORM.</strong></p>",
+        "subtitle": "<p>Lightweight mineral SPF 50 that goes on clear, stays put and never slows you down.</p>",
+        "button_label": "Shop now",
+        "button_link": "#product-hero-content",
+        "button_open_new_tab": false,
+        "button_style": "orange",
+        "button_arrow_direction": "top",
+        "background_color": "#320f11",
+        "background_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(9, 5, 11, 0.25) 100%)",
+        "panel_background": "#ffffff36",
+        "text_color": "#ffffff",
+        "accent_color": "#fb5219",
+        "panel_max_width_desktop": 711,
+        "min_height_desktop": 645,
+        "min_height_mobile": 625,
+        "padding_top_desktop": 100,
+        "padding_bottom_desktop": 100,
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 32
+      }
+    }
+  },
+  "order": [
+    "custom_liquid_6fiee9",
+    "main",
+    "ctr_announcement_bar_wi8hzM",
+    "ctr_nav_section_MjWmmF",
+    "ctr_spray_lp_hero_g7ADx8",
+    "ctr_five_systems_qB4MTk",
+    "ctr_landing_reason_aNrbhr",
+    "ctr_landing_reason_AfefX7",
+    "ctr_landing_reason_9KPAHr",
+    "ctr_landing_reason_dhtnJ4",
+    "ctr_landing_reason_jPm4Vd",
+    "ctr_landing_comparison_i9kxpf",
+    "steps_CirmEA",
+    "product_hero_WffQp3",
+    "faqs_piVy8Y",
+    "reviews_R89Br9",
+    "ctr_routine_hero_at6Rxp"
+  ]
+}

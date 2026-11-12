@@ -1,0 +1,180 @@
+{% if bundle_product and bundle_product.available %}
+  {% if bundle_variant %}
+    {% assign selected_variant = bundle_variant %}
+  {% else %}
+    {% assign selected_variant = bundle_product.selected_or_first_available_variant %}
+  {% endif %}
+
+  {% assign bundle_url = bundle_product.url %}
+
+  {%- comment -%}
+    Build one price block using your snippet, then reuse it for
+    the visible price and for both CTAs.
+  {%- endcomment -%}
+  {% capture price_block_html %}
+    <div class="flex flex-wrap items-baseline gap-x-8 text-center">
+      {% render 'one-time-price', variant: selected_variant %}
+    </div>
+  {% endcapture %}
+
+  {% if selected_variant.image %}
+    {% assign image = selected_variant.image %}
+  {% else %}
+    {% assign image = bundle_product.featured_image %}
+  {% endif %}
+
+  {% assign bundle_name = bundle_product.title %}
+  {% assign bundle_inte_id = bundle_product.id %}
+  {% assign bundle_products = bundle_product.metafields.custom.bundle_products.value %}
+  {% assign product_is_available = selected_variant.available %}
+
+  {% for bundle_product_handle in bundle_products %}
+    {% assign individual_product = all_products[bundle_product_handle.handle] %}
+    {% if individual_product %}
+      {% assign product_price = individual_product.price %}
+      {% assign total_individual_price = total_individual_price | plus: product_price %}
+      {% assign product_selling_plan_prices = individual_product.selling_plan_allocations %}
+      {% if product_selling_plan_prices.size > 0 %}
+        {% assign highest_savings_on_product = 0 %}
+        {% for selling_plan in product_selling_plan_prices %}
+          {% assign selling_plan_price = selling_plan.price %}
+          {% assign savings_for_plan = product_price | minus: selling_plan_price %}
+          {% if savings_for_plan > highest_savings_on_product %}
+            {% assign highest_savings_on_product = savings_for_plan %}
+          {% endif %}
+        {% endfor %}
+        {% assign total_individual_price = total_individual_price | minus: highest_savings_on_product %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% for group in bundle_product.selling_plan_groups %}
+    {% unless group.name == 'Pre Order' %}
+      {% assign discount_value = group.selling_plans[0].price_adjustments[0].value %}
+      {% assign discount_type = group.selling_plans[0].price_adjustments[0].value_type %}
+      {% if discount_type == 'percentage' %}
+        {% assign discount = discount_value | append: '%' %}
+      {% endif %}
+      {% if discount_type == 'fixed_amount' %}
+        {% assign discount = discount_value | money_without_trailing_zeros %}
+      {% endif %}
+    {% endunless %}
+  {% endfor %}
+
+  {% if product_is_available == false %}
+    {% assign text = 'Shop Now' %}
+    {% assign disabled_attribute = 'disabled' %}
+  {% else %}
+    {% assign text = text | default: 'Shop Now' %}
+    {% assign disabled_attribute = '' %}
+  {% endif %}
+
+  {% for group in bundle_product.selling_plan_groups %}
+    {% if group.name == 'Pre Order' %}
+      {% assign cta_text = settings.pre_order_cta_text %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+  {% if bundle_product.available != true and bundle_product.metafields.custom.coming_soon == true %}
+    {% assign cta_text = settings.coming_soon_cta_text %}
+  {% endif %}
+
+  {% if bundle_product.available != true and bundle_product.metafields.custom.coming_soon != true %}
+    {% assign cta_text = settings.sold_out_cta_text %}
+  {% endif %}
+
+  <div class="relative -ml-1 flex flex-col lg:-mt-1 lg:flex-1">
+    {% if bundle_banner != blank %}
+      <div class="text m-16 mb-0 flex min-h-20 items-center justify-center bg-offWhite px-8">
+        <span class="fn-tt-caption-20 pt-1 font-medium uppercase">
+          {{ bundle_banner }}
+        </span>
+      </div>
+    {% endif %}
+    <a
+      href="{{ bundle_url }}"
+      aria-label="{{ bundle_product.title }}"
+      class="mt-16 flex flex-1 gap-x-8 p-16 pb-0 lg:flex-col lg:pt-0 {% if bundle_banner != blank %}pt-0 mt-0 lg:mt-16{% endif %}"
+    >
+      {% if image %}
+        <div class="relative">
+          <div class="relative aspect-[0.9] h-100 shrink-0 lg:aspect-square lg:h-auto lg:w-full">
+            {{
+              image
+              | image_url: width: image.width
+              | image_tag: loading: 'lazy', sizes: '25vw', class: 'w-full h-full object-cover absolute inset-0 z-0'
+            }}
+          </div>
+        </div>
+      {% endif %}
+      <div class="flex flex-1 flex-col gap-y-8 pr-8 ">
+        <h3 class="fn-tt-sub-title-40 font-medium uppercase lg:pt-16">{{ bundle_name }}</h3>
+        <ul class="fn-tt-body-10">
+          {% if bundle_products != blank %}
+            {% for bundle_product_handle in bundle_products %}
+              {% assign individual_product = all_products[bundle_product_handle.handle] %}
+              {% if individual_product %}
+                <li>- {{ individual_product.title }}</li>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </ul>
+      </div>
+    </a>
+
+    {% if product %}
+      <product-form>
+        {% form 'product', bundle_product %}
+          <input type="hidden" name="id" value="{{ selected_variant.id }}">
+          <input name="quantity" id="quantity-bundle" value="1" type="hidden">
+
+          <div class="p-16 lg:pt-24">
+            {% render 'buy-button',
+              text: 'Add',
+              extra_classes: 'w-full text-center !min-h-40 !py-0 lg:!min-h-56',
+              cta_color: bundle_cta_color,
+              type: 'submit',
+              name: 'add',
+              hasIcons: false,
+              product_is_available: product_is_available,
+              extra_text_classes: 'fn-tt-cta-20',
+              product_intelligems: bundle_inte_id,
+              price_block_html: price_block_html
+            %}
+          </div>
+        {% endform %}
+      </product-form>
+    {% else %}
+      {% if cta_reduced_height == true %}
+        {% assign extra_classes = 'w-full !py-12' %}
+      {% else %}
+        {% assign extra_classes = 'w-full' %}
+      {% endif %}
+
+      <a href="{{ bundle_url }}" class="hidden p-16 lg:block lg:pt-24">
+        {% render 'cta',
+          as: 'button',
+          disabled_attribute: disabled_attribute,
+          text: text,
+          extra_classes: extra_classes,
+          hasIcons: true,
+          cta_color: bundle_cta_color,
+          extra_text_classes: 'fn-tt-cta-20',
+          price_block_html: price_block_html
+        %}
+      </a>
+      <a href="{{ bundle_url }}" class="p-16 lg:hidden lg:pt-24">
+        {% render 'cta',
+          as: 'button',
+          disabled_attribute: disabled_attribute,
+          text: text,
+          extra_classes: extra_classes,
+          cta_color: bundle_cta_color,
+          extra_text_classes: 'fn-tt-cta-20',
+          price_block_html: price_block_html
+        %}
+      </a>
+    {% endif %}
+  </div>
+{% endif %}

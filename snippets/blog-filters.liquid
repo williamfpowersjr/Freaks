@@ -1,0 +1,33 @@
+{% if blog.all_tags.size > 1 %}
+  <blog-filters-element>
+    <div class="hidden flex-wrap gap-8 border-t border-black/15 lg:flex lg:bg-offWhite lg:p-16">
+      {% if current_tags == blank %}
+        <div class="fn-tt-body-30 flex items-center justify-center border border-orange bg-orange px-8 py-2 text-center font-medium text-white ">
+          View All
+        </div>
+      {% else %}
+        <a href="{{ blog.url }}">
+          <div class="fn-tt-body-30 items-center justify-center border border-black/15 bg-white  px-8 py-2 text-center font-medium ">
+            View All
+          </div>
+        </a>
+      {% endif %}
+      {% for tag in blog.all_tags %}
+        {% if current_tags contains tag %}
+          <div class="fn-tt-body-30 flex items-center justify-center border border-orange bg-orange px-8 py-2 text-center font-medium text-white ">
+            {{ tag | link_to_remove_tag: tag | replace: 'href', 'class="filter-button" data-active="true" href' }}
+          </div>
+        {% else %}
+          <div class="fn-tt-body-30 duration-250 items-center justify-center border border-black/15 bg-white px-8 py-2 text-center font-medium transition-all ease-in-out lg:hover:cursor-pointer lg:hover:bg-orange/15">
+            {{ tag | link_to_tag: tag | replace: 'href', 'class="filter-button" data-active="false" href' }}
+            tag
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="relative block lg:hidden">
+      {% render 'mobile-blog-filters', blog: blog %}
+    </div>
+  </blog-filters-element>
+{% endif %}

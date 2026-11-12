@@ -1,0 +1,86 @@
+{% if refill_variant %}
+  {% assign refill_product = refill_variant.product %}
+  {% assign refill_variant_is_available = refill_variant.available %}
+
+  {% comment %}
+    Use variant image if available, otherwise fallback to product featured image
+  {% endcomment %}
+  {% if refill_variant.image %}
+    {% assign image = refill_variant.image %}
+  {% else %}
+    {% assign image = refill_product.featured_image %}
+  {% endif %}
+
+  <div class="mb-48 mt-8 lg:mt-64 border w-full border-grey-MEDIUM lg:mb-0">
+    <div class="relative flex flex-col bg-offWhite">
+      {% if headline != blank %}
+        <div class="flex min-h-20 items-center py-8 px-16 fn-tt-sub-title-40 border-b border-black/15">
+          <span class="fn-tt-caption-20 pt-1 font-medium uppercase">
+            {{ headline }}
+          </span>
+        </div>
+      {% endif %}
+
+      <div class="flex flex-col xl:flex-row gap-16 py-16 px-24 xl:items-center">
+        <a
+          href="{{ refill_product.url }}?variant={{ refill_variant.id }}"
+          aria-label="{{ refill_product.title }} - {{ refill_variant.title }}"
+          class="flex flex-1 gap-x-8"
+        >
+          {% if image %}
+            <div class="relative">
+              <div class="relative aspect-[1.33] w-[125px] shrink-0">
+                {{
+                  image
+                  | image_url: width: image.width
+                  | image_tag: loading: 'lazy', sizes: '125px', class: 'w-full h-full object-cover absolute inset-0 z-0'
+                }}
+              </div>
+            </div>
+          {% endif %}
+
+          <div class="flex flex-1 flex-col gap-y-8">
+            <h3 class="fn-tt-body-30 font-medium">{{ refill_product.title }}</h3>
+
+            {% unless refill_product.has_only_default_variant == true %}
+              <p class="fn-tt-body-10">{{ refill_variant.title }}</p>
+            {% endunless %}
+
+            <p class="fn-tt-body-10 flex gap-x-8 items-baseline">
+              {% render 'one-time-price', variant: refill_variant %}
+            </p>
+          </div>
+        </a>
+
+        <product-form class="xl:shrink-0">
+          {% form 'product', refill_product %}
+            <input
+              type="hidden"
+              name="id"
+              value="{{ refill_variant.id }}"
+            >
+            <input
+              name="quantity"
+              id="quantity-refill"
+              value="1"
+              type="hidden"
+            >
+            <div>
+              {% render 'buy-button',
+                text: 'Add to Cart',
+                extra_classes: 'w-full text-center !min-h-40 !py-0',
+                cta_color: cta_color,
+                type: 'submit',
+                name: 'add',
+                hasIcons: false,
+                product_is_available: refill_variant_is_available,
+                extra_text_classes: 'fn-tt-cta-20',
+                product_intelligems: refill_product.id
+              %}
+            </div>
+          {% endform %}
+        </product-form>
+      </div>
+    </div>
+  </div>
+{% endif %}

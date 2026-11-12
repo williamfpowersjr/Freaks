@@ -1,0 +1,154 @@
+{% comment %}
+  Renders product variant options
+
+  Accepts:
+  - product: {Object} product object.
+  - option: {Object} current product_option object.
+
+
+
+  Usage:
+  {% render 'product-variant-options',
+    product: product,
+    option: option,
+  %}
+{% endcomment %}
+{% liquid
+  assign product_form_id = 'product-form-' | append: section.id
+  assign option_count = 0
+  for value in option.values
+    assign option_count = option_count | plus: 1
+  endfor
+
+  if option_count == 1
+    assign grid_cols = ' grid-cols-1'
+  elsif option_count == 2
+    assign grid_cols = ' grid-cols-2'
+  else
+    assign grid_cols = ' grid-cols-3'
+  endif
+%}
+
+<!-- Debug: option_count = {{ option_count }}, grid_cols = {{ grid_cols }} -->
+{% if variant_picker_style == 'swatches' %}
+  {% assign option_values_container_classes = 'flex flex-wrap gap-6 lg:gap-8' %}
+{% else %}
+  {% assign option_values_container_classes = 'grid flex-wrap items-center justify-center gap-8' | append: grid_cols %}
+{% endif %}
+<div class="{{ option_values_container_classes }}">
+  {% for value in option.values %}
+    {% liquid
+      assign option_disabled = true
+      if value.available
+        assign option_disabled = false
+      endif
+    %}
+
+    {% capture input_id %}
+      {{ section.id }}-{{ option.position }}-{{ forloop.index0 -}}
+    {% endcapture %}
+
+    {% capture input_name %}
+      {{ option.name }}-{{ option.position }}
+    {% endcapture %}
+
+    {% capture input_dataset %}
+      data-product-url="{{ value.product_url }}"
+      data-option-value-id="{{ value.id }}"
+    {% endcapture %}
+
+    {% capture label_unavailable %}
+      <span class="label-unavailable sr-only">
+        Sold Out
+      </span>
+    {% endcapture %}
+
+    {% assign classes = 'fn-tt-body-10 h-full flex-col text-center uppercase flex items-center justify-center cursor-pointer border border-transparent' %}
+    {%- if section.settings.show_variant_title_in_variant_picker -%}
+      {% assign classes = classes | replace: 'flex-col', 'flex-row' %}
+      {% assign classes = classes | replace: 'justify-center', ' ' %}
+      {% assign classes = classes | replace: 'border-transparent', ' ' %}
+      {% assign classes = classes | append: ' p-[5px] border-[#22202F29] w-[160px] lg:p-[6px] lg:w-[180px]' %}
+    {%- endif -%}
+    {% if variant_picker_style == 'title' %}
+      {% assign classes = classes | append: ' !border-black/15' %}
+    {% endif %}
+    {% if option_disabled %}
+      {% assign classes = classes | append: ' line-through' %}
+    {% endif %}
+
+    <input
+      type="radio"
+      id="{{ input_id }}"
+      name="{{ input_name | escape }}"
+      value="{{ value | escape }}"
+      form="{{ product_form_id }}"
+      {% if value.selected %}
+        checked
+      {% endif %}
+      class="hidden [&:checked+label]:!border-[#000] {% if variant_picker_style == 'title' %}[&:checked+label]:bg-blue/20{% endif %}"
+      {{ input_dataset }}
+    >
+    <label for="{{ input_id }}" class="{{ classes }}">
+      {% if value.variant.metafields.custom.badge != blank and value.variant.available %}
+        <span class="fn-tt-caption-20 flex w-full items-center justify-center bg-grey/40 p-4 font-medium uppercase [input:checked+label_&]:bg-blue [input:checked+label_&]:text-white">
+          {{ value.variant.metafields.custom.badge }}
+        </span>
+      {% endif %}
+      {% if variant_picker_style == 'swatches' %}
+        {% assign option_value_container_classes = 'size-72 relative shrink-0' %}
+
+        {%- if section.settings.show_variant_title_in_variant_picker -%}
+          {% assign option_value_container_classes = 'size-[42px] relative shrink-0 lg:size-[52px] ' %}
+        {%- endif -%}
+
+      {% else %}
+        {% assign option_value_container_classes = 'min-h-70 fn-tt-body-30 mt-auto p-8 font-medium normal-case lg:px-12 lg:py-18' %}
+      {% endif %}
+      <span class="{{ option_value_container_classes }}">
+        <span class="flex flex-col items-center gap-2 lg:gap-8">
+          {% if variant_picker_style == 'swatches' %}
+            {% if value.variant.featured_image != blank %}
+              <span class="sr-only">{{ value }}</span>
+              {{ value.variant.featured_image | image_url: width: 200, height: 200 | image_tag: class: 'size-full' }}
+            {% else %}
+              <span>{{ value }}</span>
+            {% endif %}
+          {% else %}
+            <span>{{ value }}</span>
+          {% endif %}
+          {% if show_unit_price and value.variant.metafields.custom.bundle_size > 0 %}
+            <span class="fn-tt-caption mt-2 text-black/60 lg:mt-8">
+              {{ value.variant.price | divided_by: value.variant.metafields.custom.bundle_size | money }}/
+              {%- if unit_name != blank -%}
+                {{- unit_name }}
+              {%- else -%}
+                unit
+              {%- endif -%}
+            </span>
+          {% endif %}
+          {% if show_prices_in_variant_picker %}
+            <span class="flex flex-wrap items-baseline justify-center gap-2 lg:gap-8">
+              {% if value.variant.compare_at_price > value.variant.price %}
+                <span class="fn-tt-caption text-black/60 line-through">
+                  {{ value.variant.compare_at_price | money }}
+                </span>
+              {% endif %}
+              <span class="fn-tt-body-10 xl:fn-tt-body-30">
+                {{ value.variant.price | money }}
+              </span>
+            </span>
+          {% endif %}
+        </span>
+
+        {% unless value.variant.available %}
+          {{ label_unavailable }}
+        {% endunless %}
+      </span>
+
+      {%- if section.settings.show_variant_title_in_variant_picker -%}
+        <span class="pl-[12px] pr-[6px] text-left text-[14px] capitalize">{{ value }}</span>
+      {%- endif -%}
+    </label>
+  {% endfor %}
+</div>

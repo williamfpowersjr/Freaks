@@ -1,0 +1,102 @@
+<steps-swiper-element id="steps" class="steps">
+  <div class="{{ bg_color }} relative m-24 {% if additional_classes != blank %} {{ additional_classes }} {% endif %}">
+    <swiper-container
+      class="mySwiper js-steps-content"
+      init="false"
+    >
+      {% for block in blocks %}
+        {% if block.type == 'item' %}
+          {% if block.settings.image != blank %}
+            <swiper-slide class="swiper-slide">
+              <div class="relative aspect-square min-w-full {{ bg_color }}">
+                {{
+                  block.settings.image
+                  | image_url: width: block.settings.image.width
+                  | image_tag: loading: 'lazy', sizes: '25vw', class: 'w-full h-full object-cover absolute inset-0 z-0'
+                }}
+              </div>
+
+              {% if block.settings.title != blank or block.settings.description != blank %}
+                <div class="flex min-h-152 flex-col gap-16 p-24">
+                  {% if block.settings.title != blank %}
+                    <h3
+                      data-title
+                      class="fn-tt-title-20"
+                    >
+                      {{ block.settings.title }}
+                    </h3>
+                  {% endif %}
+                  {% if block.settings.description != blank %}
+                    {% assign text_with_sup = block.settings.description
+                      | replace: '¹', '<sup>1</sup>'
+                      | replace: '²', '<sup>2</sup>'
+                      | replace: '³', '<sup>3</sup>'
+                      | replace: '⁴', '<sup>4</sup>'
+                      | replace: '⁵', '<sup>5</sup>'
+                      | replace: '⁶', '<sup>6</sup>'
+                      | replace: '⁷', '<sup>7</sup>'
+                      | replace: '⁸', '<sup>8</sup>'
+                      | replace: '⁹', '<sup>9</sup>'
+                    %}
+                    <div class="fn-tt-body-20 simple-inline-rich-text">{{ text_with_sup }}</div>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </swiper-slide>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </swiper-container>
+    <div class="w-[inherit]' absolute left-0 top-0 z-10 w-full">
+      {% if title != blank %}
+        {% render 'title',
+          title: title,
+          text_size: 'fn-tt-title-70',
+          extra_wrapper_classes: 'text-center px-24 overflow-hidden mt-32',
+          bg_lines: 'bg-white-lines',
+          extra_text_classes: '!leading-[0.98] text-white'
+        %}
+      {% endif %}
+    </div>
+    <div class="flex w-full justify-between border-t border-black/15">
+      <div class="border-r border-black/15">
+        <div class="swiper-button-prev " aria-label="Previous Slide {{ section.id }}" role="button"></div>
+      </div>
+
+      <swiper-container
+        class="mySwiper2 js-thumbnails"
+        init="false"
+      >
+        {% for block in section.blocks %}
+          {% if block.type == 'item' %}
+            <swiper-slide class="swiper-slide">
+              <div class="relative size-25 overflow-hidden rounded-full">
+                <div
+                  class="indicator-circle"
+                >
+                  {% if block.settings.image != blank %}
+                    {{
+                      block.settings.image
+                      | image_url: width: block.settings.image.width
+                      | image_tag:
+                        loading: 'lazy',
+                        sizes: '25vw',
+                        class: 'w-full h-full object-cover absolute inset-0 z-0'
+                    }}
+                  {% endif %}
+                </div>
+                <span
+                  class="indicator-center absolute left-1/2 top-1/2 z-10 size-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange opacity-0 transition-opacity duration-300 ease-in-out"
+                ></span>
+              </div>
+            </swiper-slide>
+          {% endif %}
+        {% endfor %}
+      </swiper-container>
+
+      <div class="border-l border-black/15">
+        <div class="swiper-button-next " aria-label="Next Slide {{ section.id }}" role="button"></div>
+      </div>
+    </div>
+  </div>
+</steps-swiper-element>

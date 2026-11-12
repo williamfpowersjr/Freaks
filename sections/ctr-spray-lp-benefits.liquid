@@ -1,0 +1,304 @@
+{{ 'ctr-spray-lp-benefits.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="ctr-spray-lp-benefits"
+  style="
+    --ctr-spray-lp-benefits-background: {{ section.settings.background_color }};
+    --ctr-spray-lp-benefits-background-gradient: {{ section.settings.background_gradient }};
+    --ctr-spray-lp-benefits-heading-color: {{ section.settings.heading_color }};
+    --ctr-spray-lp-benefits-accent-color: {{ section.settings.accent_color }};
+    --ctr-spray-lp-benefits-subtitle-color: {{ section.settings.subtitle_color }};
+    --ctr-spray-lp-benefits-card-background: {{ section.settings.card_background }};
+    --ctr-spray-lp-benefits-cta-background: {{ section.settings.cta_background }};
+    --ctr-spray-lp-benefits-border-color: {{ section.settings.border_color }};
+    --ctr-spray-lp-benefits-title-color: {{ section.settings.card_title_color }};
+    --ctr-spray-lp-benefits-text-color: {{ section.settings.card_text_color }};
+    --ctr-spray-lp-benefits-button-color: {{ section.settings.cta_button_color }};
+    --ctr-spray-lp-benefits-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-spray-lp-benefits-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-spray-lp-benefits-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-spray-lp-benefits-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  <div class="ctr-spray-lp-benefits__inner">
+    {% if section.settings.title != blank %}
+      <div class="ctr-spray-lp-benefits__title-wrap bg-grey-lines">
+        <div class="ctr-spray-lp-benefits__title">
+          {{ section.settings.title }}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if section.settings.subtitle != blank %}
+      <div class="ctr-spray-lp-benefits__subtitle">
+        {{ section.settings.subtitle }}
+      </div>
+    {% endif %}
+
+    <div class="ctr-spray-lp-benefits__grid">
+      {% for block in section.blocks %}
+        <article class="ctr-spray-lp-benefits__card" {{ block.shopify_attributes }}>
+          {% if block.settings.icon != blank %}
+            <img
+              class="ctr-spray-lp-benefits__icon"
+              src="{{ block.settings.icon | img_url: '200x' }}"
+              alt="{{ block.settings.icon.alt | escape }}"
+              loading="lazy"
+              width="{{ block.settings.icon.width }}"
+              height="{{ block.settings.icon.height }}"
+            >
+          {% endif %}
+
+          <div class="ctr-spray-lp-benefits__card-content">
+            {% if block.settings.title != blank %}
+              <div class="ctr-spray-lp-benefits__card-title">
+                {{ block.settings.title }}
+              </div>
+            {% endif %}
+
+            {% if block.settings.text != blank %}
+              <div class="ctr-spray-lp-benefits__card-text">
+                {{ block.settings.text }}
+              </div>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+
+      <aside class="ctr-spray-lp-benefits__card ctr-spray-lp-benefits__card--cta">
+        {% if section.settings.cta_image != blank %}
+          <img
+            class="ctr-spray-lp-benefits__cta-image"
+            src="{{ section.settings.cta_image | img_url: '320x' }}"
+            alt="{{ section.settings.cta_image.alt | escape }}"
+            loading="lazy"
+            width="{{ section.settings.cta_image.width }}"
+            height="{{ section.settings.cta_image.height }}"
+          >
+        {% endif %}
+
+        {% if section.settings.cta_label != blank %}
+          <a class="ctr-spray-lp-benefits__cta-link" href="{{ section.settings.cta_link | default: '#' }}">
+            <span class="ctr-spray-lp-benefits__cta-label">{{ section.settings.cta_label }}</span>
+            <span class="ctr-spray-lp-benefits__cta-arrow" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M5.16263 0.875C5.16263 1.96891 5.61663 2.94573 6.21004 3.75822C6.80426 4.57182 7.57725 5.27527 8.31775 5.84356C8.39164 5.90028 8.46549 5.95585 8.5391 6.01026H0.875V7.76026H8.53856C8.46513 7.81454 8.39146 7.86999 8.31774 7.92655C7.57725 8.49486 6.80426 9.19826 6.21004 10.0119C5.61663 10.8244 5.16263 11.8012 5.16263 12.8951H6.91263C6.91263 12.2965 7.16185 11.6758 7.62325 11.0441C8.08385 10.4134 8.71727 9.8259 9.38324 9.31481C10.045 8.80688 10.7118 8.39502 11.2158 8.1093C11.4668 7.96701 11.675 7.85737 11.8189 7.78407C11.8907 7.74745 11.9464 7.71998 11.983 7.70213L12.0333 7.67799C12.3411 7.53412 12.5383 7.22483 12.5383 6.88505C12.5383 6.5452 12.3415 6.2361 12.0336 6.09228L12.0323 6.09167C11.9607 6.05727 11.8896 6.02209 11.8189 5.98604C11.675 5.91274 11.4668 5.80311 11.2158 5.66081C10.7118 5.3751 10.045 4.96322 9.38324 4.45529C8.71727 3.94421 8.08384 3.35671 7.62325 2.72607C7.16185 2.09432 6.91263 1.47363 6.91263 0.875H5.16263Z" fill="#0032A0"/>
+              </svg>
+            </span>
+          </a>
+        {% endif %}
+      </aside>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Spray LP Benefits (CTR)",
+  "tag": "section",
+  "class": "ctr-spray-lp-benefits-section",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>THE OCEAN SETS THE <strong>STANDARD</strong></p>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "<p>If it doesn't belong in the water, it doesn't belong on your skin.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "cta_image",
+      "label": "CTA image"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F9F9F9"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Background gradient",
+      "default": "linear-gradient(180deg, #F9F9F9 0%, #F9F9F9 100%)"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#FE5000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#F9F9F9"
+    },
+    {
+      "type": "color",
+      "id": "cta_background",
+      "label": "CTA background",
+      "default": "#EDE4D1"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#21212126"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card title color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card text color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "cta_button_color",
+      "label": "CTA button color",
+      "default": "#0032A0"
+    },
+    {
+      "type": "header",
+      "content": "Padding desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Padding mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "claim",
+      "name": "Claim",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Title",
+          "default": "<p>Claim title</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Claim description.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Spray LP Benefits (CTR)",
+      "category": "CTR Sections",
+      "blocks": [
+        {
+          "type": "claim",
+          "settings": {
+            "title": "<p>Air-Powered. Nothing Else.</p>",
+            "text": "<p>Other sprays run on industrial gas. You inhale it every time you spray. Ours runs on air. Clean, continuous, 360° coverage.</p>"
+          }
+        },
+        {
+          "type": "claim",
+          "settings": {
+            "title": "<p>Mineral Zinc. Full Stop.</p>",
+            "text": "<p>Chemical filters absorb into your skin to work. Zinc sits on top — blocking UV before it makes contact. 100% non-nano. Nothing to absorb.</p>"
+          }
+        },
+        {
+          "type": "claim",
+          "settings": {
+            "title": "<p>Built for the Active</p>",
+            "text": "<p>Join a community centered around movement, adventure, travel, and skincare that performs outdoors.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

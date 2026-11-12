@@ -1,0 +1,83 @@
+{% schema %}
+{
+  "name": "Divider",
+  "tag": "section",
+  "class": "divider-section",
+  "presets": [
+    {
+      "name": "Divider",
+      "category": "Divider"
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "lg_bg_color",
+      "label": "Desktop Section Background Color",
+      "options": [
+        {
+          "value": "lg:bg-white",
+          "label": "White"
+        },
+        {
+          "value": "lg:bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "lg:bg-white"
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Mobile Section Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "select",
+      "id": "divider_color",
+      "label": "Divider Color Desktop",
+      "options": [
+        {
+          "value": "lg:bg-white",
+          "label": "White"
+        },
+        {
+          "value": "lg:bg-black/15",
+          "label": "Grey"
+        }
+      ],
+      "default": "lg:bg-black/15"
+    },
+    {
+      "type": "select",
+      "id": "divider_color_mobile",
+      "label": "Divider Color Mobile",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-black/15",
+          "label": "Grey"
+        }
+      ],
+      "default": "bg-white"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="pb-32 lg:pb-80 {{ section.settings.bg_color }} {{ section.settings.lg_bg_color }}">
+  <div class="h-1 w-full {{ section.settings.divider_color_mobile }} {{ section.settings.divider_color }}"></div>
+</div>

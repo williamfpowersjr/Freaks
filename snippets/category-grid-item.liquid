@@ -1,0 +1,71 @@
+{%- comment -%}
+  Reusable category grid item snippet
+
+  @param {string} title - Required. Category title text
+  @param {string} link - Required. Category link URL
+  @param {object} mobile_image - Optional. Image object for mobile display (falls back to desktop_image)
+  @param {object} desktop_image - Optional. Image object for desktop display
+  @param {string} extra_classes - Optional. Additional CSS classes for the wrapper element
+{%- endcomment -%}
+
+{% assign cta_as = 'button' %}
+{% assign cta_text = settings.default_cta_text %}
+{% assign cta_color = 'orange' %}
+
+{% if link != blank %}
+  {% assign mobile_img = mobile_image | default: desktop_image %}
+
+  <a
+    href="{{ link }}"
+    class="group block size-full bg-blue/20 lg:bg-transparent lg:p-40 lg:text-white-100 {{ extra_classes }}"
+    aria-label="{{ title }}"
+  >
+    <div class="flex items-center lg:relative lg:aspect-[3/4] lg:items-start">
+      {% comment %} Mobile Image {% endcomment %}
+      {% if mobile_img != blank %}
+        <div class="relative h-80 w-80 flex-shrink-0 overflow-hidden lg:hidden">
+          {{
+            mobile_img
+            | image_url: width: 320
+            | image_tag: loading: 'lazy', sizes: '80px', widths: '80, 160, 320', class: 'h-full w-full object-cover'
+          }}
+        </div>
+      {% endif %}
+
+      {% comment %} Desktop Image {% endcomment %}
+      {% if desktop_image != blank %}
+        <div class="absolute inset-0 hidden lg:block">
+          {{
+            desktop_image
+            | image_url: width: 640
+            | image_tag: loading: 'lazy', sizes: '25vw', class: 'h-full w-full object-cover'
+          }}
+        </div>
+      {% endif %}
+
+      <div class="flex h-full grow items-center justify-between gap-24 p-24 lg:relative lg:h-auto lg:px-0 lg:pb-0 lg:pt-40">
+        {% if title != blank %}
+          <h3 class="fn-tt-cta-40 lg:fn-tt-title-50 flex-1 font-medium uppercase lg:border-b lg:border-t lg:border-grey/15 lg:py-6 lg:text-center lg:font-normal lg:leading-none">
+            {{ title }}
+          </h3>
+        {% endif %}
+
+        <div class="flex-shrink-0 text-blue lg:hidden">
+          {% render 'icon-thick-arrow', class: 'size-16' %}
+        </div>
+      </div>
+
+      <div class="hidden lg:absolute lg:bottom-0 lg:left-0 lg:block lg:w-full">
+        {% render 'cta',
+          as: cta_as,
+          text: cta_text,
+          extra_classes: 'absolute bottom-0 left-0 w-full transition-opacity duration-300 ease-in-out lg:opacity-0 group-hover:opacity-100',
+          hasIcons: true,
+          cta_color: cta_color,
+          extra_icon_classes: '-rotate-90',
+          hover_only: true
+        %}
+      </div>
+    </div>
+  </a>
+{% endif %}

@@ -1,0 +1,412 @@
+{{ 'ctr-science-system.css' | asset_url | stylesheet_tag }}
+
+<div
+  id="shopify-section-{{ section.id }}"
+  class="ctr-science-system"
+  style="
+    {% if section.settings.background_gradient != blank %}
+      --ctr-science-system-background: {{ section.settings.background_gradient }};
+    {% else %}
+      --ctr-science-system-background: {{ section.settings.background_color }};
+    {% endif %}
+    --ctr-science-system-card-background: {{ section.settings.card_background_color }};
+    --ctr-science-system-border-color: {{ section.settings.border_color }};
+    --ctr-science-system-text-color: {{ section.settings.text_color }};
+    --ctr-science-system-muted-color: {{ section.settings.muted_text_color }};
+    --ctr-science-system-accent-color: {{ section.settings.accent_color }};
+    --ctr-science-system-legal-text-color: {{ section.settings.legal_text_color }};
+    --ctr-science-system-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-science-system-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-science-system-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-science-system-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+  data-section-id="{{ section.id }}"
+  data-ctr-science-system
+>
+  {% assign ctr_science_stat_blocks = section.blocks | where: 'type', 'stat_item' %}
+  {% assign ctr_science_timeline_blocks = section.blocks | where: 'type', 'timeline_item' %}
+
+  <div class="ctr-science-system__wrapper">
+    {% if section.settings.title != blank %}
+      {% capture ctr_science_system_title %}
+        {{ section.settings.title
+          | replace: '[', '<span class="ctr-science-system__ref-mark">'
+          | replace: ']', '</span>'
+        }}
+      {% endcapture %}
+      <div class="ctr-science-system__title-wrap bg-grey-lines font-neue">
+        <div class="ctr-science-system__title inline-rich-text">
+          {{ ctr_science_system_title }}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if ctr_science_stat_blocks.size > 0 %}
+      <div class="ctr-science-system__grid">
+        {% for block in ctr_science_stat_blocks %}
+          <article class="ctr-science-system__item" {{ block.shopify_attributes }}>
+            <div class="ctr-science-system__value-wrap">
+              <span class="ctr-science-system__value">
+                {{ block.settings.value }}
+              </span>
+              {% if block.settings.value_suffix != blank %}
+                <span class="ctr-science-system__suffix">{{ block.settings.value_suffix }}</span>
+              {% endif %}
+            </div>
+
+            {% if block.settings.title != blank %}
+              {% capture ctr_science_system_item_title %}
+                {{ block.settings.title
+                  | replace: '[', '<span class="ctr-science-system__ref-mark">'
+                  | replace: ']', '</span>'
+                }}
+              {% endcapture %}
+              <div class="ctr-science-system__item-title inline-rich-text">
+                {{ ctr_science_system_item_title }}
+              </div>
+            {% endif %}
+
+            {% if block.settings.subtitle != blank %}
+              {% capture ctr_science_system_item_subtitle %}
+                {{ block.settings.subtitle
+                  | replace: '[', '<span class="ctr-science-system__ref-mark">'
+                  | replace: ']', '</span>'
+                }}
+              {% endcapture %}
+              <div class="ctr-science-system__item-subtitle inline-rich-text">
+                {{ ctr_science_system_item_subtitle }}
+              </div>
+            {% endif %}
+          </article>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if ctr_science_timeline_blocks.size > 0 %}
+      <div class="ctr-science-system__timeline-card">
+        <div class="ctr-science-system__timeline-list">
+          {% for block in ctr_science_timeline_blocks %}
+            <article
+              class="ctr-science-system__timeline-item{% if forloop.first %} is-first{% endif %}{% if forloop.last %} is-last{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="ctr-science-system__timeline-icon-wrap">
+                <span class="ctr-science-system__timeline-icon">
+                  {% if block.settings.icon != blank %}
+                    <img
+                      src="{{ block.settings.icon | img_url: '120x' }}"
+                      img_url="{{ block.settings.icon | img_url: '120x' }}"
+                      alt="{{ block.settings.icon.alt | default: 'Timeline icon' | escape }}"
+                      class="ctr-science-system__timeline-icon-image"
+                      loading="lazy"
+                      width="{{ block.settings.icon.width }}"
+                      height="{{ block.settings.icon.height }}"
+                    >
+                  {% else %}
+                    <svg viewBox="0 0 63 63" fill="none" aria-hidden="true">
+                      <circle cx="31.5" cy="31.5" r="31" stroke="currentColor"></circle>
+                      <path d="M31.5 14L22 31.2C20.8 33.4 20.8 36 22.1 38.2C23.9 41.4 27.4 43.4 31.1 43.4C34.7 43.4 38.1 41.5 40 38.5C41.5 36.1 41.6 33 40.2 30.5L31.5 14Z" stroke="currentColor"></path>
+                      <path d="M27.2 31.8L31 35.7L36.4 28.5" stroke="currentColor"></path>
+                    </svg>
+                  {% endif %}
+                </span>
+              </div>
+
+              <div class="ctr-science-system__timeline-content">
+                {% if block.settings.title != blank %}
+                  <div class="ctr-science-system__timeline-title inline-rich-text">
+                    {{ block.settings.title }}
+                  </div>
+                {% endif %}
+                {% if block.settings.text != blank %}
+                  <div class="ctr-science-system__timeline-text inline-rich-text">
+                    {{ block.settings.text }}
+                  </div>
+                {% endif %}
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if section.settings.reference_one != blank
+      or section.settings.reference_two != blank
+      or section.settings.legal_label != blank
+    %}
+      <div class="ctr-science-system__meta">
+        <div class="ctr-science-system__references">
+          {% if section.settings.reference_one != blank %}
+            {% capture ctr_science_system_reference_one %}
+            {{ section.settings.reference_one
+              | replace: '[', '<span class="ctr-science-system__ref-mark">'
+              | replace: ']', '</span>'
+            }}
+          {% endcapture %}
+            <div class="ctr-science-system__reference inline-rich-text">
+              {{ ctr_science_system_reference_one }}
+            </div>
+          {% endif %}
+          {% if section.settings.reference_two != blank %}
+            {% capture ctr_science_system_reference_two %}
+            {{ section.settings.reference_two
+              | replace: '[', '<span class="ctr-science-system__ref-mark">'
+              | replace: ']', '</span>'
+            }}
+          {% endcapture %}
+            <div class="ctr-science-system__reference inline-rich-text">
+              {{ ctr_science_system_reference_two }}
+            </div>
+          {% endif %}
+        </div>
+
+        {% if section.settings.legal_label != blank %}
+          <span class="ctr-science-system__legal-pill">
+            {{ section.settings.legal_label }}
+          </span>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Science Stats (CTR)",
+  "tag": "section",
+  "class": "ctr-science-system-section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>THE SCIENCE BEHIND THE SYSTEM</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "reference_one",
+      "label": "Reference one",
+      "info": "Use [1], [2], etc. to render small reference markers.",
+      "default": "<p>1 Nestor et al. J Clin Aesthet Dermatol 2015.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "reference_two",
+      "label": "Reference two",
+      "info": "Use [1], [2], etc. to render small reference markers.",
+      "default": "<p>2 Keršmanc et al. Nutrients 2025.</p>"
+    },
+    {
+      "type": "text",
+      "id": "legal_label",
+      "label": "Legal pill label",
+      "default": "HOLD · LEGAL"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Section background gradient",
+      "info": "Example: linear-gradient(180deg, #FFFFFF 0%, #FFF2E9 100%)"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Card background",
+      "default": "#F9F9F9"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "alpha": true,
+      "default": "#D9D9D9"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Primary text color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Secondary text color",
+      "alpha": true,
+      "default": "#21212199"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent value suffix color",
+      "default": "#FE5000"
+    },
+    {
+      "type": "color",
+      "id": "legal_text_color",
+      "label": "Legal pill text color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat_item",
+      "name": "Stat item (CTR)",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "22"
+        },
+        {
+          "type": "text",
+          "id": "value_suffix",
+          "label": "Value suffix",
+          "default": "×"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Title",
+          "info": "Use [1], [2], etc. to render small reference markers.",
+          "default": "<p>Higher UV tolerance threshold 1</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "info": "Use [1], [2], etc. to render small reference markers.",
+          "default": "<p>Polypodium Leucotomos</p>"
+        }
+      ]
+    },
+    {
+      "type": "timeline_item",
+      "name": "Timeline item (CTR)",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Title",
+          "default": "<p>Day 1</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Key minerals are replenished immediately, supporting cellular hydration and energy balance. Your body starts responding from the very first use.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Science Stats (CTR)",
+      "category": "CTR Sections",
+      "blocks": [
+        {
+          "type": "stat_item",
+          "settings": {
+            "value": "22",
+            "value_suffix": "×",
+            "title": "<p>Higher UV tolerance threshold[1]</p>",
+            "subtitle": "<p>Polypodium Leucotomos</p>"
+          }
+        },
+        {
+          "type": "stat_item",
+          "settings": {
+            "value": "46",
+            "value_suffix": "%",
+            "title": "<p>Less skin redness after UV exposure[2]</p>",
+            "subtitle": "<p>Red Orange Complex[®]</p>"
+          }
+        },
+        {
+          "type": "stat_item",
+          "settings": {
+            "value": "24",
+            "value_suffix": "%",
+            "title": "<p>Higher UV burn threshold[2]</p>",
+            "subtitle": "<p>Red Orange Complex[®]</p>"
+          }
+        },
+        {
+          "type": "timeline_item",
+          "settings": {
+            "title": "<p>Day 1</p>",
+            "text": "<p>Key minerals are replenished immediately, supporting cellular hydration and energy balance. Your body starts responding from the very first use.</p>"
+          }
+        },
+        {
+          "type": "timeline_item",
+          "settings": {
+            "title": "<p>2-4 Weeks</p>",
+            "text": "<p>Early directional trends in photoprotection begin to emerge, with initial improvements in UV tolerance. The gut microbiome composition begins to shift positively with improved digestion.</p>"
+          }
+        },
+        {
+          "type": "timeline_item",
+          "settings": {
+            "title": "<p>2+ Months</p>",
+            "text": "<p>Where the most significant changes take hold and your internal armor has been built. Skin develops a stronger tolerance to UV exposure, responds with less redness after sun exposure, and shows visual improvements in skin hydration and elasticity.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

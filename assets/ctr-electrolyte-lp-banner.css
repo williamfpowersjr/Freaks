@@ -1,0 +1,240 @@
+/* ==========================================
+   ctr-electrolyte-lp-banner
+   ========================================== */
+
+.ctr-electrolyte-lp-banner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: var(--ctr-elpb-min-height-mobile, 0px);
+  justify-content: var(--ctr-elpb-content-position-mobile, flex-start);
+
+  @media (min-width: 1024px) {
+    min-height: var(--ctr-elpb-min-height-desktop, 0px);
+    justify-content: initial;
+  }
+}
+
+/* ---- Background layers ---- */
+
+.ctr-electrolyte-lp-banner__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ctr-electrolyte-lp-banner__bg--desktop {
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: block;
+  }
+}
+
+.ctr-electrolyte-lp-banner__bg--mobile {
+  display: block;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.ctr-electrolyte-lp-banner__bg-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--ctr-elpb-img-position-mobile, center center);
+  max-width: none;
+  display: block;
+
+  @media (min-width: 1024px) {
+    object-position: var(--ctr-elpb-img-position-desktop, center center);
+  }
+}
+
+.ctr-electrolyte-lp-banner__gradient {
+  position: absolute;
+  inset: 0;
+}
+
+/* ---- Inner flex row (desktop: left text + right spacer) ---- */
+
+.ctr-electrolyte-lp-banner__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+}
+
+/* ---- Content column ---- */
+
+.ctr-electrolyte-lp-banner__content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: var(--ctr-elpb-pt-mobile, 24px);
+  padding-bottom: var(--ctr-elpb-pb-mobile, 24px);
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  align-items: center;
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    flex: 1;
+    max-width: 50%;
+    padding-top: var(--ctr-elpb-pt-desktop, 100px);
+    padding-bottom: var(--ctr-elpb-pb-desktop, 100px);
+    padding-left: 40px;
+    padding-right: 40px;
+    text-align: left;
+    align-items: flex-start;
+    gap: 24px;
+  }
+}
+
+/* Right spacer column (desktop) */
+.ctr-electrolyte-lp-banner__spacer {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .ctr-electrolyte-lp-banner__spacer {
+    display: block;
+    flex: 1;
+  }
+}
+
+/* ---- Eyebrow ---- */
+
+.ctr-electrolyte-lp-banner__eyebrow {
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1;
+  font-weight: 500;
+}
+
+/* ---- Headline ---- */
+
+.ctr-electrolyte-lp-banner__headline {
+  text-transform: uppercase;
+  text-wrap: balance;
+  font-size: clamp(40px, calc(40 * 1px + (64) * (100vw - 430 * 1px) / (1225)), 74px);
+}
+
+.ctr-electrolyte-lp-banner__title {
+  color: #fff;
+}
+
+.ctr-electrolyte-lp-banner__title p {
+  margin: 0;
+  line-height: 0.98;
+}
+
+.ctr-electrolyte-lp-banner__title-accent {
+  color: #fe5000;
+}
+
+.ctr-electrolyte-lp-banner__title-accent p {
+  margin: 0;
+  line-height: 0.98;
+}
+
+/* ---- Description ---- */
+
+.ctr-electrolyte-lp-banner__description {
+  color: #fff;
+  max-width: 527px;
+  line-height: 1.5;
+  font-size: 18px;
+
+  @media (min-width: 1024px) {
+    font-size: 20px;
+  }
+}
+
+.ctr-electrolyte-lp-banner__description p {
+  margin: 0;
+}
+
+.ctr-electrolyte-lp-banner__description--mobile {
+  display: none;
+}
+
+@media (max-width: 1023.98px) {
+  .ctr-electrolyte-lp-banner:has(.ctr-electrolyte-lp-banner__description--mobile) .ctr-electrolyte-lp-banner__description--desktop {
+    display: none;
+  }
+
+  .ctr-electrolyte-lp-banner__description--mobile {
+    display: block;
+  }
+}
+
+/* ---- Light text theme (e.g. Ambassador hero) ---- */
+
+.ctr-electrolyte-lp-banner--light .ctr-electrolyte-lp-banner__eyebrow {
+  color: #232323;
+}
+
+.ctr-electrolyte-lp-banner--light .ctr-electrolyte-lp-banner__title {
+  color: #232323;
+}
+
+.ctr-electrolyte-lp-banner--light .ctr-electrolyte-lp-banner__title strong {
+  color: #ff7815;
+  font-weight: inherit;
+}
+
+.ctr-electrolyte-lp-banner--light .ctr-electrolyte-lp-banner__title-accent {
+  color: #ff7815;
+}
+
+.ctr-electrolyte-lp-banner--light .ctr-electrolyte-lp-banner__description {
+  color: #232323;
+}
+
+/* ---- CTA wrapper ---- */
+
+.ctr-electrolyte-lp-banner__cta {
+  display: block;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .ctr-electrolyte-lp-banner__cta {
+    max-width: 410px;
+  }
+
+  .ctr-electrolyte-lp-banner--light .ctr-electrolyte-lp-banner__cta {
+    max-width: 527px;
+  }
+}
+
+/* ---- Mobile product image (below text, hidden on desktop) ---- */
+
+.ctr-electrolyte-lp-banner__mobile-image {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.ctr-electrolyte-lp-banner__mobile-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .ctr-electrolyte-lp-banner__mobile-image {
+    display: none;
+  }
+}

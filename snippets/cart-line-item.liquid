@@ -1,0 +1,263 @@
+{% style %}
+  html.js-ajax-cart-processing {
+    [data-ajax-cart-request-button],
+    [data-ajax-cart-quantity-minus],
+    [data-ajax-cart-quantity-plus],
+    [data-subscription-trigger] {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* Both <select>s are invisible overlays on a styled label/pill — any opacity on
+       them paints the native control's text over it (doubled "3 months"). Freeze them
+       and dim what's underneath instead. */
+    [data-frequency-select],
+    [data-subscribe-select] {
+      pointer-events: none;
+    }
+
+    div:has(> [data-frequency-select]) {
+      opacity: 0.5;
+    }
+  }
+{% endstyle %}
+
+{% comment %} Plans available regardless of current allocation (Pre Order excluded). {% endcomment %}
+{% assign selling_plans_available = false %}
+{% for group in line_item.product.selling_plan_groups %}
+  {% unless group.name == 'Pre Order' %}
+    {% if group.selling_plans.size > 0 %}
+      {% assign selling_plans_available = true %}
+    {% endif %}
+  {% endunless %}
+{% endfor %}
+
+{% assign is_pre_order_line = false %}
+{% if line_item.selling_plan_allocation.selling_plan.name == 'Pre Order' %}
+  {% assign is_pre_order_line = true %}
+{% endif %}
+
+{% assign has_subscription = false %}
+{% if line_item.selling_plan_allocation != null and is_pre_order_line == false %}
+  {% assign has_subscription = true %}
+{% endif %}
+
+{% comment %}
+  Free display is price-driven: any $0 line shows FREE (and contributes $0 to the summary via
+  cart-line-reference-price), so it reconciles regardless of source. "Locked" is intent-driven:
+  a $0 line carrying any merchant-configured marker property (settings.gift_lock_properties,
+  default "_igGWP") can't be edited/removed. Gating the lock on $0 means a forged or stale
+  marker on a priced line is ignored.
+{% endcomment %}
+{% assign is_free_line = false %}
+{% if line_item.final_line_price == 0 %}
+  {% assign is_free_line = true %}
+{% endif %}
+
+{% assign is_locked_gift = false %}
+{% if is_free_line and settings.gift_lock_properties != blank %}
+  {% assign gift_markers = settings.gift_lock_properties | split: ',' %}
+  {% for gm in gift_markers %}
+    {% assign gm_key = gm | strip %}
+    {% if gm_key != blank and line_item.properties[gm_key] != blank %}
+      {% assign is_locked_gift = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% comment %} Line's "was" (cents) via the shared snippet — the same value the summary sums. {% endcomment %}
+{%- capture was_raw -%}{%- render 'cart-line-reference-price', line_item: line_item -%}{%- endcapture -%}
+{% assign strike_line = was_raw | plus: 0 %}
+
+{% comment %}
+  Orange "SAVING X%" tag on every line with a saving, whatever the source — compare-at, selling
+  plan, or a cart discount. Discounted lines carry this AND the green named-discount label; the
+  repetition is intentional (client call). The % derives from strike_line, so the tag and the
+  strikethrough always agree.
+{% endcomment %}
+{% assign savings_pct = 0 %}
+{% if strike_line > line_item.final_line_price %}
+  {% assign diff = strike_line | minus: line_item.final_line_price %}
+  {% assign savings_pct = diff | times: 100.0 | divided_by: strike_line | round %}
+{% endif %}
+
+{% comment %}
+  ReCharge dynamic bundle child (CNV-6635): lines sharing `_rc_bundle` are one bundle, so
+  editing one line (qty / plan) would break it — those controls are locked and "remove" drops
+  every line of the bundle. The tier discount still shows via the line's discount allocations.
+{% endcomment %}
+{% assign rc_bundle_id = line_item.properties._rc_bundle %}
+{% assign is_bundle_line = false %}
+{% if rc_bundle_id != blank %}
+  {% assign is_bundle_line = true %}
+  {% assign remove_url = '/cart/update?' %}
+  {% for bundle_item in cart.items %}
+    {% if bundle_item.properties._rc_bundle == rc_bundle_id %}
+      {% assign remove_url = remove_url | append: 'updates[' | append: bundle_item.key | append: ']=0&' %}
+    {% endif %}
+  {% endfor %}
+  {% assign bundle_parent = all_products[line_item.properties._rc_bundle_parent] %}
+  {% assign bundle_label = bundle_parent.title | default: 'Bundle' %}
+{% else %}
+  {% assign remove_url = line_item.url_to_remove %}
+{% endif %}
+
+{% assign variant_label = line_item.variant.title %}
+{% if variant_label == 'Default Title' %}
+  {% assign variant_label = '' %}
+{% endif %}
+
+<cart-line-item-element
+  id="line-item-{{ line_item_index }}"
+  data-line-index="{{ line_item_index }}"
+  data-line-quantity="{{ line_item.quantity }}"
+  data-line-key="{{ line_item.key }}"
+  {% if is_locked_gift %}
+    data-gift
+  {% endif %}
+>
+  {%- comment -%} Columns stretch so the controls row can bottom-align with the mobile stepper. {%- endcomment -%}
+  <div class="flex items-stretch gap-10 p-20">
+    {%- comment -%}
+      Image column — on mobile the qty stepper sits under the image (Figma 5794:2301);
+      desktop keeps it in the controls row below.
+    {%- endcomment -%}
+    <div class="flex w-[90px] shrink-0 flex-col items-center gap-8">
+      <a
+        href="{{ line_item.url }}"
+        class="relative block size-[90px] overflow-hidden"
+      >
+        {{
+          line_item.image
+          | image_url: width: 180
+          | image_tag: loading: 'lazy', class: 'absolute inset-0 h-full w-full object-cover', sizes: '90px'
+        }}
+      </a>
+      {% unless is_locked_gift or is_bundle_line %}
+        <div class="flex items-center lg:hidden">
+          {% render 'cart-line-qty', line_item: line_item, line_item_index: line_item_index, id_suffix: 'mobile' %}
+        </div>
+      {% endunless %}
+    </div>
+
+    <div class="flex min-w-0 flex-1 flex-col gap-12">
+      {%- comment -%} Title block left; remove + right-aligned price/savings rail right (Figma 5785:1779). {%- endcomment -%}
+      <div class="flex items-start gap-8">
+        <div class="flex min-w-0 flex-1 flex-col">
+          <h3 class="pr-[30px] font-text text-[14px] font-medium leading-[1.5] text-[#232323] lg:text-[16px]">
+            {{ line_item.product.title | escape }}
+          </h3>
+          {% if line_item.product.type != blank %}
+            <p class="pt-4 font-text text-[10px] leading-[1.5] text-black/60 lg:text-[14px]">
+              {{ line_item.product.type }}
+            </p>
+          {% endif %}
+          {% if variant_label != blank %}
+            <p class="font-text text-[10px] leading-[1.5] text-[#535353] lg:text-[12px]">{{ variant_label }}</p>
+          {% endif %}
+          {% if is_bundle_line %}
+            <p class="font-text text-[12px] font-medium leading-[1.5] text-blue">
+              {{ bundle_label | escape }} · Qty {{ line_item.quantity }}
+            </p>
+          {% endif %}
+          {% if is_pre_order_line %}
+            <p class="font-text text-[12px] font-medium leading-[1.5] text-blue">Pre Order</p>
+          {% endif %}
+          {%- comment -%}
+            Visible line-item properties — how personalization/engraving/gift apps show
+            their data (Dawn parity). `_`-prefixed keys are internal markers (IG stamps
+            `_igTestGroup` on every line) and never render; file-upload values link to
+            the file by name.
+          {%- endcomment -%}
+          {% for property in line_item.properties %}
+            {% assign property_first_char = property.first | slice: 0 %}
+            {% if property.last != blank and property_first_char != '_' %}
+              <p class="font-text text-[12px] leading-[1.5] text-[#535353]">
+                {{ property.first | escape }}:
+                {% if property.last contains '/uploads/' %}
+                  <a href="{{ property.last }}" class="underline" target="_blank" rel="noopener">
+                    {{- property.last | split: '/' | last -}}
+                  </a>
+                {% else %}
+                  {{ property.last | escape }}
+                {% endif %}
+              </p>
+            {% endif %}
+          {% endfor %}
+          {%- comment -%}
+            Applied PRODUCT-level discount name(s), e.g. "Bundle Discount" — green, per Figma.
+            line_level_discount_allocations only: order-level codes get their chip in the
+            order summary and must not repeat on every line.
+          {%- endcomment -%}
+          {% for alloc in line_item.line_level_discount_allocations %}
+            {% if alloc.discount_application.title != blank %}
+              <p class="font-text text-[10px] leading-[1.5] text-[#44be70] lg:text-[12px]">
+                {{ alloc.discount_application.title }}
+              </p>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="flex shrink-0 flex-col items-end gap-10 pt-[2px]">
+          {% unless is_locked_gift %}
+            <a
+              data-ajax-cart-request-button
+              href="{{ remove_url }}"
+              class="shrink-0 text-black/25 transition-colors duration-200 lg:hover:text-black"
+              aria-label="Remove {{ line_item.title | escape }}"
+            >
+              {% render 'icon-trash', class: 'h-20 w-20' %}
+            </a>
+          {% endunless %}
+
+          {%- comment -%} Price stack under the trash (Figma 5785:1779 / 5794:2393). {%- endcomment -%}
+          <div class="flex flex-col items-end">
+            {% render 'cart-line-price',
+              line_item: line_item,
+              is_free_line: is_free_line,
+              is_locked_gift: is_locked_gift,
+              strike_line: strike_line,
+              savings_pct: savings_pct,
+              has_subscription: has_subscription
+            %}
+          </div>
+        </div>
+      </div>
+
+      {%- comment -%}
+        Controls row — desktop stepper plus subscribe pill / frequency (Figma 5172:2449 /
+        5785:1797). On mobile the stepper lives under the image, so this row holds only
+        the selling-plan control (and collapses entirely when there's none).
+      {%- endcomment -%}
+      {% if is_bundle_line and has_subscription %}
+        <p class="mt-auto font-text text-[12px] leading-[1.5] text-[#535353]">
+          {{ line_item.selling_plan_allocation.selling_plan.name }}
+        </p>
+      {% endif %}
+      {% unless is_locked_gift or is_bundle_line %}
+        {% if selling_plans_available and is_pre_order_line == false %}
+          <div class="mt-auto flex flex-wrap items-center gap-x-12 gap-y-8{% if has_subscription %} lg:justify-between{% endif %}">
+            <div class="hidden items-center lg:flex">
+              {% render 'cart-line-qty', line_item: line_item, line_item_index: line_item_index, id_suffix: 'desktop' %}
+            </div>
+            {% render 'cart-selling-plan-selector',
+              line_item: line_item,
+              line_item_index: line_item_index,
+              has_subscription: has_subscription
+            %}
+          </div>
+        {% else %}
+          <div class="mt-auto hidden items-center lg:flex">
+            {% render 'cart-line-qty', line_item: line_item, line_item_index: line_item_index, id_suffix: 'desktop' %}
+          </div>
+        {% endif %}
+      {% endunless %}
+    </div>
+  </div>
+
+  <div
+    data-ajax-cart-errors="{{ line_item.key }}"
+    class="px-20 pb-8 text-orange empty:hidden"
+  ></div>
+</cart-line-item-element>

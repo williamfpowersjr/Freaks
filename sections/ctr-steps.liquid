@@ -1,0 +1,401 @@
+{{ 'ctr-steps.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ctr-steps.js' | asset_url }}" defer></script>
+
+<ctr-steps
+  id="shopify-section-{{ section.id }}"
+  class="ctr-steps ctr-steps--button-arrow-{{ section.settings.button_arrow_direction }}"
+  data-section-id="{{ section.id }}"
+  style="
+    {% if section.settings.background_gradient != blank %}
+      --ctr-steps-background: {{ section.settings.background_gradient }};
+    {% else %}
+      --ctr-steps-background: {{ section.settings.background_color }};
+    {% endif %}
+    --ctr-steps-container-background: {{ section.settings.container_background_color }};
+    --ctr-steps-title-color: {{ section.settings.title_color }};
+    --ctr-steps-text-color: {{ section.settings.text_color }};
+    --ctr-steps-border-color: {{ section.settings.border_color }};
+    --ctr-steps-accent-color: {{ section.settings.accent_color }};
+    --ctr-steps-button-background: {{ section.settings.button_background }};
+    --ctr-steps-button-text-color: {{ section.settings.button_text_color }};
+    --ctr-steps-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-steps-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-steps-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-steps-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  <div class="ctr-steps__inner">
+    <div class="ctr-steps__layout">
+      <div class="ctr-steps__media-wrap">
+        <div class="ctr-steps__media">
+          {% for block in section.blocks %}
+            {% assign ctr_step_is_first = forloop.first %}
+            {% assign ctr_preview_image = block.settings.media_video.preview_image
+              | default: block.settings.media_image
+            %}
+            <div
+              class="ctr-steps__media-panel {% if ctr_step_is_first %}is-active{% endif %}"
+              data-ctr-steps-panel
+              data-ctr-steps-index="{{ forloop.index0 }}"
+            >
+              {% if block.settings.media_video != blank %}
+                <video
+                  class="ctr-steps__video"
+                  data-ctr-steps-video
+                  playsinline
+                  muted
+                  loop
+                  preload="metadata"
+                  {% if ctr_preview_image != blank %}
+                    poster="{{ ctr_preview_image | img_url: '1200x' }}"
+                  {% endif %}
+                >
+                  {% assign ctr_step_has_mp4 = false %}
+                  {% for source in block.settings.media_video.sources %}
+                    {% if source.mime_type contains 'mp4' %}
+                      {% assign ctr_step_has_mp4 = true %}
+                      <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                    {% endif %}
+                  {% endfor %}
+                  {% unless ctr_step_has_mp4 %}
+                    {% for source in block.settings.media_video.sources limit: 1 %}
+                      <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                    {% endfor %}
+                  {% endunless %}
+                </video>
+                <button
+                  type="button"
+                  class="ctr-steps__video-toggle"
+                  data-ctr-steps-play-toggle
+                  aria-label="Pause or play video"
+                >
+                  II
+                </button>
+              {% elsif block.settings.media_image != blank %}
+                <img
+                  class="ctr-steps__image"
+                  src="{{ block.settings.media_image | img_url: '1800x' }}"
+                  alt="{{ block.settings.media_image.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.media_image.width }}"
+                  height="{{ block.settings.media_image.height }}"
+                >
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+
+        {% if section.settings.title != blank %}
+          <div class="ctr-steps__mobile-title-wrap bg-white-lines">
+            <div class="ctr-steps__mobile-title">
+              {{ section.settings.title }}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ctr-steps__content">
+        {% if section.settings.title != blank %}
+          <div class="ctr-steps__title-wrap bg-grey-lines">
+            <div class="ctr-steps__title">
+              {{ section.settings.title }}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="ctr-steps__list" role="tablist" aria-label="Steps">
+          {% for block in section.blocks %}
+            {% assign ctr_step_is_first = forloop.first %}
+            <div
+              class="ctr-steps__item"
+              data-ctr-steps-item
+              data-ctr-steps-index="{{ forloop.index0 }}"
+              {{ block.shopify_attributes }}
+            >
+              <button
+                type="button"
+                class="ctr-steps__trigger {% if ctr_step_is_first %}is-active{% endif %}"
+                data-ctr-steps-trigger
+                data-ctr-steps-index="{{ forloop.index0 }}"
+                aria-expanded="{% if ctr_step_is_first %}true{% else %}false{% endif %}"
+              >
+                <span class="ctr-steps__indicator">
+                  {% assign ctr_indicator_image = block.settings.icon | default: block.settings.media_image %}
+                  {% if ctr_indicator_image != blank %}
+                    <img
+                      class="ctr-steps__indicator-image {% if ctr_step_is_first %}is-active{% endif %}"
+                      src="{{ ctr_indicator_image | img_url: '120x' }}"
+                      alt="{{ ctr_indicator_image.alt | escape }}"
+                      loading="lazy"
+                      width="{{ ctr_indicator_image.width }}"
+                      height="{{ ctr_indicator_image.height }}"
+                    >
+                  {% endif %}
+                  <span
+                    class="ctr-steps__indicator-center {% if ctr_step_is_first %}is-visible{% endif %}"
+                    aria-hidden="true"
+                  ></span>
+                </span>
+                <div class="ctr-steps__trigger-title {% unless ctr_step_is_first %}is-inactive{% endunless %}">
+                  {{ block.settings.title }}
+                </div>
+              </button>
+
+              {% if block.settings.text != blank %}
+                <div class="ctr-steps__desktop-content" data-ctr-steps-content>
+                  <div class="ctr-steps__body">
+                    {{ block.settings.text }}
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+
+        {% if section.settings.button_label != blank %}
+          {% render 'cta', as: 'a', href: section.settings.button_link, default: '#', text: section.settings.button_label, hasIcons: true, cta_color: 'orange', extra_classes: 'ctr-steps__cta', extra_icon_classes: 'ctr-steps__cta-icon' %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</ctr-steps>
+
+{% schema %}
+{
+  "name": "Steps (CTR)",
+  "tag": "section",
+  "class": "ctr-steps-section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>How to apply</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Add to cart"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_arrow_direction",
+      "label": "Button arrow direction",
+      "options": [
+        {
+          "value": "right",
+          "label": "Right"
+        },
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "down",
+          "label": "Down"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background color",
+      "default": "#F9F9F9"
+    },
+    {
+      "type": "color",
+      "id": "container_background_color",
+      "label": "Container background color",
+      "default": "#F9F9F9"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Background gradient",
+      "info": "Example: linear-gradient(180deg, #F9F9F9 0%, #F9F9F9 100%)"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#21212126"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#FE5000"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#FE5000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Padding desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Padding mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step (CTR)",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Title",
+          "default": "<p>Step title</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Step description.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "media_image",
+          "label": "Media image"
+        },
+        {
+          "type": "video",
+          "id": "media_video",
+          "label": "Media video"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Steps (CTR)",
+      "category": "CTR Sections",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "<p>Step 1</p>",
+            "text": "<p>Shake well before use and apply 15 minutes before sun exposure.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "<p>Step 2</p>",
+            "text": "<p>Hold container 4–6 inches from skin and spray liberally and evenly across the body. Rub into skin.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "<p>Step 3</p>",
+            "text": "<p>Reapply after 40 minutes of swimming or sweating, immediately after towel drying, and at least every 2 hours.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {%
+                render 'cta',
+                as: 'a',
+                href: section.settings.button_link | default: '#',
+                text: section.settings.button_label,
+                hasIcons: true,
+                cta_color: 'orange',
+                extra_classes: 'ctr-steps__cta',
+                extra_icon_classes: 'ctr-steps__cta-icon'
+              %}
+  to: "{% render 'cta', as: 'a', href: section.settings.button_link, default: '#',
+    text: section.settings.button_label, hasIcons: true, cta_color: 'orange', extra_classes:
+    'ctr-steps__cta', extra_icon_classes: 'ctr-steps__cta-icon' %}"
+  position: 6817..7044
+{% endcomment %}

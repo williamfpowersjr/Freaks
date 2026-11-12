@@ -1,0 +1,453 @@
+{{ 'ctr-landing-reason.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign ctr_landing_reason_button_link = section.settings.button_link | default: '#'
+  assign ctr_landing_reason_button_icon_classes = ''
+  case section.settings.button_arrow_direction
+    when 'top'
+      assign ctr_landing_reason_button_icon_classes = '-rotate-90'
+    when 'down'
+      assign ctr_landing_reason_button_icon_classes = 'rotate-90'
+  endcase
+-%}
+
+<div
+  class="ctr-landing-reason"
+  style="
+    --ctr-landing-reason-background: {{ section.settings.background_color }};
+    --ctr-landing-reason-background-gradient: {{ section.settings.background_gradient }};
+    --ctr-landing-reason-card-background: {{ section.settings.card_background }};
+    --ctr-landing-reason-border-color: {{ section.settings.border_color }};
+    --ctr-landing-reason-badge-background: {{ section.settings.badge_background }};
+    --ctr-landing-reason-badge-color: {{ section.settings.badge_color }};
+    --ctr-landing-reason-heading-color: {{ section.settings.heading_color }};
+    --ctr-landing-reason-text-color: {{ section.settings.text_color }};
+    --ctr-landing-reason-overlay-background: {{ section.settings.overlay_background }};
+    --ctr-landing-reason-overlay-color: {{ section.settings.overlay_color }};
+    --ctr-landing-reason-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-landing-reason-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-landing-reason-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-landing-reason-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  <div class="ctr-landing-reason__inner">
+    <div class="ctr-landing-reason__card{% if section.settings.desktop_media_left %} ctr-landing-reason__card--media-left{% endif %}">
+      <div class="ctr-landing-reason__content">
+        <div class="ctr-landing-reason__intro">
+          {% if section.settings.badge != blank %}
+            <div class="ctr-landing-reason__badge">
+              {{ section.settings.badge }}
+            </div>
+          {% endif %}
+
+          {% if section.settings.title != blank %}
+            <div class="ctr-landing-reason__title-wrap w-full overflow-hidden border-black/15 bg-grey-lines font-neue">
+              <h2 class="ctr-landing-reason__title">
+                {{ section.settings.title }}
+              </h2>
+            </div>
+          {% endif %}
+        </div>
+
+        {% for block in section.blocks %}
+          {% if block.type == 'text' and block.settings.text != blank %}
+            <div class="ctr-landing-reason__text" {{ block.shopify_attributes }}>
+              {{ block.settings.text }}
+            </div>
+          {% endif %}
+        {% endfor %}
+
+        {% if section.settings.button_label != blank %}
+          <a
+            class="ctr-landing-reason__button-wrap"
+            href="{{ ctr_landing_reason_button_link }}"
+            {% if section.settings.button_open_new_tab %}
+              target="_blank"
+              rel="noopener noreferrer"
+            {% endif %}
+          >
+            {% render 'cta',
+              as: 'button',
+              text: section.settings.button_label,
+              hasIcons: true,
+              cta_color: 'orange',
+              extra_classes: 'ctr-landing-reason__button',
+              extra_icon_classes: ctr_landing_reason_button_icon_classes
+            %}
+          </a>
+        {% endif %}
+      </div>
+
+      <div class="ctr-landing-reason__media">
+        {% if section.settings.video != blank
+          or section.settings.video_mobile != blank
+          or section.settings.image != blank
+          or section.settings.image_mobile != blank
+        %}
+          <div class="ctr-landing-reason__media-frame">
+            {% if section.settings.video != blank %}
+              <div class="ctr-landing-reason__video ctr-landing-reason__video--desktop">
+                <video-element class="block h-full w-full">
+                  <div class="group relative h-full w-full overflow-hidden">
+                    {% render 'lazy-video', video: section.settings.video, class: 'ctr-landing-reason__video-element' %}
+                    {% if section.settings.show_video_controls %}
+                      <div class="transition-opacity duration-300 ease-in-out lg:opacity-0 lg:group-hover:opacity-100">
+                        {% render 'video-controls',
+                          icons_class: 'absolute w-fit m-16 top-0 right-0',
+                          hide_mute: true,
+                          autopause: false
+                        %}
+                      </div>
+                    {% endif %}
+                  </div>
+                </video-element>
+              </div>
+            {% elsif section.settings.image != blank %}
+              <img
+                class="ctr-landing-reason__image ctr-landing-reason__image--desktop"
+                src="{{ section.settings.image | img_url: '1600x' }}"
+                alt="{{ section.settings.image.alt | escape }}"
+                loading="lazy"
+                width="{{ section.settings.image.width }}"
+                height="{{ section.settings.image.height }}"
+              >
+            {% endif %}
+
+            {% if section.settings.video_mobile != blank %}
+              <div class="ctr-landing-reason__video ctr-landing-reason__video--mobile">
+                <video-element class="block h-full w-full">
+                  <div class="group relative h-full w-full overflow-hidden">
+                    {% render 'lazy-video',
+                      video: section.settings.video_mobile,
+                      class: 'ctr-landing-reason__video-element'
+                    %}
+                    {% if section.settings.show_video_controls %}
+                      <div class="transition-opacity duration-300 ease-in-out lg:opacity-0 lg:group-hover:opacity-100">
+                        {% render 'video-controls',
+                          icons_class: 'absolute w-fit m-16 top-0 right-0',
+                          hide_mute: true,
+                          autopause: false
+                        %}
+                      </div>
+                    {% endif %}
+                  </div>
+                </video-element>
+              </div>
+            {% elsif section.settings.video != blank %}
+              <div class="ctr-landing-reason__video ctr-landing-reason__video--mobile">
+                <video-element class="block h-full w-full">
+                  <div class="group relative h-full w-full overflow-hidden">
+                    {% render 'lazy-video', video: section.settings.video, class: 'ctr-landing-reason__video-element' %}
+                    {% if section.settings.show_video_controls %}
+                      <div class="transition-opacity duration-300 ease-in-out lg:opacity-0 lg:group-hover:opacity-100">
+                        {% render 'video-controls',
+                          icons_class: 'absolute w-fit m-16 top-0 right-0',
+                          hide_mute: true,
+                          autopause: false
+                        %}
+                      </div>
+                    {% endif %}
+                  </div>
+                </video-element>
+              </div>
+            {% elsif section.settings.image_mobile != blank %}
+              <img
+                class="ctr-landing-reason__image ctr-landing-reason__image--mobile"
+                src="{{ section.settings.image_mobile | img_url: '1100x' }}"
+                alt="{{ section.settings.image_mobile.alt | escape }}"
+                loading="lazy"
+                width="{{ section.settings.image_mobile.width }}"
+                height="{{ section.settings.image_mobile.height }}"
+              >
+            {% elsif section.settings.image != blank %}
+              <img
+                class="ctr-landing-reason__image ctr-landing-reason__image--mobile"
+                src="{{ section.settings.image | img_url: '1100x' }}"
+                alt="{{ section.settings.image.alt | escape }}"
+                loading="lazy"
+                width="{{ section.settings.image.width }}"
+                height="{{ section.settings.image.height }}"
+              >
+            {% endif %}
+
+            {% if section.settings.overlay_text != blank or section.settings.overlay_icon != blank %}
+              <div class="ctr-landing-reason__overlay">
+                {% if section.settings.overlay_icon != blank %}
+                  <img
+                    class="ctr-landing-reason__overlay-icon"
+                    src="{{ section.settings.overlay_icon | img_url: '120x' }}"
+                    alt="{{ section.settings.overlay_icon.alt | escape }}"
+                    loading="lazy"
+                    width="{{ section.settings.overlay_icon.width }}"
+                    height="{{ section.settings.overlay_icon.height }}"
+                  >
+                {% endif %}
+
+                {% if section.settings.overlay_text != blank %}
+                  <div class="ctr-landing-reason__overlay-text">
+                    {{ section.settings.overlay_text }}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Landing Reason (CTR)",
+  "tag": "section",
+  "class": "ctr-landing-reason-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Used on desktop when no video is set."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image mobile",
+      "info": "Optional. Used on mobile when no video is set. If blank, desktop image is used."
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "If set, video is shown instead of the image."
+    },
+    {
+      "type": "video",
+      "id": "video_mobile",
+      "label": "Video mobile",
+      "info": "Optional. If blank, desktop video is used on mobile."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_video_controls",
+      "label": "Show video controls",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "overlay_icon",
+      "label": "Overlay icon"
+    },
+    {
+      "type": "richtext",
+      "id": "overlay_text",
+      "label": "Overlay text",
+      "default": "<p>Lightweight Mineral Formula. minimal White Cast.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "desktop_media_left",
+      "label": "Show media on the left (desktop)",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "badge",
+      "label": "Badge",
+      "default": "<p>REASON #1</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>MOST SUN STICKS LEAVE A WHITE CAST. OURS DOESN'T.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "shop sun stick"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_open_new_tab",
+      "label": "Open button link in new tab",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "button_arrow_direction",
+      "label": "Button arrow direction",
+      "options": [
+        { "value": "right", "label": "Right" },
+        { "value": "top", "label": "Top" },
+        { "value": "down", "label": "Down" }
+      ],
+      "default": "down"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Background gradient",
+      "default": "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 100%)"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#F9F9F9"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#21212126"
+    },
+    {
+      "type": "color",
+      "id": "badge_background",
+      "label": "Badge background",
+      "default": "#0032A0"
+    },
+    {
+      "type": "color",
+      "id": "badge_color",
+      "label": "Badge color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#232323"
+    },
+    {
+      "type": "color",
+      "id": "overlay_background",
+      "label": "Overlay background",
+      "default": "#FE5000"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Padding desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Padding mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Text block.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing Reason (CTR)",
+      "category": "CTR Sections",
+      "blocks": [
+        {
+          "type": "text",
+          "settings": {
+            "text": "<p>Most mineral sunscreens work but leave you looking like you just dusted your face with chalk. That's because they rely on heavy zinc formulas that sit visibly on the skin.</p>"
+          }
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "<p>The Peak Performance Sun Stick SPF50 uses a lightweight mineral formula that goes on clear. 100% non-nano mineral zinc oxide that blends in effortlessly leaving nothing behind but protection.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

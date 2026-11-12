@@ -1,0 +1,220 @@
+{% schema %}
+{
+  "name": "Faqs",
+  "tag": "section",
+  "class": "faqs-section",
+  "presets": [
+    {
+      "name": "Faqs",
+      "category": "Faqs",
+      "settings": {
+        "title": "Lorem ipsum",
+        "bg_color": "bg-white"
+      },
+      "blocks": [
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>"
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>"
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoscroll",
+      "label": "Enable auto-scroll on open",
+      "info": "Scrolls the page to the accordion item when it is opened",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Padding — Desktop"
+    },
+    {
+      "type": "number",
+      "id": "padding_top_desktop",
+      "label": "Padding top",
+      "default": 0
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Padding — Mobile"
+    },
+    {
+      "type": "number",
+      "id": "padding_top_mobile",
+      "label": "Padding top",
+      "default": 0
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Accordion",
+      "type": "accordion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {% for block in section.blocks %}
+        {% if block.type == "faq_item" %}
+            {
+              "@type": "Question",
+              "name": "{{ block.settings.title | json }}",
+              "acceptedAnswer": {
+              "@type": "Answer",
+               "text": "{{ block.settings.description | json }}"
+              }
+            }{% unless forloop.last %},{% endunless %}
+          {% endif %}
+      {% endfor %}
+    ]
+  }
+</script>
+
+<style>
+  #faqs-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top_desktop }}px;
+    padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+
+    @media (max-width: 1024px) {
+      padding-top: {{ section.settings.padding_top_mobile }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    }
+  }
+</style>
+
+{% if section.blocks.size > 0 %}
+  <section
+    id="faqs-section-{{ section.id }}"
+    class="{{ section.settings.bg_color}}"
+  >
+    <div class="isolate flex flex-col items-start lg:flex-row">
+      <div class="sticky top-[2.2rem] z-50 w-full flex-shrink-0 lg:w-1/2 {{ section.settings.bg_color}} overflow-hidden border-b border-grey-DARK lg:-mb-10 lg:border-b-0 lg:pb-10">
+        {% render 'title',
+          title: section.settings.title,
+          text_size: '',
+          extra_wrapper_classes: 'font-neue text-[32px] lg:text-[80px] px-12 text-balance overflow-hidden',
+          text_color: '',
+          bg_lines: '',
+          extra_text_classes: ''
+        %}
+
+        <div class="absolute inset-0 z-10 grid grid-cols-1  ">
+          {% for block in section.blocks %}
+            <div class="h-32 border-t border-grey-DARK lg:h-[81px]"></div>
+          {% endfor %}
+        </div>
+      </div>
+      <accordion-element class="w-full border-grey-DARK lg:w-1/2 lg:border-l ">
+        {% for block in section.blocks %}
+          {% if block.type == 'accordion' %}
+            <div
+              data-accordion
+              {% unless section.settings.enable_autoscroll %}
+                data-no-autoscroll
+              {% endunless %}
+              class="mb-[-1px] flex w-full flex-col border-t border-grey-DARK first:border-t-0 lg:first:border-t"
+            >
+              <button
+                aria-expanded="false"
+                aria-controls="content-{{ forloop.index0 }}"
+                data-accordion-trigger
+                class="group flex w-full items-center justify-between border-b border-grey-DARK transition-all duration-300 ease-in-out lg:hover:bg-orange/15 aria-expanded:lg:hover:bg-transparent"
+              >
+                <div class="flex h-full min-h-64 flex-1 items-center border-r border-black/15 py-24 pl-24 pr-40 text-left lg:min-h-80">
+                  <h3 class="fn-tt-body-20 font-medium">
+                    {{ block.settings.title }}
+                  </h3>
+                </div>
+
+                <div class="flex h-64 w-64 items-center justify-center lg:h-80 lg:w-80">
+                  {% render 'plus-animation', class: 'w-10 h-10 text-orange' %}
+                </div>
+              </button>
+
+              <div
+                id="content-{{ forloop.index0 }}"
+                data-accordion-content
+                style="max-height: 0;"
+                class="max-h-0 overflow-hidden transition-all ease-in-out will-change-[max-width] "
+              >
+                <div class="inline-rich-text fn-tt-body-20 p-24 lg:px-24 lg:py-28 lg:pr-80">
+                  {{ block.settings.description }}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </accordion-element>
+    </div>
+  </section>
+{% endif %}

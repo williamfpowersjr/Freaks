@@ -1,0 +1,151 @@
+{% schema %}
+{
+  "name": "Before After Callout",
+  "tag": "section",
+  "class": "before-after-callout-section",
+  "presets": [
+    {
+      "name": "Before After Callout"
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "card_color",
+      "label": "Card Color",
+      "options": [
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "blue"
+    },
+    {
+      "type": "text",
+      "id": "number",
+      "label": "Number"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Caption"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Image Card",
+      "type": "image-card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption",
+          "info": "Adds a caption to the image"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag",
+          "info": "Adds a tag to the image"
+        },
+        {
+          "type": "checkbox",
+          "id": "padding",
+          "label": "Padding",
+          "default": true
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% assign number = section.settings.number %}
+{% assign text = section.settings.text %}
+{% assign caption = section.settings.caption %}
+{% assign card_color = section.settings.card_color %}
+
+{% case card_color %}
+  {% when 'orange' %}
+    {% assign bg_color = 'bg-orange' %}
+    {% assign text_color = 'text-blue' %}
+    {% assign border = 'border-0' %}
+
+  {% when 'blue' %}
+    {% assign bg_color = 'bg-blue' %}
+    {% assign text_color = 'text-white' %}
+    {% assign border = 'border-0' %}
+
+  {% else %}
+    {% assign bg_color = 'bg-white' %}
+    {% assign text_color = 'text-blue' %}
+    {% assign border = 'border border-black/15' %}
+{% endcase %}
+
+{% if section.blocks.size > 0 %}
+  <div class="flex flex-col overflow-hidden">
+    {% render 'approach-card',
+      approach_number: number,
+      approach_text: text,
+      bg_color: bg_color,
+      text_color: text_color,
+      border: border,
+      approach_caption: caption,
+      additional_classes: 'h-256 lg:hidden'
+    %}
+
+    <div class="-mb-1">
+      <swiper-element id="global-slider" class="global-slider relative">
+        <swiper-container init="false" class="swiper-wrapper">
+          <swiper-slide class="swiper-slide -ml-1 hidden aspect-[0.8] h-auto overflow-hidden lg:block lg:w-[calc(33.4%-16px)]">
+            {% render 'approach-card',
+              approach_number: number,
+              approach_text: text,
+              bg_color: bg_color,
+              text_color: text_color,
+              border: border,
+              approach_caption: caption,
+              additional_approach_title_class: 'fn-tt-title-30',
+              additional_classes: 'lg:w-[calc(33.333vw-16px)] lg:h-full'
+            -%}
+          </swiper-slide>
+          {% for block in section.blocks %}
+            {% if block.type == 'image-card' %}
+              <swiper-slide class="swiper-slide aspect-[0.8] h-auto w-[calc(100%-52px)] overflow-hidden lg:-ml-2 lg:w-[calc(33.4%-16px)]">
+                {% render 'image-block-card', block: block -%}
+              </swiper-slide>
+            {% endif %}
+          {% endfor %}
+        </swiper-container>
+
+        <div class="align-center absolute bottom-0 right-0 z-10 flex w-fit">
+          <div class="border-r border-black/15 bg-white">
+            <div class="swiper-button-prev" aria-label="Previous Slide {{ section.id }}" role="button"></div>
+          </div>
+          <div class="bg-white">
+            <div class="swiper-button-next" aria-label="Next Slide {{ section.id }}" role="button"></div>
+          </div>
+        </div>
+      </swiper-element>
+    </div>
+  </div>
+{% endif %}

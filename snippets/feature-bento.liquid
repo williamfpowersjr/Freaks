@@ -1,0 +1,114 @@
+{% assign block_count = section.blocks.size %}
+{% assign grid_class = 'lg:grid-cols-1' %}
+
+{% if block_count == 2 %}
+  {% assign grid_class = 'grid grid-cols-2 grid-rows-1 lg:grid-rows-1 lg:grid-cols-2' %}
+{% elsif block_count == 3 %}
+  {% assign grid_class = 'grid grid-cols-2 grid-rows-2 lg:grid-cols-3 lg:grid-rows-1' %}
+{% elsif block_count == 4 %}
+  {% assign grid_class = 'grid grid-cols-2 grid-rows-2 lg:grid-cols-2' %}
+{% elsif block_count == 5 %}
+  {% assign grid_class = 'grid grid-cols-2 grid-rows-3 lg:grid-rows-2 lg:grid-cols-3' %}
+{% endif %}
+
+{% if block_count > 0 %}
+  <div class="flex flex-col {{ bg_color }}">
+    {% if title != blank %}
+      <div class="w-full flex-none py-40 lg:py-80">
+        {% render 'title',
+          title: title,
+          text_size: 'fn-tt-title-70',
+          bg_color: bg_color,
+          border_color: 'border-black/15',
+          extra_wrapper_classes: 'text-center px-24 lg:px-16 overflow-hidden',
+          bg_lines: 'bg-grey-lines',
+          extra_text_classes: '!leading-[0.98] lg:w-[800px] lg:mx-auto !-mb-3 lg:!-mb-6 '
+        %}
+      </div>
+    {% endif %}
+
+    {% if block_count == 3 or block_count == 5 %}
+      {% assign first_li_mobile_span = 'col-span-2 lg:col-span-1' %}
+      {% assign first_li_desktop_span = 'lg:row-span-2' %}
+    {% endif %}
+
+    <ul class="border-t border-black/15 lg:min-h-640 {{ grid_class }}">
+      {% for block in section.blocks %}
+        {% assign title = block.settings.title %}
+        {% assign description = block.settings.description %}
+        {% assign bg_color = block.settings.bg_color %}
+        {% assign image = block.settings.image %}
+        {% assign video = block.settings.video %}
+        {% assign icon = block.settings.icon %}
+        {% assign overlay = block.settings.overlay %}
+        {% assign text_color = 'text-white' %}
+
+        {% if bg_color == 'bg-white' %}
+          {% if image == blank and video == blank %}
+            {% assign text_color = 'text-blue' %}
+          {% endif %}
+        {% endif %}
+
+        {% if block.type == 'feature' %}
+          <li
+            class="relative min-h-240 {{ text_color }} {{ bg_color }} {% if forloop.first %}{{ first_li_mobile_span }} {{ first_li_desktop_span }}{% endif %}"
+          >
+            {% if video == blank %}
+              {% if image != blank %}
+                {{
+                  image
+                  | image_url: width: image.width
+                  | image_tag: sizes: '100vw', loading: 'lazy', class: 'w-full h-full object-cover absolute inset-0'
+                }}
+              {% endif %}
+            {% endif %}
+
+            {% if video != blank %}
+              {{
+                video
+                | video_tag:
+                  class: 'w-full h-full object-cover absolute inset-0 z-0',
+                  autoplay: true,
+                  loop: true,
+                  muted: true,
+                  controls: false,
+                  poster: video.preview_image,
+                  playsinline: true,
+                  data-autopause: true
+              }}
+            {% endif %}
+
+            {% if overlay == true %}
+              <div class="absolute inset-0 h-full bg-black/40"></div>
+            {% endif %}
+
+            <div class="lg_p-24 relative z-10 flex h-full flex-col justify-end p-16">
+              {% if icon != blank %}
+                <div
+                  class="absolute left-16 top-16 aspect-square w-56 p-2 lg:left-24 lg:top-24 lg:w-72 lg:p-8"
+                >
+                  {{
+                    icon
+                    | image_url: width: icon.width
+                    | image_tag:
+                      loading: 'lazy',
+                      sizes: '(min-width: 1024px) 50vw, 100vw',
+                      class: 'w-full h-full object-contain inset-0'
+                  }}
+                </div>
+              {% endif %}
+              <div class="flex flex-col gap-y-4">
+                {% if title != blank %}
+                  <h3 class="fn-tt-sub-title-40 font-medium uppercase">{{ title }}</h3>
+                {% endif %}
+                {% if description != blank %}
+                  <p class="fn-tt-body-10">{{ description }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

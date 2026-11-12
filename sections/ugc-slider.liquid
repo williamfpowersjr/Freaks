@@ -1,0 +1,58 @@
+{% schema %}
+{
+  "name": "Ugc Slider",
+  "tag": "section",
+  "class": "ugc-slider-section",
+  "presets": [
+    {
+      "name": "Ugc Slider",
+      "category": "Ugc Slider",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Lorem Ipsum"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "info": "Fill the videos in the ugc_videos metafield of the product or page."
+    }
+  ]
+}
+{% endschema %}
+
+{% assign ugc_videos = null %}
+
+{% if product %}
+  {% assign ugc_videos = product.metafields.custom.ugc_videos.value %}
+{% elsif page.handle %}
+  {% assign page_handle = page.handle %}
+  {% assign ugc_videos = pages[page_handle].metafields.custom.ugc_videos.value %}
+{% else %}
+  {% assign ugc_videos = pages.homepage.metafields.custom.ugc_videos.value %}
+{% endif %}
+
+{% render 'ugc-video-slider',
+  ugc_videos: ugc_videos,
+  title: section.settings.title,
+  bg_color: section.settings.bg_color
+%}

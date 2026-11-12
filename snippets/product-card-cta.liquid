@@ -1,0 +1,70 @@
+{% comment %}
+  Renders a product card CTA either as a PDP-style button or an add-to-cart form.
+
+  Accepts:
+  - product: product object
+  - cta_text (String)
+  - cta_color (String)
+  - cta_as_add_to_cart (Boolean)
+  - is_coming_soon (Boolean)
+  - is_sold_out (Boolean)
+  - extra_classes (String): positioning / layout classes for the CTA wrapper
+  - extra_icon_classes (String): arrow rotation classes. Empty string = right. Nil defaults to top (-rotate-90).
+  - hover_only (Boolean)
+  - hasIcons (Boolean): defaults to true
+{% endcomment %}
+
+{% liquid
+  if hasIcons == null
+    assign hasIcons = true
+  endif
+
+  if extra_icon_classes == null
+    assign card_cta_icon_classes = '-rotate-90'
+  else
+    assign card_cta_icon_classes = extra_icon_classes
+  endif
+
+  assign can_add_to_cart = false
+  if cta_as_add_to_cart and is_coming_soon != true and is_sold_out != true
+    assign can_add_to_cart = true
+  endif
+
+  assign card_variant = product.selected_or_first_available_variant
+  assign card_cta_disabled = ''
+  if can_add_to_cart
+    if card_variant == blank or card_variant.available != true
+      assign card_cta_disabled = 'disabled'
+    endif
+  endif
+%}
+
+{% if can_add_to_cart and card_variant != blank %}
+  {% assign product_card_atc_form_class = extra_classes | append: ' product-card-atc-form relative' | strip %}
+  {% form 'product', product, class: product_card_atc_form_class %}
+    <input type="hidden" name="id" value="{{ card_variant.id }}">
+    <input type="hidden" name="quantity" value="1">
+    {% render 'cta',
+      as: 'button',
+      type: 'submit',
+      name: 'add',
+      text: cta_text,
+      hasIcons: hasIcons,
+      cta_color: cta_color,
+      extra_classes: 'w-full',
+      extra_icon_classes: card_cta_icon_classes,
+      hover_only: hover_only,
+      disabled_attribute: card_cta_disabled
+    %}
+  {% endform %}
+{% else %}
+  {% render 'cta',
+    as: 'button',
+    text: cta_text,
+    hasIcons: hasIcons,
+    cta_color: cta_color,
+    extra_classes: extra_classes,
+    extra_icon_classes: card_cta_icon_classes,
+    hover_only: hover_only
+  %}
+{% endif %}

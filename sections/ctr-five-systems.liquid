@@ -1,0 +1,621 @@
+{{ 'ctr-five-systems.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ctr-five-systems.js' | asset_url }}" defer></script>
+
+<ctr-five-systems
+  id="shopify-section-{{ section.id }}"
+  class="ctr-five-systems{% if section.settings.use_container %} ctr-five-systems--container{% endif %}"
+  data-section-id="{{ section.id }}"
+  style="
+    {% if section.settings.background_gradient != blank %}
+      --ctr-five-systems-background: {{ section.settings.background_gradient }};
+    {% else %}
+      --ctr-five-systems-background: {{ section.settings.background_color }};
+    {% endif %}
+    --ctr-five-systems-border-color: {{ section.settings.border_color }};
+    --ctr-five-systems-text-color: {{ section.settings.text_color }};
+    --ctr-five-systems-heading-color: {{ section.settings.heading_color }};
+    --ctr-five-systems-accent-color: {{ section.settings.accent_color }};
+    --ctr-five-systems-card-background: {{ section.settings.product_card_background }};
+    --ctr-five-systems-card-button-background: {{ section.settings.product_card_button_background }};
+    --ctr-five-systems-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-five-systems-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-five-systems-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-five-systems-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --ctr-five-systems-content-gap-desktop: {{ section.settings.content_gap_desktop }}px;
+    --ctr-five-systems-content-gap-mobile: {{ section.settings.content_gap_mobile }}px;
+    --ctr-five-systems-section-padding-top-desktop: {{ section.settings.section_padding_top_desktop }}px;
+    --ctr-five-systems-section-padding-bottom-desktop: {{ section.settings.section_padding_bottom_desktop }}px;
+    --ctr-five-systems-section-padding-top-mobile: {{ section.settings.section_padding_top_mobile }}px;
+    --ctr-five-systems-section-padding-bottom-mobile: {{ section.settings.section_padding_bottom_mobile }}px;
+    --ctr-five-systems-container-background: {{ section.settings.container_background_color }};
+  "
+>
+  <div class="ctr-five-systems__wrapper{% if section.settings.desktop_media_left %} ctr-five-systems__wrapper--media-left{% endif %}">
+    {% if section.settings.background_texture != blank %}
+      <img
+        src="{{ section.settings.background_texture | image_url: width: 1500 }}"
+        alt="{{ section.settings.background_texture.alt | escape }}"
+        class="ctr-five-systems__texture"
+        loading="lazy"
+        width="{{ section.settings.background_texture.width }}"
+        height="{{ section.settings.background_texture.height }}"
+      >
+    {% endif %}
+    <div class="ctr-five-systems__content">
+      {% if section.settings.title != blank %}
+        <div class="ctr-five-systems__title-wrap font-neue">
+          <div class="ctr-five-systems__title inline-rich-text">
+            {{ section.settings.title }}
+          </div>
+        </div>
+      {% endif %}
+
+      {% assign ctr_five_systems_has_text_blocks = false %}
+      {% for block in section.blocks %}
+        {% if block.type == 'text_block' %}
+          {% assign ctr_five_systems_has_text_blocks = true %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+
+      {% if ctr_five_systems_has_text_blocks %}
+        <div class="ctr-five-systems__text-blocks">
+          {% for block in section.blocks %}
+            {% if block.type == 'text_block' and block.settings.text != blank %}
+              <div class="ctr-five-systems__text-block inline-rich-text" {{ block.shopify_attributes }}>
+                {{ block.settings.text }}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% assign ctr_five_systems_has_items = false %}
+      {% for block in section.blocks %}
+        {% if block.type == 'system_item' %}
+          {% assign ctr_five_systems_has_items = true %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+
+      {% if ctr_five_systems_has_items %}
+        <div class="ctr-five-systems__items">
+          {% for block in section.blocks %}
+            {% if block.type == 'system_item' %}
+              <article class="ctr-five-systems__item" {{ block.shopify_attributes }}>
+                <div class="ctr-five-systems__item-heading">
+                  {% if block.settings.icon != blank %}
+                    <img
+                      src="{{ block.settings.icon | image_url: width: 120 }}"
+                      alt="{{ block.settings.icon.alt | escape }}"
+                      class="ctr-five-systems__item-icon"
+                      loading="lazy"
+                      width="{{ block.settings.icon.width }}"
+                      height="{{ block.settings.icon.height }}"
+                    >
+                  {% endif %}
+
+                  {% if block.settings.title != blank %}
+                    <div class="ctr-five-systems__item-title inline-rich-text">
+                      {{ block.settings.title }}
+                    </div>
+                  {% endif %}
+                </div>
+
+                {% if block.settings.text != blank %}
+                  <div class="ctr-five-systems__item-text inline-rich-text">
+                    {{ block.settings.text }}
+                  </div>
+                {% endif %}
+              </article>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ctr-five-systems__media">
+      {% if section.settings.media_video_desktop != blank %}
+        <div class="ctr-five-systems__video ctr-five-systems__video-desktop">
+          <video-element class="block h-full w-full">
+            <div class="group relative h-full w-full overflow-hidden">
+              {% render 'lazy-video',
+                video: section.settings.media_video_desktop,
+                class: 'object-cover w-full h-full'
+              %}
+              {% if section.settings.show_video_controls %}
+                <div class="transition-opacity duration-300 ease-in-out lg:opacity-0 lg:group-hover:opacity-100">
+                  {% render 'video-controls', icons_class: 'absolute w-fit m-24 bottom-0 right-0', hide_mute: true %}
+                </div>
+              {% endif %}
+            </div>
+          </video-element>
+        </div>
+      {% elsif section.settings.media_image != blank %}
+        <img
+          src="{{ section.settings.media_image | image_url: width: 2200 }}"
+          alt="{{ section.settings.media_image.alt | escape }}"
+          class="ctr-five-systems__image ctr-five-systems__image--desktop"
+          loading="lazy"
+          width="{{ section.settings.media_image.width }}"
+          height="{{ section.settings.media_image.height }}"
+        >
+      {% endif %}
+
+      {% if section.settings.media_video_mobile != blank %}
+        <div class="ctr-five-systems__video ctr-five-systems__video-mobile">
+          <video-element class="block h-full w-full">
+            <div class="group relative h-full w-full overflow-hidden">
+              {% render 'lazy-video', video: section.settings.media_video_mobile, class: 'object-cover w-full h-full' %}
+              {% if section.settings.show_video_controls %}
+                <div class="transition-opacity duration-300 ease-in-out lg:opacity-0 lg:group-hover:opacity-100">
+                  {% render 'video-controls', icons_class: 'absolute w-fit m-24 bottom-0 right-0', hide_mute: true %}
+                </div>
+              {% endif %}
+            </div>
+          </video-element>
+        </div>
+      {% elsif section.settings.media_video_desktop != blank %}
+        <div class="ctr-five-systems__video ctr-five-systems__video-mobile">
+          <video-element class="block h-full w-full">
+            <div class="group relative h-full w-full overflow-hidden">
+              {% render 'lazy-video',
+                video: section.settings.media_video_desktop,
+                class: 'object-cover w-full h-full'
+              %}
+              {% if section.settings.show_video_controls %}
+                <div class="transition-opacity duration-300 ease-in-out lg:opacity-0 lg:group-hover:opacity-100">
+                  {% render 'video-controls', icons_class: 'absolute w-fit m-24 bottom-0 right-0', hide_mute: true %}
+                </div>
+              {% endif %}
+            </div>
+          </video-element>
+        </div>
+      {% elsif section.settings.media_image_mobile != blank %}
+        <img
+          src="{{ section.settings.media_image_mobile | image_url: width: 2200 }}"
+          alt="{{ section.settings.media_image_mobile.alt | escape }}"
+          class="ctr-five-systems__image ctr-five-systems__image--mobile"
+          loading="lazy"
+          width="{{ section.settings.media_image_mobile.width }}"
+          height="{{ section.settings.media_image_mobile.height }}"
+        >
+      {% elsif section.settings.media_image != blank %}
+        <img
+          src="{{ section.settings.media_image | image_url: width: 2200 }}"
+          alt="{{ section.settings.media_image.alt | escape }}"
+          class="ctr-five-systems__image ctr-five-systems__image--mobile"
+          loading="lazy"
+          width="{{ section.settings.media_image.width }}"
+          height="{{ section.settings.media_image.height }}"
+        >
+      {% endif %}
+
+      {% for block in section.blocks %}
+        {% if block.type == 'product_card' %}
+          {% assign ctr_five_systems_product = block.settings.product %}
+          {% if ctr_five_systems_product != blank %}
+            {% assign ctr_five_systems_first_variant = ctr_five_systems_product.variants.first %}
+            {% assign ctr_five_systems_first_selling_plan_id = '' %}
+            {% assign ctr_five_systems_display_price = ctr_five_systems_first_variant.price %}
+            {% if ctr_five_systems_first_variant != blank
+              and ctr_five_systems_first_variant.selling_plan_allocations.size > 0
+            %}
+              {% assign ctr_five_systems_first_selling_plan_allocation = ctr_five_systems_first_variant.selling_plan_allocations.first %}
+              {% assign ctr_five_systems_first_selling_plan_id = ctr_five_systems_first_selling_plan_allocation.selling_plan.id %}
+              {% assign ctr_five_systems_display_price = ctr_five_systems_first_selling_plan_allocation.price %}
+            {% endif %}
+            <div class="ctr-five-systems__product-card" {{ block.shopify_attributes }}>
+              {% if ctr_five_systems_product.featured_image != blank %}
+                <img
+                  src="{{ ctr_five_systems_product.featured_image | image_url: width: 300 }}"
+                  alt="{{ ctr_five_systems_product.featured_image.alt | default: ctr_five_systems_product.title | escape }}"
+                  class="ctr-five-systems__product-image"
+                  loading="lazy"
+                  width="{{ ctr_five_systems_product.featured_image.width }}"
+                  height="{{ ctr_five_systems_product.featured_image.height }}"
+                >
+              {% endif %}
+
+              <div class="ctr-five-systems__product-content">
+                <div class="ctr-five-systems__product-title">
+                  {{ ctr_five_systems_product.title }}
+                  {% if block.settings.subtitle != blank %}
+                    <div class="ctr-five-systems__product-subtitle inline-rich-text">
+                      {{ block.settings.subtitle }}
+                    </div>
+                  {% endif %}
+                </div>
+
+                <div class="ctr-five-systems__product-footer">
+                  <div class="ctr-five-systems__product-price">
+                    {{ ctr_five_systems_display_price | money }}
+                  </div>
+
+                  {% if ctr_five_systems_first_variant != blank %}
+                    {% form 'product', ctr_five_systems_product, class: 'ctr-five-systems__product-atc-form' %}
+                      <input type="hidden" name="id" value="{{ ctr_five_systems_first_variant.id }}">
+                      <input type="hidden" name="quantity" value="1">
+                      {% if ctr_five_systems_first_selling_plan_id != blank %}
+                        <input type="hidden" name="selling_plan" value="{{ ctr_five_systems_first_selling_plan_id }}">
+                      {% endif %}
+                      {% render 'cta', as: 'button', type: 'submit', name: 'add', text: block.settings.button_label, hasIcons: true, cta_color: 'blue', is_slim: true, extra_classes: 'ctr-five-systems__product-button', extra_text_classes: 'ctr-five-systems__product-button-text', extra_icon_classes: 'ctr-five-systems__product-button-arrow' %}
+                    {% endform %}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</ctr-five-systems>
+
+{% schema %}
+{
+  "name": "Five Systems (CTR)",
+  "tag": "section",
+  "class": "ctr-five-systems-section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>Five systems.<br>One daily packet.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "media_image",
+      "label": "Media image"
+    },
+    {
+      "type": "image_picker",
+      "id": "media_image_mobile",
+      "label": "Media image mobile"
+    },
+    {
+      "type": "video",
+      "id": "media_video_desktop",
+      "label": "Media video desktop"
+    },
+    {
+      "type": "video",
+      "id": "media_video_mobile",
+      "label": "Media video mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_video_controls",
+      "label": "Show video controls",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "desktop_media_left",
+      "label": "Desktop: media left, content right",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "use_container",
+      "label": "Use container",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "container_background_color",
+      "label": "Container background color",
+      "alpha": true,
+      "default": "#00000000",
+      "visible_if": "{{ section.settings.use_container == true }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_texture",
+      "label": "Background texture"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "alpha": true,
+      "default": "#ffffff03"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Section background gradient",
+      "info": "Example: linear-gradient(180deg, #FFFFFF 0%, #FFF2E9 100%)"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "alpha": true,
+      "default": "#D9D9D9"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#232323"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#232323"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#FE5000"
+    },
+    {
+      "type": "color",
+      "id": "product_card_background",
+      "label": "Product card background",
+      "alpha": true,
+      "default": "#FFFFFF52"
+    },
+    {
+      "type": "color",
+      "id": "product_card_button_background",
+      "label": "Product button background",
+      "default": "#0032A0"
+    },
+    {
+      "type": "header",
+      "content": "Content padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Content gap"
+    },
+    {
+      "type": "range",
+      "id": "content_gap_desktop",
+      "label": "Gap desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "content_gap_mobile",
+      "label": "Gap mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_desktop",
+      "label": "Padding top desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "label": "Padding top mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text_block",
+      "name": "Text block (CTR)",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Most sunscreens protect you from the sun while quietly working against everything else. Chemical filters that absorb into your skin. Synthetic compounds that disrupt your microbiome. Ingredients that don't belong in your body or the ocean.</p>"
+        }
+      ]
+    },
+    {
+      "type": "system_item",
+      "name": "System item (CTR)",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Title",
+          "default": "<p>Hydration</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Sodium, magnesium, potassium &amp; calcium. Hydration that reaches your skin, not just your muscles.</p>"
+        }
+      ]
+    },
+    {
+      "type": "product_card",
+      "name": "Product card (CTR)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "<p>+ Free Flask &amp; Save 15%</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Add to cart"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Five Systems (CTR)",
+      "category": "CTR Sections",
+      "blocks": [
+        {
+          "type": "system_item"
+        },
+        {
+          "type": "system_item",
+          "settings": {
+            "title": "<p>Skin Barrier Integrity</p>",
+            "text": "<p>Hyaluronic acid &amp; Vitamin C. Moisture locked in, skin barrier reinforced day after day.</p>"
+          }
+        },
+        {
+          "type": "system_item",
+          "settings": {
+            "title": "<p>Gut Health</p>",
+            "text": "<p>Prebiotic fiber for a balanced gut microbiome. Supports digestion and overall wellness from the inside out.</p>"
+          }
+        },
+        {
+          "type": "system_item",
+          "settings": {
+            "title": "<p>Gut-Skin Axis</p>",
+            "text": "<p>What happens in your gut shows up on your face. We're the only electrolyte built with this in mind.</p>"
+          }
+        },
+        {
+          "type": "system_item",
+          "settings": {
+            "title": "<p>Internal UV Protection</p>",
+            "text": "<p>Polypodium Leucotomos Extract, Red Orange Complex®, and Astaxanthin. Clinically proven to strengthen UV resilience from the inside out.</p>"
+          }
+        },
+        {
+          "type": "product_card",
+          "settings": {
+            "subtitle": "<p>+ Free Flask &amp; Save 15%</p>",
+            "button_label": "Add"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {%
+                            render 'cta',
+                            as: 'button',
+                            type: 'submit',
+                            name: 'add',
+                            text: block.settings.button_label | strip,
+                            hasIcons: true,
+                            cta_color: 'blue',
+                            is_slim: true,
+                            extra_classes: 'ctr-five-systems__product-button',
+                            extra_text_classes: 'ctr-five-systems__product-button-text',
+                            extra_icon_classes: 'ctr-five-systems__product-button-arrow'
+                          %}
+  to: "{% render 'cta', as: 'button', type: 'submit', name: 'add', text: block.settings.button_label,
+    hasIcons: true, cta_color: 'blue', is_slim: true, extra_classes: 'ctr-five-systems__product-button',
+    extra_text_classes: 'ctr-five-systems__product-button-text', extra_icon_classes:
+    'ctr-five-systems__product-button-arrow' %}"
+  position: 12373..12693
+{% endcomment %}

@@ -1,0 +1,289 @@
+{% schema %}
+{
+  "name": "Homepage Double Hero Alt",
+  "tag": "section",
+  "class": "homepage-double-hero-alt-section",
+  "presets": [
+    {
+      "name": "Homepage Double Hero Alt",
+      "settings": {
+        "section_height": "height_60"
+      },
+      "blocks": [
+        {
+          "type": "cta",
+          "settings": {
+            "cta_text": "Lorem ipsum",
+            "cta_link": "#",
+            "cta_color": "orange"
+          }
+        },
+        {
+          "type": "cta",
+          "settings": {
+            "cta_text": "Lorem ipsum",
+            "cta_link": "#",
+            "cta_color": "blue"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    // first left desktop
+    {
+      "type": "text",
+      "id": "desktop_headline_left_1",
+      "label": "Desktop Headline Left 1",
+      "info": "The headline will be displayed over the first left image on desktop devices."
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_left_image_1",
+      "label": "Desktop Left Image 1",
+      "info": "This image will be displayed over the first left image on desktop devices. If you want to have a still image, leave the video fields blank."
+    },
+    {
+      "type": "video",
+      "id": "desktop_left_video_1",
+      "label": "Desktop Left Video 1",
+      "info": "This video is going to show on the first left image on desktop devices."
+    },
+    {
+      "type": "checkbox",
+      "id": "desktop_left_overlay_1",
+      "label": "Add a soft Overlay",
+      "default": false
+    },
+    // first right desktop
+    {
+      "type": "text",
+      "id": "desktop_headline_right_1",
+      "label": "Desktop Headline Right 1",
+      "info": "The headline will be displayed over the first right image on desktop devices."
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_right_image_1",
+      "label": "Desktop Right Image 1",
+      "info": "This image will be displayed over the first right image on desktop devices. If you want to have a still image, leave the video fields blank. If filled, the right side will loop."
+    },
+    {
+      "type": "video",
+      "id": "desktop_right_video_1",
+      "label": "Desktop Right Video 1",
+      "info": "This video is going to show on the first right image on desktop devices. If filled, the right side will loop."
+    },
+    {
+      "type": "checkbox",
+      "id": "desktop_right_overlay_1",
+      "label": "Add a soft Overlay",
+      "default": false
+    },
+    // second left desktop
+    {
+      "type": "text",
+      "id": "desktop_headline_left_2",
+      "label": "Desktop Headline Left 2",
+      "info": "The headline will be displayed over the second left image on desktop devices. If you add a second one, the left side will loop."
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_left_image_2",
+      "label": "Desktop Left Image 2",
+      "info": "This image will be displayed over the second left image on desktop devices. If you want to have a still image, leave the video fields blank. If you add a second one, the left side will loop."
+    },
+    {
+      "type": "video",
+      "id": "desktop_left_video_2",
+      "label": "Desktop Left Video 2",
+      "info": "This video is going to show on the second left image on desktop devices. If you add a second one, the left side will loop."
+    },
+    {
+      "type": "checkbox",
+      "id": "desktop_left_overlay_2",
+      "label": "Add a soft Overlay",
+      "default": false
+    },
+    // second right desktop
+    {
+      "type": "text",
+      "id": "desktop_headline_right_2",
+      "label": "Desktop Headline Right 2",
+      "info": "The headline will be displayed over the second right image on desktop devices."
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_right_image_2",
+      "label": "Desktop Right Image 2",
+      "info": "This image will be displayed over the second right image on desktop devices. If you want to have a still image, leave the video fields blank. If filled, the right side will loop."
+    },
+    {
+      "type": "video",
+      "id": "desktop_right_video_2",
+      "label": "Desktop Right Video 2",
+      "info": "This video is going to show on the second right image on desktop devices. If filled, the right side will loop."
+    },
+    {
+      "type": "checkbox",
+      "id": "desktop_right_overlay_2",
+      "label": "Add a soft Overlay",
+      "default": false
+    },
+    // mobile first alt
+    {
+      "type": "text",
+      "id": "mobile_headline_1",
+      "label": "Mobile Headline 1",
+      "info": "The headline will be displayed on the first image on mobile devices as an alternative. It will combine the first left and right desktop headlines as a fallback."
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image_1",
+      "label": "Mobile Image 1",
+      "info": "This image will be displayed on mobile devices as an alternative. If you want to have a still image, leave the video fields blank. It will take the first left desktop image as a fallback."
+    },
+    {
+      "type": "video",
+      "id": "mobile_video_1",
+      "label": "Mobile Video 1",
+      "info": "This video is going to show on mobile devices. It will take the first left desktop video as a fallback."
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_overlay_1",
+      "label": "Add a soft Overlay",
+      "default": false
+    },
+    // mobile second alt
+    {
+      "type": "text",
+      "id": "mobile_headline_2",
+      "label": "Mobile Headline 2",
+      "info": "The headline will be displayed on the second image on mobile devices as an alternative. It will combine the second left and right desktop headlines as a fallback."
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image_2",
+      "label": "Mobile Image 2",
+      "info": "This image will be displayed as second image on mobile devices as an alternative. If you want to have a still image, leave the video fields blank. It will take the second left desktop image as a fallback. If filled, the hero will loop."
+    },
+    {
+      "type": "video",
+      "id": "mobile_video_2",
+      "label": "Mobile Video 2",
+      "info": "This video is going to show as second video on mobile devices. It will take the second left desktop video as a fallback. If filled, the hero will loop."
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_overlay_2",
+      "label": "Add a soft Overlay",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "Section Height",
+      "options": [
+        {
+          "value": "height_60",
+          "label": "60%"
+        },
+        {
+          "value": "height_80",
+          "label": "80%"
+        },
+        {
+          "value": "height_100",
+          "label": "100%"
+        }
+      ],
+      "default": "height_60"
+    },
+    {
+      "type": "select",
+      "id": "transition_type",
+      "label": "Slide Transition",
+      "options": [
+        { "value": "slide", "label": "Sliding Transition" },
+        { "value": "fade", "label": "Fade Transition" }
+      ],
+      "default": "slide"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "subtitle",
+      "name": "Subtitle",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Subtitle Text",
+          "info": "The first subtitle will be displayed on the left side on desktop and the upper edge on mobile. The second subtitle will be displayed on the right side on desktop and the lower edge on mobile."
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "name": "Cta",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Cta Text"
+        },
+        {
+          "type": "url",
+          "id": "cta_link",
+          "label": "Cta Link"
+        },
+        {
+          "type": "select",
+          "id": "cta_color",
+          "label": "Cta Mobile Color",
+          "options": [
+            {
+              "value": "orange",
+              "label": "Orange"
+            },
+            {
+              "value": "blue",
+              "label": "Blue"
+            },
+            {
+              "value": "black",
+              "label": "Black"
+            },
+            {
+              "value": "white",
+              "label": "White"
+            }
+          ],
+          "default": "blue"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% assign section_height = 'h-[var(--section-height)]' %}
+
+{% if section.settings.section_height == 'height_60' %}
+  {% assign section_height = 'h-[60vh]' %}
+{% endif %}
+{% if section.settings.section_height == 'height_80' %}
+  {% assign section_height = 'h-[80vh]' %}
+{% endif %}
+
+{% assign transition_type = section.settings.transition_type %}
+
+{% render 'homepage-double-hero-alt',
+  settings: section.settings,
+  blocks: section.blocks,
+  section_height: section_height,
+  transition_type: transition_type
+%}

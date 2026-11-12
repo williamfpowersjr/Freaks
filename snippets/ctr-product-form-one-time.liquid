@@ -1,0 +1,101 @@
+{% assign pre_order_plan_groups = product.selling_plan_groups | where: 'name', 'Pre Order' %}
+{% assign pre_order_plan = pre_order_plan_groups[0].selling_plans[0] %}
+
+<product-form-one-time>
+  <product-form>
+    {% form 'product', product %}
+      {% render 'ctr-product-variant-picker',
+        product: product,
+        show_unit_price: show_unit_price,
+        show_prices_in_variant_picker: show_prices_in_variant_picker,
+        variant_picker_style: variant_picker_style,
+        unit_name: unit_name,
+        variant_product_option_blocks: variant_product_option_blocks,
+        quantity_variant_option_blocks: quantity_variant_option_blocks
+      %}
+      <input
+        type="hidden"
+        name="id"
+        value="{{ product.selected_or_first_available_variant.id }}"
+      >
+
+      {% if product.metafields.preorder.backorder_message != blank %}
+        <input type="hidden" name="properties[Pre-Order]" value="{{ product.metafields.preorder.backorder_message }}">
+      {% endif %}
+
+      {% if pre_order_plan != blank %}
+        <input
+          type="hidden"
+          name="selling_plan"
+          value="{{ pre_order_plan.id }}"
+        >
+      {% endif %}
+      {% if product_discount_heading != blank %}
+        {% render 'product-discount-heading', heading: product_discount_heading %}
+      {% endif %}
+      {% unless hide_quantity_input %}
+        <fieldset class="flex flex-col divide-y divide-solid divide-black/15 border border-b-0 border-black/15">
+          <div class="flex items-center">
+            <button
+              aria-label="Decrease Quantity"
+
+              type="button"
+              id="decrease-quantity"
+              class="duration-250 flex h-52 w-52 items-center justify-center border-r border-solid border-black/15 p-2 transition-colors ease-in-out lg:hover:bg-blue lg:hover:text-white"
+            >
+              {% render 'icon-small-minus', class: 'w-20' %}
+            </button>
+            <input
+              name="quantity"
+              id="quantity-one-time"
+              value="1"
+              class="fn-tt-body-30 max-w-54 px-8 text-center font-medium"
+              readonly
+            >
+
+            <button
+              aria-label="Increase Quantity"
+              type="button"
+              id="increase-quantity"
+              class="duration-250 flex h-52 w-52 items-center justify-center border-x border-solid border-black/15 p-2 transition-colors ease-in-out lg:hover:bg-blue lg:hover:text-white"
+            >
+              {% render 'icon-small-plus', class: 'w-20' %}
+            </button>
+
+            <div class="fn-tt-body-30 flex w-full flex-1 items-baseline justify-end gap-8 px-16 text-right">
+              {% render 'one-time-price',
+                variant: product.selected_or_first_available_variant,
+                price_id: 'product_price',
+                show_save_badge: show_save_badge
+              %}
+            </div>
+          </div>
+        </fieldset>
+      {% endunless %}
+
+      {% render 'buy-button',
+        text: cta,
+        extra_classes: 'w-full js-main-atc-button',
+        cta_color: 'orange',
+        hasIcons: true,
+        type: 'submit',
+        name: 'add',
+        product_is_available: product_is_available
+      %}
+
+      {% if product.selected_or_first_available_variant.metafields.custom.discount_override_callout != blank %}
+        <div class="fn-tt-body-10 mt-16 flex items-center justify-center bg-orange/15 px-16 py-12 text-center lg:mt-24">
+          {{ product.selected_or_first_available_variant.metafields.custom.discount_override_callout | metafield_tag }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.show_out_of_stock_banner == true and section.settings.out_of_stock_banner_text != blank %}
+        {% render 'product-out-of-stock-banner' %}
+      {% endif %}
+      <div
+        class="error-message fn-tt-caption font-medium uppercase empty:hidden"
+        data-ajax-cart-errors="form"
+      ></div>
+    {% endform %}
+  </product-form>
+</product-form-one-time>

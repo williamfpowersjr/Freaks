@@ -1,0 +1,261 @@
+{% comment %}
+  Renders quantity pack cards for a product option, filtered by quantity_variant_option blocks.
+
+  Accepts:
+  - product: {Object} product object
+  - option: {Object} product option (e.g. Bundle And Save)
+  - quantity_variant_option_blocks: {Array} blocks choosing which pack values to show
+  - unit_name: {String} unit label for per-unit price (e.g. stick)
+{% endcomment %}
+
+{% liquid
+  assign product_form_id = 'product-form-' | append: section.id
+  assign quantity_label = section.settings.quantity_label | default: 'Quantity' | strip
+  assign quantity_helper_text = section.settings.quantity_helper_text
+  assign resolved_unit_name = unit_name | default: section.settings.unit_name | default: 'stick'
+  assign has_any_badge = false
+  assign has_selected_quantity = false
+  assign rendered_option_count = 0
+  assign preselected_quantity_value = ''
+  assign has_url_variant = false
+  if product.selected_variant != blank
+    assign has_url_variant = true
+  endif
+%}
+
+{% comment %} Pass 1: validate blocks and detect badges / selected state {% endcomment %}
+{% for block in quantity_variant_option_blocks %}
+  {% liquid
+    assign option_value_name = block.settings.option_value | strip
+    if option_value_name == blank
+      continue
+    endif
+
+    assign option_value = null
+    for value in option.values
+      if value == option_value_name
+        assign option_value = value
+        break
+      endif
+    endfor
+
+    if option_value == blank
+      continue
+    endif
+
+    assign rendered_option_count = rendered_option_count | plus: 1
+
+    if option_value.selected
+      assign has_selected_quantity = true
+    endif
+
+    if preselected_quantity_value == blank and block.settings.preselected
+      assign preselected_quantity_value = option_value_name
+    endif
+
+    assign display_badge = block.settings.badge_label | strip
+    if display_badge == blank and option_value.variant != blank
+      assign display_badge = option_value.variant.metafields.custom.badge
+    endif
+    if display_badge != blank
+      assign has_any_badge = true
+    endif
+  %}
+{% endfor %}
+
+{% if rendered_option_count > 0 %}
+  <fieldset class="js product-form__input product-form__input--pill flex w-full flex-col gap-16">
+    <div class="flex w-full items-start gap-8 lg:items-center">
+      {% if quantity_label != blank %}
+        <h3 class="shrink-0 whitespace-nowrap text-[14px] font-medium leading-[1.1] text-[#212121]">
+          {{ quantity_label }}
+        </h3>
+      {% endif %}
+      {% if quantity_helper_text != blank %}
+        <div class="min-w-px flex-1 text-[12px] leading-[1.2] text-[#504E4D] [&_p]:m-0">
+          {{ quantity_helper_text }}
+        </div>
+      {% endif %}
+    </div>
+    <div class="flex w-full items-stretch gap-8">
+      {% assign force_select_first = false %}
+      {% unless has_selected_quantity %}
+        {% assign force_select_first = true %}
+      {% endunless %}
+      {% assign rendered_index = 0 %}
+
+      {% for block in quantity_variant_option_blocks %}
+        {% liquid
+          assign option_value_name = block.settings.option_value | strip
+          if option_value_name == blank
+            continue
+          endif
+
+          assign option_value = null
+          for value in option.values
+            if value == option_value_name
+              assign option_value = value
+              break
+            endif
+          endfor
+
+          if option_value == blank
+            continue
+          endif
+
+          assign option_disabled = true
+          if option_value.available
+            assign option_disabled = false
+          endif
+
+          assign display_label = block.settings.option_label | strip
+          if display_label == blank
+            assign display_label = option_value_name
+          endif
+
+          assign display_badge = block.settings.badge_label | strip
+          if display_badge == blank and option_value.variant != blank
+            assign display_badge = option_value.variant.metafields.custom.badge
+          endif
+
+          # Resolve this pack's own variant (same scent + this quantity value),
+          # not the currently selected pack — option_value.variant can point at the selected one.
+          assign price_variant = null
+          for variant_candidate in product.variants
+            assign matches_pack = false
+            if option.position == 1 and variant_candidate.option1 == option_value_name
+              assign matches_pack = true
+            elsif option.position == 2 and variant_candidate.option2 == option_value_name
+              assign matches_pack = true
+            elsif option.position == 3 and variant_candidate.option3 == option_value_name
+              assign matches_pack = true
+            endif
+
+            if matches_pack
+              for product_option in product.options_with_values
+                if product_option.position == option.position
+                  continue
+                endif
+                if product_option.position == 1 and variant_candidate.option1 != product_option.selected_value
+                  assign matches_pack = false
+                  break
+                elsif product_option.position == 2 and variant_candidate.option2 != product_option.selected_value
+                  assign matches_pack = false
+                  break
+                elsif product_option.position == 3 and variant_candidate.option3 != product_option.selected_value
+                  assign matches_pack = false
+                  break
+                endif
+              endfor
+            endif
+
+            if matches_pack
+              assign price_variant = variant_candidate
+              break
+            endif
+          endfor
+
+          if price_variant == blank
+            assign price_variant = option_value.variant
+          endif
+
+          assign bundle_size = block.settings.quantity | plus: 0
+          assign unit_price_cents = null
+          if bundle_size <= 0 and price_variant != blank
+            assign bundle_size = price_variant.metafields.custom.bundle_size | plus: 0
+          endif
+          if price_variant != blank and bundle_size > 0
+            assign pack_price_cents = price_variant.price
+            if price_variant.selling_plan_allocations.size > 0
+              assign subscription_allocation = price_variant.selling_plan_allocations.first
+              if subscription_allocation.price != blank
+                assign pack_price_cents = subscription_allocation.price
+              elsif subscription_allocation.price_adjustments.first.price != blank
+                assign pack_price_cents = subscription_allocation.price_adjustments.first.price
+              endif
+            endif
+            assign unit_price_cents = pack_price_cents | divided_by: bundle_size
+          endif
+
+          assign is_checked = false
+          if has_url_variant
+            if option_value.selected
+              assign is_checked = true
+            elsif force_select_first and rendered_index == 0
+              assign is_checked = true
+            endif
+          elsif preselected_quantity_value != blank
+            if option_value_name == preselected_quantity_value
+              assign is_checked = true
+            endif
+          elsif option_value.selected
+            assign is_checked = true
+          elsif force_select_first and rendered_index == 0
+            assign is_checked = true
+          endif
+
+          assign option_preselected_selling_plan_id = block.settings.preselected_selling_plan_id | strip
+          assign rendered_index = rendered_index | plus: 1
+        %}
+
+        {% capture input_id %}
+          {{ section.id }}-qty-{{ option.position }}-{{ forloop.index0 -}}
+        {% endcapture %}
+
+        {% capture input_name %}
+          {{ option.name }}-{{ option.position }}
+        {% endcapture %}
+
+        <input
+          type="radio"
+          id="{{ input_id }}"
+          name="{{ input_name | escape }}"
+          value="{{ option_value_name | escape }}"
+          form="{{ product_form_id }}"
+          {% if is_checked %}
+            checked
+          {% endif %}
+          class="hidden [&:checked+label]:border-[#212121] [&:checked+label]:bg-[#0032A033]"
+          data-product-url="{{ option_value.product_url }}"
+          data-option-value-id="{{ option_value.id }}"
+          data-swap-selling-plan-id="{{ option_preselected_selling_plan_id }}"
+          {{ block.shopify_attributes }}
+        >
+        <label
+          for="{{ input_id }}"
+          class="ctr-qty-option min-w-px p-px flex flex-[1_0_0] cursor-pointer flex-col items-center justify-center border border-[#212121]/15 {% if option_disabled %}line-through opacity-60{% endif %}"
+        >
+          {% if display_badge != blank %}
+            <span class="flex w-full flex-1 items-center justify-center text-balance border-b border-[#212121]/15 bg-[#EFEFEF66] p-4 text-center text-[12px] font-medium uppercase leading-[1.3] text-[#212121] [input:checked+label_&]:border-[#212121]/15 [input:checked+label_&]:bg-[#0032A0] [input:checked+label_&]:text-[#F4EFEB]">
+              {{ display_badge }}
+            </span>
+          {% elsif has_any_badge %}
+            <span
+              class="flex w-full items-center justify-center border-b border-transparent p-4 text-[12px] leading-[1.3] opacity-0"
+              aria-hidden="true"
+            >
+              &nbsp;
+            </span>
+          {% endif %}
+          <span class="mt-auto flex flex-col items-center px-12 py-8">
+            <span class="text-center text-[17.7px] font-medium leading-[1.5] text-[#212121]">
+              {{ display_label }}
+            </span>
+            {% if unit_price_cents != blank %}
+              <span class="mt-0 bg-[#0032A01F] px-4 py-2 text-center text-[#212121] lg:py-1 [input:checked+label_&]:bg-[#0032A033]">
+                <span class="text-[12px] font-medium leading-[1.3] lg:text-[14px]">
+                  {{- unit_price_cents | money_without_trailing_zeros -}}</span
+                ><span class="text-[10px] font-medium leading-[1.3] lg:text-[12px]">/{{ resolved_unit_name }}</span>
+              </span>
+            {% endif %}
+            {% if price_variant != blank %}
+              {% unless price_variant.available %}
+                <span class="label-unavailable sr-only">Sold Out</span>
+              {% endunless %}
+            {% endif %}
+          </span>
+        </label>
+      {% endfor %}
+    </div>
+  </fieldset>
+{% endif %}

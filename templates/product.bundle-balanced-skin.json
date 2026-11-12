@@ -1,0 +1,471 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "product_hero_q3Y9i8": {
+      "type": "product-hero",
+      "blocks": {
+        "summary_fE3qft": {
+          "type": "summary",
+          "settings": {
+            "title": "Clinically proven to improve the skin microbiome"
+          }
+        },
+        "summary_BVPM4Y": {
+          "type": "summary",
+          "settings": {
+            "title": "Instant skin firming"
+          }
+        },
+        "summary_7ikCVx": {
+          "type": "summary",
+          "settings": {
+            "title": "Fragrance free"
+          }
+        },
+        "summary_kzwBgw": {
+          "type": "summary",
+          "settings": {
+            "title": "Non-stripping"
+          }
+        },
+        "summary_DEgtdV": {
+          "type": "summary",
+          "settings": {
+            "title": "Non-clogging"
+          }
+        },
+        "summary_FeNybP": {
+          "type": "summary",
+          "settings": {
+            "title": "Non-comedogenic"
+          }
+        },
+        "summary_aKpphT": {
+          "type": "summary",
+          "settings": {
+            "title": "Improves elasticity"
+          }
+        },
+        "summary_QCUfTL": {
+          "type": "summary",
+          "settings": {
+            "title": "Moisture locking"
+          }
+        },
+        "summary_KeidYP": {
+          "type": "summary",
+          "settings": {
+            "title": "Dermatologist Tested "
+          }
+        },
+        "bundle_mKUPXX": {
+          "type": "bundle",
+          "settings": {
+            "bundle_product": "freak-trio",
+            "banner": "",
+            "bundle_cta_color": "blue"
+          }
+        },
+        "bundle_nAL4GJ": {
+          "type": "bundle",
+          "settings": {
+            "bundle_product": "endurance-system",
+            "banner": "",
+            "bundle_cta_color": "blue"
+          }
+        },
+        "accordion_rbz7EK": {
+          "type": "accordion",
+          "settings": {
+            "title": "Ingredients",
+            "use_variant_metafield": false,
+            "variant_metafield": "",
+            "richtext": "<p><strong>Deep Dive Hydrator</strong></p><p>Squalane, Avena Sativa (Oat) Kernel Oil, Dextrin Palmitate, Plukenetia Volubilis (Sacha Inchi) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Padina Pavonica Thallus Extract, Bacillus Ferment, Tocopherol</p><p><strong>Barrier Balancing Face Wash</strong></p><p>Glycerin, Sodium Cocoyl Apple Amino Acids, Sucrose Stearate, Betaine, Saccharomyces Ferment, Aspergillus Ferment, Vitis Vinifera (Grape) Seed Oil, Oryza Sativa (Rice) Bran Oil, Squalane, Tocopherol, Avena Sativa (Oat) Kernel Oil, Camellia Oleifera Seed Oil, Spirulina, Platensis Extract, Trehalose, Sodium Citrate</p><p>See for more information on our <a href=\"https://freaksofnature.com/pages/ingredients\" title=\"Ingredients\">ingredients page</a>.</p>"
+          }
+        },
+        "accordion_RCbnNH": {
+          "type": "accordion",
+          "settings": {
+            "title": "How to Use",
+            "use_variant_metafield": false,
+            "variant_metafield": "",
+            "richtext": "<p><strong>Barrier Balancing Cleanser</strong></p><p><strong>Step 1:<br/></strong>After a long day, sweat sesh, or time spent in the sun. Apply 1-2 pumps of barrier balancing face wash to dry or wet face. Rub into skin to release grime.</p><p><strong>Step 2:</strong><br/>Add water to skin as face wash begins to froth into a milky texture, helping further cleanse and hydrate your skin.</p><p><strong>Step 3:</strong><br/>Towel dry skin. For best results, apply Deeper Dive Hydrator post-cleanse.</p><p><strong>Deep Dive Hydrator</strong></p><p><strong>Step 1:</strong><br/>After AM/PM cleansing, or when you wash yourself after a workout session, apply one pump amount into hands and gently rub onto face, neck and chest if applicable. For optimal results use in the AM and PM.</p><p><strong>Step 2:<br/></strong>If heading outside apply Daily Defender SPF30 Sunscreen as the final step in your daily routine.</p>"
+          }
+        },
+        "plastic_pledge_by_oceanworks_product_tile_MwHe4t": {
+          "type": "shopify://apps/plastic-pledge-by-oceanworks/blocks/product-tile/a888cb82-2596-48cc-9cb6-2a2728b595a5",
+          "settings": {
+            "theme_style": "dynamic"
+          }
+        }
+      },
+      "block_order": [
+        "summary_fE3qft",
+        "summary_BVPM4Y",
+        "summary_7ikCVx",
+        "summary_kzwBgw",
+        "summary_DEgtdV",
+        "summary_FeNybP",
+        "summary_aKpphT",
+        "summary_QCUfTL",
+        "summary_KeidYP",
+        "bundle_mKUPXX",
+        "bundle_nAL4GJ",
+        "accordion_rbz7EK",
+        "accordion_RCbnNH",
+        "plastic_pledge_by_oceanworks_product_tile_MwHe4t"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "title_size": "large",
+        "show_inventory_quantity": false,
+        "use_variant_media": false,
+        "discount_tag": "+ Free Shipping",
+        "product_discount_heading": "Bundle Savings: 25%",
+        "subscription_badge_type": "manual",
+        "subscription_badge_text": "Save 25%",
+        "show_unit_price": false,
+        "unit_name": "",
+        "show_prices_in_variant_picker": false,
+        "variant_picker_style": "title",
+        "hide_quantity_input": false,
+        "one_time_purchase_badge_text": "Save 10%",
+        "subsDefaultOption": "subscriptions",
+        "subsOrder": "subs_top",
+        "subscription_form_style": "stacked",
+        "subscription_title": "Subscribe",
+        "cta": "Add to cart",
+        "cta_link": "",
+        "show_out_of_stock_banner": false,
+        "out_of_stock_banner_text": "",
+        "social_image": "shopify://shop_images/Screenshot_2025-02-12_at_3.52.32_PM.png",
+        "social_quote": "“As a scientist deeply committed to advancing skin health, we developed this face wash to protect what matters most: your skin barrier and microbiome. It features a unique surfactant system that lifts away sunscreen and makeup without stripping the skin. A caring blend of squalane, oat, and grapeseed oils nourishes as it cleanses, while bio-ferments help support skin balance. Most importantly, it’s completely free from fragrance and preservatives, making it safe even for the most sensitive skin.”",
+        "social_profile_name": "@dr.elsajungman",
+        "social_profile_image": "shopify://shop_images/Screenshot_2025-02-12_at_3.54.54_PM.png",
+        "social_link": "https://www.instagram.com/dr.elsajungman/?hl=en",
+        "show_details": true,
+        "show_notify": true,
+        "notify_text": "Get notified when the product is available again",
+        "notify_placeholder": "Enter your email",
+        "notify_success": "Thank you! We will notify you when the product is back in stock.",
+        "klaviyo_api_key": "SdwbFd",
+        "klaviyo_list_id": "",
+        "notify_subtext": "<p>By signing up, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Service</a> and our <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a>.</p>",
+        "bundle_title": "Other Bundles"
+      }
+    },
+    "title_6krGtc": {
+      "type": "title",
+      "settings": {
+        "bg_color": "white",
+        "title": "BALANCED SKIN SET HOLDS UP",
+        "text": "In a clinical study, Deeper Dive Hydrator was proven to improve the microbial diversity of the skin in just 30 days!",
+        "has_margin": true,
+        "text_align": "center"
+      }
+    },
+    "before_after_product_HqWjq8": {
+      "type": "before-after-product",
+      "blocks": {
+        "image_card_rE4Xh4": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2025-05-29_at_4.02.16_PM.png",
+            "caption": "Concern: Acne along the cheeks and mouth.",
+            "tag": "Before",
+            "padding": false
+          },
+          "blocks": {}
+        },
+        "image_card_J9h38y": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2025-05-29_at_4.04.12_PM.png",
+            "caption": "Result: Calmer and clearer skin. Brighter complexion.",
+            "tag": "After",
+            "padding": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "image_card_rE4Xh4",
+        "image_card_J9h38y"
+      ],
+      "name": "Before After Product",
+      "settings": {
+        "bg_color": "bg-white",
+        "product": "deeper-dive-moisturizer",
+        "text": "Deeper Dive didn’t just hydrate, it improved the Shannon Diversity Index! What’s that? It means a more diverse and balanced skin microbiome, which is a critical component for healthier, more resilient skin."
+      }
+    },
+    "title_Ex7LHr": {
+      "type": "title",
+      "name": "Title",
+      "settings": {
+        "bg_color": "white",
+        "title": "",
+        "text": "In a perception study of Barrier Balancing Face Wash, participants experienced the following benefits after 2 weeks of use:",
+        "has_margin": false,
+        "text_align": "center"
+      }
+    },
+    "before_after_cards_PwGYxx": {
+      "type": "before-after-cards",
+      "blocks": {
+        "image_card_KGQHNU": {
+          "type": "image-card",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "caption": "After 4 Weeks",
+            "tag": "After",
+            "padding": false
+          },
+          "blocks": {}
+        },
+        "clinical_study_card_UFArdg": {
+          "type": "clinical-study-card",
+          "settings": {
+            "yes_count": 71,
+            "no_count": 2,
+            "recommendation_text": "of participants agree this face wash feels gentle + moisturizing",
+            "display_format": "percentage"
+          },
+          "blocks": {}
+        },
+        "clinical_study_card_y3pnwx": {
+          "type": "clinical-study-card",
+          "settings": {
+            "yes_count": 68,
+            "no_count": 5,
+            "recommendation_text": "agree skin feels supple, balanced, and hydrated after using this face wash",
+            "display_format": "percentage"
+          },
+          "blocks": {}
+        },
+        "clinical_study_card_Djh3d6": {
+          "type": "clinical-study-card",
+          "name": "Clinical Study Card",
+          "settings": {
+            "yes_count": 68,
+            "no_count": 5,
+            "recommendation_text": "agree their natural skin barrier feels balanced after using this face wash",
+            "display_format": "percentage"
+          },
+          "blocks": {}
+        },
+        "image_card_7HpLyA": {
+          "type": "image-card",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "caption": "After 4 Weeks",
+            "tag": "After",
+            "padding": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "image_card_KGQHNU",
+        "clinical_study_card_UFArdg",
+        "clinical_study_card_y3pnwx",
+        "clinical_study_card_Djh3d6",
+        "image_card_7HpLyA"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "gap": true
+      }
+    },
+    "gallery_zGaiQw": {
+      "type": "gallery",
+      "blocks": {
+        "gallery_item_cgYWyt": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/16 x 9 - Fast Version.mp4",
+            "mobile_video": "shopify://files/videos/9x16_v5.mp4",
+            "hide_mute": false,
+            "title": "Get Dirty.",
+            "info_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "gallery_item_cgYWyt"
+      ],
+      "settings": {
+        "show_video_controls": true
+      }
+    },
+    "ugc_slider_AN3Efi": {
+      "type": "ugc-slider",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Loved by the freak community"
+      }
+    },
+    "steps_87ky8R": {
+      "type": "steps",
+      "blocks": {
+        "item_GzATQW": {
+          "type": "item",
+          "settings": {
+            "title": "Step 1",
+            "description": "<p>After a long day, sweat sesh, or time spent in the sun. Apply 1-2 pumps of barrier balancing face wash to dry face. Rub into skin to release grime.</p>",
+            "image": "shopify://shop_images/FON_04.25.251001_1.jpg",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_X8eNqn": {
+          "type": "item",
+          "settings": {
+            "title": "Step 2",
+            "description": "<p>Add water to skin as cleanser begins to froth into a milky texture, helping further cleanse and hydrate your skin.</p>",
+            "image": "shopify://shop_images/FON_04.25.251151_1.jpg",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_Y78d69": {
+          "type": "item",
+          "settings": {
+            "title": "Step 3",
+            "description": "<p>Apply 1-2 pumps of the Deeper Dive Moisturizer into hands and gently rub onto face, neck and chest if applicable. Skin will absorb oil for a hydrated glow. For optimal results use in the AM and PM.</p>",
+            "image": "shopify://shop_images/FON_04.25.250714_1.jpg",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        }
+      },
+      "block_order": [
+        "item_GzATQW",
+        "item_X8eNqn",
+        "item_Y78d69"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "How to Apply"
+      }
+    },
+    "builder_system_46hqQF": {
+      "type": "builder-system",
+      "blocks": {
+        "card_CKizgc": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>We formulate with vegan Squalane derived from sugarcane, where as traditional squalene comes from shark livers - harming hundreds of thousands of sharks each year.</li><li><strong>Our vegan, bio-based formula supports a healthy skin microbiome while leaving your skin silky smooth.</strong></li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/squalane.jpg",
+            "tag_1": "Neossance™ vegan shark squalane",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        },
+        "card_EyfCFV": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>Superstar ingredient found in a french volcano. Oléoactif™ is a post-biotic proven to improve your skin barrier. </li><li><strong>Repairs your skin and fortifies your skin barrier to promote overall skin health.</strong></li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/bsilk.jpg",
+            "tag_1": "Oléoactif™ Post-Biotic Bacillus Ferment",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        },
+        "card_GnFRKG": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>Supports the growth of healthy bacteria that enhances lactic acid production </li><li>Benefits skin texture, reducing dark spots, and evening of the skin)</li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/oat_free_cf72bab6-35c5-43c5-8627-5f4611f9bcc0.jpg",
+            "tag_1": "Avena Sativa (Oat) Kernel Oil:",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_CKizgc",
+        "card_EyfCFV",
+        "card_GnFRKG"
+      ],
+      "settings": {
+        "video": "shopify://files/videos/NEOSSANCE™ SQUALANE _ SEQUENCE _ H264 (1).mp4",
+        "hide_mute": true,
+        "title": "BIO BASED INGREDIENTS THAT MAKE A DIFFERENCE ",
+        "description": "<p>We formulated the Freak Barrier Defense System™ specifically to defend and strengthen your skin microbiome and skin barrier. <strong>Meet the proprietary ingredients that set us apart. </strong></p>",
+        "icon": "shopify://shop_images/Bassilicus_x_Shark_bc01bcbc-801c-4001-b45c-6e749825c547.svg",
+        "cta": "See all our ingredients",
+        "cta_link": "shopify://pages/ingredients",
+        "cta_color": "blue"
+      }
+    },
+    "title_jfLbbi": {
+      "type": "title",
+      "disabled": true,
+      "settings": {
+        "bg_color": "white",
+        "title": "Used by our freak athletes",
+        "text": "",
+        "has_margin": true,
+        "text_align": "center"
+      }
+    },
+    "reviews_kcAiCi": {
+      "type": "reviews",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "The Reviews are in",
+        "image": "shopify://shop_images/02_SLATER_1626_rt1_49c71d3a-b68f-4101-8459-0de6cbffff5b.jpg",
+        "hide_mute": false,
+        "full_bleed_media": false
+      }
+    },
+    "product_carousel_djNrdH": {
+      "type": "product-carousel",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Shop other products",
+        "title_style": "title_big",
+        "hide_mobile_title": false,
+        "cta": "",
+        "cta_link": "",
+        "cta_color": "blue",
+        "collections": ["all-bundles"]
+      }
+    },
+    "sticky_add_to_cart_button_D7FQha": {
+      "type": "sticky-add-to-cart-button",
+      "settings": {
+        "show_sticky_add_to_cart": true,
+        "cta": "Add to cart",
+        "cta_color": "orange",
+        "text": "All options"
+      }
+    }
+  },
+  "order": [
+    "product_hero_q3Y9i8",
+    "title_6krGtc",
+    "before_after_product_HqWjq8",
+    "title_Ex7LHr",
+    "before_after_cards_PwGYxx",
+    "gallery_zGaiQw",
+    "ugc_slider_AN3Efi",
+    "steps_87ky8R",
+    "builder_system_46hqQF",
+    "title_jfLbbi",
+    "reviews_kcAiCi",
+    "product_carousel_djNrdH",
+    "sticky_add_to_cart_button_D7FQha"
+  ]
+}

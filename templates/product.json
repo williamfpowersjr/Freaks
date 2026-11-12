@@ -1,0 +1,700 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "product_hero_FQg9iM": {
+      "type": "product-hero",
+      "blocks": {
+        "summary_8nEq7t": {
+          "type": "summary",
+          "settings": {
+            "title": "Microbiome supporting"
+          }
+        },
+        "summary_WmnRMD": {
+          "type": "summary",
+          "settings": {
+            "title": "Dermatologist tested"
+          }
+        },
+        "summary_Rn9fG8": {
+          "type": "summary",
+          "settings": {
+            "title": "Broad spectrum UV Protection"
+          }
+        },
+        "summary_XxwjFe": {
+          "type": "summary",
+          "settings": {
+            "title": "Protects and strengthens skin barrier"
+          }
+        },
+        "summary_FkDdQe": {
+          "type": "summary",
+          "settings": {
+            "title": "100% mineral SPF"
+          }
+        },
+        "summary_Vwxhwa": {
+          "type": "summary",
+          "settings": {
+            "title": "Reef safe"
+          }
+        },
+        "accordion_atRNKX": {
+          "type": "accordion",
+          "settings": {
+            "title": "Ingredients",
+            "use_variant_metafield": false,
+            "variant_metafield": "",
+            "richtext": "<p><strong>Jumbo SPF50 Sun Stick</strong></p><p><strong>Active Ingredient:<br/></strong>Zinc Oxide (non-nano): Zinc Oxide 25%</p><p><strong>Inactive ingredients:<br/></strong>Helianthus Annuus (Sunflower) Seed Wax, Isoamyl Laurate, Ethylhexyl Olivate, Caprylic/Capric Triglyceride, C13-15 Alkane, Polyhydroxystearic Acid, Oryza Sativa (Rice Bran) Oil, Quaternium-90 Bentonite, Capryloyl Glycerin/Sebacic Acid Copolymer, Prototheca Moriformis (Microalgae) Oil, Theobroma Cacao (Cocoa) Seed Butter, Isostearic Acid, Lecithin, Polyglyceryl-3 Polyricinoleate, Triethyl Citrate, Squalane, Physalis Angulata (Ground Cherry) Extract, Rhododendron Ferrugineum (Alpenrose) Extract, Undaria Pinnatifida (Wakame) Extract, Saccharomyces Ferment, Laurel Lysine, Tocopherol Acetate, Tocopherol</p><p><strong>Solar Shield SPF30 Spray:</strong></p><p><strong>Active Ingredient:<br/></strong>Zinc Oxide 16.5%</p><p><strong>Inactive ingredients:</strong><br/>Aloe Barbendensis Leaf Juice, Aqua/ Water, Bambusa Arundinacea (Bamboo) Stem Extract, Camellia Sinensis (Japanese Green Tea) Leaf Extract, Caprylic / Capric Triglyceride, Dilauryl Citrate, Ethylhexylglycerin, Gluconolactone, Glycerin, Hydrogenated Methyl Abietate, Isopropyl Palmitate, Lauryl Glucoside, Leuconostoc / Radish Root Ferment Filtrate, Lonicera Caprifolium (Honeysuckle) Flower Extract, Lonicera Japonica (Honeysuckle) Flower Extract, Methylcellulose, Octyldodecyl Citrate Crosspolymer, Phenoxyethanol, Polyglyceryl-4 Laurate, Populus Tremuloides Bark Extract, Simmondsia Chinensis (Jojoba) Seed Oil, Sodium Lauryl Glucose Carboxylate, Sodium Phytate, Sodium Stearoyl Glutamate, Sorbitan Laurate, Tocopherol, Xanthan Gum.</p><p></p><p>See for more information on our <a href=\"https://axoq3lapqlqkszq7-86080356657.shopifypreview.com/pages/ingredients\" title=\"Ingredients\">ingredients page</a>.</p>"
+          }
+        },
+        "accordion_qq9mDz": {
+          "type": "accordion",
+          "settings": {
+            "title": "How to use",
+            "use_variant_metafield": false,
+            "variant_metafield": "",
+            "richtext": "<p><strong>Solar Shield SPF30 Spray</strong></p><p>Shake well before use. Hold container 4–6 inches from skin and spray liberally and evenly across the body. Apply 15 minutes before sun exposure. Reapply after 40 minutes of swimming or sweating, immediately after towel drying, and at least every 2 hours.</p><p><strong>Jumbo SPF50 Sun Stick</strong></p><p>15 minutes before going in the sun liberally apply onto face, neck, chest and body if applicable.Reapply after 80 min of swimming or sweating, immediately after towel drying and at least every 2 hours when exposed to the sun. Product can be re-applied over or under makeup.</p>"
+          }
+        },
+        "plastic_pledge_by_oceanworks_product_tile_VBYVRj": {
+          "type": "shopify://apps/plastic-pledge-by-oceanworks/blocks/product-tile/a888cb82-2596-48cc-9cb6-2a2728b595a5",
+          "settings": {
+            "theme_style": "dynamic"
+          }
+        },
+        "subscription_benefit_BCdLmq": {
+          "type": "subscription_benefit",
+          "settings": {
+            "title": "Free shipping.",
+            "benefit_variant_ids": ""
+          }
+        },
+        "subscription_benefit_VhyHzg": {
+          "type": "subscription_benefit",
+          "settings": {
+            "title": "Easily edit, pause or cancel anytime.",
+            "benefit_variant_ids": ""
+          }
+        }
+      },
+      "block_order": [
+        "summary_8nEq7t",
+        "summary_WmnRMD",
+        "summary_Rn9fG8",
+        "summary_XxwjFe",
+        "summary_FkDdQe",
+        "summary_Vwxhwa",
+        "accordion_atRNKX",
+        "accordion_qq9mDz",
+        "plastic_pledge_by_oceanworks_product_tile_VBYVRj",
+        "subscription_benefit_BCdLmq",
+        "subscription_benefit_VhyHzg"
+      ],
+      "custom_css": [
+        "fieldset.flex.flex-col.divide-y.divide-solid.divide-black\\/15.border.border-b-0.border-black\\/15 {display: none;}"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "title_size": "large",
+        "show_inventory_quantity": false,
+        "use_variant_media": false,
+        "discount_tag": "+ Free Shipping",
+        "show_siblings": false,
+        "product_discount_heading": "Subscribe and save",
+        "subscription_badge_type": "auto",
+        "subscription_badge_text": "Save 25%",
+        "show_unit_price": false,
+        "unit_name": "",
+        "show_variant_title_in_variant_picker": false,
+        "show_prices_in_variant_picker": false,
+        "variant_picker_style": "title",
+        "hide_quantity_input": false,
+        "one_time_purchase_badge_text": "",
+        "subsDefaultOption": "subscriptions",
+        "subsOrder": "subs_top",
+        "subscription_form_style": "stacked",
+        "split_subscriptions_by_variants": false,
+        "subscription_title": "Subscribe",
+        "one_time_title": "One-time",
+        "cta": "Add to cart",
+        "cta_link": "",
+        "show_out_of_stock_banner": false,
+        "out_of_stock_banner_text": "",
+        "social_quote": "Check out this product!",
+        "social_profile_name": "",
+        "social_link": "",
+        "show_details": true,
+        "show_notify": true,
+        "notify_text": "Get notified when the product is available again",
+        "notify_placeholder": "Enter your email",
+        "notify_success": "Thank you! We will notify you when the product is back in stock.",
+        "klaviyo_api_key": "SdwbFd",
+        "klaviyo_list_id": "",
+        "notify_subtext": "<p>By signing up, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Service</a> and our <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a>.</p>",
+        "bundle_title": "Upgrade to our bundle"
+      }
+    },
+    "ugc_slider_7e9ipz": {
+      "type": "ugc-slider",
+      "name": "Ugc Slider",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "loved by the freak community"
+      }
+    },
+    "properties_9GqQnR": {
+      "type": "properties",
+      "blocks": {
+        "item_PwtqTw": {
+          "type": "item",
+          "settings": {
+            "use_variant_metafield_for_image": false,
+            "image": "shopify://shop_images/Screenshot_2025-05-28_at_6.37.38_PM.png",
+            "image_metafield_key": "",
+            "title": "Good for:",
+            "use_variant_metafield_for_description": false,
+            "description": "All skin types.",
+            "description_metafield_key": ""
+          }
+        },
+        "item_H6JCJJ": {
+          "type": "item",
+          "settings": {
+            "use_variant_metafield_for_image": false,
+            "image": "shopify://shop_images/FON-04.25.252166_1.jpg",
+            "image_metafield_key": "",
+            "title": "Smells like:",
+            "use_variant_metafield_for_description": false,
+            "description": "Sun Stick & SPF: Nothing! Unlike the painfully nostalgic odor (i.e. harsh and chemically) of most sunscreens, ours is unscented.",
+            "description_metafield_key": ""
+          }
+        },
+        "item_jcetTc": {
+          "type": "item",
+          "settings": {
+            "use_variant_metafield_for_image": false,
+            "image": "shopify://shop_images/FON-04.25.250028.jpg",
+            "image_metafield_key": "",
+            "title": "Color and texture",
+            "use_variant_metafield_for_description": false,
+            "description": "Daily Defender SPF30: Silky smooth and white. But don’t let the color fool you, this will not leave you looking like a ghost. \n\nPeak Performance SPF50: Cream like consistency to be applied as last step in routine and rubbed into skin. \n\nPeak Performance Sun Stick: Goes on silky smooth, clear, and easily with a bare skin feel that won't warp, slip or drip into your eyes.",
+            "description_metafield_key": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_PwtqTw",
+        "item_H6JCJJ",
+        "item_jcetTc"
+      ],
+      "name": "Properties",
+      "settings": {
+        "bg_color": "bg-white",
+        "card_bg_color": "bg-offWhite",
+        "title": "What to expect",
+        "image": "shopify://shop_images/Screenshot_2025-05-28_at_6.36.58_PM.png",
+        "full_bleed_image": false,
+        "hide_mobile_image": false
+      }
+    },
+    "builder_system_DLwhq8": {
+      "type": "builder-system",
+      "blocks": {
+        "card_XbwMbW": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>Breaks down grime and sunscreen</li><li>Optimizes the absorption of nourishing oils and antioxidants</li><li>Supports a deeply cleansed yet balanced complexion</li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/rice_bran_free.jpg",
+            "tag_1": "TeraFluid Light",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        },
+        "card_6CDVCR": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>We formulate with vegan Squalane derived from sugarcane, where as traditional squalene comes from shark livers - harming hundreds of thousands of sharks each year.</li><li>Our vegan, bio-based formula supports a healthy skin microbiome while leaving your skin silky smooth.</li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/squalane.jpg",
+            "tag_1": "Squalane",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        },
+        "card_3kKFQ9": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>Hate to break it to you, but up to 83% of sunscreens use microplastics to help with water resistance.</li><li>HydroSeal, on the other hand, is plant based but supports water resistance so you can catch waves longer. </li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/Screenshot_2025-05-28_at_7.36.37_PM.png",
+            "tag_1": "HydroSeal",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_XbwMbW",
+        "card_6CDVCR",
+        "card_3kKFQ9"
+      ],
+      "settings": {
+        "video": "shopify://files/videos/NEOSSANCE™ SQUALANE _ SEQUENCE _ H264 (1).mp4",
+        "hide_mute": false,
+        "title": "Freak Barrier Builder and Defense System™",
+        "description": "<p>A unique and proprietary blend of ingredients to help bio-hack your skin microbiome and strengthen & protect your skin barrier built around two unique formulas and ingredients: post-biotic <strong>Oléoactif™ Bacillus Ferment </strong>and biofabricated <strong>Neossance™ vegan shark Squalane.</strong></p>",
+        "icon": "shopify://shop_images/Bassilicus_x_Shark_bc01bcbc-801c-4001-b45c-6e749825c547.svg",
+        "cta": "Explore our ingredients",
+        "cta_link": "shopify://pages/ingredients",
+        "cta_color": "blue"
+      }
+    },
+    "gallery_yXnGXK": {
+      "type": "gallery",
+      "blocks": {
+        "gallery_item_zdpibz": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240506_Kelly_Interview_Product_Specific_16x9_H.264_Final_Delivery.mp4",
+            "hide_mute": false,
+            "title": "Kelly Slater",
+            "info_text": ""
+          }
+        },
+        "gallery_item_6GHnnr": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240506_Ocean_Interview_Product_Specific_16x9_H.264_Final_Delivery.mp4",
+            "hide_mute": false,
+            "title": "Ocean Ramsey",
+            "info_text": ""
+          }
+        },
+        "gallery_item_fjmikF": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240506_Nina_Interview_Product_Specific_16x9_H.264_Final_Delivery.mp4",
+            "hide_mute": false,
+            "title": "Nina Williams",
+            "info_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "gallery_item_zdpibz",
+        "gallery_item_6GHnnr",
+        "gallery_item_fjmikF"
+      ],
+      "settings": {
+        "show_video_controls": true
+      }
+    },
+    "reviews_section_fhewjz": {
+      "type": "reviews",
+      "settings": {
+        "bg_color": "bg-offWhite",
+        "title": "Reviews",
+        "image": "shopify://shop_images/freaks-of-nature-spf-stick-face_99752e2f-52b2-4193-8ad6-4e54cb29f52c.jpg",
+        "hide_mute": false,
+        "full_bleed_media": false
+      }
+    },
+    "divider_WtD3iT": {
+      "type": "divider",
+      "disabled": true,
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "divider_color": "bg-black/15",
+        "divider_color_mobile": "bg-white"
+      }
+    },
+    "title_md7Akb": {
+      "type": "title",
+      "disabled": true,
+      "settings": {
+        "bg_color": "white",
+        "title": "Your Daily skin care System",
+        "text": "",
+        "has_margin": false,
+        "text_align": "center"
+      }
+    },
+    "split_screen_KMqFnm": {
+      "type": "split-screen",
+      "blocks": {
+        "item_TXTGUb": {
+          "type": "item",
+          "settings": {
+            "title": "Step 1. Cleanse",
+            "description": "Cleanse AM/PM, or when you wash yourself after a workout session, ideally with a microbiome-friendly cleanser which easily removes mineral sunscreens.",
+            "description_size": "big_text",
+            "image": "shopify://shop_images/01_OCEAN_0594_rt2_819d223e-2e0c-48c8-a4ad-6a308e30fee7.jpg",
+            "caption": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_kiQ7Ld": {
+          "type": "item",
+          "settings": {
+            "title": "Step 2. Deeper Dive Moisturizer",
+            "description": "Apply one pump amount of our Deeper Dive Moisturizer Serum Gel into hands and gently rub onto face, neck and chest if applicable. For optimal results use in the AM and PM or after a work out session.",
+            "description_size": "big_text",
+            "image": "shopify://shop_images/01_OCEAN_0678_rt1_6996993d-c090-4924-80df-ec615722b18d.jpg",
+            "caption": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_nVefdn": {
+          "type": "item",
+          "settings": {
+            "title": "Step 3. Daily Defender SPF30 Sunscreen",
+            "description": "If you head outside, apply Daily Defender SPF30 Sunscreen as the final step in your daily routine to protect your skin barrier or 15 minutes before going in the sun.",
+            "description_size": "big_text",
+            "caption": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        }
+      },
+      "block_order": [
+        "item_TXTGUb",
+        "item_kiQ7Ld",
+        "item_nVefdn"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": ""
+      }
+    },
+    "info_blocks_iCxJcQ": {
+      "type": "info-blocks",
+      "blocks": {
+        "item_7QJWYe": {
+          "type": "item",
+          "settings": {
+            "hide_mute": false,
+            "title": "Step 1. Cleanse",
+            "description": "Cleanse AM/PM, or when you wash yourself after a workout session, ideally with a microbiome-friendly cleanser which easily removes mineral sunscreens.",
+            "collection_caption": "Used in:",
+            "collection": ""
+          }
+        },
+        "item_RQmb7V": {
+          "type": "item",
+          "settings": {
+            "hide_mute": false,
+            "title": "Step 2. Deeper Dive Moisturizer",
+            "description": "Apply one pump amount of our Deeper Dive Moisturizer Serum Gel into hands and gently rub onto face, neck and chest if applicable. For optimal results use in the AM and PM or after a work out session.",
+            "collection_caption": "Use with:",
+            "collection": "moisturizer-only"
+          }
+        },
+        "item_Jq7r3k": {
+          "type": "item",
+          "settings": {
+            "hide_mute": false,
+            "title": "Step 3: Daily Defender SPF30",
+            "description": "If you head outside, apply Daily Defender SPF30 Sunscreen as the final step in your daily routine to protect your skin barrier.",
+            "collection_caption": "Used with:",
+            "collection": "daily-defender-spf30-sunscreen"
+          }
+        }
+      },
+      "block_order": [
+        "item_7QJWYe",
+        "item_RQmb7V",
+        "item_Jq7r3k"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-offWhite",
+        "title": "Your Daily skin care System",
+        "cta": "",
+        "cta_link": "",
+        "cta_color": "blue"
+      }
+    },
+    "results_G8VetW": {
+      "type": "results",
+      "blocks": {
+        "result_mNcX7D": {
+          "type": "result",
+          "settings": {
+            "card_color": "orange",
+            "percentage": "96%",
+            "text": "of users had an easier time to select their products based on their skin microbiome data.",
+            "routine_title": "After using Deeper Dive Moisutrizer for 6 weeks, may vary",
+            "testimonial_name": "Mary Anne"
+          }
+        },
+        "result_JMzyVe": {
+          "type": "result",
+          "settings": {
+            "card_color": "white",
+            "percentage": "",
+            "text": "\"I can see such a huge improvement with the acne, and my skin feels a lot more glowy. It's such an amazing feeling to look at yourself and really see the difference.\"",
+            "routine_title": "Using Deeper Dive Moisturizer",
+            "testimonial_name": "Name",
+            "before": "shopify://shop_images/fon-hero-loop-v3.jpg",
+            "after": "shopify://shop_images/oil_free.jpg"
+          }
+        },
+        "result_aUGkh9": {
+          "type": "result",
+          "settings": {
+            "card_color": "blue",
+            "percentage": "",
+            "text": "\"I can see such a huge improvement with the acne, and my skin feels a lot more glowy. It's such an amazing feeling to look at yourself and really see the difference.\"",
+            "routine_title": "Using Deeper Dive Moisturizer",
+            "testimonial_name": "Mary Anne"
+          }
+        },
+        "result_dxNBUQ": {
+          "type": "result",
+          "settings": {
+            "card_color": "orange",
+            "background_image": "shopify://shop_images/fon-hero-loop-v3.jpg",
+            "percentage": "",
+            "text": "\"It's such an amazing feeling to look at yourself and really see the difference.\"",
+            "routine_title": "Routine",
+            "testimonial_name": "Name"
+          }
+        },
+        "result_LrXKUz": {
+          "type": "result",
+          "settings": {
+            "card_color": "white",
+            "background_image": "shopify://shop_images/Media.png",
+            "percentage": "",
+            "text": "\"It's such an amazing feeling to look at yourself and really see the difference.\"",
+            "routine_title": "Using Deeper Dive Moisturizer",
+            "testimonial_name": "Mary"
+          }
+        },
+        "result_PBYakz": {
+          "type": "result",
+          "settings": {
+            "card_color": "orange",
+            "percentage": "",
+            "text": "Using Deeper Dive Moisturizer",
+            "routine_title": "Using Deeper Dive Moisturizer",
+            "testimonial_name": "Name"
+          }
+        }
+      },
+      "block_order": [
+        "result_mNcX7D",
+        "result_JMzyVe",
+        "result_aUGkh9",
+        "result_dxNBUQ",
+        "result_LrXKUz",
+        "result_PBYakz"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Results"
+      }
+    },
+    "product_carousel_x3Ukge": {
+      "type": "product-carousel",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Protection for the elements, by the elements.",
+        "title_style": "title_small",
+        "hide_mobile_title": false,
+        "cta": "Shop all products",
+        "cta_link": "shopify://collections/all",
+        "cta_color": "blue",
+        "collections": [
+          "all-products"
+        ]
+      }
+    },
+    "split_screen_4DTJqE": {
+      "type": "split-screen",
+      "blocks": {
+        "item_8BfaHH": {
+          "type": "item",
+          "settings": {
+            "title": "Collect your Sample",
+            "description": "Dip a fresh swab in a moistening buffer such as saline or distilled water. With one hand, stretch the skin site taut. With the other hand, hold the swab so the shaft is parallel to the skin surface.",
+            "description_size": "big_text",
+            "caption": "caption",
+            "video": "shopify://files/videos/fon-hero-loop-v3.mp4",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_YXTFTY": {
+          "type": "item",
+          "settings": {
+            "title": "Get your Results",
+            "description": "Lorem ipsum",
+            "description_size": "big_text",
+            "caption": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_HWgdWR": {
+          "type": "item",
+          "settings": {
+            "title": "Reset your Skin",
+            "description": "Lorem ipsum",
+            "description_size": "big_text",
+            "caption": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        }
+      },
+      "block_order": [
+        "item_8BfaHH",
+        "item_YXTFTY",
+        "item_HWgdWR"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-offWhite",
+        "title": "How it works"
+      }
+    },
+    "list_neTLzk": {
+      "type": "list",
+      "blocks": {
+        "list_item_Bxaw9b": {
+          "type": "list_item",
+          "settings": {
+            "title": "Item"
+          }
+        },
+        "list_item_GrmKF7": {
+          "type": "list_item",
+          "settings": {
+            "title": "Item"
+          }
+        },
+        "list_item_qMeKU6": {
+          "type": "list_item",
+          "settings": {
+            "title": "Item"
+          }
+        }
+      },
+      "block_order": [
+        "list_item_Bxaw9b",
+        "list_item_GrmKF7",
+        "list_item_qMeKU6"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Title"
+      }
+    },
+    "sticky_add_to_cart_button_YwHpbY": {
+      "type": "sticky-add-to-cart-button",
+      "settings": {
+        "show_sticky_add_to_cart": true,
+        "cta": "Add to cart",
+        "cta_color": "orange",
+        "text": "All options"
+      }
+    },
+    "1714745074980e55d9": {
+      "type": "apps",
+      "blocks": {
+        "recharge_subscriptions_subscription_widget_fVXL8i": {
+          "type": "shopify://apps/recharge-subscriptions/blocks/subscription-widget/371eed76-0b44-4869-9813-730372ea378e",
+          "disabled": true,
+          "settings": {
+            "product": "{{product}}"
+          }
+        }
+      },
+      "block_order": [
+        "recharge_subscriptions_subscription_widget_fVXL8i"
+      ],
+      "settings": {}
+    },
+    "results_kfxy6A": {
+      "type": "results",
+      "blocks": {
+        "result_8NbC4L": {
+          "type": "result",
+          "settings": {
+            "card_color": "blue",
+            "percentage": "100%",
+            "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+            "routine_title": "Lorem ipsum",
+            "testimonial_name": "Lorem ipsum"
+          }
+        },
+        "result_pAmhjk": {
+          "type": "result",
+          "settings": {
+            "card_color": "white",
+            "percentage": "100%",
+            "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+            "routine_title": "Lorem ipsum",
+            "testimonial_name": "Lorem ipsum",
+            "before": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "after": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg"
+          }
+        },
+        "result_tT88yy": {
+          "type": "result",
+          "settings": {
+            "card_color": "orange",
+            "percentage": "100%",
+            "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+            "routine_title": "Lorem ipsum",
+            "testimonial_name": "Lorem ipsum"
+          }
+        }
+      },
+      "block_order": [
+        "result_8NbC4L",
+        "result_pAmhjk",
+        "result_tT88yy"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Lorem ipsum"
+      }
+    }
+  },
+  "order": [
+    "product_hero_FQg9iM",
+    "ugc_slider_7e9ipz",
+    "properties_9GqQnR",
+    "builder_system_DLwhq8",
+    "gallery_yXnGXK",
+    "reviews_section_fhewjz",
+    "divider_WtD3iT",
+    "title_md7Akb",
+    "split_screen_KMqFnm",
+    "info_blocks_iCxJcQ",
+    "results_G8VetW",
+    "product_carousel_x3Ukge",
+    "split_screen_4DTJqE",
+    "list_neTLzk",
+    "sticky_add_to_cart_button_YwHpbY",
+    "1714745074980e55d9",
+    "results_kfxy6A"
+  ]
+}

@@ -1,0 +1,7 @@
+<div class="mx-auto {% if checked == true %} {% if orange == true %}bg-orange{% else %}bg-blue{% endif %} {% else %}border border-black/15{% endif %} flex aspect-square w-20 items-center justify-center overflow-hidden rounded-full {{ class_name }}">
+  {% if checked == true %}
+    <svg width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 4L3.96429 6L7.71429 2" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+    </svg>
+  {% endif %}
+</div>

@@ -1,0 +1,44 @@
+{% schema %}
+{
+  "name": "Image Card",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Caption",
+      "info": "Adds a caption to the image"
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag",
+      "info": "Adds a tag to the image"
+    },
+    {
+      "type": "checkbox",
+      "id": "padding",
+      "label": "Padding",
+      "default": true
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Image Card",
+      "settings": {
+        "caption": "Sample Caption",
+        "tag": "Before",
+        "padding": false,
+        "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg"
+      }
+    }
+  ]
+}
+{% endschema %}
+
+{% render 'image-block-card', block: block %}

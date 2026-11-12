@@ -1,0 +1,27 @@
+<div class="relative flex h-[var(--coming-soon-section-height)] flex-col">
+  {% render 'title',
+    title: section.settings.title,
+    text_size: 'font-neue fn-tt-title-80',
+    extra_wrapper_classes: 'px-8 lg:px-12 text-balance border-none',
+    text_color: 'text-blue',
+    bg_color: 'bg-orange',
+    bg_lines: 'bg-blue-lines',
+    isH1: true
+  %}
+  <div class="relative z-0 h-full">
+    {% if section.settings.video != blank %}
+      {{
+        section.settings.video
+        | video_tag:
+          class: 'w-full h-full object-cover absolute inset-0 z-0',
+          autoplay: true,
+          loop: true,
+          muted: true,
+          controls: false,
+          poster: section.settings.video.preview_image,
+          playsinline: true
+      }}
+    {% endif %}
+  </div>
+</div>
+{% render 'newsletter-signup-coming-soon', newsletter_signup: section.settings.newsletter_signup %}

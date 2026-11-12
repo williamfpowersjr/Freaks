@@ -1,0 +1,91 @@
+<accordion-element id="product-accordion">
+  <div class="flex flex-col gap-y-24 ">
+    <h6 class="fn-tt-caption font-medium uppercase">Bundle Includes</h6>
+    <ul class="divide-y divide-black/15 border border-black/15 bg-offWhite">
+      {% for bundle_product in bundle_products %}
+        {% assign what_it_is = bundle_product.metafields.custom.what_it_is.value %}
+        {% assign product_volume = bundle_product.metafields.custom.volume.value %}
+
+        <li
+          data-accordion
+          data-no-autoscroll
+          class="flex w-full flex-col"
+        >
+          <button
+            aria-label="Details"
+            aria-expanded="false"
+            aria-controls="content-{{ forloop.index0 }}"
+            data-accordion-trigger
+            class="group relative flex w-full items-center justify-between border-transparent transition-[background-color] duration-300 ease-in-out lg:hover:bg-orange/15"
+          >
+            <div class="flex h-full min-h-64 flex-1 gap-16 gap-x-16 p-8 text-left lg:min-h-136">
+              <div
+                class="flex aspect-[7/9] min-w-56 shrink-0 items-center justify-center overflow-hidden py-16 lg:aspect-square lg:min-w-68"
+              >
+                {%- if bundle_product.images[0] -%}
+                  <div class="relative aspect-square  min-w-46 shrink-0 overflow-hidden lg:min-w-68 lg:p-24">
+                    {{
+                      bundle_product.images[0]
+                      | image_url: width: bundle_product.images[0].width
+                      | image_tag:
+                        loading: 'lazy',
+                        class: 'size-full absolute inset-0 object-cover',
+                        sizes: '(min-width: 1024px) 25vw, 500vw'
+                    }}
+                  </div>
+                {%- endif -%}
+              </div>
+
+              <div class="flex h-[auto] flex-col justify-between">
+                <div>
+                  <h3 class="fn-tt-body-10 font-medium">
+                    {{ bundle_product.title }}
+                  </h3>
+                  {% if bundle_product.type != blank %}
+                    <p class="fn-tt-body-10 text-black/60">
+                      {{ bundle_product.type }}
+                    </p>
+                  {% endif %}
+                </div>
+                {% if product_volume != blank %}
+                  <div class="w-fit">
+                    {% render 'label', text: product_volume, hasPadding: false, bg_color: 'white' %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="absolute right-8 top-8 flex size-16 items-center justify-center">
+              {% render 'plus-animation' %}
+            </div>
+          </button>
+
+          <div
+            id="content-{{ forloop.index0 }}"
+            data-accordion-content
+            style="max-height: 0;"
+            class="max-h-0 overflow-hidden transition-all ease-in-out will-change-[max-width] "
+          >
+            <div class="fn-tt-body-10  flex flex-col gap-y-24 p-24 lg:pr-80 ">
+              {% if what_it_is != null %}
+                <div>
+                  <p class="fn-tt-body-20">
+                    {{ what_it_is }}
+                  </p>
+                </div>
+              {% endif %}
+
+              <div class="flex flex-col gap-y-16">
+                <a
+                  class="fn-tt-caption font-medium uppercase underline transition-opacity duration-300 ease-in-out lg:hover:opacity-[0.8]"
+                  href="/pages/ingredients"
+                  >See All Ingredients</a
+                >
+              </div>
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</accordion-element>

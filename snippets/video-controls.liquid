@@ -1,0 +1,35 @@
+<div class="flex text-white  {{ icons_class }} lg:hover:cursor-pointer" style="z-index: 100">
+  {% if hide_control != true %}
+    <button
+      aria-label="Pause Video"
+      data-video-pause
+      class="group/pause bg-black/15 p-10 backdrop-blur-md transition-all duration-200 ease-in-out lg:hover:bg-black/30 lg:active:bg-black/40 "
+    >
+      {% render 'icon-pause', class: 'transition-all duration-200 ease-in-out w-20 lg:group-hover/pause:opacity-80' %}
+    </button>
+    <button
+      aria-label="Play Video"
+      data-video-play
+      class="group/play bg-black/15 p-10 backdrop-blur-md transition-all duration-200 ease-in-out lg:hover:bg-black/30 lg:active:bg-black/40 "
+    >
+      {% render 'icon-play', class: 'ransition-all duration-200 ease-in-out w-20 lg:group-hover/play:opacity-80' %}
+    </button>
+  {% endif %}
+
+  {% if hide_mute != true %}
+    <button
+      aria-label="Mute Video"
+      data-video-mute
+      class="group/mute bg-black/15 p-10 backdrop-blur-md transition-all duration-200 ease-in-out lg:hover:bg-black/30 lg:active:bg-black/40 {% unless no_border == true %}border-l border-grey/40{% endunless %}"
+    >
+      {% render 'icon-mute', class: 'transition-all duration-200 ease-in-out w-20 lg:group-hover/mute:opacity-80' %}
+    </button>
+    <button
+      aria-label="Unmute Video"
+      data-video-unmute
+      class="group/unmute bg-black/15 p-10 backdrop-blur-md transition-all duration-200 ease-in-out lg:hover:bg-black/30 lg:active:bg-black/40 {% unless no_border == true %}border-l border-grey/40{% endunless %}0"
+    >
+      {% render 'icon-unmute', class: 'transition-all duration-200 ease-in-out lg:group-hover/unmute:opacity-80 w-20' %}
+    </button>
+  {% endif %}
+</div>

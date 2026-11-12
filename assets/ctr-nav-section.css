@@ -1,0 +1,99 @@
+.ctr-nav-section {
+  color: var(--ctr-nav-section-text-color);
+  display: block;
+}
+
+.ctr-nav-section .ctr-nav-section__bar {
+  background: var(--ctr-nav-section-background);
+  border-bottom: 1px solid var(--ctr-nav-section-border-color);
+  padding: 0 8px;
+  padding-top: var(--ctr-nav-section-padding-top-mobile);
+  padding-bottom: var(--ctr-nav-section-padding-bottom-mobile);
+
+  @media (min-width: 1024px) {
+    padding-top: var(--ctr-nav-section-padding-top-desktop);
+    padding-bottom: var(--ctr-nav-section-padding-bottom-desktop);
+  }
+}
+
+.ctr-nav-section .ctr-nav-section__container {
+  align-items: center;
+  color: var(--ctr-nav-section-text-color);
+  display: flex;
+  min-height: 40px;
+  justify-content: flex-end;
+  position: relative;
+  width: 100%;
+}
+
+.ctr-nav-section .ctr-nav-section__logo-link {
+  color: inherit;
+  display: inline-flex;
+  left: 50%;
+  position: absolute;
+  text-decoration: none;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.ctr-nav-section .ctr-nav-section__logo-image {
+  display: block;
+  height: 18px;
+  object-fit: contain;
+  width: auto;
+}
+
+.ctr-nav-section .ctr-nav-section__actions {
+  align-items: center;
+  display: inline-flex;
+  gap: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 1023.98px) {
+  .ctr-nav-section .ctr-nav-section__account-mobile {
+    display: block;
+    left: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+  }
+
+  .ctr-nav-section .ctr-nav-section__account-desktop {
+    display: none;
+  }
+
+  .ctr-nav-section .ctr-nav-section__actions {
+    justify-content: flex-end;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ctr-nav-section .ctr-nav-section__account-mobile {
+    display: none;
+  }
+}
+
+.ctr-nav-section .ctr-nav-section__cart-count {
+  align-items: center;
+  background: var(--ctr-nav-section-icon-bubble-background);
+  border-radius: 999px;
+  color: inherit;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.ctr-nav-section .ctr-nav-section__account-icon {
+  display: inline-flex;
+}
+
+.ctr-nav-section .ctr-nav-section__account-icon > div {
+  height: 8px;
+  width: 8px;
+}
+
+.ctr-nav-section .ctr-nav-section__account-icon > div div {
+  background: var(--ctr-nav-section-text-color);
+}

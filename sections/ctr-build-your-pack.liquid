@@ -1,0 +1,1468 @@
+{% comment %}
+  Build Your Pack — mix-and-match bundle builder (CNV-6635). State lives in
+  <ctr-build-your-pack> (frontend/js/ctr-build-your-pack.ts); this file renders
+  the initial (empty pack) paint. Scents come from the PDP product's scent
+  option, each resolved to its single-unit variant, so a new scent variant
+  appears automatically. Add to cart is a ReCharge dynamic bundle: tiers here
+  are display only and must mirror the ReCharge tiered discount on the bundle.
+{% endcomment %}
+
+{% liquid
+  assign tier_blocks = section.blocks | where: 'type', 'tier'
+  assign scent_blocks = section.blocks | where: 'type', 'scent'
+  assign benefit_blocks = section.blocks | where: 'type', 'benefit'
+  assign scent_option_name = section.settings.scent_option_name | default: 'Scent' | strip
+  assign base_value = section.settings.base_option_value | default: 'Pack of 1' | strip
+  assign default_slots = section.settings.default_slots | default: 5
+  assign max_items = section.settings.max_items | default: 20
+  assign bundle_product = section.settings.bundle_product
+  assign bundle_variant = bundle_product.selected_or_first_available_variant | default: bundle_product.variants.first
+
+  # Scent option values, in the product's option order.
+  assign scent_values = ''
+  for option in product.options_with_values
+    if option.name == scent_option_name
+      assign scent_values = option.values
+      break
+    endif
+  endfor
+
+  # A bundle subscription must use the BUNDLE product's selling plans (ReCharge adds them to the
+  # same groups as the child's own plans, so child variants carry allocations for them too).
+  assign plan_groups = bundle_product.selling_plan_groups
+  if plan_groups == blank or plan_groups.size == 0
+    assign plan_groups = product.selling_plan_groups
+  endif
+
+  # Default plan: section setting, else the last plan that isn't Pre Order (matches ctr-deo-builder).
+  assign default_plan_id = section.settings.default_selling_plan_id | strip
+  assign default_plan = blank
+  for group in plan_groups
+    unless group.name == 'Pre Order'
+      for plan in group.selling_plans
+        unless plan.name == 'Pre Order'
+          assign plan_id_string = plan.id | append: ''
+          if default_plan_id == blank or plan_id_string == default_plan_id
+            assign default_plan = plan
+          endif
+        endunless
+      endfor
+    endunless
+  endfor
+  if default_plan != blank
+    assign default_plan_id = default_plan.id | append: ''
+  endif
+
+  assign sub_pct = 0
+  if default_plan.price_adjustments.first.value_type == 'percentage'
+    assign sub_pct = default_plan.price_adjustments.first.value
+  endif
+
+  # First discounted tier drives the initial (empty pack) nudge.
+  assign first_tier = blank
+  for block in tier_blocks
+    if block.settings.discount_pct > 0
+      if first_tier == blank or block.settings.qty < first_tier.settings.qty
+        assign first_tier = block
+      endif
+    endif
+  endfor
+%}
+
+{%- capture icon_arrow -%}{% render 'icon-thick-small-arrow', class: 'w-14 shrink-0' %}{%- endcapture -%}
+{%- capture icon_lock -%}
+  <svg class="byp-slot__lock" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="4" y="9" width="12" height="8.5" rx="1.25" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M6.75 9V6.5a3.25 3.25 0 0 1 6.5 0V9" stroke="currentColor" stroke-width="1.4"/>
+  </svg>
+{%- endcapture -%}
+
+<section
+  id="{{ section.settings.anchor_id | default: 'build-your-pack' | handleize }}"
+  class="byp-section"
+  {% if section.settings.bg_color != blank %}
+    style="--byp-bg: {{ section.settings.bg_color }};"
+  {% endif %}
+>
+  <ctr-build-your-pack class="byp">
+    <script type="application/json" data-byp-config>
+      {
+        "currency": {{ cart.currency.iso_code | json }},
+        "productId": {{ product.id | json }},
+        "defaultPlanId": {{ default_plan_id | json }},
+        "defaultSlots": {{ default_slots | json }},
+        "maxItems": {{ max_items | json }},
+        "tiers": [
+          {%- for block in tier_blocks -%}
+            {"qty": {{ block.settings.qty | default: 1 }}, "pct": {{ block.settings.discount_pct | default: 0 }}}{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ],
+        "scents": [
+          {%- assign scent_emitted = false -%}
+          {%- for scent_value in scent_values -%}
+            {%- liquid
+              # forloop.last is unsafe: a value without a base variant is skipped,
+              # and a trailing comma would make the whole config unparsable.
+              assign scent_variant = blank
+              for variant in product.variants
+                if variant.options contains scent_value and variant.options contains base_value
+                  assign scent_variant = variant
+                  break
+                endif
+              endfor
+              assign scent_block = blank
+              for block in scent_blocks
+                assign block_value = block.settings.scent_value | strip
+                if block_value == scent_value
+                  assign scent_block = block
+                endif
+              endfor
+              assign scent_image = scent_block.settings.image | default: scent_variant.featured_image | default: product.featured_image
+              assign scent_label = scent_block.settings.custom_label | default: scent_value
+            -%}
+            {%- if scent_variant != blank and scent_block.settings.hide != true -%}
+              {%- if scent_emitted %},{% endif -%}
+              {
+                "value": {{ scent_value | json }},
+                "label": {{ scent_label | json }},
+                "variantId": {{ scent_variant.id }},
+                "available": {{ scent_variant.available | json }},
+                "image": {{ scent_image | image_url: width: 200 | json }},
+                "price": {{ scent_variant.price }},
+                "planPrices": {
+                  {%- for allocation in scent_variant.selling_plan_allocations -%}
+                    {{ allocation.selling_plan.id | append: '' | json }}: {{ allocation.price }}{% unless forloop.last %},{% endunless %}
+                  {%- endfor -%}
+                }
+              }
+              {%- assign scent_emitted = true -%}
+            {%- endif -%}
+          {%- endfor -%}
+        ],
+        "bundle": {
+          "productId": {% if bundle_product != blank %}{{ bundle_product.id }}{% else %}null{% endif %},
+          "variantId": {% if bundle_variant != blank %}{{ bundle_variant.id }}{% else %}null{% endif %},
+          "handle": {{ bundle_product.handle | default: '' | json }},
+          "collectionId": {{ section.settings.bundle_collection_id | strip | json }}
+        },
+        "sticky": {
+          "enabled": {{ section.settings.sticky_sync | json }},
+          "anchor": {{ section.settings.anchor_id | default: 'build-your-pack' | handleize | json }}
+        },
+        "recharge": {
+          "sdkUrl": {{ section.settings.recharge_sdk_url | default: 'https://static.rechargecdn.com/assets/storefront/recharge-client-1.20.0.min.js' | json }},
+          "storeIdentifier": {{ shop.permanent_domain | json }}
+        },
+        "copy": {
+          "packLabel": {{ section.settings.pack_label | default: 'Your pack · [count] selected' | json }},
+          "nudgeStart": {{ section.settings.nudge_start | json }},
+          "nudgeMore": {{ section.settings.nudge_more | json }},
+          "nudgeUnlocked": {{ section.settings.nudge_unlocked | json }},
+          "nudgeTop": {{ section.settings.nudge_top | json }},
+          "youSave": {{ section.settings.you_save | default: 'You save [amount]' | json }},
+          "error": {{ section.settings.error_message | default: 'Something went wrong. Please try again.' | json }}
+        }
+      }
+    </script>
+
+    {%- comment -%} ---------- heading ---------- {%- endcomment -%}
+    <div class="byp__heading">
+      {% if section.settings.heading_line_1 != blank %}
+        <h2 class="byp__heading-line">{{ section.settings.heading_line_1 }}</h2>
+      {% endif %}
+      {% if section.settings.heading_line_2 != blank %}
+        <p class="byp__heading-line">{{ section.settings.heading_line_2 }}</p>
+      {% endif %}
+    </div>
+
+    {%- comment -%} ---------- pack: progress, slots, add more ---------- {%- endcomment -%}
+    <div class="byp__pack">
+      <div class="byp-pack">
+        <p class="byp-pack__tab" data-byp-pack-label aria-live="polite">
+          {{- section.settings.pack_label | default: 'Your pack · [count] selected' | replace: '[count]', '0' -}}
+        </p>
+
+        <div class="byp-pack__progress">
+          <p class="byp-pack__nudge">
+            <svg class="byp-pack__truck" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M1.5 4.5h10v9h-10zM11.5 7.5h4l3 3v3h-7z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+              <circle cx="5" cy="15" r="1.6" fill="#fff" stroke="currentColor" stroke-width="1.3"/>
+              <circle cx="15" cy="15" r="1.6" fill="#fff" stroke="currentColor" stroke-width="1.3"/>
+            </svg>
+            <span data-byp-nudge>
+              {%- if first_tier != blank -%}
+                {%- assign first_tier_count = first_tier.settings.qty | append: '' -%}
+                {%- assign first_tier_pct = first_tier.settings.discount_pct | append: '%' -%}
+                {{- section.settings.nudge_start | replace: '[count]', first_tier_count | replace: '[s]', 's' | replace: '[pct]', first_tier_pct -}}
+              {%- endif -%}
+            </span>
+          </p>
+          <div class="byp-pack__track">
+            <div class="byp-pack__fill" data-byp-progress style="width: 0"></div>
+          </div>
+        </div>
+
+        {%- capture slot_cell -%}
+          <div class="byp-slot-cell">
+            <span class="byp-slot__tier byp-slot__tier--hidden" data-byp-slot-tier></span>
+            <button type="button" class="byp-slot" data-byp-slot disabled>
+              <img class="byp-slot__img" data-byp-slot-img alt="" hidden width="200" height="200">
+              {{ icon_lock }}
+            </button>
+          </div>
+        {%- endcapture -%}
+
+        <div class="byp-pack__slots" data-byp-slots>
+          {%- for i in (1..default_slots) -%}
+            {%- liquid
+              assign slot_tier = blank
+              for block in tier_blocks
+                if block.settings.qty == i and block.settings.discount_pct > 0
+                  assign slot_tier = block
+                endif
+              endfor
+            -%}
+            <div class="byp-slot-cell">
+              <span
+                class="byp-slot__tier{% if slot_tier == blank %} byp-slot__tier--hidden{% endif %}"
+                data-byp-slot-tier
+              >
+                {%- if slot_tier != blank %}{{ slot_tier.settings.discount_pct }}% OFF{% endif -%}
+              </span>
+              <button
+                type="button"
+                class="byp-slot"
+                data-byp-slot="{{ forloop.index0 }}"
+                aria-label="Empty slot {{ i }}"
+                disabled
+              >
+                <img class="byp-slot__img" data-byp-slot-img alt="" hidden width="200" height="200">
+                {{ icon_lock }}
+              </button>
+            </div>
+          {%- endfor -%}
+        </div>
+        <template data-byp-slot-template>{{ slot_cell }}</template>
+
+        <button type="button" class="byp-pack__more" data-byp-more>
+          {{- section.settings.add_more_label | default: 'Add more sticks' -}}
+        </button>
+      </div>
+    </div>
+
+    {%- comment -%} ---------- scent cards ---------- {%- endcomment -%}
+    <div class="byp__scents">
+      {% for scent_value in scent_values %}
+        {% liquid
+          assign scent_variant = blank
+          for variant in product.variants
+            if variant.options contains scent_value and variant.options contains base_value
+              assign scent_variant = variant
+              break
+            endif
+          endfor
+          assign scent_block = blank
+              for block in scent_blocks
+                assign block_value = block.settings.scent_value | strip
+                if block_value == scent_value
+                  assign scent_block = block
+                endif
+              endfor
+        %}
+        {% if scent_variant == blank or scent_block.settings.hide == true %}
+          {% continue %}
+        {% endif %}
+        {% liquid
+          assign scent_image = scent_block.settings.image | default: scent_variant.featured_image | default: product.featured_image
+          assign scent_label = scent_block.settings.custom_label | default: scent_value
+        %}
+        <div
+          class="byp-card{% unless scent_variant.available %} byp-card--soldout{% endunless %}"
+          data-byp-scent="{{ scent_value | escape }}"
+          {% if scent_block != blank %}
+            {{ scent_block.shopify_attributes }}
+          {% endif %}
+        >
+          <div class="byp-card__media">
+            {% if scent_image != blank %}
+              {{
+                scent_image
+                | image_url: width: 600
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '160, 320, 480, 600',
+                  sizes: '(min-width: 1024px) 25vw, 80px',
+                  class: 'byp-card__img',
+                  alt: scent_label
+              }}
+            {% endif %}
+          </div>
+
+          <div class="byp-card__info">
+            <p class="byp-card__name">
+              {{ scent_label }}
+              {% unless scent_variant.available %}
+                <span class="sr-only">— {{ section.settings.sold_out_label | default: 'Sold out' }}</span>
+              {% endunless %}
+            </p>
+            {% if scent_block.settings.tagline != blank %}
+              <p class="byp-card__tagline">{{ scent_block.settings.tagline }}</p>
+            {% endif %}
+          </div>
+
+          <div class="byp-card__actions">
+            {% if scent_variant.available %}
+              <button
+                type="button"
+                class="byp-card__add"
+                data-byp-add
+                aria-label="Add {{ scent_label | escape }}"
+              >
+                {{ icon_arrow }}
+                <span>{{ section.settings.add_label | default: 'Add' }}</span>
+                {{ icon_arrow }}
+              </button>
+              <div class="byp-card__stepper">
+                <button type="button" data-byp-minus aria-label="Remove one {{ scent_label | escape }}">
+                  {% render 'icon-small-minus', class: 'w-20' %}
+                </button>
+                <span data-byp-count aria-live="polite">0</span>
+                <button type="button" data-byp-plus aria-label="Add one {{ scent_label | escape }}">
+                  {% render 'icon-small-plus', class: 'w-20' %}
+                </button>
+              </div>
+            {% else %}
+              <div class="byp-card__soldout">{{ section.settings.sold_out_label | default: 'Sold out' }}</div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {%- comment -%} ---------- purchase: subscription card, ATC, one-time ---------- {%- endcomment -%}
+    {% liquid
+      # Empty-pack baseline: one stick of the first available scent.
+      assign baseline_variant = blank
+      for scent_value in scent_values
+        for variant in product.variants
+          if variant.options contains scent_value and variant.options contains base_value
+            if baseline_variant == blank and variant.available
+              assign baseline_variant = variant
+            endif
+          endif
+        endfor
+      endfor
+      assign baseline_sub = baseline_variant.price
+      for allocation in baseline_variant.selling_plan_allocations
+        assign alloc_plan_id = allocation.selling_plan.id | append: ''
+        if alloc_plan_id == default_plan_id
+          assign baseline_sub = allocation.price
+        endif
+      endfor
+      assign baseline_save = baseline_variant.price | minus: baseline_sub
+      assign sub_pct_label = sub_pct | append: '%'
+      assign sub_badge = section.settings.subscription_badge | replace: '[pct]', sub_pct_label
+    %}
+    <div class="byp__purchase">
+      {% if default_plan != blank %}
+        <div class="byp-sub">
+          <div class="byp-sub__row">
+            <div class="byp-sub__title">
+              <span class="byp-sub__radio" aria-hidden="true"></span>
+              <span>{{ section.settings.subscription_title | default: 'Restock &' }}</span>
+              {% if sub_pct > 0 and section.settings.subscription_badge != blank %}
+                <span class="byp-sub__badge">
+                  {{- sub_badge -}}
+                </span>
+              {% endif %}
+            </div>
+            <div class="byp-sub__prices">
+              <span class="byp-sub__compare" data-byp-compare="sub">
+                {%- if baseline_variant.price > baseline_sub %}{{ baseline_variant.price | money }}{% endif -%}
+              </span>
+              <span class="byp-sub__price" data-byp-price="sub">{{ baseline_sub | money }}</span>
+            </div>
+          </div>
+
+          <div class="byp-sub__row byp-sub__row--meta">
+            <div class="byp-sub__delivery">
+              <span>{{ section.settings.delivered_label | default: 'Delivered every' }}</span>
+              <span class="byp-sub__freq">
+                <label class="sr-only" for="byp-frequency-{{ section.id }}">Delivery frequency</label>
+                {%- capture default_freq_label -%}
+                  {%- assign freq_label = default_plan.name -%}
+                  {%- if freq_label contains 'every ' -%}
+                    {%- assign freq_label = freq_label | split: 'every ' | last -%}
+                  {%- endif -%}
+                  {%- if freq_label contains ' with' -%}
+                    {%- assign freq_label = freq_label | split: ' with' | first -%}
+                  {%- endif -%}
+                  {{- freq_label -}}
+                {%- endcapture -%}
+                <span class="byp-sub__freq-label" data-byp-freq-label>{{ default_freq_label }}</span>
+                <svg class="byp-sub__caret" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.3"/>
+                </svg>
+                <select id="byp-frequency-{{ section.id }}" data-byp-freq-select class="byp-sub__select">
+                  {% for group in plan_groups %}
+                    {% unless group.name == 'Pre Order' %}
+                      {% for plan in group.selling_plans %}
+                        {% liquid
+                          assign freq_label = plan.name
+                          if freq_label contains 'every '
+                            assign freq_label = freq_label | split: 'every ' | last
+                          endif
+                          if freq_label contains ' with'
+                            assign freq_label = freq_label | split: ' with' | first
+                          endif
+                          assign plan_id_string = plan.id | append: ''
+                        %}
+                        <option
+                          value="{{ plan.id }}"
+                          data-label="{{ freq_label | escape }}"
+                          {% if plan_id_string == default_plan_id %}
+                            selected
+                          {% endif %}
+                        >
+                          {{ freq_label }}
+                        </option>
+                      {% endfor %}
+                    {% endunless %}
+                  {% endfor %}
+                </select>
+              </span>
+            </div>
+            <span class="byp-sub__save" data-byp-you-save>
+              {%- if baseline_save > 0 -%}
+                {%- assign baseline_save_money = baseline_save | money -%}
+                {{- section.settings.you_save | default: 'You save [amount]' | replace: '[amount]', baseline_save_money -}}
+              {%- endif -%}
+            </span>
+          </div>
+
+          {% if benefit_blocks.size > 0 %}
+            <ul class="byp-sub__benefits">
+              {% for block in benefit_blocks %}
+                <li {{ block.shopify_attributes }}>
+                  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M13.5 4.5L6.5 11.5L2.5 7.5" stroke="currentColor" stroke-width="1.3"/>
+                  </svg>
+                  {{ block.settings.title }}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <p class="byp__error" data-byp-error role="alert" hidden></p>
+
+      {% assign atc_text = section.settings.cta | default: 'Add to cart' %}
+      {% render 'cta',
+        as: 'button',
+        type: 'button',
+        aria_label: atc_text,
+        text: atc_text,
+        hasIcons: true,
+        cta_color: 'orange',
+        extra_classes: 'w-full !px-24',
+        extra_text_classes: 'font-text text-[19.7px] font-medium uppercase leading-[23.69px] tracking-[0.493px]',
+        data_attributes: 'data-byp-atc disabled'
+      %}
+
+      <div class="byp-otp-wrap">
+        <button type="button" class="byp-otp" data-byp-otp-atc disabled>
+          <span class="byp-otp__title">
+            {{ section.settings.onetime_label | default: 'One-Time Purchase' }}
+            <span aria-hidden="true">—</span>
+            <span class="byp-otp__compare" data-byp-compare="otp" hidden></span>
+            <span class="byp-otp__price" data-byp-price="otp">
+              {{- baseline_variant.price | money_without_trailing_zeros -}}
+            </span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </ctr-build-your-pack>
+</section>
+
+{% stylesheet %}
+  html:has(.byp-section) {
+    scroll-behavior: smooth;
+  }
+  .byp-section {
+    background: var(--byp-bg, #f7f7f7);
+    scroll-margin-top: 120px;
+    padding: 0 0 40px;
+    color: #212121;
+    font-family: 'Alliance Text', sans-serif;
+    overflow-x: clip;
+  }
+  @media (min-width: 1024px) {
+    .byp-section {
+      padding: 40px;
+    }
+  }
+
+  .byp {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'heading' 'pack' 'scents' 'purchase';
+    gap: 24px;
+    max-width: 1360px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 0 0 24px;
+  }
+  /* Grid items default to min-width: auto, so nowrap rows widened the track past the viewport on mobile (QA). */
+  .byp > * {
+    min-width: 0;
+  }
+  .byp__heading {
+    grid-area: heading;
+  }
+  .byp__pack {
+    grid-area: pack;
+    padding: 0 20px;
+  }
+  .byp__scents {
+    grid-area: scents;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 20px;
+  }
+  .byp__purchase {
+    grid-area: purchase;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 20px;
+  }
+  @media (min-width: 1024px) {
+    .byp {
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+      grid-template-rows: auto auto 1fr;
+      grid-template-areas: 'scents heading' 'scents pack' 'scents purchase';
+      gap: 0;
+      padding: 0;
+      border: 1px solid rgba(33, 33, 33, 0.15);
+    }
+    .byp__scents {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      padding: 20px;
+      border-right: 1px solid rgba(33, 33, 33, 0.15);
+    }
+    .byp__pack {
+      padding: 20px 40px 0;
+    }
+    .byp__purchase {
+      padding: 20px 40px 24px;
+      gap: 24px;
+    }
+  }
+
+  /* Heading — two ruled lines (Figma) */
+  .byp__heading {
+    display: flex;
+    flex-direction: column;
+    background: #f7f7f7;
+  }
+  .byp__heading-line {
+    margin: 0;
+    padding: 6px 12px 2px;
+    border-bottom: 1px solid rgba(33, 33, 33, 0.15);
+    font-family: 'Alliance Neue', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.15;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+  .byp__heading-line:first-child {
+    border-top: 1px solid rgba(33, 33, 33, 0.15);
+  }
+  @media (min-width: 1024px) {
+    .byp__heading {
+      padding-top: 20px;
+      background: transparent;
+    }
+    .byp__heading-line {
+      font-size: 32px;
+    }
+  }
+
+  /* Pack panel */
+  .byp-pack {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 36px 12px 16px;
+    margin-top: 16px;
+    background: #f3f3f3;
+    border: 1px solid rgba(33, 33, 33, 0.15);
+  }
+  @media (min-width: 1024px) {
+    .byp-pack {
+      padding: 40px 24px 24px;
+    }
+  }
+  .byp-pack__tab {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    padding: 8px 24px;
+    background: #0032a0;
+    color: #ffffff;
+    font-size: 12px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  @media (min-width: 1024px) {
+    .byp-pack__tab {
+      font-size: 14px;
+    }
+  }
+  .byp-pack__progress {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    background: #ffffff;
+    border: 1px solid rgba(33, 33, 33, 0.15);
+  }
+  .byp-pack__nudge {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0;
+    color: #fe5000;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .byp-pack__nudge strong,
+  .byp-pack__nudge b {
+    font-weight: 600;
+  }
+  .byp-pack__truck {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+  .byp-pack__track {
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(254, 80, 0, 0.12);
+    overflow: hidden;
+  }
+  .byp-pack__fill {
+    height: 100%;
+    border-radius: 999px;
+    background: #fe5000;
+    transition: width 0.3s ease;
+  }
+  .byp-pack__slots {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 24px 8px;
+    padding-top: 22px;
+  }
+  .byp-slot-cell {
+    position: relative;
+    display: flex;
+  }
+  .byp-slot__tier {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    padding: 2px 0;
+    background: #ffffff;
+    border: 1px solid rgba(33, 33, 33, 0.15);
+    border-bottom: 0;
+    font-size: 11px;
+    line-height: 1.4;
+    text-align: center;
+    white-space: nowrap;
+  }
+  @media (min-width: 1024px) {
+    .byp-slot__tier {
+      font-size: 13px;
+    }
+  }
+  .byp-slot__tier--hidden {
+    display: none;
+  }
+  .byp-slot__tier--reached {
+    background: #0032a0;
+    border-color: #0032a0;
+    color: #ffffff;
+  }
+  .byp-section .byp-slot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1;
+    padding: 0;
+    background: #e3e3e3;
+    border: 1px solid rgba(33, 33, 33, 0.15);
+    color: #fe5000;
+    cursor: default;
+    overflow: hidden;
+  }
+  .byp-section .byp-slot--filled {
+    background: #ffffff;
+    border-color: #0032a0;
+    cursor: pointer;
+  }
+  .byp-section .byp-slot:disabled {
+    opacity: 1;
+  }
+  .byp-slot__lock {
+    width: 22px;
+    height: 22px;
+  }
+  .byp-slot--filled .byp-slot__lock {
+    display: none;
+  }
+  .byp-slot__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .byp-slot--filled::after {
+    content: '×';
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    font-size: 14px;
+    line-height: 1;
+    color: #0032a0;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+  .byp-slot--filled:hover::after,
+  .byp-slot--filled:focus-visible::after {
+    opacity: 1;
+  }
+  .byp-section .byp-pack__more {
+    width: 100%;
+    padding: 10px 12px;
+    background: rgba(0, 50, 160, 0.3);
+    border: 0;
+    color: #0032a0;
+    font-size: 14px;
+    line-height: 1.3;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .byp-section .byp-pack__more:hover {
+    background: rgba(0, 50, 160, 0.4);
+  }
+  .byp-section .byp-pack__more[hidden] {
+    display: none;
+  }
+
+  /* Scent cards — row on mobile, card on desktop */
+  .byp-card {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr) 128px;
+    min-height: 64px;
+    background: #ffffff;
+    border: 1px solid rgba(33, 33, 33, 0.15);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+  .byp-card__media {
+    background: #e3e3e3;
+    overflow: hidden;
+  }
+  .byp-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .byp-card__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  }
+  .byp-card__name {
+    margin: 0;
+    padding: 6px 10px 4px;
+    font-size: 15px;
+    line-height: 1.3;
+  }
+  .byp-card__tagline {
+    margin: 0;
+    padding: 4px 12px 6px;
+    border-top: 1px solid rgba(33, 33, 33, 0.15);
+    font-size: 11px;
+    line-height: 1.4;
+    color: #565352;
+  }
+  .byp-card__actions {
+    display: flex;
+    align-items: stretch;
+  }
+  .byp-section .byp-card__add {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 0 12px;
+    background: #fe5000;
+    border: 0;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .byp-section .byp-card__add:hover {
+    background: #e04700;
+  }
+  .byp-section .byp-card__add:disabled,
+  .byp-section .byp-card__stepper button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .byp-card__stepper {
+    display: none;
+    flex: 1;
+    align-items: stretch;
+    border-left: 1px solid rgba(33, 33, 33, 0.15);
+  }
+  .byp-section .byp-card__stepper button {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 0;
+    color: #212121;
+    cursor: pointer;
+  }
+  .byp-card__stepper span {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid rgba(33, 33, 33, 0.15);
+    border-right: 1px solid rgba(33, 33, 33, 0.15);
+    font-size: 17px;
+    font-weight: 500;
+  }
+  .byp-card--selected {
+    background: rgba(0, 50, 160, 0.2);
+    border-color: #212121;
+  }
+  .byp-card--selected .byp-card__add {
+    display: none;
+  }
+  .byp-card--selected .byp-card__stepper {
+    display: flex;
+  }
+  .byp-card__soldout {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    background: rgba(33, 33, 33, 0.1);
+    color: rgba(33, 33, 33, 0.5);
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  .byp-card--soldout .byp-card__img {
+    opacity: 0.5;
+  }
+  .byp-card--soldout .byp-card__name {
+    text-decoration: line-through;
+  }
+  @media (min-width: 1024px) {
+    .byp-card {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr 56px;
+    }
+    .byp-card__media {
+      aspect-ratio: 16 / 11;
+    }
+    .byp-card__img {
+      object-fit: contain;
+    }
+    .byp-card--selected .byp-card__media {
+      background: transparent;
+    }
+    .byp-card__info {
+      padding: 12px 0;
+      text-align: center;
+    }
+    .byp-card__name {
+      padding: 0 12px;
+      font-size: 18px;
+    }
+    .byp-card__tagline {
+      padding: 4px 12px 0;
+      border-top: 0;
+      font-size: 13px;
+    }
+    .byp-card__actions {
+      border-top: 1px solid rgba(33, 33, 33, 0.15);
+    }
+    .byp-section .byp-card__add {
+      padding: 0 16px;
+      font-size: 17px;
+    }
+    .byp-card__stepper {
+      border-left: 0;
+    }
+  }
+
+  /* Subscription card — mirrors the PDP's tertiary "Restock &" card */
+  .byp-sub {
+    border: 1px solid #fe5000;
+    background: rgba(254, 80, 0, 0.05);
+  }
+  .byp-sub__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 12px 4px;
+  }
+  .byp-sub__row--meta {
+    padding: 0 12px 14px;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .byp-sub__row--meta > :last-child {
+    white-space: nowrap;
+  }
+  /* Title wraps (badge drops a line) so the price never leaves the card (QA). */
+  .byp-sub__title {
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 0;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  .byp-sub__radio {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fe5000;
+    flex-shrink: 0;
+  }
+  .byp-sub__badge {
+    padding: 2px 4px;
+    background: #fe5000;
+    color: #ffffff;
+    font-size: 12px;
+    line-height: 1.1;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .byp-sub__prices {
+    flex-shrink: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    white-space: nowrap;
+  }
+  .byp-sub__compare {
+    font-size: 12px;
+    text-decoration: line-through;
+    opacity: 0.7;
+  }
+  .byp-sub__compare[hidden] {
+    display: none;
+  }
+  .byp-sub__price {
+    font-size: 17px;
+  }
+  .byp-sub__delivery {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .byp-sub__freq {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #fe5000;
+  }
+  .byp-sub__freq-label {
+    text-decoration: underline;
+  }
+  .byp-sub__caret {
+    width: 14px;
+    height: 14px;
+    color: #212121;
+  }
+  .byp-sub__select {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  /* Benefits strip (Figma 6857:11226): darker tint, one line on mobile. */
+  .byp-sub__benefits {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2px 12px;
+    margin: 0;
+    padding: 10px 12px;
+    border-top: 1px solid #fe5000;
+    background: rgba(254, 80, 0, 0.1);
+    list-style: none;
+    font-size: 10px;
+    line-height: 1.8;
+  }
+  .byp-sub__benefits li {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+  }
+  /*
+    Phones: tighten the Restock title so "SAVE 10% EXTRA" stays on the Figma single
+    line; below 390px the prices also stack (QA).
+  */
+  @media (max-width: 479px) {
+    .byp-sub__row {
+      gap: 8px;
+      padding: 16px 10px 4px;
+    }
+    .byp-sub__row--meta {
+      padding: 0 10px 14px;
+    }
+    .byp-sub__title {
+      gap: 4px;
+      font-size: 14px;
+    }
+    .byp-sub__badge {
+      padding: 2px 3px;
+      font-size: 11px;
+    }
+    .byp-sub__compare {
+      font-size: 11px;
+    }
+  }
+  @media (max-width: 359px) {
+    .byp-sub__title {
+      font-size: 13px;
+    }
+    .byp-sub__badge {
+      font-size: 10px;
+    }
+    .byp-sub__price {
+      font-size: 15px;
+    }
+  }
+  @media (max-width: 389px) {
+    .byp-sub__prices {
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0;
+    }
+    .byp-sub__compare,
+    .byp-sub__price {
+      line-height: 1.2;
+    }
+    .byp-sub__benefits {
+      gap: 2px 10px;
+      padding: 8px 10px;
+      font-size: 9px;
+    }
+    .byp-sub__benefits li {
+      gap: 3px;
+    }
+  }
+  .byp-sub__benefits svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+  @media (min-width: 1024px) {
+    .byp-sub__title {
+      gap: 8px;
+      font-size: 17px;
+    }
+    .byp-sub__badge {
+      font-size: 14px;
+    }
+    .byp-sub__benefits {
+      font-size: 12px;
+    }
+  }
+
+  .byp__error {
+    margin: 0;
+    color: #ff0000;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  .byp__error[hidden] {
+    display: none;
+  }
+
+  /* One-time purchase link — matches ctr-deo-builder / tertiary OTP */
+  .byp-otp-wrap {
+    display: flex;
+    justify-content: center;
+  }
+  .byp-section .byp-otp {
+    appearance: none;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    color: #000000;
+    cursor: pointer;
+  }
+  .byp-section .byp-otp:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .byp-otp__title {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    border-bottom: 1px solid #000000;
+    font-family: 'Alliance Platt', 'Alliance Text', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .byp-otp__compare {
+    opacity: 0.7;
+    text-decoration: line-through;
+    font-weight: 400;
+  }
+  .byp-otp__compare[hidden] {
+    display: none;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "CTR Build Your Pack",
+  "tag": "div",
+  "class": "ctr-build-your-pack-section",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "ReCharge bundle"
+    },
+    {
+      "type": "paragraph",
+      "content": "Add to cart creates a ReCharge dynamic bundle. The bundle product, contents collection and tiered discount are configured in ReCharge."
+    },
+    {
+      "type": "product",
+      "id": "bundle_product",
+      "label": "Bundle product",
+      "info": "The ReCharge bundle parent product (unlisted, $0)."
+    },
+    {
+      "type": "text",
+      "id": "bundle_collection_id",
+      "label": "Bundle contents collection ID",
+      "info": "Numeric ID of the Shopify collection used as the bundle's contents in ReCharge."
+    },
+    {
+      "type": "text",
+      "id": "recharge_sdk_url",
+      "label": "ReCharge SDK URL",
+      "default": "https://static.rechargecdn.com/assets/storefront/recharge-client-1.20.0.min.js"
+    },
+    {
+      "type": "header",
+      "content": "Scents"
+    },
+    {
+      "type": "text",
+      "id": "scent_option_name",
+      "label": "Scent option name",
+      "default": "Scent",
+      "info": "Every value of this option is shown as a scent."
+    },
+    {
+      "type": "text",
+      "id": "base_option_value",
+      "label": "Single-unit option value",
+      "default": "Pack of 1",
+      "info": "Each scent adds its variant with this value (e.g. Pack of 1)."
+    },
+    {
+      "type": "text",
+      "id": "sold_out_label",
+      "label": "Sold out label",
+      "default": "Sold out"
+    },
+    {
+      "type": "text",
+      "id": "add_label",
+      "label": "Add button label",
+      "default": "Add"
+    },
+    {
+      "type": "header",
+      "content": "Pack"
+    },
+    {
+      "type": "range",
+      "id": "default_slots",
+      "label": "Default slots",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "number",
+      "id": "max_items",
+      "label": "Maximum sticks",
+      "default": 20,
+      "info": "Must match the bundle's maximum in ReCharge."
+    },
+    {
+      "type": "text",
+      "id": "pack_label",
+      "label": "Pack label",
+      "default": "Your pack · [count] selected",
+      "info": "[count] = sticks selected."
+    },
+    {
+      "type": "text",
+      "id": "add_more_label",
+      "label": "Add more label",
+      "default": "Add more sticks"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "nudge_start",
+      "label": "Progress message — empty pack",
+      "default": "Add [count] sticks to unlock [pct] off + free shipping.",
+      "info": "[count] sticks needed, [pct] first tier %."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "nudge_more",
+      "label": "Progress message — before first tier",
+      "default": "Add [count] more stick[s] to unlock <strong>[pct] off + free shipping.</strong>"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "nudge_unlocked",
+      "label": "Progress message — tier reached",
+      "default": "<strong>[pct] OFF + FREE SHIPPING UNLOCKED!</strong> Add [count] more to unlock [next].",
+      "info": "[next] = next tier %."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "nudge_top",
+      "label": "Progress message — top tier",
+      "default": "<strong>[pct] OFF + FREE SHIPPING UNLOCKED!</strong>"
+    },
+    {
+      "type": "header",
+      "content": "Purchase"
+    },
+    {
+      "type": "text",
+      "id": "default_selling_plan_id",
+      "label": "Default selling plan ID",
+      "info": "Leave blank to use the last plan (e.g. 3 months)."
+    },
+    {
+      "type": "text",
+      "id": "subscription_title",
+      "label": "Subscription title",
+      "default": "Restock &"
+    },
+    {
+      "type": "text",
+      "id": "subscription_badge",
+      "label": "Subscription badge",
+      "default": "Save [pct] extra",
+      "info": "[pct] = the selling plan's % discount."
+    },
+    {
+      "type": "text",
+      "id": "delivered_label",
+      "label": "Delivery label",
+      "default": "Delivered every"
+    },
+    {
+      "type": "text",
+      "id": "you_save",
+      "label": "You save text",
+      "default": "You save [amount]"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Add to cart label",
+      "default": "Add to cart"
+    },
+    {
+      "type": "text",
+      "id": "onetime_label",
+      "label": "One-time purchase label",
+      "default": "One-Time Purchase"
+    },
+    {
+      "type": "text",
+      "id": "error_message",
+      "label": "Error message",
+      "default": "Something went wrong. Please try again."
+    },
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading line 1",
+      "default": "Mix and match scents."
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Heading line 2",
+      "default": "Save up to 35%."
+    },
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "default": "build-your-pack",
+      "info": "The buy box \"Build Your Pack\" link scrolls to #this-id."
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "info": "Band behind the builder. Defaults to light grey."
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_sync",
+      "label": "Sync sticky add to cart with the pack",
+      "default": true,
+      "info": "After the buy box \"Customize your pack\" link is clicked, the sticky add to cart shows the pack's Restock price and adds the pack. Off: the sticky bar always adds the buy box product."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tier",
+      "name": "Discount tier",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Display only — must match the ReCharge tiered discount on the bundle."
+        },
+        {
+          "type": "number",
+          "id": "qty",
+          "label": "Minimum sticks",
+          "default": 3
+        },
+        {
+          "type": "number",
+          "id": "discount_pct",
+          "label": "Discount %",
+          "default": 25
+        }
+      ]
+    },
+    {
+      "type": "scent",
+      "name": "Scent details",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Optional. Scents show automatically; use this to add a tagline, swap the image or hide one."
+        },
+        {
+          "type": "text",
+          "id": "scent_value",
+          "label": "Scent option value",
+          "info": "Exactly as in the product, e.g. Cedar Peak."
+        },
+        {
+          "type": "text",
+          "id": "custom_label",
+          "label": "Display name"
+        },
+        {
+          "type": "text",
+          "id": "tagline",
+          "label": "Tagline"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide",
+          "label": "Hide this scent",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "benefit",
+      "name": "Subscription benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Text",
+          "default": "Free shipping on first delivery"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CTR Build Your Pack",
+      "blocks": [
+        { "type": "tier", "settings": { "qty": 3, "discount_pct": 25 } },
+        { "type": "tier", "settings": { "qty": 4, "discount_pct": 30 } },
+        { "type": "tier", "settings": { "qty": 5, "discount_pct": 35 } },
+        { "type": "benefit", "settings": { "title": "Free shipping on first delivery" } },
+        { "type": "benefit", "settings": { "title": "Skip, pause or cancel anytime" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

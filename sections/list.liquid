@@ -1,0 +1,104 @@
+{% schema %}
+{
+  "name": "List",
+  "tag": "section",
+  "class": "list-section",
+  "presets": [
+    {
+      "name": "List",
+      "category": "List",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Lorem ipsum"
+      },
+      "blocks": [
+        {
+          "type": "list_item",
+          "settings": {
+            "title": "Lorem ipsum"
+          }
+        },
+        {
+          "type": "list_item",
+          "settings": {
+            "title": "Lorem ipsum"
+          }
+        },
+        {
+          "type": "list_item",
+          "settings": {
+            "title": "Lorem ipsum"
+          }
+        },
+        {
+          "type": "list_item",
+          "settings": {
+            "title": "Lorem ipsum"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "List Item",
+      "type": "list_item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+{% if section.blocks != blank %}
+  <div class="flex flex-col lg:flex-row {{ section.settings.bg_color }}">
+    <div class="flex w-full flex-col border-black/15 lg:w-1/2 lg:border-r">
+      {% render 'title',
+        title: section.settings.title,
+        text_size: 'fn-tt-title-70',
+        extra_wrapper_classes: 'lg:border-t-0 my-40 lg:m-0 overflow-hidden',
+        extra_text_classes: 'px-24 lg:px-16 !leading-[0.99]',
+        bg_lines: 'bg-grey-lines'
+      %}
+    </div>
+    <div class="lg:w-1/2 lg:border-t lg:border-black/15">
+      <ul class="flex w-full flex-col border-b border-black/15 lg:border-b-0 ">
+        {% for block in section.blocks %}
+          {% if block.type == 'list_item' %}
+            {% assign title = block.settings.title %}
+            <li class="lg:lg:fn-tt-title-70 border-t border-black/15 px-24 py-16 lg:flex lg:h-[calc(1em-.5px)] lg:items-center lg:border-b lg:border-t-0 lg:px-18 lg:py-0 lg:last:border-b-0">
+              <p class="fn-tt-title-30 lg:fn-tt-title-50">{{ title }}</p>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endif %}

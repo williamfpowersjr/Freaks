@@ -1,0 +1,100 @@
+{% schema %}
+{
+  "name": "Simple Hero",
+  "tag": "section",
+  "class": "simple-hero",
+  "presets": [
+    {
+      "name": "Simple Hero",
+      "category": "Simple Hero",
+      "settings": {
+        "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+        "title": "Lorem ipsum",
+        "bg_color": "white",
+        "section_height": "height_60"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Image",
+      "info": "This a mobile image is added, it will show on mobile devices instead of the main image."
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "This video is going to show in the video popup after clicking on the hero."
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "offWhite",
+          "label": "Off White"
+        },
+        {
+          "value": "orange",
+          "label": "Orange"
+        }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "Section Height",
+      "options": [
+        {
+          "value": "height_60",
+          "label": "60%"
+        },
+        {
+          "value": "height_80",
+          "label": "80%"
+        },
+        {
+          "value": "height_100",
+          "label": "100%"
+        }
+      ],
+      "default": "height_60"
+    }
+  ]
+}
+{% endschema %}
+
+{% assign section_height = 'h-[var(--section-height)]' %}
+
+{% if section.settings.section_height == 'height_60' %}
+  {% assign section_height = 'h-[60vh]' %}
+{% endif %}
+{% if section.settings.section_height == 'height_80' %}
+  {% assign section_height = 'h-[80vh]' %}
+{% endif %}
+{% render 'simple-hero',
+  section_height: section_height,
+  title: section.settings.title,
+  image: section.settings.image,
+  mobile_image: section.settings.mobile_image,
+  video: section.settings.video,
+  bg_color: section.settings.bg_color
+%}

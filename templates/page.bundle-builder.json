@@ -1,0 +1,354 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "split_hero_dLzy3X": {
+      "type": "split-hero",
+      "name": "Split Hero",
+      "settings": {
+        "bg_color": "bg-white",
+        "image": "shopify://shop_images/Frame_12988.png",
+        "show_coin": false,
+        "title": "Bundle up. Perform better.",
+        "text": "<p>Build a personalized bundle of performance-driven essentials. Designed to protect your skin barrier, support your microbiome, and stand up to sweat, sun, and daily stress. </p>",
+        "cta": "BUILD YOUR BUNDLE",
+        "cta_section_link": "#rebuy-widget-259487",
+        "cta_color": "orange"
+      }
+    },
+    "approach_NL3KW3": {
+      "type": "approach",
+      "blocks": {
+        "approach_Hn64nD": {
+          "type": "approach",
+          "settings": {
+            "card_color": "white",
+            "approach_number": "5% OFF",
+            "approach_title": "",
+            "text": "Unlock at $75 spent"
+          }
+        },
+        "approach_iwegTM": {
+          "type": "approach",
+          "settings": {
+            "card_color": "orange",
+            "approach_number": "10% OFF",
+            "approach_title": "",
+            "text": "Unlock at $100 spent"
+          }
+        },
+        "approach_rMKW3r": {
+          "type": "approach",
+          "settings": {
+            "card_color": "blue",
+            "approach_number": "15% OFF",
+            "approach_title": "",
+            "text": "Unlock at $150 spent"
+          }
+        }
+      },
+      "block_order": [
+        "approach_Hn64nD",
+        "approach_iwegTM",
+        "approach_rMKW3r"
+      ],
+      "disabled": true,
+      "name": "Approach",
+      "settings": {
+        "title": "HOW IT WORKS",
+        "textarea": ""
+      }
+    },
+    "feature_bento_aByKGt": {
+      "type": "feature-bento",
+      "blocks": {
+        "feature_mCEytp": {
+          "type": "feature",
+          "settings": {
+            "title": "Bundle & Save Up To 25%",
+            "description": "Customize your routine with Freaks essentials.",
+            "bg_color": "bg-white",
+            "video": "shopify://files/videos/FoN_Sunstick_Master_16x9_Web.mov",
+            "overlay": true
+          }
+        },
+        "feature_FqBT47": {
+          "type": "feature",
+          "settings": {
+            "title": "5% OFF",
+            "description": "Spend $75+",
+            "bg_color": "bg-white",
+            "overlay": false
+          }
+        },
+        "feature_aTmgWM": {
+          "type": "feature",
+          "settings": {
+            "title": "10% OFF",
+            "description": "Spend $100+",
+            "bg_color": "bg-orange",
+            "overlay": false
+          }
+        },
+        "feature_bFRY6f": {
+          "type": "feature",
+          "settings": {
+            "title": "15% OFF",
+            "description": "Spend $150+",
+            "bg_color": "bg-blue",
+            "overlay": false
+          }
+        },
+        "feature_n7QEc4": {
+          "type": "feature",
+          "settings": {
+            "title": "25% OFF",
+            "description": "Spend $250+",
+            "bg_color": "bg-white",
+            "overlay": false
+          }
+        }
+      },
+      "block_order": [
+        "feature_mCEytp",
+        "feature_FqBT47",
+        "feature_aTmgWM",
+        "feature_bFRY6f",
+        "feature_n7QEc4"
+      ],
+      "name": "Feature Bento",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "HOW IT WORKS"
+      }
+    },
+    "divider_88CVrX": {
+      "type": "divider",
+      "name": "Divider",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "divider_color": "lg:bg-black/15",
+        "divider_color_mobile": "bg-white"
+      }
+    },
+    "title_NEYyqh": {
+      "type": "title",
+      "name": "Title",
+      "settings": {
+        "bg_color": "white",
+        "title": "YOUR ROUTINE <br> YOUR RULES",
+        "text": "",
+        "has_margin": false,
+        "text_align": "center"
+      }
+    },
+    "1765448254e6f07174": {
+      "type": "apps",
+      "blocks": {
+        "rebuy_personalization_engine_rebuy_widget_TenUWB": {
+          "type": "shopify://apps/rebuy-personalization-engine/blocks/rebuy-widget/a26ae9b9-933b-40bf-bbc6-bf1220bbc4dc",
+          "settings": {
+            "enabled": true,
+            "id": "259487",
+            "product_id_enabled": true,
+            "collection_id_enabled": false
+          }
+        }
+      },
+      "block_order": [
+        "rebuy_personalization_engine_rebuy_widget_TenUWB"
+      ],
+      "settings": {}
+    },
+    "divider_9wfgTf": {
+      "type": "divider",
+      "name": "Divider",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "divider_color": "lg:bg-black/15",
+        "divider_color_mobile": "bg-black/15"
+      }
+    },
+    "values_xjQ9BB": {
+      "type": "values",
+      "blocks": {
+        "value_gwTdpz": {
+          "type": "value",
+          "settings": {
+            "title": "You go hard. So do we. ",
+            "description": "Our skin is severely at risk. From environmental pollutants and harsh elements–the skincare systems out there aren’t cutting it. So, we made one that did. Whether you’re running an ultra marathon or just keeping up with the daily sprint of life, our products protect, repair, and strengthen your skin. "
+          }
+        },
+        "value_zjMXVh": {
+          "type": "value",
+          "settings": {
+            "title": "Clean",
+            "description": "0 chemical filters. 0 SPF boosters. 0 microplastics. Just 100% mineral, bio-based ingredients that feel good on you and you can feel good about. "
+          }
+        },
+        "value_EUcUnx": {
+          "type": "value",
+          "settings": {
+            "title": "Clinically proven, science backed innovation",
+            "description": "Since inception, we’ve worked with leading scientists  to develop formulas that not only protect, but also strengthen and repair your skin. "
+          }
+        },
+        "value_CYngyz": {
+          "type": "value",
+          "settings": {
+            "title": "Freaks about nature ",
+            "description": "All of our products are reef-safe, vegan, non chemical and made for all skin types. Our bottles feature the first ever airless pump made of 100% recycled plastic. For every order, we remove 5 lbs of plastic from our oceans in partnership with Oceanworks."
+          }
+        }
+      },
+      "block_order": [
+        "value_gwTdpz",
+        "value_zjMXVh",
+        "value_EUcUnx",
+        "value_CYngyz"
+      ],
+      "settings": {
+        "bg_color": "bg-white"
+      }
+    },
+    "divider_FNWRPN": {
+      "type": "divider",
+      "name": "Divider",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "divider_color": "lg:bg-black/15",
+        "divider_color_mobile": "bg-black/15"
+      }
+    },
+    "title_EqMNpw": {
+      "type": "title",
+      "name": "Title",
+      "settings": {
+        "bg_color": "white",
+        "title": "USED BY OUR <br> FREAK ATHLETES",
+        "text": "",
+        "has_margin": true,
+        "text_align": "center"
+      }
+    },
+    "gallery_EXnm38": {
+      "type": "gallery",
+      "blocks": {
+        "gallery_item_miByQg": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240507_Kelly_Interview_Freaks_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "mobile_video": "shopify://files/videos/MOBILE_HP_Kelly_Interview_Freaks_Specific_4x5_H.264_Final_Delivery.mp4",
+            "hide_mute": false,
+            "title": "Kelly Slater",
+            "info_text": ""
+          }
+        },
+        "gallery_item_BBPerf": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240507_Ocean_Interview_Freaks_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "mobile_video": "shopify://files/videos/MOBILE_HP_Ocean_Interview_Freaks_Specific_4x5_H.264_Final_Delivery.mp4",
+            "hide_mute": false,
+            "title": "Ocean Ramsey",
+            "info_text": ""
+          }
+        },
+        "gallery_item_qRxCGG": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240507_Nina_Interview_Freaks_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "mobile_video": "shopify://files/videos/MOBILE_HP_Nina_Interview_Freaks_Specific_4X5_H.264_Final_Delivery.mp4",
+            "hide_mute": false,
+            "title": "Nina Williams",
+            "info_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "gallery_item_miByQg",
+        "gallery_item_BBPerf",
+        "gallery_item_qRxCGG"
+      ],
+      "settings": {
+        "show_video_controls": true
+      }
+    },
+    "ugc_slider_DPrCwE": {
+      "type": "ugc-slider",
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Loved by the freak community"
+      }
+    },
+    "faqs_hQ7XXf": {
+      "type": "faqs",
+      "blocks": {
+        "accordion_49XKxT": {
+          "type": "accordion",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>"
+          }
+        },
+        "accordion_RFgtMc": {
+          "type": "accordion",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>"
+          }
+        },
+        "accordion_bmFneQ": {
+          "type": "accordion",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_49XKxT",
+        "accordion_RFgtMc",
+        "accordion_bmFneQ"
+      ],
+      "disabled": true,
+      "name": "Faqs",
+      "settings": {
+        "title": "FAQS",
+        "bg_color": "bg-white"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "split_hero_dLzy3X",
+    "approach_NL3KW3",
+    "feature_bento_aByKGt",
+    "divider_88CVrX",
+    "title_NEYyqh",
+    "1765448254e6f07174",
+    "divider_9wfgTf",
+    "values_xjQ9BB",
+    "divider_FNWRPN",
+    "title_EqMNpw",
+    "gallery_EXnm38",
+    "ugc_slider_DPrCwE",
+    "faqs_hQ7XXf"
+  ]
+}

@@ -1,0 +1,84 @@
+{% comment %}
+  Figma "Restock &" card treatment (CNV-6635), opt-in via the ctr-product-hero
+  setting "Highlight subscription card": orange border, light orange fill and a
+  filled orange radio. Style only — scoped to one section, tertiary style.
+
+  @param {string} section_id
+{% endcomment %}
+
+<style>
+  #shopify-section-{{ section_id }} .ctr-subscription-tertiary__card {
+    border-color: #fe5000;
+    background: rgba(254, 80, 0, 0.05);
+  }
+  /* Benefits strip (Figma 6857:11226): darker tint, one line on mobile. */
+  #shopify-section-{{ section_id }} .ctr-subscription-tertiary__benefits {
+    flex-wrap: nowrap;
+    gap: 16px;
+    padding: 10px 8px;
+    border-top: 1px solid #fe5000;
+    background: rgba(254, 80, 0, 0.1);
+  }
+  #shopify-section-{{ section_id }} .ctr-subscription-tertiary__benefit-item {
+    gap: 6px;
+    white-space: nowrap;
+  }
+  @media (max-width: 389px) {
+    #shopify-section-{{ section_id }} .ctr-subscription-tertiary__benefits {
+      gap: 10px;
+      padding: 10px 4px;
+    }
+    #shopify-section-{{ section_id }} .ctr-subscription-tertiary__benefit-item p {
+      font-size: 9px;
+    }
+  }
+
+  /* With the Build Your Pack row the box border lives on the label + benefits (see ctr-byp-link). */
+  #shopify-section-{{ section_id }} .ctr-subscription-tertiary__card:has(.ctr-byp-link) {
+    background: transparent;
+  }
+  #shopify-section-{{ section_id }} .ctr-subscription-tertiary__card:has(.ctr-byp-link) > .subscription-group {
+    border-color: #fe5000;
+    background: rgba(254, 80, 0, 0.05);
+  }
+  #shopify-section-{{ section_id }} .ctr-subscription-tertiary__card:has(.ctr-byp-link) > .ctr-subscription-tertiary__benefits {
+    border-color: #fe5000;
+    background: rgba(254, 80, 0, 0.1);
+  }
+
+  /* Mobile: keep "Restock &" + badge on one line like Figma (badge 14px -> 12px, price 16px).
+     Under 380px it wraps as on live — there isn't room for title, badge and prices. */
+  @media (min-width: 380px) and (max-width: 1023px) {
+    #shopify-section-{{ section_id }} .ctr-subscription-tertiary .subscription-group .ctr-subscription-secondary__header-row .flex-wrap {
+      flex-wrap: nowrap;
+      gap: 5px;
+    }
+    #shopify-section-{{ section_id }} .ctr-subscription-tertiary .ctr-subscription-secondary__save-badge {
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    #shopify-section-{{ section_id }} .ctr-subscription-tertiary .subscription-group .ctr-subscription-secondary__label-text {
+      white-space: nowrap;
+    }
+    #shopify-section-{{ section_id }} .ctr-subscription-tertiary .ctr-subscription-secondary__main-price {
+      font-size: 16px;
+    }
+    #shopify-section-{{ section_id }} .ctr-subscription-tertiary .ctr-subscription-secondary__header-row {
+      gap: 4px;
+    }
+  }
+
+  #shopify-section-{{ section_id }} .ctr-subscription-tertiary .subscription-group .ctr-subscription-secondary__label-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  #shopify-section-{{ section_id }} .ctr-subscription-tertiary .subscription-group .ctr-subscription-secondary__label-text::before {
+    content: '';
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #fe5000;
+  }
+</style>

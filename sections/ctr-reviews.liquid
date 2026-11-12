@@ -1,0 +1,714 @@
+{{ 'ctr-reviews.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ctr-reviews.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign ctr_reviews_swiper_id = 'ctr-reviews-' | append: section.id
+  assign ctr_reviews_categories = section.blocks | where: 'type', 'category'
+  assign ctr_reviews_items = section.blocks | where: 'type', 'item'
+  assign ctr_reviews_first_category = ''
+  if ctr_reviews_categories.size > 0
+    assign ctr_reviews_first_category = ctr_reviews_categories.first.settings.label | strip | handleize
+  endif
+  assign ctr_reviews_title_font_size_diff = section.settings.title_font_size_desktop | minus: section.settings.title_font_size_mobile
+-%}
+
+<ctr-reviews
+  class="ctr-reviews"
+  data-section-id="{{ section.id }}"
+  style="
+    {% if section.settings.background_gradient != blank %}
+      --ctr-reviews-background: {{ section.settings.background_gradient }};
+    {% else %}
+      --ctr-reviews-background: {{ section.settings.background_color }};
+    {% endif %}
+    --ctr-reviews-heading-color: {{ section.settings.heading_color }};
+    --ctr-reviews-accent-color: {{ section.settings.accent_color }};
+    --ctr-reviews-text-color: {{ section.settings.text_color }};
+    --ctr-reviews-muted-text-color: {{ section.settings.muted_text_color }};
+    --ctr-reviews-border-color: {{ section.settings.border_color }};
+    --ctr-reviews-tab-active-background: {{ section.settings.tab_active_background }};
+    --ctr-reviews-tab-inactive-background: {{ section.settings.tab_inactive_background }};
+    --ctr-reviews-tab-text-color: {{ section.settings.tab_text_color }};
+    --ctr-reviews-card-background: {{ section.settings.card_background }};
+    --ctr-reviews-title-max-width: {% if section.settings.use_title_max_width %}{{ section.settings.title_max_width }}px{% else %}none{% endif %};
+    --ctr-reviews-title-font-size: clamp({{ section.settings.title_font_size_mobile }}px, calc({{ section.settings.title_font_size_mobile }} * 1px + ({{ ctr_reviews_title_font_size_diff }}) * (100vw - 375 * 1px) / (1225)), {{ section.settings.title_font_size_desktop }}px);
+    --ctr-reviews-title-text-align-desktop: {{ section.settings.title_text_align_desktop }};
+    --ctr-reviews-title-text-align-mobile: {{ section.settings.title_text_align_mobile }};
+    --ctr-reviews-title-margin-inline-mobile: {% if section.settings.title_text_align_mobile == 'center' %}auto{% else %}0{% endif %};
+    --ctr-reviews-title-margin-inline-desktop: {% if section.settings.title_text_align_desktop == 'center' %}auto{% else %}0{% endif %};
+    --ctr-reviews-tabs-justify-mobile: {% if section.settings.title_text_align_mobile == 'center' %}center{% elsif section.settings.title_text_align_mobile == 'right' %}flex-end{% else %}flex-start{% endif %};
+    --ctr-reviews-tabs-justify-desktop: {% if section.settings.title_text_align_desktop == 'center' %}center{% elsif section.settings.title_text_align_desktop == 'right' %}flex-end{% else %}flex-start{% endif %};
+    --ctr-reviews-title-gap-desktop: {{ section.settings.title_gap_desktop }}px;
+    --ctr-reviews-title-gap-mobile: {{ section.settings.title_gap_mobile }}px;
+    --ctr-reviews-tabs-gap-desktop: {{ section.settings.tabs_gap_desktop }}px;
+    --ctr-reviews-tabs-gap-mobile: {{ section.settings.tabs_gap_mobile }}px;
+    --ctr-reviews-slide-aspect-ratio-desktop: {{ section.settings.slide_aspect_ratio_desktop }};
+    --ctr-reviews-slide-aspect-ratio-mobile: {{ section.settings.slide_aspect_ratio_mobile }};
+    --ctr-reviews-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-reviews-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-reviews-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-reviews-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  {% if section.settings.title != blank %}
+    <div class="ctr-reviews__title-wrap bg-grey-lines">
+      <div class="ctr-reviews__title inline-rich-text font-neue">
+        {{ section.settings.title }}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if ctr_reviews_categories.size > 0 or ctr_reviews_items.size > 0 %}
+    <div class="ctr-reviews__content">
+      {% if ctr_reviews_categories.size > 0 %}
+        <div class="ctr-reviews__tabs" role="tablist" aria-label="Review categories">
+          {% for block in ctr_reviews_categories %}
+            {% if block.settings.label != blank %}
+              {% assign ctr_reviews_category_handle = block.settings.label | strip | handleize %}
+              <button
+                type="button"
+                class="ctr-reviews__tab{% if forloop.first %} is-active{% endif %}"
+                role="tab"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                data-ctr-reviews-tab
+                data-category="{{ ctr_reviews_category_handle }}"
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.label | escape }}
+              </button>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if ctr_reviews_items.size > 0 %}
+        <div class="ctr-reviews__slider-wrap">
+          <div id="{{ ctr_reviews_swiper_id }}" class="ctr-reviews__swiper">
+            <swiper-container init="false" class="ctr-reviews__swiper-container">
+              {% for block in ctr_reviews_items %}
+                {% assign ctr_reviews_item_category = block.settings.category | strip | handleize %}
+                {% if ctr_reviews_item_category == blank and ctr_reviews_first_category != blank %}
+                  {% assign ctr_reviews_item_category = ctr_reviews_first_category %}
+                {% endif %}
+                {% assign ctr_reviews_is_visible = true %}
+                {% if ctr_reviews_first_category != blank and ctr_reviews_item_category != ctr_reviews_first_category %}
+                  {% assign ctr_reviews_is_visible = false %}
+                {% endif %}
+
+                <swiper-slide
+                  class="swiper-slide ctr-reviews__slide{% unless ctr_reviews_is_visible %} ctr-reviews__slide--hidden{% endunless %}"
+                  data-category="{{ ctr_reviews_item_category }}"
+                  {{ block.shopify_attributes }}
+                >
+                  {% if block.settings.media_type == 'video' %}
+                    <div class="ctr-reviews__video-card">
+                      {% if block.settings.video != blank %}
+                        <video-element class="ctr-reviews__video-element">
+                          <div class="ctr-reviews__video-frame">
+                            <div data-whole-video-toggle>
+                              {% render 'lazy-video',
+                                video: block.settings.video,
+                                class: 'ctr-reviews__video',
+                                autoplay: false,
+                                autopause: false,
+                                loop: true,
+                                lazy_poster: false
+                              %}
+                            </div>
+
+                            {% render 'video-controls',
+                              hide_mute: true,
+                              icons_class: 'ctr-reviews__control ctr-reviews__control--play',
+                              no_border: true
+                            %}
+
+                            <div class="ctr-reviews__control ctr-reviews__control--mute flex text-white lg:hover:cursor-pointer">
+                              <button
+                                aria-label="Mute Video"
+                                data-video-mute
+                                class="group/mute bg-black/15 p-10 backdrop-blur-md transition-all duration-200 ease-in-out lg:hover:bg-black/30 lg:active:bg-black/40"
+                              >
+                                {% render 'icon-speaker-slash',
+                                  class: 'transition-all duration-200 ease-in-out w-20 lg:group-hover/mute:opacity-80'
+                                %}
+                              </button>
+                              <button
+                                aria-label="Unmute Video"
+                                data-video-unmute
+                                class="group/unmute bg-black/15 p-10 backdrop-blur-md transition-all duration-200 ease-in-out lg:hover:bg-black/30 lg:active:bg-black/40"
+                              >
+                                {% render 'icon-speaker-slash',
+                                  slash: true,
+                                  class: 'transition-all duration-200 ease-in-out w-20 lg:group-hover/unmute:opacity-80'
+                                %}
+                              </button>
+                            </div>
+                          </div>
+                        </video-element>
+                      {% elsif block.settings.image != blank %}
+                        <div class="ctr-reviews__video-frame">
+                          <img
+                            class="ctr-reviews__video-poster"
+                            src="{{ block.settings.image | img_url: '900x' }}"
+                            alt="{{ block.settings.image.alt | escape }}"
+                            loading="lazy"
+                            width="{{ block.settings.image.width }}"
+                            height="{{ block.settings.image.height }}"
+                          >
+                        </div>
+                      {% endif %}
+                    </div>
+                  {% else %}
+                    <div class="ctr-reviews__review-card">
+                      {% assign ctr_reviews_stars_count = block.settings.stars | plus: 0 %}
+                      {% if ctr_reviews_stars_count > 0 %}
+                        <div class="ctr-reviews__stars" aria-hidden="true">
+                          {% for i in (1..5) %}
+                            {% if i <= ctr_reviews_stars_count %}
+                              {% render 'icon-star' %}
+                            {% else %}
+                              {% render 'icon-star', class: 'opacity-15' %}
+                            {% endif %}
+                          {% endfor %}
+                        </div>
+                      {% endif %}
+
+                      <div class="ctr-reviews__review-copy">
+                        {% if block.settings.title != blank %}
+                          <div class="ctr-reviews__review-title inline-rich-text">
+                            {{ block.settings.title }}
+                          </div>
+                        {% endif %}
+
+                        {% if block.settings.review != blank %}
+                          <div class="ctr-reviews__review-text inline-rich-text">
+                            {{ block.settings.review }}
+                          </div>
+                        {% endif %}
+                      </div>
+
+                      {% if block.settings.name != blank %}
+                        <div class="ctr-reviews__review-name inline-rich-text">
+                          {{ block.settings.name }}
+                        </div>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </swiper-slide>
+              {% endfor %}
+            </swiper-container>
+
+            {% if ctr_reviews_items.size > 1 %}
+              <div class="align-center flex w-full border-t border-black/15">
+                <div class="relative flex w-full justify-center self-center px-24 lg:px-40">
+                  <div class="swiper-scrollbar"></div>
+                </div>
+                <div class="border-x border-black/15">
+                  <div
+                    class="swiper-button-prev"
+                    aria-label="Previous Slide {{ section.id }}"
+                    role="button"
+                  ></div>
+                </div>
+                <div>
+                  <div
+                    class="swiper-button-next"
+                    aria-label="Next Slide {{ section.id }}"
+                    role="button"
+                  ></div>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</ctr-reviews>
+
+{% schema %}
+{
+  "name": "Reviews (CTR)",
+  "tag": "section",
+  "class": "ctr-reviews-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>JOIN <strong>80,000+ FREAKS</strong> PROTECTING THEIR SKIN THE RIGHT WAY.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_title_max_width",
+      "label": "Use title max width",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "title_max_width",
+      "label": "Title max width",
+      "default": 1500
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_desktop",
+      "label": "Title font size desktop",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "label": "Title font size mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "title_text_align_desktop",
+      "label": "Title text align desktop",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "title_text_align_mobile",
+      "label": "Title text align mobile",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F9F9F9"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Background gradient",
+      "info": "Optional. Example: linear-gradient(180deg, #FFF 0%, #FFF2E9 100%). Overrides background color when set."
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#FE5000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Muted text color",
+      "alpha": true,
+      "default": "#21212199"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "alpha": true,
+      "default": "#21212126"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_background",
+      "label": "Active tab background",
+      "default": "#FE5000"
+    },
+    {
+      "type": "color",
+      "id": "tab_inactive_background",
+      "label": "Inactive tab background",
+      "default": "#B4B4B4"
+    },
+    {
+      "type": "color",
+      "id": "tab_text_color",
+      "label": "Tab text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Review card background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Slide"
+    },
+    {
+      "type": "text",
+      "id": "slide_aspect_ratio_desktop",
+      "label": "Aspect ratio desktop",
+      "default": "315 / 375",
+      "info": "Example: 315 / 375"
+    },
+    {
+      "type": "text",
+      "id": "slide_aspect_ratio_mobile",
+      "label": "Aspect ratio mobile",
+      "default": "225 / 350",
+      "info": "Example: 225 / 350"
+    },
+    {
+      "type": "header",
+      "content": "Gap"
+    },
+    {
+      "type": "range",
+      "id": "title_gap_desktop",
+      "label": "Gap title to content (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "title_gap_mobile",
+      "label": "Gap title to content (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "tabs_gap_desktop",
+      "label": "Gap tabs to carousel (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "tabs_gap_mobile",
+      "label": "Gap tabs to carousel (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Padding desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Padding mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category (CTR)",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "MINIMAL WHITE CAST"
+        }
+      ]
+    },
+    {
+      "type": "item",
+      "name": "Item (CTR)",
+      "settings": [
+        {
+          "type": "text",
+          "id": "category",
+          "label": "Category",
+          "info": "Must match a Category block label (case-insensitive)."
+        },
+        {
+          "type": "select",
+          "id": "media_type",
+          "label": "Type",
+          "options": [
+            { "value": "video", "label": "Video" },
+            { "value": "review", "label": "Review" }
+          ],
+          "default": "review"
+        },
+        {
+          "type": "header",
+          "content": "Video"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Fallback image"
+        },
+        {
+          "type": "header",
+          "content": "Review"
+        },
+        {
+          "type": "select",
+          "id": "stars",
+          "label": "Stars",
+          "options": [
+            { "value": "5", "label": "5" },
+            { "value": "4", "label": "4" },
+            { "value": "3", "label": "3" },
+            { "value": "2", "label": "2" },
+            { "value": "1", "label": "1" }
+          ],
+          "default": "5"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Title",
+          "default": "<p>Beach Bag Essential</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "review",
+          "label": "Review",
+          "default": "<p>It’s the perfect coverage. It doesn’t leave a white residue and packaging is awesome. Already re-ordered.</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "name",
+          "label": "Name",
+          "default": "<p>Ingrid B.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews (CTR)",
+      "category": "CTR Sections",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "label": "MINIMAL WHITE CAST"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "label": "CLEAN INGREDIENTS"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "label": "BUILT FOR PERFORMANCE"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "label": "ATHLETE TESTED"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "label": "FAMILY SAFE"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "category": "MINIMAL WHITE CAST",
+            "media_type": "video"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "category": "MINIMAL WHITE CAST",
+            "media_type": "review",
+            "stars": "5",
+            "title": "<p>Beach Bag Essential</p>",
+            "review": "<p>It’s the perfect coverage. It doesn’t leave a white residue and packaging is awesome. Already re-ordered.</p>",
+            "name": "<p>Ingrid B.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "category": "MINIMAL WHITE CAST",
+            "media_type": "video"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "category": "MINIMAL WHITE CAST",
+            "media_type": "review",
+            "stars": "5",
+            "title": "<p>This stuff ACTUALLY rubs clear!</p>",
+            "review": "<p>This stuff ACTUALLY runs in and doesn’t stay white. It’s the only sunscreens around with safe ingredients, effective sun protection and it doesn’t leave a white glow like all other mineral sunscreens. A+</p>",
+            "name": "<p>Catherine K.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "category": "MINIMAL WHITE CAST",
+            "media_type": "video"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "category": "MINIMAL WHITE CAST",
+            "media_type": "review",
+            "stars": "5",
+            "title": "<p>I recommend this sun stick.</p>",
+            "review": "<p>I appreciate the consistency of the sun stick, which allows for ease of application and good skin coverage. It is not greasy on my face, doesn’t leave a white film and it provides great sun protection.</p>",
+            "name": "<p>Sue B.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "category": "CLEAN INGREDIENTS",
+            "media_type": "video"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "category": "CLEAN INGREDIENTS",
+            "media_type": "review",
+            "stars": "5",
+            "title": "<p>Satisfied</p>",
+            "review": "<p>Likes that it goes on lightly and also rubs in completely and quickly. Also of course love it’s more environmentally-friendly.</p>",
+            "name": "<p>Monica K.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "category": "CLEAN INGREDIENTS",
+            "media_type": "video"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "category": "CLEAN INGREDIENTS",
+            "media_type": "review",
+            "stars": "5",
+            "title": "<p>I love this spray!...</p>",
+            "review": "<p>I love this spray! I have very sensitive skin that reacts to many ingredients that are hypoallergenic. It makes finding sunscreens very difficult. This spray on, I have no adverse reactions and it feels great!</p>",
+            "name": "<p>Sue R.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

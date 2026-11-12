@@ -1,0 +1,15 @@
+<div class="overflow-hidden border-b border-black/15">
+  <ul class="-mb-1 -mr-2 grid grid-cols-2 divide-black/15 lg:-mr-1 lg:grid-cols-3">
+    {% for detail in product_details %}
+      {% assign icon = detail.icon %}
+      {% assign title = detail.title %}
+
+      <li class="z-10 flex flex-col items-center justify-center gap-16 border-b border-r border-black/15 px-8 py-16 max-lg:last:border-b-0 lg:items-start lg:gap-24 lg:border-t-0 lg:p-24 lg:last:-mr-1 lg:last:border-r">
+        {% if icon %}
+          {{ icon | image_url: width: icon.width | image_tag: loading: 'lazy', sizes: '25vw', class: 'w-48 lg:w-64' }}
+        {% endif %}
+        <p class="fn-tt-body-10 text-center lg:text-left">{{ title }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

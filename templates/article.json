@@ -1,0 +1,34 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "simple_hero_p9n6bc": {
+      "type": "simple-hero",
+      "settings": {
+        "image": "{{ article.image }}",
+        "title": "{{ article.title }}",
+        "bg_color": "white",
+        "section_height": "height_60"
+      }
+    },
+    "main": {
+      "type": "main-article",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "show_related_topics": true,
+        "related_topics_title": "Related Topics"
+      }
+    }
+  },
+  "order": [
+    "simple_hero_p9n6bc",
+    "main"
+  ]
+}

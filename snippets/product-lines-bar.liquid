@@ -1,0 +1,45 @@
+{% assign titles = '' %}
+
+{% if product_announcement_1 != blank %}
+  {% assign titles = titles | append: product_announcement_1 | append: ',' %}
+{% endif %}
+{% if product_announcement_2 != blank %}
+  {% assign titles = titles | append: product_announcement_2 | append: ',' %}
+{% endif %}
+{% if product_announcement_3 != blank %}
+  {% assign titles = titles | append: product_announcement_3 | append: ',' %}
+{% endif %}
+{% if product_announcement_4 != blank %}
+  {% assign titles = titles | append: product_announcement_4 | append: ',' %}
+{% endif %}
+
+{% assign titles = titles | split: ',' %}
+
+<div>
+  {% if titles.size < 4 %}
+    <ul class="hidden h-19 w-full justify-center gap-40 p-4 text-center lg:flex {{ bar_color }}">
+      {% for title in titles %}
+        <li class="fn-tt-caption -mb-1 font-medium uppercase leading-none {% if bar_color == 'bg-orange' %}text-blue{% else %}text-white{% endif %}">
+          {{ title }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <marquee-element>
+    <div class="{% if titles.size < 4 %}lg:hidden{% endif %} h-fit w-full">
+      <div data-container class="relative flex items-center overflow-hidden">
+        <ul
+          data-content
+          class="flex max-h-19 shrink-0 items-center gap-x-30 p-4 {{ bar_color }}"
+        >
+          {% for title in titles %}
+            <li class="fn-tt-caption -mb-1 font-medium uppercase leading-none {% if bar_color == 'bg-orange' %}text-blue{% else %}text-white{% endif %}">
+              {{ title }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </marquee-element>
+</div>

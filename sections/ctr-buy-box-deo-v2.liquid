@@ -1,0 +1,883 @@
+{% comment %}
+  Deo Buy Box V2 (CNV-3972) — quantity-builder buy box. Ships disabled in the
+  control template; Intelligems serves the duplicated template with it enabled.
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "Deo Buy Box V2 (CTR)",
+  "tag": "section",
+  "class": "ctr-buy-box-deo-v2-section",
+  "presets": [
+    {
+      "name": "Deo Buy Box V2 (CTR)",
+      "category": "CTR Sections",
+      "settings": {
+        "bg_color": "bg-white",
+        "title_size": "large",
+        "use_variant_media": true,
+        "builder_heading": "Build Your Pack",
+        "builder_subtext": "One stick lasts about 30 days with daily usage. Stock up and save up to 20%.",
+        "default_purchase": "subscription",
+        "autofill_label": "Autofill &",
+        "autofill_badge": "SAVE 15%",
+        "onetime_label": "One-Time Purchase",
+        "cta": "Add to cart"
+      },
+      "blocks": [
+        { "type": "tier", "settings": { "qty": 1, "discount_pct": 0, "label": "1 Stick" } },
+        { "type": "tier", "settings": { "qty": 2, "discount_pct": 10, "label": "2 Sticks - 10% OFF" } },
+        { "type": "tier", "settings": { "qty": 3, "discount_pct": 15, "label": "3 Sticks - 15% OFF" } },
+        { "type": "tier", "settings": { "qty": 4, "discount_pct": 20, "label": "4+ Sticks - 20% OFF" } },
+        {
+          "type": "scent",
+          "settings": {
+            "scent_value": "Santal Dune",
+            "description": "Warm sandalwood and amber with carrot, cardamom, and vetiver."
+          }
+        },
+        {
+          "type": "scent",
+          "settings": {
+            "scent_value": "Cedar Peak",
+            "description": "Cool eucalyptus and mint with herbal lavandin and geranium."
+          }
+        },
+        {
+          "type": "scent",
+          "settings": {
+            "scent_value": "Fragrance-Free",
+            "description": "Powerful odor protection with zero added scent, for all skin types."
+          }
+        },
+        {
+          "type": "scent",
+          "settings": {
+            "scent_value": "Bergamot Canyon",
+            "description": "Bright oakmoss and cedarwood with white tea, neroli, and bergamot."
+          }
+        },
+        { "type": "subscription_benefit", "settings": { "title": "Free shipping on every order", "show_tiers": "4" } },
+        { "type": "subscription_benefit", "settings": { "title": "Skip, pause or cancel anytime" } }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product Override"
+    },
+    {
+      "type": "product",
+      "id": "product_override",
+      "label": "Product Override",
+      "info": "If set, this product will be used instead of the page product."
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "text",
+      "id": "title_override",
+      "label": "Title Override",
+      "info": "Shown instead of the product title. Useful while the product title carries variant text (e.g. 'Fragrance-Free / Pack of 6')."
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        { "value": "bg-white", "label": "White" },
+        { "value": "bg-offWhite", "label": "Off White" }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": "Title Size",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "header",
+      "content": "Product Gallery"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_badge",
+      "label": "Badge",
+      "info": "A badge to be displayed on the lower-right corner of the product gallery. Use an image with a 1:1 aspect ratio."
+    },
+    {
+      "type": "checkbox",
+      "id": "gallery_badge_first_image_only",
+      "label": "Show badge only on first image",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "use_variant_media",
+      "label": "Use Variant Media",
+      "default": true,
+      "info": "Each scent's gallery shows that scent variant's media metafield ('custom.media'). When off (or when the metafield is empty) the product media is shown for every scent."
+    },
+    {
+      "type": "header",
+      "content": "Product Description"
+    },
+    {
+      "type": "text",
+      "id": "discount_tag",
+      "label": "Discount Benefit",
+      "default": "+ Free Shipping"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_from_price_and_discount",
+      "label": "Hide from price and discount row",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_description",
+      "label": "Hide Description",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_summary",
+      "label": "Hide Summary",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Build Your Pack",
+      "info": "The quantity builder. Tiers come from 'Savings Tier' blocks, scents from 'Scent' blocks. Percentages here are DISPLAY ONLY — checkout enforcement is the Build-a-Pack discount, and both must state the same numbers."
+    },
+    {
+      "type": "text",
+      "id": "builder_heading",
+      "label": "Heading",
+      "default": "Build Your Pack"
+    },
+    {
+      "type": "text",
+      "id": "builder_subtext",
+      "label": "Sub Text",
+      "default": "One stick lasts about 30 days with daily usage. Stock up and save up to 20%."
+    },
+    {
+      "type": "text",
+      "id": "base_option_value",
+      "label": "Single-Unit Option Value",
+      "default": "Pack of 1",
+      "info": "Exact option value of the single-unit variants the builder adds to cart. Scent blocks resolve their variant as: scent value + this value."
+    },
+    {
+      "type": "select",
+      "id": "default_purchase",
+      "label": "Default Purchase Type",
+      "options": [
+        { "value": "subscription", "label": "Autofill (subscription)" },
+        { "value": "one-time", "label": "One-time purchase" }
+      ],
+      "default": "subscription"
+    },
+    {
+      "type": "text",
+      "id": "default_selling_plan_id",
+      "label": "Default Selling Plan ID",
+      "info": "Optional. Leave blank to auto-select the same plan the PDP and cart default to."
+    },
+    {
+      "type": "text",
+      "id": "nudge_template",
+      "label": "Progress Nudge Text",
+      "default": "Add [count] more stick[s] to unlock [pct].",
+      "info": "Placeholders: [count], [s] (plural s), [pct]."
+    },
+    {
+      "type": "text",
+      "id": "unlocked_template",
+      "label": "Max Tier Unlocked Text",
+      "default": "You've unlocked [pct]!",
+      "info": "Shown once the highest tier is reached. Placeholder: [pct]."
+    },
+    {
+      "type": "text",
+      "id": "autofill_label",
+      "label": "Autofill Option Label",
+      "default": "Autofill &"
+    },
+    {
+      "type": "text",
+      "id": "autofill_badge",
+      "label": "Autofill Badge",
+      "default": "SAVE 15%",
+      "info": "Must state the same percentage as the Recharge selling plan discount."
+    },
+    {
+      "type": "text",
+      "id": "onetime_label",
+      "label": "One-Time Option Label",
+      "default": "One-Time Purchase"
+    },
+    {
+      "type": "text",
+      "id": "upgrade_template",
+      "label": "Upgrade Nudge Text",
+      "default": "Upgrade to autofill + save [amount]",
+      "info": "Shown under a selected one-time option. Placeholder: [amount]."
+    },
+    {
+      "type": "text",
+      "id": "delivery_label",
+      "label": "Delivery Frequency Label",
+      "default": "Delivery every:"
+    },
+    {
+      "type": "text",
+      "id": "sold_out_label",
+      "label": "Sold Out Label",
+      "default": "Sold Out"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Add to cart Cta Text",
+      "default": "Add to cart"
+    },
+    {
+      "type": "header",
+      "content": "Social"
+    },
+    {
+      "type": "image_picker",
+      "id": "social_image",
+      "label": "Social Image"
+    },
+    {
+      "type": "text",
+      "id": "social_quote",
+      "label": "Social Quote"
+    },
+    {
+      "type": "text",
+      "id": "social_profile_name",
+      "label": "Social Profile Name",
+      "info": "Will only show if link if Social Link is filled"
+    },
+    {
+      "type": "image_picker",
+      "id": "social_profile_image",
+      "label": "Social Profile Image",
+      "info": "Will only show if link if Social Link is filled"
+    },
+    {
+      "type": "url",
+      "id": "social_link",
+      "label": "Social Link"
+    },
+    {
+      "type": "header",
+      "content": "Product Details"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_details",
+      "label": "Show details",
+      "default": true,
+      "info": "Check on if you would like to show the products details. Find the 'Product Hero Details' definition in the product's metafields."
+    },
+    {
+      "type": "text",
+      "id": "bundle_title",
+      "label": "Bundle Title",
+      "default": "Upgrade to our bundle"
+    },
+    {
+      "type": "header",
+      "content": "Video Carousel"
+    },
+    {
+      "type": "text",
+      "id": "video_carousel_heading",
+      "label": "Video Carousel Heading",
+      "info": "Heading shown above the video carousel (rendered below Add to Cart). Add 'Video Carousel Item' blocks to populate the videos.",
+      "default": "STRAIGHT FROM THE FREAKS"
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "name": "Savings Tier",
+      "type": "tier",
+      "settings": [
+        {
+          "type": "number",
+          "id": "qty",
+          "label": "Quantity Threshold",
+          "default": 1,
+          "info": "Total sticks (across all scents) at which this tier activates."
+        },
+        {
+          "type": "number",
+          "id": "discount_pct",
+          "label": "Discount Percent",
+          "default": 0,
+          "info": "Display only — must match the Build-a-Pack discount's tier for this quantity, or checkout won't honour the shown price."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Rail Label",
+          "info": "Shown above the progress rail. Example: 2 Sticks - 10% OFF"
+        }
+      ]
+    },
+    {
+      "name": "Scent",
+      "type": "scent",
+      "settings": [
+        {
+          "type": "text",
+          "id": "scent_value",
+          "label": "Scent Option Value",
+          "info": "Exact scent option value from the product. Example: Santal Dune"
+        },
+        {
+          "type": "text",
+          "id": "custom_label",
+          "label": "Label",
+          "info": "Optional display override for the scent name."
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "info": "Short scent description shown under the name."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image Override",
+          "info": "Optional. Falls back to the scent variant's image."
+        }
+      ]
+    },
+    {
+      "name": "Subscription Benefit",
+      "type": "subscription_benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Subscription Benefit Text"
+        },
+        {
+          "type": "text",
+          "id": "show_tiers",
+          "label": "Show on these tiers",
+          "info": "Comma-separated tier numbers. Leave blank to always show. Example: 4 for the 4-stick tier, or 1,2,3 for the first three. Tier 1 also shows before anything is selected."
+        }
+      ]
+    },
+    {
+      "name": "Accordion",
+      "type": "accordion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Accordion Title"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_variant_metafield",
+          "label": "Use Variant Metafield",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "variant_metafield",
+          "label": "Variant Metafield",
+          "visible_if": "{{ block.settings.use_variant_metafield == true }}",
+          "info": "This is the key of the metafield that contains the text to display in the accordion. Eg. if the metafield is variant.metafields.custom.scent, the key would be 'scent'."
+        },
+        {
+          "type": "richtext",
+          "id": "richtext",
+          "label": "Accordion Text",
+          "visible_if": "{{ block.settings.use_variant_metafield != true }}"
+        }
+      ]
+    },
+    {
+      "name": "Summary",
+      "type": "summary",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Summary List Item"
+        }
+      ]
+    },
+    {
+      "name": "Video Carousel Item",
+      "type": "video_carousel_item",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "info": "Short uppercase tag shown top-left of the video. Eg. BIODEGRADABLE"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption",
+          "info": "Optional caption shown near the bottom of the video."
+        }
+      ]
+    },
+    {
+      "name": "Bundle",
+      "type": "bundle",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "product",
+          "id": "bundle_product",
+          "label": "Product Bundle",
+          "info": "Fill this field if you would like the product bundle recommendation to show in the hero."
+        },
+        {
+          "type": "text",
+          "id": "banner",
+          "label": "Bundle Banner"
+        },
+        {
+          "type": "select",
+          "id": "bundle_cta_color",
+          "label": "Bundle Cta Color",
+          "options": [
+            { "value": "orange", "label": "Orange" },
+            { "value": "blue", "label": "Blue" },
+            { "value": "black", "label": "Black" },
+            { "value": "white", "label": "White" }
+          ],
+          "default": "blue"
+        }
+      ]
+    },
+    {
+      "name": "Refill Upsell",
+      "type": "refill_upsell",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "headline",
+          "label": "Headline",
+          "default": "Add a Refill"
+        },
+        {
+          "type": "select",
+          "id": "cta_color",
+          "label": "CTA Color",
+          "options": [
+            { "value": "orange", "label": "Orange" },
+            { "value": "blue", "label": "Blue" },
+            { "value": "black", "label": "Black" },
+            { "value": "white", "label": "White" }
+          ],
+          "default": "blue"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+  /* Gallery rules from stylings.css, re-scoped (ids would duplicate across scents). */
+  [data-scent-gallery] .mySwiper,
+  [data-scent-gallery] .myPlaceholder {
+    height: 100.1%;
+    width: 100%;
+  }
+  [data-scent-gallery] .mySwiper2 .swiper-slide {
+    width: 56px;
+    height: 56px;
+  }
+  @media (min-width: 1024px) {
+    [data-scent-gallery] .mySwiper2 .swiper-slide {
+      width: 80px;
+      height: 80px;
+    }
+    [data-scent-gallery] .mySwiper2 .thumbnail-swiper__inner {
+      transition: all 0.3s ease-in-out;
+      overflow: hidden;
+    }
+    [data-scent-gallery] .mySwiper2 .thumbnail-swiper__inner:hover {
+      filter: blur(4px);
+      cursor: pointer;
+    }
+  }
+  [data-scent-gallery] .mySwiper2 .swiper-slide-thumb-active {
+    opacity: 1;
+  }
+  [data-scent-gallery] .mySwiper2 .swiper-slide-thumb-active .thumbnail-swiper__inner {
+    filter: blur(4px);
+  }
+  [data-scent-gallery] .mySwiper2 .swiper-slide-thumb-active .thumbnail-swiper__indicator {
+    opacity: 1;
+  }
+{% endstyle %}
+
+{% liquid
+  assign active_product = product
+  if section.settings.product_override != blank
+    assign active_product = section.settings.product_override
+  endif
+  assign product = active_product
+
+  assign product_details = product.metafields.custom.details.value
+  assign product_volume = product.metafields.custom.volume.value
+  assign display_title = section.settings.title_override | default: product.title
+
+  assign pre_order = false
+  for selling_plan_group in product.selling_plan_groups
+    if selling_plan_group.name == 'Pre Order'
+      assign pre_order = true
+      break
+    endif
+  endfor
+%}
+
+{% assign total_individual_price = 0 %}
+{% assign bundle_products = product.metafields.custom.bundle_products.value %}
+{% assign product_is_bundle = false %}
+{% if product.metafields.custom.product_is_bundle.value == true %}
+  {% assign product_is_bundle = true %}
+{% endif %}
+
+{% liquid
+  assign has_accordion = false
+  assign has_summary_block = false
+  assign has_bundle_block = false
+  assign has_refill_upsell_block = false
+  assign has_video_carousel_block = false
+  for block in section.blocks
+    case block.type
+      when 'accordion', '@app'
+        assign has_accordion = true
+      when 'summary'
+        if block.settings.title != blank
+          assign has_summary_block = true
+        endif
+      when 'bundle'
+        if block.settings.bundle_product.available
+          assign has_bundle_block = true
+        endif
+      when 'refill_upsell'
+        assign has_refill_upsell_block = true
+      when 'video_carousel_item'
+        if block.settings.video != blank
+          assign has_video_carousel_block = true
+        endif
+    endcase
+  endfor
+%}
+
+{%- comment -%} "From $X": lowest subscription price. {%- endcomment -%}
+{% liquid
+  assign lowest_price = product.selected_or_first_available_variant.price
+  for group in product.selling_plan_groups
+    unless group.name == 'Pre Order'
+      assign price_adjustment_value_type = group.selling_plans[0].price_adjustments[0].value_type
+      assign price_adjustment_value = group.selling_plans[0].price_adjustments[0].value
+      assign product_price = product.selected_or_first_available_variant.price
+
+      if price_adjustment_value_type == 'percentage'
+        assign price_adjustment_multiplier = 100 | minus: price_adjustment_value | times: 0.01
+        assign lowest_price = product_price | times: price_adjustment_multiplier
+      elsif price_adjustment_value_type == 'fixed_amount'
+        assign lowest_price = product_price | minus: price_adjustment_value
+      elsif price_adjustment_value_type == 'price'
+        assign lowest_price = price_adjustment_value
+      endif
+    endunless
+  endfor
+  assign lowest_price = lowest_price | money_without_trailing_zeros
+%}
+
+{% liquid
+  assign scent_blocks = section.blocks | where: 'type', 'scent'
+  assign base_value = section.settings.base_option_value | default: 'Pack of 1'
+%}
+
+<div
+  style="scroll-margin-top: var(--header-height)"
+  class="relative flex flex-col border-b border-t border-black/15 lg:flex-row lg:border-t-0"
+>
+  <div
+    class="relative flex h-full flex-col overflow-hidden lg:sticky lg:top-[--dynamic-header-height] lg:z-20 lg:w-1/2"
+  >
+    {%- comment -%}
+      One gallery per scent, the first renderable one visible, the rest hidden —
+      toggled by <ctr-deo-builder> on scent change (no server re-render).
+    {%- endcomment -%}
+    {% assign gallery_shown = false %}
+    {% for block in scent_blocks %}
+      {% liquid
+        assign scent_value = block.settings.scent_value | strip
+        assign scent_variant = blank
+        for variant in product.variants
+          if variant.options contains scent_value and variant.options contains base_value
+            assign scent_variant = variant
+            break
+          endif
+        endfor
+        assign gallery_hidden = true
+        if gallery_shown == false and scent_variant != blank
+          assign gallery_hidden = false
+          assign gallery_shown = true
+        endif
+      %}
+      {% if scent_variant != blank %}
+        {% render 'ctr-deo-gallery',
+          product: product,
+          scent_variant: scent_variant,
+          scent_value: scent_value,
+          hidden: gallery_hidden,
+          use_variant_media: section.settings.use_variant_media,
+          gallery_badge: section.settings.gallery_badge,
+          gallery_badge_first_image_only: section.settings.gallery_badge_first_image_only
+        %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="relative flex h-fit w-full flex-col lg:h-auto lg:w-1/2 lg:border-l lg:border-black/15">
+    <div data-pdp-hero id="product-hero-content" class="lg:pt-[calc(var(--header-height)-2px)]">
+      <div class="product-hero__content relative flex flex-1 flex-col items-center px-20 py-24 lg:px-40 lg:py-40">
+        {% if product.selected_or_first_available_variant.metafields.custom.promotional_callout != blank %}
+          <div class="fn-tt-sub-title-40 mb-16 flex items-center justify-center bg-orange/15 px-16 py-4 text-center font-medium lg:mb-40">
+            {{ product.selected_or_first_available_variant.metafields.custom.promotional_callout | metafield_tag }}
+          </div>
+        {% endif %}
+
+        <div class="flex w-full flex-col gap-16">
+          <div class="flex w-full flex-wrap content-center items-center justify-center gap-x-24 gap-y-8">
+            {% render 'junip-product-summary', product: product %}
+
+            {% if product_volume != blank %}
+              {% render 'label', text: product_volume, hasPadding: false %}
+            {% endif %}
+            {% unless product.selling_plan_groups.size < 1
+              or pre_order == true
+              or section.settings.hide_from_price_and_discount == true
+            %}
+              <div class="fn-tt-body-10 flex gap-3 text-left">
+                <div class="text-nowrap font-medium">From {{ lowest_price }}</div>
+                {% if section.settings.discount_tag != blank %}
+                  <div class="text-nowrap font-medium">{{ section.settings.discount_tag }}</div>
+                {% endif %}
+              </div>
+            {% endunless %}
+          </div>
+
+          <div class="-mx-20 lg:-mx-40">
+            {% if section.settings.title_size == 'small' %}
+              {% assign text_size = 'fn-tt-title-50' %}
+            {% else %}
+              {% assign text_size = 'font-neue fn-tt-title-80 lg:fn-tt-title-70' %}
+            {% endif %}
+            {% render 'title',
+              title: display_title,
+              text_size: text_size,
+              extra_wrapper_classes: 'overflow-hidden text-center pdp-main-title',
+              isH1: true,
+              bg_lines: 'bg-grey-lines',
+              bg_color: section.settings.bg_color,
+              extra_text_classes: '!leading-[0.98]'
+            %}
+            {% render 'title',
+              title: product.type,
+              text_size: 'font-text text-[14px] min-[395px]:text-[16px] lg:text-[20px]',
+              extra_wrapper_classes: 'overflow-hidden !pt-0 text-black/60 text-center',
+              bg_lines: 'bg-grey-lines',
+              bg_color: section.settings.bg_color,
+              extra_text_classes: '!leading-[24px] !pt-0 !-mb-3 font-medium !normal-case',
+              lines_interval: '24px'
+            %}
+          </div>
+        </div>
+
+        {% comment %} the Build Your Pack builder {% endcomment %}
+        <div class="mt-[39px] w-full lg:mt-[25px]">
+          {% render 'ctr-deo-builder', product: product, section: section %}
+        </div>
+
+        {% comment %} video carousel (below Add to Cart) — mobile only {% endcomment %}
+        {% if has_video_carousel_block %}
+          <div class="w-full lg:hidden">
+            {% render 'pdp-video-carousel',
+              blocks: section.blocks,
+              heading: section.settings.video_carousel_heading,
+              section: section
+            %}
+          </div>
+        {% endif %}
+
+        {% comment %} refill upsell — mobile only {% endcomment %}
+        {% if has_refill_upsell_block %}
+          <div class="w-full lg:hidden">
+            {% assign refill_variant = product.selected_or_first_available_variant.metafields.custom.refill_upsell.value %}
+            {% if refill_variant %}
+              {% for block in section.blocks %}
+                {% if block.type == 'refill_upsell' %}
+                  {% render 'refill-upsell',
+                    refill_variant: refill_variant,
+                    headline: block.settings.headline,
+                    cta_color: block.settings.cta_color,
+                    product: product
+                  %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% comment %} description — mobile only, below the builder; desktop ends at Add to cart (Figma) {% endcomment %}
+        {% if product.description != blank and section.settings.hide_description != true %}
+          <div class="fn-tt-body-20 inline-rich-text mt-24 w-full pb-24 lg:hidden">
+            {{ product.description }}
+          </div>
+        {% endif %}
+
+        {% comment %} summary chips — mobile only {% endcomment %}
+        {% if has_summary_block and section.settings.hide_summary != true %}
+          <ul class="flex w-full flex-wrap gap-4 pt-24 lg:hidden">
+            {% for block in section.blocks %}
+              {% if block.type == 'summary' %}
+                <li class="bg-offWhite px-8 py-1" {{ block.shopify_attributes }}>
+                  <p class="fn-tt-body-10 font-medium">{{ block.settings.title }}</p>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+      {% if product_is_bundle == true %}
+        <div class="product-hero__bundle-products m-24 lg:mx-80 lg:mb-80 lg:mt-0">
+          {% render 'bundle-products-accordion', bundle_products: bundle_products %}
+        </div>
+      {% endif %}
+
+      {% if section.settings.social_image != blank %}
+        {% render 'social-image-mobile',
+          social_image: section.settings.social_image,
+          social_quote: section.settings.social_quote,
+          social_link: section.settings.social_link,
+          social_profile_name: section.settings.social_profile_name,
+          social_profile_image: section.settings.social_profile_image
+        %}
+      {% endif %}
+    </div>
+
+    {% if section.settings.show_details == true %}
+      {% if product_details != blank %}
+        <div class="m-24 border border-b-0 border-black/15 lg:hidden">
+          {% render 'product-details', product_details: product_details %}
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if has_accordion == true %}
+      <div class="m-24 border border-b-0 border-black/15 lg:hidden">
+        {% render 'product-accordions', blocks: section.blocks %}
+      </div>
+    {% endif %}
+
+    {% if has_bundle_block %}
+      <div class="m-24 flex flex-col border border-grey-MEDIUM lg:hidden">
+        {% if section.settings.bundle_title != blank %}
+          <div class="flex w-full items-center justify-center border-b border-grey-MEDIUM py-8 text-center">
+            <h3 class="fn-tt-sub-title-40 font-medium uppercase">
+              {{ section.settings.bundle_title }}
+            </h3>
+          </div>
+        {% endif %}
+        <div class="flex flex-col divide-x divide-y divide-grey-MEDIUM lg:-ml-1 lg:flex-row lg:flex-wrap">
+          {% for block in section.blocks %}
+            {% if block.type == 'bundle' %}
+              {% render 'product-bundle',
+                bundle_banner: block.settings.banner,
+                bundle_title: block.settings.bundle_title,
+                bundle_product: block.settings.bundle_product,
+                bundle_cta_color: block.settings.bundle_cta_color
+              %}
+            {% endif %}
+          {% endfor %}
+          {% for upsell in product.selected_or_first_available_variant.metafields.custom.upsells.value %}
+            {% render 'product-bundle',
+              bundle_title: upsell.variant.value.title,
+              bundle_banner: upsell.banner.value,
+              bundle_product: upsell.variant.value.product,
+              bundle_variant: upsell.variant.value,
+              bundle_cta_color: upsell.cta_color.value
+            %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "url": {{ request.origin | append: product.url | json }},
+    "description": {{ product.description | strip_html | json }},
+    {% if product.selected_or_first_available_variant.sku != blank %}
+      "sku": {{ product.selected_or_first_available_variant.sku | json }},
+    {% endif %}
+    "brand": {
+      "@type": "Brand",
+      "name": {{ product.vendor | json }}
+    },
+    "offers": [
+      {% for variant in product.variants %}
+        {
+          "@type" : "Offer",
+          {% if variant.sku != blank %}
+            "sku": {{ variant.sku | json }},
+          {% endif %}
+          "availability" : "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+          "price" : {{ variant.price | divided_by: 100.00 | json }},
+          "priceCurrency" : {{ cart.currency.iso_code | json }},
+          "url" : {{ request.origin | append: variant.url | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  }
+</script>

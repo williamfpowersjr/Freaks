@@ -1,0 +1,158 @@
+{% # theme-check-disable %}
+
+<!doctype html>
+<html
+  lang="{{ request.locale.iso_code }}"
+  class="h-full scroll-smooth"
+>
+  <head>
+    {% render 'replo-head' %}
+    {% render 'heatmap' %}
+    {% render 'visually_io_sdk' %}
+
+    {% if request.path contains '/gift_cards' %}
+      {% render 'head-favicon' %}
+      {% assign gift_card_price = '' %}
+
+      {% if settings.currency_code_enabled %}
+        {% assign gift_card_price = gift_card.balance | money_with_currency %}
+      {% else %}
+        {% assign gift_card_price = gift_card.balance | money %}
+      {% endif %}
+
+      {% assign page_title = "Here's your "
+        | append: gift_card_price
+        | append: ' gift card balance for '
+        | append: shop.name
+        | append: '!'
+      %}
+      {% assign page_description = settings.giftcard_title %}
+
+      {% render 'head-meta', page_title: page_title, page_description: page_description %}
+
+    {% else %}
+      {% render 'head-meta' %}
+    {% endif %}
+
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- comment -%}
+      Performance Optimization: Resource Hints for Third-Party Connections
+      Last reviewed: 6 Nov 2025
+
+      Strategy: Establish early connections to heavy third-party domains to reduce latency.
+      Based on Lighthouse audit showing these domains blocking initial render.
+
+      PRECONNECT (DNS + TCP + TLS handshake - use sparingly, ~4 max):
+        - fonts.googleapis.com: Font files on critical rendering path (1,571ms delay)
+        - cdn.rebuyengine.com: Bundle Builder + recommendation widgets
+        - cdn.intelligems.io: 112 KiB - A/B testing and price optimization
+        - backend.alia-cloudflare.com: 261 KiB - Reviews platform
+
+      DNS-PREFETCH (DNS resolution only - lighter weight):
+        - static.klaviyo.com & static-tracking.klaviyo.com: Email capture & analytics
+        - scripts.juniphq.com: Product reviews widget
+        - dashboard.heatmap.com: Session recording & heatmaps
+        - live.visually-io.com: Visual content optimization
+        - superfiliate-cdn.com: Affiliate tracking
+
+      Expected impact: 200-300ms faster initial connection setup
+
+      ⚠️ Maintenance: Review this list when adding/removing apps or if performance regresses.
+      To audit: Check Lighthouse "Reduce JavaScript execution time" and "3rd parties" sections.
+    {%- endcomment -%}
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.rebuyengine.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.intelligems.io" crossorigin>
+    <link rel="preconnect" href="https://backend.alia-cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="https://static.klaviyo.com">
+    <link rel="dns-prefetch" href="https://static-tracking.klaviyo.com">
+    <link rel="dns-prefetch" href="https://scripts.juniphq.com">
+    <link rel="dns-prefetch" href="https://dashboard.heatmap.com">
+    <link rel="dns-prefetch" href="https://live.visually-io.com">
+    <link rel="dns-prefetch" href="https://superfiliate-cdn.com">
+
+    {% render 'head-favicon' %}
+
+    <title>
+      {{ page_title }}
+      {% if current_tags %}
+        tagged "{{ current_tags | join: ', ' }}"
+      {% endif %}
+      {% if current_page != 1 %}
+        Page {{ current_page -}}
+      {% endif %}
+      {% unless page_title contains shop.name %}
+        {{ shop.name -}}
+      {% endunless %}
+    </title>
+
+    {% unless request.design_mode %}{% include 'wlm-head' %}{% endunless %}
+    {{ content_for_header }}
+
+    {% render 'head-styles' %}
+    {% render 'head-scripts' %}
+  </head>
+
+  <body class="relative flex h-full min-w-[320px] flex-col overflow-x-hidden bg-white font-text leading-none text-black antialiased">
+    {% sections 'header-group' %}
+
+    {% comment %} liquid-ajax-cart reads this on load, so it precedes the drawer. {% endcomment %}
+    <script type="application/json" data-ajax-cart-initial-state>
+      {{ cart | json }}
+    </script>
+    {% section 'ctr-cart-drawer' %}
+
+    <main
+      class="flex-1"
+    >
+      {% comment %}{{ content_for_layout }}{% endcomment %}
+      {%- comment -%}
+        CTR password gate (server mode): while locked, send only the gate markup, never the page.
+      {%- endcomment -%}
+      {%- liquid
+        assign ctr_pwg_check = false
+        if template.suffix != blank
+          assign ctr_pwg_templates = settings.ctr_pwg_templates | remove: ' ' | split: ','
+          if ctr_pwg_templates contains template.suffix
+            assign ctr_pwg_check = true
+          endif
+        endif
+      -%}
+      {%- if ctr_pwg_check and content_for_layout contains '<!--ctr-pwg:locked-->' -%}
+        {{- content_for_layout | split: '<!--ctr-pwg:start-->' | last | split: '<!--ctr-pwg:end-->' | first -}}
+      {%- else -%}
+        {% include 'wlm-body' %}
+      {%- endif -%}
+    </main>
+
+    {% unless request.path contains '/password' %}
+      {% section 'footer' %}
+    {% endunless %}
+    {% render 'junip-store-key' %}
+    {% if request.page_type == 'index' %}
+      {% render 'ctr-reviews-view-event' %}
+    {% endif %}
+    <script type="application/json" id="shop-info">
+      {
+        "currency": {{ cart.currency.iso_code | json }}
+      }
+    </script>
+    <script defer src="https://static.shopmy.us/Affiliates/sms_aff_clicktrack.js"></script>
+
+    {%- comment -%}Performance: Google Tag Manager moved to body to avoid blocking head{%- endcomment -%}
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'AW-16524886405');
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16524886405"></script>
+    <!-- Widget : [REBUY SUPPORT] Free Freak Flask Test -->
+    <div data-rebuy-id="280693"></div>
+    <!-- End Widget : [REBUY SUPPORT] Free Freak Flask Test -->
+  </body>
+</html>

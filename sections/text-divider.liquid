@@ -1,0 +1,45 @@
+{% schema %}
+{
+  "name": "Text Divider",
+  "tag": "section",
+  "class": "text-divider",
+  "presets": [
+    {
+      "name": "Text Divider",
+      "category": "Text Divider",
+      "settings": {
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
+        "bg_color": "bg-white"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    }
+  ]
+}
+{% endschema %}
+<section class="border-t border-grey-DARK px-40 py-24 lg:px-128 lg:py-40 {{ section.settings.bg_color}}">
+  <div class="inline-rich-text fn-tt-body-20 text-center">
+    {{ section.settings.text }}
+  </div>
+</section>

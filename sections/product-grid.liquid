@@ -1,0 +1,158 @@
+{% schema %}
+{
+  "name": "Product Grid",
+  "tag": "section",
+  "class": "product-grid-section",
+  "presets": [
+    {
+      "name": "Product Grid",
+      "category": "Product Grid",
+      "settings": {
+        "headline": "Lorem ipsum",
+        "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+
+        "bg_color": "bg-white"
+      },
+      "blocks": [
+        {
+          "type": "product",
+          "settings": {
+            "product": "daily-defender-sunscreen",
+            "feature_1": "Lorem ipsum",
+            "feature_2": "Lorem ipsum",
+            "feature_3": "Lorem ipsum",
+            "cta_color": "orange"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "product": "daily-defender-sunscreen",
+            "feature_1": "Lorem ipsum",
+            "feature_2": "Lorem ipsum",
+            "feature_3": "Lorem ipsum",
+            "cta_color": "orange"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "product": "daily-defender-sunscreen",
+            "feature_1": "Lorem ipsum",
+            "feature_2": "Lorem ipsum",
+            "feature_3": "Lorem ipsum",
+            "cta_color": "orange"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "textarea",
+      "id": "headline",
+      "label": "Headline"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Product",
+      "type": "product",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "feature_1",
+          "label": "Feature 1",
+          "info": "optional"
+        },
+        {
+          "type": "text",
+          "id": "feature_2",
+          "label": "Feature 2",
+          "info": "optional"
+        },
+        {
+          "type": "text",
+          "id": "feature_3",
+          "label": "Feature 3",
+          "info": "optional"
+        },
+        {
+          "type": "select",
+          "id": "cta_color",
+          "label": "Bundle Cta Color",
+          "options": [
+            {
+              "value": "orange",
+              "label": "Orange"
+            },
+            {
+              "value": "blue",
+              "label": "Blue"
+            },
+            {
+              "value": "black",
+              "label": "Black"
+            },
+            {
+              "value": "white",
+              "label": "White"
+            }
+          ],
+          "default": "orange"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_before",
+          "label": "Hover Before Image",
+          "info": "Before & After image will show on hover only if both are added. Otherwise, the product's 2nd image will be used as hover image."
+        },
+        {
+          "type": "image_picker",
+          "id": "image_after",
+          "label": "Hover After Image",
+          "info": "Before & After image will show on hover only if both are added. Otherwise, the product's 2nd image will be used as hover image."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% if section.settings.headline != blank or section.settings.text != blank %}
+  {% render 'simple-text',
+    headline: section.settings.headline,
+    text: section.settings.text,
+    bg_color: section.settings.bg_color,
+    additional_classes: 'border-t border-black/15'
+  %}
+{% endif %}
+
+{% render 'product-grid', bg_color: section.settings.bg_color, blocks: section.blocks %}

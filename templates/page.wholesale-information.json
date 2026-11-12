@@ -1,0 +1,141 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+      }
+    },
+    "title_EBFTUP": {
+      "type": "title",
+      "settings": {
+        "bg_color": "white",
+        "title": "Wholesale Information",
+        "text_align": "left"
+      }
+    },
+    "divider_gMzyzP": {
+      "type": "divider",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "divider_color": "lg:bg-black\/15",
+        "divider_color_mobile": "bg-white"
+      }
+    },
+    "copy_media_8ebYBX": {
+      "type": "copy-media",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "text": "<h4>When you're interested in wholesale, please reach out to <a href=\"mailto:hi@freaksofnature.com?subject=Wholesale%20Inquiry&body=Retailer%20Name%3A%0ARetail%20Location%3A%0AContact%3A\" target=\"_blank\" title=\"Request wholesale access via hi@freaksofnature.com?subject=Wholesale%20Inquiry&body=Retailer%20Name%3A%0ARetail%20Location%3A%0AContact%3A\">hi@freaksofnature.com<\/a><\/h4><h3><\/h3><h4>If you already have an account, <a href=\"https:\/\/account.freaksofnature.com\" title=\"https:\/\/account.freaksofnature.com\">login here<\/a> and <a href=\"\/collections\/wholesale\" title=\"Wholesale\">shop our wholesale products<\/a>.<\/h4>",
+        "expansion_text": "",
+        "caption": "",
+        "hide_mute": false,
+        "alignment": "lg:flex-row",
+        "text_alignment": "text-left",
+        "border_top": false,
+        "media_aspect_square": false
+      }
+    },
+    "faqs_EBAyiw": {
+      "type": "faqs",
+      "blocks": {
+        "accordion_qPUXc6": {
+          "type": "accordion",
+          "settings": {
+            "title": "How do I get started with Freaks of Nature?",
+            "description": "<p>To streamline our communication and gather essential information from prospective retailers like yourself, we have created a dedicated Retailer Inquiry Form linked here. This form will help us better understand your business and requirements, ensuring we provide you with the most relevant information and support.<\/p>"
+          }
+        },
+        "accordion_mjp9wQ": {
+          "type": "accordion",
+          "settings": {
+            "title": "What are the requirements to become a wholesaler?",
+            "description": "<p>No requirements <\/p>"
+          }
+        },
+        "accordion_6NEEAr": {
+          "type": "accordion",
+          "settings": {
+            "title": "What is your wholesale discount?",
+            "description": "<p>We offer an initial wholesale discount of 40%, however, we have developed a tiered system depending on your spend: <br\/>• Wholesale account spend reaches $2K, the margin is moved up to 45%<br\/>• Wholesale account spend reaches $5K+, the margin is moved up to 50%<\/p>"
+          }
+        },
+        "accordion_6wXFFL": {
+          "type": "accordion",
+          "settings": {
+            "title": "Do you have a minimum order quantity?",
+            "description": "<p>At least one case (12 units) of any product. Each case is limited to a single product.<\/p>"
+          }
+        },
+        "accordion_E7imAJ": {
+          "type": "accordion",
+          "settings": {
+            "title": "Do you offer any digital\/physical retail assets?",
+            "description": "<p>We are currently offering sample packets of each product along with a product information insert to be handed out. We will be sure to update you with as we introduce new offerings. In the meantime, make sure to tag us at <a href=\"https:\/\/instagram.com\/freaksofnature___\" title=\"https:\/\/instagram.com\/freaksofnature___\">@freaksofnature__<\/a> with any photos\/videos you take of Freaks of Nature, as we love to highlight our Freaks across the world.<\/p>"
+          }
+        },
+        "accordion_tBTHFH": {
+          "type": "accordion",
+          "settings": {
+            "title": "Do you offer local activations?",
+            "description": "<p>Yes! We love supporting our local businesses with activations\/launches. Please reach out to <a href=\"mailto:hi@freaksofnature.com\" title=\"mailto:hi@freaksofnature.com\">hi@freaksofnature.com<\/a> to let us know where you’re located, and we’ll be sure to reach out.<\/p>"
+          }
+        },
+        "accordion_FGynGh": {
+          "type": "accordion",
+          "settings": {
+            "title": "What are your payment terms for wholesale?",
+            "description": "<p>No payment terms - all orders are paid upon ordering.<\/p>"
+          }
+        },
+        "accordion_jig6Tf": {
+          "type": "accordion",
+          "settings": {
+            "title": "How much is shipping?",
+            "description": "<p>Shipping costs vary on size and destination of each Wholesale order<\/p>"
+          }
+        },
+        "accordion_fzE9ix": {
+          "type": "accordion",
+          "settings": {
+            "title": "Where do you ship?",
+            "description": "<p>We are able to ship to any international destination.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_qPUXc6",
+        "accordion_mjp9wQ",
+        "accordion_6NEEAr",
+        "accordion_6wXFFL",
+        "accordion_E7imAJ",
+        "accordion_tBTHFH",
+        "accordion_FGynGh",
+        "accordion_jig6Tf",
+        "accordion_fzE9ix"
+      ],
+      "settings": {
+        "title": "Wholesale FAQ's",
+        "bg_color": "bg-white"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "title_EBFTUP",
+    "divider_gMzyzP",
+    "copy_media_8ebYBX",
+    "faqs_EBAyiw"
+  ]
+}

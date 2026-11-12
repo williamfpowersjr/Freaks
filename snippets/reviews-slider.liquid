@@ -1,0 +1,72 @@
+{% if blocks.size > 0 %}
+  <swiper-element id="reviews" class="reviews">
+    <div class="{{ bg_color }} border-t border-black/15">
+      {% if title != blank %}
+        <div class="w-full flex-none py-40 lg:py-80">
+          {% render 'title',
+            title: title,
+            text_size: 'fn-tt-title-70',
+            bg_color: bg_color,
+            border_color: 'border-black/15',
+            extra_wrapper_classes: 'text-center px-24 lg:px-16 overflow-hidden reviews-slider__title-wrap',
+            bg_lines: 'bg-grey-lines',
+            extra_text_classes: '!leading-[0.98] lg:w-[800px] lg:mx-auto !-mb-3 lg:!-mb-6 '
+          %}
+        </div>
+      {% endif %}
+      {% if subtitle != blank %}
+        <div class="mx-auto mb-32 w-full max-w-[870px] px-20 text-center">
+          <div class="text-[18px] font-medium uppercase leading-[1.3] text-black/60 lg:text-[20px]">
+            {{ subtitle }}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if blocks.size <= 4 %}
+        <div class="hidden divide-x divide-black/15 lg:grid {% if blocks.size == 3 %}lg:grid-cols-3{% endif %} {% if blocks.size == 2 %}lg:grid-cols-2{% endif %} {% if blocks.size == 1 %}lg:grid-cols-1{% endif %} border-y border-black/15 {{ bg_color }}">
+          {% for block in blocks %}
+            {% if block.type == 'review' %}
+              {% render 'review-card',
+                title: block.settings.title,
+                name: block.settings.name,
+                review: block.settings.review,
+                stars: block.settings.stars,
+                rating_link: block.settings.rating_link
+              %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <div class="{% if blocks.size <= 4 %}lg:hidden{% endif %} border-y border-black/15 {{ bg_color }}">
+        <swiper-container
+          class="mySwiper js-thumbnails"
+          init="false"
+        >
+          {% for block in blocks %}
+            {% if block.type == 'review' %}
+              <swiper-slide class="swiper-slide border-r border-black/15 last:border-0 ">
+                {% render 'review-card',
+                  title: block.settings.title,
+                  name: block.settings.name,
+                  review: block.settings.review,
+                  stars: block.settings.stars,
+                  rating_link: block.settings.rating_link
+                %}
+              </swiper-slide>
+            {% endif %}
+          {% endfor %}
+        </swiper-container>
+        <div class="align-center flex w-full border-t border-black/15 ">
+          <div class="relative flex w-full justify-center self-center px-24 lg:px-40">
+            <div class="swiper-scrollbar"></div>
+          </div>
+          <div class="border-x border-black/15">
+            <div class="swiper-button-prev" aria-label="Previous Slide {{ section.id }}" role="button"></div>
+          </div>
+          <div><div class="swiper-button-next" aria-label="Next Slide {{ section.id }}" role="button"></div></div>
+        </div>
+      </div>
+    </div>
+  </swiper-element>
+{% endif %}

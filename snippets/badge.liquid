@@ -1,0 +1,23 @@
+{% comment %}
+  Badge component
+
+  Accepts:
+  - text: Badge text content
+  - class: CSS classes for styling (e.g., 'bg-orange', 'bg-blue hidden')
+  - id: Optional ID attribute
+  - data_attributes: Optional data attributes
+{% endcomment %}
+
+{% if text != blank %}
+  <span
+    {% if id != blank %}
+      id="{{ id }}"
+    {% endif %}
+    {% if data_attributes != blank %}
+      {{- data_attributes -}}
+    {% endif %}
+    class="fn-tt-caption leading-0 whitespace-nowrap rounded-full px-8 py-2 text-center font-medium uppercase text-white lg:pb-1 lg:pt-2 {{ class | default: 'bg-orange' }}"
+  >
+    {{ text }}
+  </span>
+{% endif %}

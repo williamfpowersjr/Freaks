@@ -1,0 +1,149 @@
+{% schema %}
+{
+  "name": "Info Graph",
+  "tag": "section",
+  "class": "info-graph-section",
+  "presets": [
+    {
+      "name": "Info Graph",
+      "category": "Info Graph",
+      "settings": {
+        "bg_color": "bg-white",
+        "lg_bg_color": "lg:bg-white",
+        "bg_card_color": "bg-offWhite",
+        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+        "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg"
+      },
+      "blocks": [
+        {
+          "type": "info",
+          "settings": {
+            "info": "Lorem ipsum",
+            "indicator_color": "bg-blue"
+          }
+        },
+        {
+          "type": "info",
+          "settings": {
+            "info": "Lorem ipsum",
+            "indicator_color": "bg-blue"
+          }
+        },
+        {
+          "type": "info",
+          "settings": {
+            "info": "Lorem ipsum",
+            "indicator_color": "bg-blue"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "lg_bg_color",
+      "label": "Desktop Section Background Color",
+      "options": [
+        {
+          "value": "lg:bg-white",
+          "label": "White"
+        },
+        {
+          "value": "lg:bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "lg:bg-white"
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Mobile Section Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "select",
+      "id": "bg_card_color",
+      "label": "Card Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-offWhite"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Info",
+      "type": "info",
+      "settings": [
+        {
+          "type": "text",
+          "id": "info",
+          "label": "Info Title"
+        },
+        {
+          "type": "select",
+          "id": "indicator_color",
+          "label": "Bullet Color",
+          "options": [
+            {
+              "value": "bg-orange",
+              "label": "Orange"
+            },
+            {
+              "value": "bg-blue",
+              "label": "Blue"
+            },
+            {
+              "value": "bg-black",
+              "label": "Black"
+            },
+            {
+              "value": "bg-white",
+              "label": "White"
+            }
+          ],
+          "default": "bg-blue"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="flex w-full px-24 pb-32 lg:flex lg:justify-end lg:px-40 lg:pb-112 {{ section.settings.bg_color }} {{ section.settings.lg_bg_color }}">
+  {% render 'info-graph',
+    image: section.settings.image,
+    description: section.settings.description,
+    blocks: section.blocks,
+    bg_card_color: section.settings.bg_card_color
+  %}
+</div>

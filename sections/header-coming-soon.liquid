@@ -1,0 +1,41 @@
+{% schema %}
+{
+  "name": "Header Coming Soon",
+  "tag": "header",
+  "class": "header-section",
+  "presets": [
+    {
+      "name": "Header Coming Soon",
+      "category": "Header Coming Soon",
+      "settings": {
+        "logo": "shopify://shop_images/fon-logo.svg",
+        "text": "Lorem ipsum"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text"
+    }
+  ]
+}
+{% endschema %}
+
+<header>
+  <div
+    class="w-full"
+  >
+    {% assign logo = section.settings.logo %}
+    {% assign site_name = settings.site_name %}
+    {% assign text = section.settings.text %}
+
+    {% render 'header', logo: logo, site_name: site_name, text: text %}
+  </div>
+</header>

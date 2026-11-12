@@ -1,0 +1,219 @@
+{% assign product_title = product.title %}
+{% assign product_type = product.type %}
+{% assign product_image = product.featured_image %}
+{% assign product_url = product.url %}
+{% assign product_label = product.metafields.custom.product_label %}
+
+{% assign hover_image = product.images[1] %}
+
+{% assign product_subline = product.metafields.custom.subline.value %}
+
+{% assign product_is_bundle = false %}
+{% if product.metafields.custom.product_is_bundle.value == true %}
+  {% assign product_is_bundle = true %}
+{% endif %}
+
+{% assign cta_text = settings.default_cta_text %}
+{% if cta_text_override != blank %}
+  {% assign cta_text = cta_text_override %}
+{% endif %}
+{% assign cta_color = 'orange' %}
+{% assign is_coming_soon = false %}
+{% assign is_preorder = false %}
+{% assign is_sold_out = false %}
+
+{% for group in product.selling_plan_groups %}
+  {% if group.name == 'Pre Order' %}
+    {% assign cta_text = settings.pre_order_cta_text %}
+    {% assign cta_color = 'orange' %}
+    {% assign is_preorder = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% if product.available != true and product.metafields.custom.coming_soon == true %}
+  {% assign cta_text = settings.coming_soon_cta_text %}
+  {% assign cta_color = 'orange' %}
+  {% assign is_coming_soon = true %}
+{% endif %}
+
+{% if product.available != true and product.metafields.custom.coming_soon != true %}
+  {% assign cta_text = settings.sold_out_cta_text %}
+  {% assign cta_color = 'orange' %}
+  {% assign is_sold_out = true %}
+{% endif %}
+
+{% assign min_height = 'lg:min-h-[700px]' %}
+
+{% if is_medium_card == true %}
+  {% assign min_height = 'lg:min-h-[680px]' %}
+{% endif %}
+
+{% if cta_arrow_icon_classes == null %}
+  {% assign cta_arrow_icon_classes = '-rotate-90' %}
+{% endif %}
+
+<a href="{{ product_url }}" aria-label="{{ product_title }}">
+  <div class="group relative flex h-full flex-col overflow-hidden {{ min_height }}">
+    {% unless is_coming_soon == true %}
+      {% if product_image != blank %}
+        <div class="flex w-full items-center justify-center">
+          <div class="relative mx-24 mt-24 flex w-full justify-center overflow-hidden lg:mx-40">
+            <div
+              class="relative aspect-square w-full"
+            >
+              {{
+                product_image
+                | image_url: width: product_image.width
+                | image_tag:
+                  loading: 'lazy',
+                  sizes: '(min-width: 1024px) 50vw, 100vw',
+                  class: 'w-full h-full object-cover absolute inset-0 z-0'
+              }}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="flex-1 overflow-hidden p-24 lg:p-40">
+        <div class="flex h-full flex-col gap-16 lg:gap-24">
+          {% render 'junip-product-summary', product: product %}
+          <div>
+            <h3 class="fn-tt-sub-title-30 lg:fn-tt-title-30">{{ product_title }}</h3>
+            <p class="fn-tt-sub-title-30 lg:fn-tt-title-30 text-black/60">{{ product_type }}</p>
+          </div>
+          <div class="flex w-full grow flex-col justify-end gap-16 lg:gap-24">
+            <p class="fn-tt-body-20 hidden flex-1 lg:block">{{ product_subline }}</p>
+            <div class="fn-tt-body-20 flex items-baseline gap-8 lg:gap-16">
+              {% render 'one-time-price', variant: product.selected_or_first_available_variant, show_compare: true %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% if hover_image != blank %}
+        <div class="absolute inset-0 hidden h-full w-full flex-1 transition-opacity duration-300 ease-in-out lg:block lg:opacity-0 lg:group-hover:opacity-100">
+          <div class="relative h-full w-full">
+            {{
+              hover_image
+              | image_url: width: hover_image.width
+              | image_tag:
+                loading: 'lazy',
+                class: 'w-full h-full object-cover',
+                sizes: '(min-width: 1024px) 50vw, 100vw'
+            }}
+
+            {% unless is_coming_soon == true %}
+              {% render 'product-card-cta',
+                product: product,
+                cta_text: cta_text,
+                cta_color: cta_color,
+                cta_as_add_to_cart: cta_as_add_to_cart,
+                is_coming_soon: is_coming_soon,
+                is_sold_out: is_sold_out,
+                extra_classes: 'absolute bottom-54 left-0 w-full z-100',
+                extra_icon_classes: cta_arrow_icon_classes,
+                hover_only: true
+              %}
+            {% endunless %}
+          </div>
+        </div>
+      {% endif %}
+    {% endunless %}
+
+    {% if is_coming_soon == true %}
+      <div class="bottom-0 left-0 flex-1 {{ section.settings.bg_color }}">
+        {{
+          product_image
+          | image_url: width: product_image.width
+          | image_tag: loading: 'lazy', class: 'h-full w-full object-cover', sizes: '(min-width: 1024px) 50vw, 100vw'
+        }}
+
+        <div class="absolute bottom-80 left-24 flex flex-col lg:bottom-96 lg:left-40">
+          <h3 class="fn-tt-sub-title-30 lg:fn-tt-title-30 text-white">{{ product_title }}</h3>
+          <p class="fn-tt-sub-title-30 lg:fn-tt-title-30 text-white/60">{{ product_type }}</p>
+        </div>
+      </div>
+
+      <div class="absolute bottom-0 left-0 w-full">
+        {% if cta_text != blank %}
+          {% render 'product-card-cta',
+            product: product,
+            cta_text: cta_text,
+            cta_color: cta_color,
+            cta_as_add_to_cart: false,
+            is_coming_soon: is_coming_soon,
+            is_sold_out: is_sold_out,
+            extra_classes: 'hidden lg:block absolute bottom-0 left-0 w-full transition-opacity duration-300 ease-in-out lg:opacity-0 group-hover:opacity-100',
+            extra_icon_classes: cta_arrow_icon_classes,
+            hover_only: true
+          %}
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% unless is_coming_soon == true %}
+      {% unless hide_cta_on_mobile == true %}
+        {% render 'product-card-cta',
+          product: product,
+          cta_text: cta_text,
+          cta_color: cta_color,
+          cta_as_add_to_cart: cta_as_add_to_cart,
+          is_coming_soon: is_coming_soon,
+          is_sold_out: is_sold_out,
+          extra_classes: 'absolute lg:hidden bottom-0 left-0 w-full transition-opacity duration-300 ease-in-out lg:opacity-0 group-hover:opacity-100',
+          extra_icon_classes: cta_arrow_icon_classes,
+          hover_only: true
+        %}
+      {% endunless %}
+    {% endunless %}
+    {% if is_preorder != true and is_sold_out != true and product_is_bundle != true and product_label != blank %}
+      {% render 'label',
+        bg_color: 'orange',
+        text: product_label,
+        has_uppercase: true,
+        extra_classes: 'absolute left-0 top-0 mx-8 lg:mx-40 mt-8 lg:mt-16 !w-[calc(100%-16px)] lg:!w-[calc(100%-80px)] text-center',
+        hasPadding: true
+      %}
+    {% endif %}
+    {% if product_is_bundle == true and is_sold_out != true %}
+      {% render 'label',
+        bg_color: 'blue',
+        text: settings.bundle_banner_text,
+        has_rounded: false,
+        has_uppercase: true,
+        extra_classes: 'absolute left-0 top-0 mx-8 lg:mx-40 mt-8 lg:mt-16 !w-[calc(100%-16px)] lg:!w-[calc(100%-80px)] text-center',
+        hasPadding: true
+      %}
+    {% endif %}
+    {% if is_coming_soon == true %}
+      {% render 'label',
+        bg_color: 'black',
+        text: settings.coming_soon_banner_text,
+        has_rounded: false,
+        has_uppercase: true,
+        extra_classes: 'absolute left-0 top-0 mx-8 lg:mx-40 mt-8 lg:mt-16 !w-[calc(100%-16px)] lg:!w-[calc(100%-80px)] text-center',
+        hasPadding: true
+      %}
+    {% endif %}
+    {% if is_preorder == true and is_sold_out != true %}
+      {% render 'label',
+        bg_color: 'orange',
+        text: settings.pre_order_banner_text,
+        has_rounded: false,
+        has_uppercase: true,
+        extra_classes: 'absolute left-0 top-0 mx-8 lg:mx-40 mt-8 lg:mt-16 !w-[calc(100%-16px)] lg:!w-[calc(100%-80px)] text-center',
+        hasPadding: true
+      %}
+    {% endif %}
+    {% if is_sold_out == true %}
+      {% render 'label',
+        bg_color: 'black',
+        text: settings.sold_out_banner_text,
+        has_rounded: false,
+        has_uppercase: true,
+        extra_classes: 'absolute left-0 top-0 mx-8 lg:mx-40 mt-8 lg:mt-16 !w-[calc(100%-16px)] lg:!w-[calc(100%-80px)] text-center',
+        hasPadding: true
+      %}
+    {% endif %}
+  </div>
+</a>

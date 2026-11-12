@@ -1,0 +1,90 @@
+<accordion-element id="product-accordion">
+  <div class="divide-y divide-black/15 border-b border-black/15 {% if has_top_border == true %}border-t{% endif %}">
+    {% for block in blocks %}
+      {% if block.type == 'accordion' %}
+        <div
+          data-accordion
+          data-no-autoscroll
+          class="flex w-full flex-col"
+        >
+          <button
+            aria-label="Details"
+
+            aria-expanded="false"
+            aria-controls="content-{{ forloop.index0 }}"
+            data-accordion-trigger
+            class="group flex w-full items-center justify-between border-transparent transition-[background-color] duration-300 ease-in-out lg:hover:bg-orange/15"
+          >
+            <div class="flex h-full min-h-64 flex-1 items-center gap-16 border-r border-black/15 py-12 pl-24 pr-40 text-left lg:min-h-80 lg:px-24 lg:py-28">
+              <h3 class="fn-tt-body-20 font-medium">
+                {{ block.settings.title }}
+              </h3>
+            </div>
+
+            <div class="flex h-64 w-64 items-center justify-center lg:h-80 lg:w-80">
+              {% render 'plus-animation' %}
+            </div>
+          </button>
+
+          <div
+            id="content-{{ forloop.index0 }}"
+            data-accordion-content
+            style="max-height: 0;"
+            class="max-h-0 overflow-hidden transition-all ease-in-out will-change-[max-width] "
+          >
+            <div class="inline-rich-text fn-tt-body-20  p-24 lg:pr-80">
+              {% if block.settings.use_variant_metafield == true %}
+                {% render 'render-variant-metafield',
+                  variant: product.selected_or_first_available_variant,
+                  metafield_key: block.settings.variant_metafield
+                %}
+              {% else %}
+                {{ block.settings.richtext }}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when '@app' %}
+          <div
+            data-accordion
+            data-no-autoscroll
+            class="flex w-full flex-col"
+          >
+            <button
+              aria-label="Oceanworks"
+              aria-expanded="false"
+              aria-controls="oceanworks-content"
+              data-accordion-trigger
+              class="group flex w-full items-center justify-between border-transparent transition-[background-color] duration-300 ease-in-out lg:hover:bg-orange/15"
+            >
+              <div class="flex h-full min-h-64 flex-1 items-center gap-16 border-r border-black/15 py-12 pl-24 pr-40 text-left lg:min-h-80 lg:px-24 lg:py-28">
+                <h3 class="fn-tt-body-20 font-medium">Oceanworks</h3>
+              </div>
+
+              <div class="flex h-64 w-64 items-center justify-center lg:h-80 lg:w-80">
+                {% render 'plus-animation' %}
+              </div>
+            </button>
+
+            <div
+              id="oceanworks-content"
+              data-accordion-content
+              style="max-height: 0;"
+              class="max-h-0 overflow-hidden transition-all ease-in-out will-change-[max-width]"
+            >
+              <div class="inline-rich-text fn-tt-body-20 p-24">
+                <div class="flex w-full justify-stretch">
+                  {% render block %}
+                </div>
+              </div>
+            </div>
+          </div>
+      {% endcase %}
+    {% endfor %}
+  </div>
+</accordion-element>

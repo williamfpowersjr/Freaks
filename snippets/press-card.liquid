@@ -1,0 +1,24 @@
+<div class="flex h-auto min-h-224 flex-col items-center justify-between gap-40 p-24 text-center lg:min-h-[265px] lg:gap-80 lg:p-40">
+  <blockquote>
+    <p class="fn-tt-body-30 before:content-[open-quote] after:content-[close-quote]">{{ text }}</p>
+  </blockquote>
+  {% if logo != blank %}
+    <div class="flex h-fit max-w-112 items-center justify-center">
+      {{
+        logo
+        | image_url: width: logo.width
+        | image_tag: loading: 'lazy', sizes: '(min-width: 1024px) 25vw, 59vw', class: 'object-contain'
+      }}
+    </div>
+  {% elsif author != blank %}
+    <div class="flex flex-col items-center gap-4">
+      <p class="fn-tt-body-20">{{ author }}</p>
+      {% if verified %}
+        <span class="fn-tt-body-10 flex items-center gap-4">
+          {% render 'icon-verified-buyer' %}
+          Verified buyer
+        </span>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>

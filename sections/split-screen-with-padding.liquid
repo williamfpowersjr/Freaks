@@ -1,0 +1,181 @@
+{% schema %}
+{
+  "name": "Split Screen with Padding",
+  "tag": "section",
+  "class": "split-screen-with-padding-section",
+  "presets": [
+    {
+      "name": "Split Screen with Padding",
+      "category": "Split Screen  with Padding",
+      "settings": {
+        "bg_color": "bg-white",
+        "lg_bg_color": "lg:bg-white",
+        "card_bg_color": "bg-offWhite"
+      },
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "description_size": "small_text",
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "caption": "Lorem ipsum",
+            "video": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "description_size": "small_text",
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "caption": "Lorem ipsum",
+            "video": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "description_size": "small_text",
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "caption": "Lorem ipsum",
+            "video": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "lg_bg_color",
+      "label": "Desktop Section Background Color",
+      "options": [
+        {
+          "value": "lg:bg-white",
+          "label": "White"
+        },
+        {
+          "value": "lg:bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "lg:bg-white"
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Mobile Section Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "select",
+      "id": "card_bg_color",
+      "label": "Desktop Section Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-offWhite"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Item",
+      "type": "item",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "select",
+          "id": "description_size",
+          "label": "Description Font Size",
+          "options": [
+            {
+              "value": "small_text",
+              "label": "Small"
+            },
+
+            {
+              "value": "big_text",
+              "label": "Big"
+            }
+          ],
+          "default": "small_text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Optional: Image Caption"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+          "info": "If you add a video, it will be shown. If you want to have a still image, leave the video field blank."
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_mute",
+          "label": "Hide Mute",
+          "info": "Check on if you would like to hide the mute/unmute control button for the video.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "full_bleed_media",
+          "label": "Media is full bleed",
+          "default": false,
+          "info": "Check on if you would like the media to be full bleed."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="flex w-full pb-32 lg:flex lg:justify-end lg:px-40 lg:pb-112 {{ section.settings.bg_color }} {{ section.settings.lg_bg_color }} ">
+  <div class="lg:w-3/4">
+    {% render 'split-screen', blocks: section.blocks, bg_color: section.settings.card_bg_color, has_headline: false %}
+  </div>
+</div>

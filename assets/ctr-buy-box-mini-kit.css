@@ -1,0 +1,540 @@
+.ctr-bbmk {
+  --ctr-bbmk-text: #212121;
+  --ctr-bbmk-line: rgba(33, 33, 33, 0.15);
+  --ctr-bbmk-orange: #fe5000;
+
+  color: var(--ctr-bbmk-text);
+  display: block;
+}
+
+/* Low-specificity resets so shared rich text (.inline-rich-text) keeps its paragraph spacing. */
+:where(.ctr-bbmk) p {
+  margin: 0;
+}
+
+:where(.ctr-bbmk) ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ctr-bbmk .ctr-bbmk__content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px 21px;
+
+  @media (min-width: 1024px) {
+    gap: 24px;
+    padding: 40px 40px 32px;
+  }
+}
+
+/* Badges, stars, title */
+.ctr-bbmk .ctr-bbmk__intro {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @media (min-width: 1024px) {
+    gap: 16px;
+  }
+}
+
+.ctr-bbmk .ctr-bbmk__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.ctr-bbmk .ctr-bbmk__badge {
+  color: #fff;
+  font-family: 'Alliance Platt', 'Alliance Text', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  padding: 2px 4px;
+  text-transform: uppercase;
+}
+
+.ctr-bbmk .ctr-bbmk__badge--blue {
+  background: #0032a0;
+}
+
+.ctr-bbmk .ctr-bbmk__badge--orange {
+  background: var(--ctr-bbmk-orange);
+}
+
+.ctr-bbmk .ctr-bbmk__badge--black {
+  background: var(--ctr-bbmk-text);
+}
+
+.ctr-bbmk .ctr-bbmk__meta {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  justify-content: center;
+  width: 100%;
+}
+
+.ctr-bbmk .ctr-bbmk__heading {
+  width: 100%;
+}
+
+/* One rule above each title line and one under the last, like the Figma rows */
+.ctr-bbmk .ctr-bbmk__title {
+  --ctr-bbmk-title-lh: 33.5px;
+
+  background-image: repeating-linear-gradient(
+    180deg,
+    var(--ctr-bbmk-line) 0,
+    var(--ctr-bbmk-line) 1px,
+    transparent 1px,
+    transparent var(--ctr-bbmk-title-lh)
+  );
+  background-clip: padding-box;
+  border-bottom: 1px solid var(--ctr-bbmk-line);
+  font-family: 'Alliance Neue', sans-serif;
+  font-size: 34.2px;
+  font-weight: 400;
+  line-height: var(--ctr-bbmk-title-lh);
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+
+  /* Figma size at 1440, scaled down for the narrower desktop column below that. */
+  @media (min-width: 1024px) {
+    --ctr-bbmk-title-lh: min(55.2px, 3.833vw);
+
+    font-size: min(56.3px, 3.91vw);
+  }
+}
+
+/* Alliance Neue sits high in its line box; nudge the glyphs, not the rules */
+.ctr-bbmk .ctr-bbmk__title-text {
+  position: relative;
+  top: 2px;
+
+  @media (min-width: 1024px) {
+    top: 4px;
+  }
+}
+
+.ctr-bbmk .ctr-bbmk__subline {
+  border-bottom: 1px solid var(--ctr-bbmk-line);
+  color: rgba(33, 33, 33, 0.6);
+  font-family: 'Alliance Text', sans-serif;
+  font-size: clamp(13px, 3.6vw, 18px);
+  line-height: 1;
+  padding-top: 3px;
+  text-align: center;
+
+  @media (min-width: 1024px) {
+    font-size: min(20px, 1.389vw);
+  }
+}
+
+.ctr-bbmk .ctr-bbmk__description {
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: block;
+    font-family: 'Alliance Text', sans-serif;
+    font-size: 13.5px;
+    line-height: 20.61px;
+    padding: 0 10.5px;
+    text-align: center;
+  }
+}
+
+/* Gift banner */
+.ctr-bbmk .ctr-bbmk__gift {
+  align-items: center;
+  background: var(--ctr-bbmk-gift-bg);
+  color: #fff;
+  display: flex;
+  gap: 12px;
+  min-height: 69px;
+  padding-right: 20px;
+}
+
+.ctr-bbmk .ctr-bbmk__gift--no-image {
+  padding-left: 20px;
+}
+
+.ctr-bbmk .ctr-bbmk__gift-media {
+  align-self: stretch;
+  flex: 0 0 126px;
+  position: relative;
+}
+
+.ctr-bbmk .ctr-bbmk__gift-img {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+}
+
+.ctr-bbmk .ctr-bbmk__gift-copy {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  padding: 8px 0;
+}
+
+.ctr-bbmk .ctr-bbmk__gift-heading {
+  font-family: 'Alliance Neue', sans-serif;
+  font-size: 16px;
+  line-height: 1.2;
+
+  @media (min-width: 1024px) {
+    font-size: 20px;
+  }
+}
+
+.ctr-bbmk .ctr-bbmk__gift-text {
+  font-family: 'Alliance Text', sans-serif;
+  font-size: 12px;
+  line-height: 1.2;
+
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+/* What's in the kit */
+.ctr-bbmk .ctr-bbmk__kit {
+  border: 1px solid var(--ctr-bbmk-line);
+  padding: 5px 12px 12px;
+
+  @media (min-width: 1024px) {
+    padding: 12px 20px;
+  }
+}
+
+.ctr-bbmk .ctr-bbmk__kit-header {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  justify-content: space-between;
+  white-space: nowrap;
+
+  /* The desktop column can be narrow (1024–1200px), so let the note drop below there. */
+  @media (min-width: 1024px) {
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    white-space: normal;
+  }
+}
+
+.ctr-bbmk .ctr-bbmk__kit-heading {
+  color: #2d2b2e;
+  font-family: 'Alliance Text', sans-serif;
+  font-size: min(12px, 2.8vw);
+  line-height: 1.5;
+
+  @media (min-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+.ctr-bbmk .ctr-bbmk__kit-note {
+  color: #706d73;
+  font-family: 'Alliance Text', sans-serif;
+  font-size: min(9px, 2.08vw);
+  line-height: 1.5;
+
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
+}
+
+.ctr-bbmk .ctr-bbmk__kit-items {
+  background: #faf8f6;
+  border: 1px solid var(--ctr-bbmk-line);
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 12px;
+
+  @media (min-width: 1024px) {
+    margin-top: 12px;
+    padding: 20px;
+  }
+}
+
+.ctr-bbmk .ctr-bbmk__kit-item {
+  aspect-ratio: 1;
+  border: 1px solid #d9d3cd;
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  overflow: hidden;
+  padding: 4px 0;
+  position: relative;
+}
+
+.ctr-bbmk .ctr-bbmk__kit-img {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+}
+
+.ctr-bbmk .ctr-bbmk__kit-img--placeholder {
+  background: #d9d3cd;
+}
+
+/* Figma uses 0.2px white rules; browsers round that up to 1px, so fade it instead */
+.ctr-bbmk .ctr-bbmk__kit-label {
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.45);
+  border-top: 0.5px solid rgba(255, 255, 255, 0.45);
+  color: #fff;
+  display: block;
+  font-family: 'Alliance Text', sans-serif;
+  font-size: clamp(8px, 2.3vw, 10px);
+  line-height: 1.2;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+
+  @media (min-width: 1024px) {
+    font-size: min(12px, 0.833vw);
+  }
+}
+
+/* Stock / sold out banner */
+.ctr-bbmk .ctr-bbmk__stock {
+  background: #fbeae3;
+  border: 1px solid var(--ctr-bbmk-orange);
+  padding: 10px 14px;
+}
+
+.ctr-bbmk .ctr-bbmk__stock-text {
+  align-items: center;
+  color: #b53a0f;
+  display: flex;
+  font-family: 'Alliance Text', sans-serif;
+  font-size: 12px;
+  gap: 8px;
+  line-height: 1.5;
+
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
+}
+
+.ctr-bbmk .ctr-bbmk__stock-text::before {
+  background: #fb5219;
+  border-radius: 4px;
+  content: '';
+  flex-shrink: 0;
+  height: 8px;
+  width: 8px;
+}
+
+.ctr-bbmk .ctr-bbmk__stock-text strong,
+.ctr-bbmk .ctr-bbmk__stock-text b {
+  font-weight: 500;
+}
+
+.ctr-bbmk .ctr-bbmk__stock-bar {
+  background: #fff;
+  border-radius: 3px;
+  height: 5px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.ctr-bbmk .ctr-bbmk__stock-fill {
+  background: #fb5219;
+  border-radius: 3px;
+  display: block;
+  height: 100%;
+}
+
+/* Purchase */
+.ctr-bbmk .ctr-bbmk__purchase {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Platt Medium for size label + qty, scoped so shared snippets keep their font elsewhere */
+.ctr-bbmk .ctr-bbmk__meta p,
+.ctr-bbmk .ctr-bbmk__purchase #quantity-one-time {
+  font-family: 'Alliance Platt', 'Alliance Text', sans-serif;
+  font-weight: 500;
+}
+
+/* Figma order: SAVE badge, compare price, price */
+.ctr-bbmk .ctr-bbmk__purchase .price-save-badge {
+  align-self: center;
+  background: var(--ctr-bbmk-orange);
+  color: #fff;
+  font-family: 'Alliance Platt', 'Alliance Text', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  order: -2;
+  padding: 2px 4px;
+  white-space: nowrap;
+}
+
+.ctr-bbmk .ctr-bbmk__purchase .igComparePrice {
+  order: -1;
+}
+
+.ctr-bbmk .ctr-bbmk__claims {
+  border: 1px solid var(--ctr-bbmk-line);
+  border-top: 0;
+  display: flex;
+  justify-content: space-between;
+
+  @media (min-width: 1024px) {
+    gap: 20px;
+    justify-content: center;
+  }
+}
+
+.ctr-bbmk .ctr-bbmk__claim {
+  align-items: center;
+  display: flex;
+  font-family: 'Alliance Text', sans-serif;
+  font-size: 10px;
+  gap: 8px;
+  line-height: 1.4;
+  padding: 12px 8px 14px;
+  white-space: nowrap;
+
+  @media (min-width: 1024px) {
+    gap: 12px;
+    line-height: 26.61px;
+    padding: 12px 12px 18px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 12px;
+  }
+}
+
+.ctr-bbmk .ctr-bbmk__claim-icon {
+  flex-shrink: 0;
+  height: 14px;
+  width: 14px;
+
+  @media (min-width: 1024px) {
+    height: 16px;
+    width: 16px;
+  }
+}
+
+/* Sold out: notify form, disabled button, link */
+.ctr-bbmk .ctr-bbmk__notify-row {
+  border: 1px solid var(--ctr-bbmk-line);
+  border-bottom: 0;
+  display: flex;
+  position: relative;
+}
+
+.ctr-bbmk .ctr-bbmk__notify-row.border-orange {
+  border-color: var(--ctr-bbmk-orange);
+}
+
+.ctr-bbmk .ctr-bbmk__notify-input {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  flex: 1 1 0;
+  font-family: 'Alliance Text', sans-serif;
+  font-size: 16px;
+  min-width: 0;
+  outline: none;
+  padding: 10px 12px;
+}
+
+.ctr-bbmk .ctr-bbmk__notify-input::placeholder {
+  color: rgba(33, 33, 33, 0.6);
+}
+
+.ctr-bbmk .ctr-bbmk__notify-button {
+  background: var(--ctr-bbmk-orange);
+  color: #fff;
+  font-family: 'Alliance Text', sans-serif;
+  font-size: 18px;
+  padding: 10px 24px;
+  text-transform: uppercase;
+
+  @media (min-width: 1024px) {
+    font-size: 20px;
+  }
+}
+
+.ctr-bbmk .ctr-bbmk__notify-success {
+  align-items: center;
+  background: #0032a0;
+  color: #fff;
+  display: none;
+  font-family: 'Alliance Text', sans-serif;
+  font-size: 12px;
+  inset: 0;
+  justify-content: center;
+  padding: 0 16px;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.ctr-bbmk .ctr-bbmk__notify-success[style*='block'] {
+  display: flex !important;
+}
+
+.ctr-bbmk .ctr-bbmk__notify-error {
+  color: var(--ctr-bbmk-orange);
+  font-family: 'Alliance Text', sans-serif;
+  font-size: 12px;
+}
+
+.ctr-bbmk .ctr-bbmk__notify-error:empty {
+  display: none;
+}
+
+.ctr-bbmk .ctr-bbmk__sold-out-button:disabled {
+  background: #d4d0cb;
+  color: var(--ctr-bbmk-text);
+  justify-content: center;
+}
+
+.ctr-bbmk .ctr-bbmk__sold-out-link {
+  align-self: center;
+  font-family: 'Alliance Text', sans-serif;
+  font-size: 14px;
+  margin-top: 24px;
+  text-decoration: underline;
+}
+
+/* Claims grid + accordions below the buy box */
+.ctr-bbmk .ctr-bbmk__details,
+.ctr-bbmk .ctr-bbmk__accordions {
+  margin: 0 24px 24px;
+
+  @media (min-width: 1024px) {
+    margin: 0 40px 40px;
+  }
+}
+
+/* Figma uses Text Regular for accordion titles; the shared snippet sets medium. */
+.ctr-bbmk .ctr-bbmk__accordions [data-accordion-trigger] h3 {
+  font-weight: 400;
+  letter-spacing: -0.29px;
+}

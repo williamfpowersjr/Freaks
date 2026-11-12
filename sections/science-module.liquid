@@ -1,0 +1,151 @@
+{% schema %}
+{
+  "name": "Science Module",
+  "tag": "section",
+  "class": "science-module-section",
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Science Module",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Science Module Title",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "cta": "Learn More",
+        "cta_link": "#",
+        "cta_color": "blue"
+      },
+      "blocks": [
+        {
+          "type": "video-card",
+          "settings": {
+            "hide_mute": true,
+            "hide_control": true
+          }
+        },
+        {
+          "type": "quote-card",
+          "settings": {
+            "text": "Science has always fascinated me because it helps us understand the world around us in ways we never imagined possible.",
+            "author": "Dr. Jane Smith",
+            "caption": "Lead Researcher, Innovation Lab"
+          }
+        },
+        {
+          "type": "image-card",
+          "settings": {
+            "caption": "Research in progress at our state-of-the-art facility",
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Cta Text"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Cta link"
+    },
+    {
+      "type": "select",
+      "id": "cta_color",
+      "label": "Cta Color",
+      "options": [
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "blue"
+    }
+  ],
+  "blocks": [{ "type": "video-card" }, { "type": "quote-card" }, { "type": "image-card" }],
+  "enabled_on": {
+    "templates": ["*"]
+  }
+}
+{% endschema %}
+
+<div class="relative flex flex-col {{ section.settings.bg_color }}">
+  <div class="w-full flex-none py-40 lg:py-80">
+    {% render 'title',
+      title: section.settings.title,
+      text_size: 'fn-tt-title-70',
+      bg_color: section.settings.bg_color,
+      border_color: 'border-black/15',
+      extra_wrapper_classes: 'text-center px-24 lg:px-16 overflow-hidden',
+      bg_lines: 'bg-grey-lines',
+      extra_text_classes: '!leading-[0.98]'
+    %}
+  </div>
+
+  {% if section.settings.text != blank %}
+    <div class="mx-auto px-24 pb-40 lg:max-w-768 lg:pb-80">
+      <p class="fn-tt-body-30 text-center">{{ section.settings.text }}</p>
+    </div>
+  {% endif %}
+
+  {% if section.blocks.size > 0 %}
+    <div class="grid flex-1 divide-y divide-black/15 border-t border-black/15 xl:divide-x xl:divide-y-0 [&>*]:aspect-square xl:[&>*]:aspect-[3/4] {% if section.blocks.size == 1 %}xl:grid-cols-1{% elsif section.blocks.size == 2 %}xl:grid-cols-2{% elsif section.blocks.size == 3 %}xl:grid-cols-3{% endif %}">
+      {% content_for 'blocks' %}
+    </div>
+  {% endif %}
+
+  {% if section.settings.cta != blank %}
+    <a href="{{ section.settings.cta_link }}" aria-label="{{ section.settings.cta }}">
+      <div class="w-full border-t border-black/15 p-24 lg:p-40">
+        {% render 'cta',
+          as: 'button',
+          text: section.settings.cta,
+          extra_classes: 'w-full',
+          hasIcons: true,
+          cta_color: section.settings.cta_color
+        %}
+      </div>
+    </a>
+  {% endif %}
+</div>

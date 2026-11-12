@@ -1,0 +1,201 @@
+.ctr-announcement-bar {
+  background: var(--ctr-announcement-bar-background);
+  color: var(--ctr-announcement-bar-text-color);
+  display: block;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__desktop {
+  display: none;
+  height: var(--ctr-announcement-bar-height-mobile);
+  padding: 4px 8px;
+
+  @media (min-width: 1024px) {
+    display: block;
+    height: var(--ctr-announcement-bar-height-desktop);
+  }
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__desktop-list {
+  align-items: center;
+  display: flex;
+  gap: 32px;
+  height: 100%;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__desktop-item {
+  text-align: center;
+  flex: 1;
+
+  &:first-child {
+    text-align: left;
+  }
+
+  &:last-child {
+    text-align: right;
+  }
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__mobile {
+  display: block;
+  padding: 0 20px;
+
+  @media (max-width: 430px) {
+    padding: 0 12px;
+  }
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__mobile-shell {
+  height: var(--ctr-announcement-bar-height-mobile);
+  position: relative;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__swiper,
+.ctr-announcement-bar .ctr-announcement-bar__slide {
+  height: var(--ctr-announcement-bar-height-mobile);
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__slide {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__slide-link {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  text-decoration: none;
+  width: 100%;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__thumbs {
+  align-items: center;
+  display: flex;
+  height: var(--ctr-announcement-bar-height-mobile);
+  left: 8px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-10%);
+  width: fit-content;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__thumb-slide {
+  height: auto;
+  width: fit-content;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__indicator {
+  background-color: var(--ctr-announcement-bar-indicator-color);
+  border-radius: 999px;
+  height: 6px;
+  margin-right: 4px;
+  opacity: 0.4;
+  transition: all 0.3s ease-in-out;
+  width: 6px;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__thumbs .swiper-slide-thumb-active .ctr-announcement-bar__indicator {
+  background-color: var(--ctr-announcement-bar-indicator-active-color);
+  opacity: 1;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__link {
+  color: inherit;
+  display: inline-flex;
+  text-decoration: none;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__text {
+  color: inherit;
+  line-height: 1.03;
+  text-transform: uppercase;
+  font-size: clamp(11px, calc(11 * 1px + (2) * (100vw - 375 * 1px) / (1225)), 12px);
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__message {
+  align-items: center;
+  display: inline-flex;
+  gap: 32px;
+  max-width: 100%;
+
+  @media (max-width: 1023.98px) {
+    gap: 12px;
+  }
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__text p {
+  margin: 0;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__text * {
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-transform: inherit;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__timer {
+  align-items: center;
+  display: inline-flex;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__timer-segment {
+  align-items: center;
+  background: #fb5219;
+  display: inline-flex;
+  gap: 5px;
+  padding: 2.5px 8px;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__timer-value,
+.ctr-announcement-bar .ctr-announcement-bar__timer-label {
+  color: #fff;
+  font-family: "Alliance Text", sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19.2px;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__mobile .ctr-announcement-bar__message {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__mobile .ctr-announcement-bar__text {
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: normal;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__mobile .ctr-announcement-bar__timer {
+  flex: 0 0 auto;
+}
+
+.ctr-announcement-bar .ctr-announcement-bar__desktop-list--single,
+.ctr-announcement-bar .ctr-announcement-bar__mobile--single {
+  justify-content: center;
+
+  .ctr-announcement-bar__text {
+    text-align: center;
+  }
+
+  .ctr-announcement-bar__desktop-item {
+    text-align: center;
+  }
+}

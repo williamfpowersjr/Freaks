@@ -1,0 +1,46 @@
+<video-element>
+  <div
+    data-overlay
+    class="video-overlay transition-opacity duration-500 ease-in-out lg:bg-blue/20 lg:backdrop-blur-lg"
+  >
+    <div
+      data-background
+      class="hidden lg:fixed lg:inset-0 lg:left-0 lg:top-0 lg:block lg:h-full lg:w-full  lg:hover:cursor-pointer"
+    >
+      <p class="sr-only">Close Video Overlay</p>
+    </div>
+
+    <div
+      class="video-overlay-inner overflow-hidden lg:absolute lg:left-1/2 lg:top-1/2 lg:flex lg:w-full lg:max-w-[80vw] lg:-translate-x-1/2 lg:-translate-y-1/2 lg:transition-opacity lg:duration-500 lg:ease-in-out"
+    >
+      <div data-video class="relative overflow-hidden">
+        {{
+          video
+          | video_tag:
+            class: 'w-full h-full ',
+            autoplay: false,
+            loop: false,
+            muted: false,
+            controls: false,
+            preload: 'auto',
+            playsinline: true
+        }}
+
+        <div data-controls class="hidden lg:block">{% render 'gallery-video-controls', has_fullscreen: true %}</div>
+      </div>
+    </div>
+    <button
+      aria-label="Close Video Overlay"
+
+      data-close
+      class="group hidden lg:absolute lg:right-0 lg:top-0 lg:flex lg:h-80 lg:w-80 lg:items-center lg:justify-center lg:bg-blue"
+    >
+      <div class="relative h-full w-full">
+        <p class="sr-only">Close Video Overlay</p>
+        {% render 'icon-close',
+          class: 'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 lg:w-40 transition duration-300 ease-in-out lg:group-has-[:hover]:rotate-90 text-white'
+        %}
+      </div>
+    </button>
+  </div>
+</video-element>

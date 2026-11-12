@@ -1,0 +1,225 @@
+{%- assign js_subscriptions_class = 'js-one-time-active' -%}
+{%- if section.settings.subsDefaultOption == 'subscriptions' -%}
+  {%- assign js_subscriptions_class = 'js-subscription-active' -%}
+{%- endif -%}
+{%- if hide_purchase_selector == null -%}
+  {%- assign hide_purchase_selector = section.settings.hide_purchase_selector -%}
+{%- endif -%}
+{%- if hide_purchase_selector == null -%}
+  {%- assign hide_purchase_selector = section.settings.hide_subscription_item -%}
+{%- endif -%}
+{%- assign hide_purchase_selector = hide_purchase_selector | default: false -%}
+{%- if show_quantity_input_for_subscription == null -%}
+  {%- assign show_quantity_input_for_subscription = section.settings.show_quantity_input_for_subscription -%}
+{%- endif -%}
+{%- assign show_quantity_input_for_subscription = show_quantity_input_for_subscription | default: false -%}
+
+<product-form-subscriptions class="{{ js_subscriptions_class }}">
+  <product-form>
+    {%- assign current_variant = product.selected_or_first_available_variant -%}
+
+    {% form 'product', product %}
+      {% render 'ctr-product-variant-picker',
+        product: product,
+        show_unit_price: show_unit_price,
+        show_prices_in_variant_picker: show_prices_in_variant_picker,
+        variant_picker_style: variant_picker_style,
+        unit_name: unit_name,
+        variant_product_option_blocks: variant_product_option_blocks,
+        quantity_variant_option_blocks: quantity_variant_option_blocks
+      %}
+      <input
+        type="hidden"
+        name="id"
+        value="{{ current_variant.id }}"
+      >
+      <input
+        type="hidden"
+        name="quantity"
+        value="1"
+      >
+
+      {% if product.metafields.preorder.backorder_message != blank %}
+        <input type="hidden" name="properties[Pre-Order]" value="{{ product.metafields.preorder.backorder_message }}">
+      {% endif %}
+
+      {% assign classes = 'w-full js-main-atc-button' %}
+      {% if additional_button_classes != blank %}
+        {% assign classes = classes | append: ' ' | append: additional_button_classes %}
+      {% endif %}
+
+      {% assign is_tertiary_subscription_style = false %}
+      {% if section.settings.subscription_style_variant == 'tertiary' %}
+        {% assign is_tertiary_subscription_style = true %}
+      {% endif %}
+
+      {% comment %} Optional "Build Your Pack" anchor row (CNV-6635) — only when the block is added. {% endcomment %}
+      {% assign byp_link_block = section.blocks | where: 'type', 'byp_link' | first %}
+
+      {% if is_tertiary_subscription_style %}
+        {% capture tertiary_atc_markup %}
+          {% if byp_link_block %}
+            {% render 'ctr-byp-link', block: byp_link_block %}
+          {% endif %}
+          {% render 'buy-button',
+            text: cta,
+            extra_classes: classes,
+            cta_color: 'orange',
+            hasIcons: true,
+            type: 'submit',
+            name: 'add',
+            product_is_available: product_is_available,
+            product_intelligems: product.id
+          %}
+        {% endcapture %}
+      {% endif %}
+
+      {%- if section.settings.split_subscriptions_by_variants
+        and current_variant
+        and hide_purchase_selector == false
+      -%}
+        {%- assign variants_with_current_option = product.variants | where: 'option1', current_variant.option1 -%}
+
+        {% for variant in variants_with_current_option %}
+          {% if variant.selling_plan_allocations.size > 0 %}
+            {%- assign variant_with_one_time_purchase = variant -%}
+            {%- break -%}
+          {% endif %}
+        {% endfor %}
+
+        {%- assign variant_with_one_time_purchase = variants_with_current_option[0] -%}
+
+        {% for variant in variants_with_current_option %}
+          {%- if current_variant.option1 == variant.option1 -%}
+            {%- assign subscription_discounted_price = variant.selling_plan_allocations[0].price_adjustments[0].price
+              | money
+            -%}
+
+            {%- if forloop.first == false -%}
+              {%- assign additional_form_classes = additional_form_classes | append: ' mt-[-1px]' -%}
+            {%- endif -%}
+
+            {% render 'ctr-subscription-item',
+              product: product,
+              variant: variant,
+              product_discount_heading: product_discount_heading,
+              subscription_form_style: subscription_form_style,
+              section: section,
+              additional_form_classes: additional_form_classes,
+              subscription_discounted_price: subscription_discounted_price,
+              price_adjustment_value: price_adjustment_value,
+              price_adjustment_value_type: price_adjustment_value_type,
+              cart: cart,
+              hide_one_tine_purchase: true,
+              tertiary_atc_markup: tertiary_atc_markup
+            %}
+          {%- endif -%}
+        {% endfor %}
+
+        {% render 'ctr-subscription-item',
+          product: product,
+          variant: variant_with_one_time_purchase,
+          product_discount_heading: product_discount_heading,
+          subscription_form_style: subscription_form_style,
+          section: section,
+          additional_form_classes: additional_form_classes,
+          subscription_discounted_price: subscription_discounted_price,
+          price_adjustment_value: price_adjustment_value,
+          price_adjustment_value_type: price_adjustment_value_type,
+          cart: cart,
+          hide_subscription: true,
+          hide_one_tine_purchase: false,
+          tertiary_atc_markup: tertiary_atc_markup
+        %}
+
+      {%- elsif hide_purchase_selector == false -%}
+        {% render 'ctr-subscription-item',
+          product: product,
+          product_discount_heading: product_discount_heading,
+          subscription_form_style: subscription_form_style,
+          section: section,
+          additional_form_classes: additional_form_classes,
+          subscription_discounted_price: subscription_discounted_price,
+          price_adjustment_value: price_adjustment_value,
+          price_adjustment_value_type: price_adjustment_value_type,
+          cart: cart,
+          tertiary_atc_markup: tertiary_atc_markup
+        %}
+      {%- endif -%}
+
+      {% assign can_show_quantity_input = false %}
+      {% if current_variant.selling_plan_allocations.size == 0 or show_quantity_input_for_subscription %}
+        {% assign can_show_quantity_input = true %}
+      {% endif %}
+      {% if hide_quantity_input != true and can_show_quantity_input %}
+        <fieldset class="flex flex-col divide-y divide-solid divide-black/15 border border-b-0 border-black/15">
+          <div class="flex items-center">
+            <button
+              aria-label="Decrease Quantity"
+
+              type="button"
+              id="decrease-quantity"
+              class="duration-250 flex h-52 w-52 items-center justify-center border-r border-solid border-black/15 p-2 transition-colors ease-in-out lg:hover:bg-blue lg:hover:text-white"
+            >
+              {% render 'icon-small-minus', class: 'w-20' %}
+            </button>
+            <input
+              name="quantity"
+              id="quantity-one-time"
+              value="1"
+              class="fn-tt-body-30 max-w-54 px-8 text-center font-medium"
+              readonly
+            >
+
+            <button
+              aria-label="Increase Quantity"
+              type="button"
+              id="increase-quantity"
+              class="duration-250 flex h-52 w-52 items-center justify-center border-x border-solid border-black/15 p-2 transition-colors ease-in-out lg:hover:bg-blue lg:hover:text-white"
+            >
+              {% render 'icon-small-plus', class: 'w-20' %}
+            </button>
+
+            <div class="fn-tt-body-30 flex w-full flex-1 items-baseline justify-end gap-8 px-16 text-right">
+              {% render 'one-time-price',
+                variant: product.selected_or_first_available_variant,
+                price_id: 'product_price'
+              %}
+            </div>
+          </div>
+        </fieldset>
+      {% endif %}
+
+      {% unless is_tertiary_subscription_style %}
+        {% if byp_link_block %}
+          {% render 'ctr-byp-link', block: byp_link_block %}
+        {% endif %}
+        {% render 'buy-button',
+          text: cta,
+          extra_classes: classes,
+          cta_color: 'orange',
+          hasIcons: true,
+          type: 'submit',
+          name: 'add',
+          product_is_available: product_is_available,
+          product_intelligems: product.id
+        %}
+      {% endunless %}
+
+      {% if product.selected_or_first_available_variant.metafields.custom.discount_override_callout != blank %}
+        <div class="fn-tt-body-10 mt-16 flex items-center justify-center bg-orange/15 px-16 py-12 text-center lg:mt-24">
+          {{ product.selected_or_first_available_variant.metafields.custom.discount_override_callout | metafield_tag }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.show_out_of_stock_banner == true and section.settings.out_of_stock_banner_text != blank %}
+        {% render 'product-out-of-stock-banner' %}
+      {% endif %}
+
+      <div
+        class="error-message fn-tt-caption font-medium uppercase empty:hidden"
+        data-ajax-cart-errors="form"
+      ></div>
+    {% endform %}
+  </product-form>
+</product-form-subscriptions>

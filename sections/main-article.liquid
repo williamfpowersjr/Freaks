@@ -1,0 +1,103 @@
+{% schema %}
+{
+  "name": "Main Article",
+  "tag": "section",
+  "class": "main-article",
+  "presets": [
+    {
+      "name": "Main Article",
+      "category": "Main Article",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "show_related_topics": true,
+        "related_topics_title": "Lorem ipsum"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "lg_bg_color",
+      "label": "Desktop Section Background Color",
+      "options": [
+        {
+          "value": "lg:bg-white",
+          "label": "White"
+        },
+        {
+          "value": "lg:bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "lg:bg-white"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related_topics",
+      "label": "Show Related Topics",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_topics_title",
+      "label": "Related Topics Title"
+    }
+  ]
+}
+{% endschema %}
+
+{% assign all_tags = blogs.news.all_tags %}
+{% assign current_article_tag = article.tags[0] %}
+{% assign all_articles = blogs.news.articles %}
+{% assign all_latest_articles = blogs.news.articles | sort: 'published_at' | reverse %}
+
+<div class="p-24 lg:p-40 lg:pb-80 {{ section.settings.lg_bg_color }} flex flex-col items-center">
+  <div class="flex max-w-full flex-col gap-y-24 lg:max-w-[750px]">
+    {% render 'article-tags', article_tags: article.tags %}
+    <div class="article-inline-rich-text fn-tt-body-20">
+      {{ article.content }}
+    </div>
+  </div>
+</div>
+
+{% unless section.settings.show_related_topics == false %}
+  {% render 'related-topics',
+    all_articles: all_articles,
+    current_article_tag: current_article_tag,
+    all_tags: all_tags,
+    related_topics_title: section.settings.related_topics_title,
+    all_latest_articles: all_latest_articles,
+    current_article_handle: article.handle
+  %}
+{% endunless %}
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "articleBody": {{ article.content | strip_html | json }},
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": {{ shop.url | append: article.url | json }}
+    },
+    "headline": {{ article.title | json }},
+    {% if article.excerpt != blank %}
+      "description": {{ article.excerpt | strip_html | json }},
+    {% endif %}
+    {% if article.image %}
+      "image": [
+        {{ article | image_url: width: 1920 | prepend: "https:" | json }}
+      ],
+    {% endif %}
+    "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+    "dateModified": {{ article.updated_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+    "dateCreated": {{ article.created_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+    "author": {
+      "@type": "Person",
+      "name": {{ article.author | json }}
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": {{ shop.name | json }}
+    }
+  }
+</script>

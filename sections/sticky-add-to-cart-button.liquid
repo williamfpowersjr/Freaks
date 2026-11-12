@@ -1,0 +1,77 @@
+{% schema %}
+{
+  "name": "Sticky Add to Cart Button",
+  "tag": "section",
+  "class": "sticky-add-to-cart-section",
+  "limit": 1,
+  "presets": [
+    {
+      "name": "Sticky Add to Cart Button",
+      "category": "Sticky Add to Cart Button",
+      "settings": {
+        "show_sticky_add_to_cart": true,
+        "cta": "Add to cart",
+        "cta_color": "orange",
+        "text": "All options"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_sticky_add_to_cart",
+      "label": "Show Stick Add to Cart Button on Page.",
+      "default": true,
+      "info": "Check off if you want to hide it."
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Sticky Add to Cart Cta Text",
+      "default": "Add to cart"
+    },
+    {
+      "type": "select",
+      "id": "cta_color",
+      "label": "Cta Color",
+      "options": [
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "orange"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "All Options Wording",
+      "default": "All options"
+    }
+  ]
+}
+{% endschema %}
+{% unless product.available != true and product.metafields.custom.coming_soon == true %}
+  {% if section.settings.show_sticky_add_to_cart == true %}
+    <section-renderer section-id="{{ section.id }}">
+      {% render 'sticky-add-to-cart-button',
+        cta: section.settings.cta,
+        text: section.settings.text,
+        cta_color: section.settings.cta_color,
+        is_slim: true
+      %}
+    </section-renderer>
+  {% endif %}
+{% endunless %}

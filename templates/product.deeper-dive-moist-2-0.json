@@ -1,0 +1,515 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "product_hero_bQmAyT": {
+      "type": "product-hero",
+      "blocks": {
+        "summary_GYJe8n": {
+          "type": "summary",
+          "settings": {
+            "title": "Clinically proven to improve the skin microbiome"
+          }
+        },
+        "summary_4kQmyi": {
+          "type": "summary",
+          "settings": {
+            "title": "Strengthens + restores the skin barrier"
+          }
+        },
+        "summary_QmRBPA": {
+          "type": "summary",
+          "settings": {
+            "title": "Non-comedogenic + non-acnegenic"
+          }
+        },
+        "summary_YxUBLn": {
+          "type": "summary",
+          "settings": {
+            "title": "Intensely hydrating"
+          }
+        },
+        "summary_PgVLCb": {
+          "type": "summary",
+          "settings": {
+            "title": "Weightless texture"
+          }
+        },
+        "summary_Mxjiep": {
+          "type": "summary",
+          "settings": {
+            "title": "Dermatologist tested"
+          }
+        },
+        "accordion_KxXYVe": {
+          "type": "accordion",
+          "settings": {
+            "title": "Ingredients",
+            "use_variant_metafield": false,
+            "variant_metafield": "",
+            "richtext": "<p>Squalane, Avena Sativa (Oat) Kernel Oil, Dextrin Palmitate, Plukenetia Volubilis (Sacha Inchi) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Padina Pavonica Thallus Extract, Bacillus Ferment, Tocopherol</p><p>See for more information on our <a href=\"/pages/ingredients\" title=\"Ingredients\">ingredients page</a>.</p>"
+          }
+        },
+        "accordion_PPFkfN": {
+          "type": "accordion",
+          "settings": {
+            "title": "How to Use",
+            "use_variant_metafield": false,
+            "variant_metafield": "",
+            "richtext": "<p><strong>Step 1:</strong><br/>After AM/PM cleansing, or when you wash yourself after a workout session, apply one pump amount into hands and gently rub onto face, neck and chest if applicable. For optimal results use in the AM and PM.</p><p><strong>Step 2:<br/></strong>If heading outside apply Daily Defender SPF30 Sunscreen as the final step in your daily routine.</p>"
+          }
+        },
+        "plastic_pledge_by_oceanworks_product_tile_kKRmKR": {
+          "type": "shopify://apps/plastic-pledge-by-oceanworks/blocks/product-tile/a888cb82-2596-48cc-9cb6-2a2728b595a5",
+          "settings": {
+            "theme_style": "dynamic"
+          }
+        },
+        "bundle_Pi7f3n": {
+          "type": "bundle",
+          "settings": {
+            "bundle_product": "endurance-system",
+            "banner": "Bundle & Save 10%",
+            "bundle_cta_color": "blue"
+          }
+        },
+        "bundle_FtYhHK": {
+          "type": "bundle",
+          "settings": {
+            "bundle_product": "freak-trio",
+            "banner": "Bundle & Save 10%",
+            "bundle_cta_color": "blue"
+          }
+        }
+      },
+      "block_order": [
+        "summary_GYJe8n",
+        "summary_4kQmyi",
+        "summary_QmRBPA",
+        "summary_YxUBLn",
+        "summary_PgVLCb",
+        "summary_Mxjiep",
+        "accordion_KxXYVe",
+        "accordion_PPFkfN",
+        "plastic_pledge_by_oceanworks_product_tile_kKRmKR",
+        "bundle_Pi7f3n",
+        "bundle_FtYhHK"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "title_size": "large",
+        "show_inventory_quantity": false,
+        "use_variant_media": false,
+        "discount_tag": "+ Free Shipping",
+        "product_discount_heading": "",
+        "subscription_badge_type": "auto",
+        "subscription_badge_text": "Save 25%",
+        "show_unit_price": false,
+        "unit_name": "",
+        "show_prices_in_variant_picker": false,
+        "variant_picker_style": "title",
+        "hide_quantity_input": false,
+        "one_time_purchase_badge_text": "",
+        "subsDefaultOption": "subscriptions",
+        "subsOrder": "subs_top",
+        "subscription_form_style": "stacked",
+        "subscription_title": "Subscribe",
+        "cta": "Add to cart",
+        "cta_link": "",
+        "show_out_of_stock_banner": false,
+        "out_of_stock_banner_text": "",
+        "social_image": "shopify://shop_images/Screenshot_2025-02-12_at_3.52.32_PM.png",
+        "social_quote": "\"This product is the foundation for a healthy skin barrier. Key ingredients like Oléoactif™ improve skin barrier function leading to healthier and more glowing skin. In our clinical study, participants saw a significant improvement in their skin’s hydration and balance. A must in every routine!”",
+        "social_profile_name": "@dr.elsajungman",
+        "social_profile_image": "shopify://shop_images/Screenshot_2025-02-12_at_3.54.54_PM.png",
+        "social_link": "https://www.instagram.com/dr.elsajungman/?hl=en",
+        "show_details": true,
+        "show_notify": true,
+        "notify_text": "Get notified when the product is available again",
+        "notify_placeholder": "Enter your email",
+        "notify_success": "Thank you! We will notify you when the product is back in stock.",
+        "klaviyo_api_key": "SdwbFd",
+        "klaviyo_list_id": "",
+        "notify_subtext": "<p>By signing up, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Service</a> and our <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a>.</p>",
+        "bundle_title": "Upgrade to a bundle and save"
+      }
+    },
+    "sticky_add_to_cart_button_YwHpbY": {
+      "type": "sticky-add-to-cart-button",
+      "settings": {
+        "show_sticky_add_to_cart": true,
+        "cta": "Add to cart",
+        "cta_color": "orange",
+        "text": "All options"
+      }
+    },
+    "title_ggVVRN": {
+      "type": "title",
+      "settings": {
+        "bg_color": "white",
+        "title": "Clinically proven to improve The skin microbiome",
+        "text": "Deeper Dive didn’t just hydrate, it improved the Shannon Diversity Index! What’s that? It means a more diverse and balanced skin microbiome, which is a critical component for healthier, more resilient skin.\nRead more about our moisturizer and cleanser studies linked here.",
+        "has_margin": true,
+        "text_align": "center"
+      }
+    },
+    "before_after_facts_slider_DRWrm3": {
+      "type": "before-after-facts-slider",
+      "blocks": {
+        "clinical_study_card_zhf9ti": {
+          "type": "clinical-study-card",
+          "settings": {
+            "yes_count": 31,
+            "no_count": 36,
+            "recommendation_text": "particpants repored calmer, more balanced skin",
+            "display_format": "fraction"
+          }
+        },
+        "clinical_study_card_yAJH49": {
+          "type": "clinical-study-card",
+          "settings": {
+            "yes_count": 31,
+            "no_count": 5,
+            "recommendation_text": "participants reported more hydrated skin",
+            "display_format": "fraction"
+          }
+        }
+      },
+      "block_order": [
+        "clinical_study_card_zhf9ti",
+        "clinical_study_card_yAJH49"
+      ],
+      "settings": {
+        "card_color": "blue",
+        "title": "Here's what we found:",
+        "text": "Deeper Dive didn’t just hydrate, it improved the Shannon Diversity Index! What’s that? It means a more diverse and balanced skin microbiome, which is a critical component for healthier, more resilient skin."
+      }
+    },
+    "before_after_cards_teaxHP": {
+      "type": "before-after-cards",
+      "blocks": {
+        "image_card_dYy3Kj": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/Jacobi.png",
+            "caption": "",
+            "tag": "Before",
+            "padding": false
+          },
+          "blocks": {}
+        },
+        "image_card_ddL6gk": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/Jacobi_df6e4006-a20f-4ec2-b916-0e9ecf67595e.png",
+            "caption": "",
+            "tag": "After 30 Days",
+            "padding": false
+          },
+          "blocks": {}
+        },
+        "clinical_study_card_MDHaEQ": {
+          "type": "clinical-study-card",
+          "settings": {
+            "yes_count": 27,
+            "no_count": 9,
+            "recommendation_text": "of participants saw a healthier skin microbiome",
+            "display_format": "percentage"
+          },
+          "blocks": {}
+        },
+        "clinical_study_card_YRUtG6": {
+          "type": "clinical-study-card",
+          "disabled": true,
+          "settings": {
+            "yes_count": 32,
+            "no_count": 4,
+            "recommendation_text": "reported improved skin texture",
+            "display_format": "percentage"
+          },
+          "blocks": {}
+        },
+        "image_card_JzV7gf": {
+          "type": "image-card",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "caption": "After 4 Weeks",
+            "tag": "After",
+            "padding": false
+          },
+          "blocks": {}
+        },
+        "image_card_HgkVJm": {
+          "type": "image-card",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "caption": "After 4 Weeks",
+            "tag": "After",
+            "padding": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "image_card_dYy3Kj",
+        "image_card_ddL6gk",
+        "clinical_study_card_MDHaEQ",
+        "clinical_study_card_YRUtG6",
+        "image_card_JzV7gf",
+        "image_card_HgkVJm"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "gap": true
+      }
+    },
+    "comparison_JqE7QK": {
+      "type": "comparison",
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Strong Barrier",
+        "title_a": "Dark Skin",
+        "image_1a": "shopify://shop_images/240409_TN_DIRTYPRETTY_FREAKSOFNATURE1196_8cb7f141-8ef7-46a9-a3fc-9219e9175356.jpg",
+        "title_1a": "Applying Moisturizer Serum",
+        "image_2a": "shopify://shop_images/240409_TN_DIRTYPRETTY_FREAKSOFNATURE1316_9c2884bb-31e7-4324-9017-88776c55302d.jpg",
+        "title_2a": "5 min after application",
+        "title_b": "Medium Skin",
+        "image_1b": "shopify://shop_images/240409_TN_DIRTYPRETTY_FREAKSOFNATURE1569_eb89609c-2c9b-4e50-aa75-cd16433bbb8e.jpg",
+        "title_1b": "Applying Moisturizer Serum",
+        "image_2b": "shopify://shop_images/240409_TN_DIRTYPRETTY_FREAKSOFNATURE1705_638a645c-678e-41cb-9b6e-a18e9e2917ed.jpg",
+        "title_2b": "5 min after application"
+      }
+    },
+    "ugc_slider_6ATeDV": {
+      "type": "ugc-slider",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Loved by the freak community"
+      }
+    },
+    "properties_Fqy7tY": {
+      "type": "properties",
+      "blocks": {
+        "item_pdDdNQ": {
+          "type": "item",
+          "settings": {
+            "use_variant_metafield_for_image": false,
+            "image_metafield_key": "",
+            "title": "Good for:",
+            "use_variant_metafield_for_description": false,
+            "description": "All Skin Types",
+            "description_metafield_key": ""
+          }
+        },
+        "item_Fb99Uq": {
+          "type": "item",
+          "settings": {
+            "use_variant_metafield_for_image": false,
+            "image_metafield_key": "",
+            "title": "Smells like:",
+            "use_variant_metafield_for_description": false,
+            "description": "Minerally with a slight nuttiness. Think of it like a crisp day near the lake!",
+            "description_metafield_key": ""
+          }
+        },
+        "item_ECwYQd": {
+          "type": "item",
+          "settings": {
+            "use_variant_metafield_for_image": false,
+            "image_metafield_key": "",
+            "title": "Color and texture:",
+            "use_variant_metafield_for_description": false,
+            "description": "Natural oil color and texture for maximum hydration without the greasy look.",
+            "description_metafield_key": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_pdDdNQ",
+        "item_Fb99Uq",
+        "item_ECwYQd"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "card_bg_color": "bg-offWhite",
+        "title": "What to Expect",
+        "image": "shopify://shop_images/20240405_AA_FreaksOfNature__Deep_Dive_Moisturizer_HANDS_016_rt1_74a2f592-ea3d-4de4-8f80-c483f90155e9.jpg",
+        "full_bleed_image": false,
+        "hide_mobile_image": false
+      }
+    },
+    "steps_TwMkBf": {
+      "type": "steps",
+      "blocks": {
+        "item_DE9cbF": {
+          "type": "item",
+          "settings": {
+            "title": "Step 1",
+            "description": "<p>After AM/PM cleansing, or when you wash yourself after a workout session, apply one pump amount into hands and gently rub onto face, neck and chest if applicable. For optimal results use in the AM and PM.</p>",
+            "image": "shopify://shop_images/application-01-deeper-dive-moisturizer-spf30.jpg",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_wFGFUb": {
+          "type": "item",
+          "settings": {
+            "title": "Step 2",
+            "description": "<p>If heading outside apply Daily Defender SPF30 Sunscreen as the final step in your daily routine.</p>",
+            "image": "shopify://shop_images/application-02-deeper-dive-moisturizer-spf30.jpg",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        }
+      },
+      "block_order": [
+        "item_DE9cbF",
+        "item_wFGFUb"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "How to Apply"
+      }
+    },
+    "builder_system_DLwhq8": {
+      "type": "builder-system",
+      "blocks": {
+        "card_UzGHJp": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>Superstar ingredient found in a french volcano. Oléoactif™ is a post-biotic proven to improve your skin barrier. </li><li><strong>Repairs your skin and fortifies your skin barrier to promote overall skin health.</strong></li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/Screenshot_2024-05-04_at_6.20.12_PM.png",
+            "tag_1": "Oléoactif™ Post-Biotic Bacillus Ferment",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        },
+        "card_46jfgR": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>We formulate with vegan Squalane derived from sugarcane, where as traditional squalene comes from shark livers - harming hundreds of thousands of sharks each year. </li><li><strong>Our vegan, bio-based formula supports a healthy skin microbiome while leaving your skin silky smooth.</strong></li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/Screenshot_2024-05-04_at_6.27.23_PM.png",
+            "tag_1": "Neossance™ Squalane Vegan Shark Lipid",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        },
+        "card_CznQTH": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>The closest thing to the fountain of youth that we could find. </li><li><strong>This powerful ingredient restores skin elasticity and moisture resulting in visibly plumper, firmer, and healthier looking skin. Plus, it aids your body’s natural collagen production. </strong></li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/Padina_Pavonica_Thallus.jpg",
+            "tag_1": "Padinami™ Brown Algae Extract",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_UzGHJp",
+        "card_46jfgR",
+        "card_CznQTH"
+      ],
+      "settings": {
+        "video": "shopify://files/videos/OLÉOACTIF™ _ SEQUENCE _ H264 (1).mp4",
+        "hide_mute": true,
+        "title": "BIO BASED INGREDIENTS THAT MAKE A DIFFERENCE",
+        "description": "<p>We formulated the Freak Barrier Defense System™️specifically to defend and strengthen your skin microbiome and skin barrier. Meet the proprietary ingredients that set us apart. </p>",
+        "icon": "shopify://shop_images/Layer_1_b508db2e-97f2-48b8-a20f-6c8aef44818b.svg",
+        "cta": "Explore our ingredients",
+        "cta_link": "shopify://pages/ingredients",
+        "cta_color": "blue"
+      }
+    },
+    "gallery_GN9W4a": {
+      "type": "gallery",
+      "blocks": {
+        "gallery_item_TYDCWP": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240507_Kelly_Interview_Product_Specific_16x9_H.264_Final_Delivery_V2_3c0061f0-ca55-47a0-b81a-3e37b764543c.mp4",
+            "hide_mute": false,
+            "title": "Kelly Slater",
+            "info_text": ""
+          }
+        },
+        "gallery_item_kyf4Mb": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240507_Ocean_Interview_Product_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "hide_mute": false,
+            "title": "Ocean Ramsey",
+            "info_text": ""
+          }
+        },
+        "gallery_item_WtdRex": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240507_Nina_Interview_Product_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "hide_mute": false,
+            "title": "Nina Williams",
+            "info_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "gallery_item_TYDCWP",
+        "gallery_item_kyf4Mb",
+        "gallery_item_WtdRex"
+      ],
+      "settings": {
+        "show_video_controls": true
+      }
+    },
+    "reviews_EiaL3y": {
+      "type": "reviews",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "The Reviews are in",
+        "image": "shopify://shop_images/06_TRUCK_3616_rt2_76cf7ee7-16d2-4012-bd4b-89d1b4bdc1f5.jpg",
+        "hide_mute": false,
+        "full_bleed_media": false
+      }
+    },
+    "product_carousel_x3Ukge": {
+      "type": "product-carousel",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Shop other products",
+        "title_style": "title_big",
+        "hide_mobile_title": false,
+        "cta": "",
+        "cta_link": "",
+        "cta_color": "blue",
+        "collections": [
+          "all-products"
+        ]
+      }
+    }
+  },
+  "order": [
+    "product_hero_bQmAyT",
+    "sticky_add_to_cart_button_YwHpbY",
+    "title_ggVVRN",
+    "before_after_facts_slider_DRWrm3",
+    "before_after_cards_teaxHP",
+    "comparison_JqE7QK",
+    "ugc_slider_6ATeDV",
+    "properties_Fqy7tY",
+    "steps_TwMkBf",
+    "builder_system_DLwhq8",
+    "gallery_GN9W4a",
+    "reviews_EiaL3y",
+    "product_carousel_x3Ukge"
+  ]
+}

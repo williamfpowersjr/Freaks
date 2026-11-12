@@ -1,0 +1,823 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_liquid_6fiee9": {
+      "type": "custom-liquid",
+      "name": "Custom Liquid",
+      "settings": {
+        "custom_liquid": "<style>\n#shopify-section-{{section.id}} {\n  padding-top: 0;\n}\nheader,\nheader #mobile-subnavigation, header mobile-header-element,\nheader accordion-element {\n  display: none;\n}\n\nfooter:not(cart-drawer footer), #shopify-section-footer, #shopify-section-banner-image, .footer-section, #shopify-section-new-footer, #shopify-section-layout-footer, [id^=\"shopify-section-footer\"], #footer:not(#replo-fullpage-element #footer), .main-footer, .shopify-section-group-footer-group {\n  display: block!important;\n}\n\n[data-announcement-bar] {\n   opacity: 0;\n}\n</style>",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "ctr_announcement_bar_wi8hzM": {
+      "type": "ctr-announcement-bar",
+      "blocks": {
+        "announcement_4YNUc4": {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "<p>FREE FLASK + FREE SHIPPING. OFFER ENDS IN</p>",
+            "announcement_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_4YNUc4"
+      ],
+      "name": "Announcement Bar (CTR)",
+      "settings": {
+        "background_color": "#0032a0",
+        "text_color": "#ffffff",
+        "indicator_color": "#c6c6c6",
+        "indicator_active_color": "#ffffff",
+        "height_mobile": 37,
+        "height_desktop": 37,
+        "show_timer": true,
+        "timer_duration_hours": 1,
+        "timer_duration_minutes": 0
+      }
+    },
+    "ctr_nav_section_MjWmmF": {
+      "type": "ctr-nav-section",
+      "name": "Nav Section (CTR)",
+      "settings": {
+        "logo": "shopify://shop_images/fon-logo.svg",
+        "logo_link": "",
+        "show_account": false,
+        "show_cart": true,
+        "enable_sticky_header": true,
+        "background_color": "#ffffff",
+        "border_color": "#21212126",
+        "text_color": "#212121",
+        "icon_bubble_background": "#0032a033",
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "ctr_electrolyte_lp_banner_GiEAjT": {
+      "type": "ctr-electrolyte-lp-banner",
+      "name": "Banner Hero (CTR)",
+      "settings": {
+        "image": "shopify://shop_images/Container_1.png",
+        "image_position_desktop": "center center",
+        "mobile_image": "shopify://shop_images/Container_2.png",
+        "image_position_mobile": "center center",
+        "eyebrow": "NEW · SKIN SUPPORT ELECTROLYTE",
+        "title": "<p>Defend your skin from the inside out</p>",
+        "title_accent": "",
+        "description": "<p>If sunscreen is your raincoat, this is what you wear underneath. A daily electrolyte engineered by skincare experts — combining hydration with clinically studied support for UV resilience, skin barrier integrity, and gut-skin health. Available in a refreshing tropical flavor you'll actually crave. Five systems. One sachet.</p>",
+        "description_mobile": "",
+        "cta_text": "See What's Inside",
+        "cta_link": "#comparison-table",
+        "cta_open_new_tab": false,
+        "cta_arrow_direction": "down",
+        "text_theme": "dark",
+        "bg_color": "#581002",
+        "pt_desktop": 100,
+        "pb_desktop": 100,
+        "min_height_desktop": 0,
+        "pt_mobile": 24,
+        "pb_mobile": 24,
+        "min_height_mobile": 776,
+        "content_position_mobile": "flex-start"
+      }
+    },
+    "reviews_slider_pN3PPj": {
+      "type": "reviews-slider",
+      "blocks": {
+        "review_t7VQiG": {
+          "type": "review",
+          "settings": {
+            "title": "New go to",
+            "review": "Great flavor and very convenient. Doesn’t have the fake flavor aftertaste that many other electrolyte powders have",
+            "name": "Ryan M.",
+            "stars": "5",
+            "rating_link": "#reviews-section"
+          }
+        },
+        "review_hz6Y4z": {
+          "type": "review",
+          "settings": {
+            "title": "It’s so delicious.",
+            "review": "I feel so refreshed, supported, and protected! Highly recommend!",
+            "name": "Dara G.",
+            "stars": "5",
+            "rating_link": "#reviews-section"
+          }
+        },
+        "review_xt9U3C": {
+          "type": "review",
+          "settings": {
+            "title": "Bold flavor",
+            "review": "I notice that I haven’t gotten burnt since starting using this in addition to the sunscreen. I live in swfl and am outside a lot.",
+            "name": "Neka L.",
+            "stars": "5",
+            "rating_link": "#reviews-section"
+          }
+        }
+      },
+      "block_order": [
+        "review_t7VQiG",
+        "review_hz6Y4z",
+        "review_xt9U3C"
+      ],
+      "custom_css": [
+        "swiper-element > div {border-top: none;}",
+        "swiper-element > div > div:first-of-type {padding-bottom: 32px;}",
+        ".reviews-slider__title-wrap {font-size: clamp( 40px, calc(40 * 1px + (64) * (100vw - 430 * 1px) / (1225)), 74px );}",
+        "h2 {width: auto; max-width: 900px;}",
+        ".review-card {gap: 35px; min-height: 345px;}",
+        "@media (min-width: 1024px) {.review-card {gap: 30px; } .review-card__stars {margin-bottom: 25px; }}"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "NORTH SHORE FLAVOR. HITS LIKE A WAVE.",
+        "subtitle": "<p>Tangy passion fruit with a kiss of Hawaiian ocean salt.</p>"
+      }
+    },
+    "ctr_properties_gfFXek": {
+      "type": "ctr-properties",
+      "custom_css": [
+        "@media (max-width: 1023.98px) {.ctr-properties__body {padding: 0 16px 16px; } .ctr-properties__section-text {padding: 0 16px; } .ctr-properties__media {padding-bottom: 40px; }}"
+      ],
+      "name": "Properties (CTR)",
+      "settings": {
+        "title": "Where does skincare actually start?",
+        "title_size_desktop": "small",
+        "title_size_mobile": "medium",
+        "section_text": "<p>For us, the answer was always the skin barrier, the microbiome, the gut-skin axis — the systems underneath the surface. So when we started asking what our athletes actually needed, the answer wasn't another topical. It was something that worked from within. Something that actually tasted good enough to make it a daily habit. </p>",
+        "section_image": "shopify://shop_images/Good_For.png_Vectorized_1.png",
+        "hide_mobile_image": false,
+        "button_label": "<p>Start my routine</p>",
+        "button_link": "#ctr-product-showcase",
+        "button_style": "orange",
+        "button_arrow_direction": "down",
+        "background": "#ffffff",
+        "background_gradient": "",
+        "card_background": "#f9f9f9",
+        "border_color": "#21212126",
+        "content_gap": 40,
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "title_line_2": "",
+        "title_accent_color": "#ff7815",
+        "items_layout": "default",
+        "button_open_new_tab": false
+      }
+    },
+    "ctr_sticky_atc_g7bqdk": {
+      "type": "ctr-sticky-atc",
+      "name": "Sticky ATC (CTR)",
+      "settings": {
+        "product_override": "skin-support-electrolyte",
+        "cta_text": "Start my routine",
+        "show_product_image": true,
+        "product_image_override": "shopify://shop_images/Update_ProductCard_1.png",
+        "badge_text": "15% off + free flask",
+        "badge_background_color": "#ffffff",
+        "badge_text_color": "#fe5000",
+        "badge_border_color": "#fe5000",
+        "show_social_proof": false,
+        "show_star_rating": false,
+        "rating_label": "Excellent",
+        "social_proof_text": "Free shipping on your first delivery",
+        "bg_color": "#f9f9f9"
+      }
+    },
+    "ctr_science_system_4MwbgH": {
+      "type": "ctr-science-system",
+      "blocks": {
+        "stat_item_gHnPjf": {
+          "type": "stat_item",
+          "settings": {
+            "value": "22",
+            "value_suffix": "×",
+            "title": "<p>Higher UV tolerance threshold[1]</p>",
+            "subtitle": "<p>Polypodium Leucotomos</p>"
+          }
+        },
+        "stat_item_6YtLDn": {
+          "type": "stat_item",
+          "settings": {
+            "value": "46",
+            "value_suffix": "%",
+            "title": "<p>Less skin redness after UV exposure[2]</p>",
+            "subtitle": "<p>RedOrange Complex™</p>"
+          }
+        },
+        "stat_item_DEqAc7": {
+          "type": "stat_item",
+          "settings": {
+            "value": "24",
+            "value_suffix": "%",
+            "title": "<p>Higher UV burn threshold[2]</p>",
+            "subtitle": "<p>RedOrange Complex™</p>"
+          }
+        },
+        "timeline_item_cTeVK6": {
+          "type": "timeline_item",
+          "settings": {
+            "icon": "shopify://shop_images/Shape.png",
+            "title": "<p>Day 1</p>",
+            "text": "<p>Key minerals flood in immediately, restoring cellular hydration and kickstarting energy balance. Your body starts working with you from the very first use.</p>"
+          }
+        },
+        "timeline_item_Amg8VF": {
+          "type": "timeline_item",
+          "settings": {
+            "icon": "shopify://shop_images/Vector_2.png",
+            "title": "<p>2-4 Weeks</p>",
+            "text": "<p>Early shifts in photoprotection begin to surface. UV tolerance improves as the gut microbiome starts rebalancing. Digestion is steadier and your skin is more resilient.</p>"
+          }
+        },
+        "timeline_item_gPXXQ4": {
+          "type": "timeline_item",
+          "settings": {
+            "icon": "shopify://shop_images/Union.png",
+            "title": "<p>2+ Months</p>",
+            "text": "<p>This is where the real work shows. Skin builds a stronger baseline tolerance to UV exposure, reacts with less redness post-sun, and shows measurable improvements in hydration and elasticity. Your internal armor, fully assembled.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "stat_item_gHnPjf",
+        "stat_item_6YtLDn",
+        "stat_item_DEqAc7",
+        "timeline_item_cTeVK6",
+        "timeline_item_Amg8VF",
+        "timeline_item_gPXXQ4"
+      ],
+      "name": "Science Stats (CTR)",
+      "settings": {
+        "title": "<p>YOUR SKIN IS A LONG GAME</p><p>PLAY IT RIGHT</p>",
+        "reference_one": "<p>1 Nestor et al. J Clin Aesthet Dermatol 2015.</p>",
+        "reference_two": "<p>2 Keršmanc et al. Nutrients 2025.</p>",
+        "legal_label": "",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "card_background_color": "#f9f9f9",
+        "border_color": "#d9d9d9",
+        "text_color": "#212121",
+        "muted_text_color": "#21212199",
+        "accent_color": "#fe5000",
+        "legal_text_color": "#000000",
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40
+      }
+    },
+    "ctr_five_systems_qB4MTk": {
+      "type": "ctr-five-systems",
+      "blocks": {
+        "product_card_wyhUjF": {
+          "type": "product_card",
+          "settings": {
+            "product": "skin-support-electrolyte",
+            "subtitle": "<p>+ Free Flask & Save 15%</p>",
+            "button_label": "ADD TO CART"
+          }
+        },
+        "system_item_TfDm8G": {
+          "type": "system_item",
+          "settings": {
+            "icon": "shopify://shop_images/Claims_7b0b7721-17c2-49c2-a8d0-15cba8fc1817.png",
+            "title": "<p>Hydration</p>",
+            "text": "<p>Sodium, magnesium, potassium & calcium. Hydration that reaches your skin, not just your muscles.</p>"
+          }
+        },
+        "system_item_MGX8yc": {
+          "type": "system_item",
+          "settings": {
+            "icon": "shopify://shop_images/Claims_8c87b7d1-3d6e-4883-ba8b-8c5c72c4d9ae.png",
+            "title": "<p>Skin Barrier Integrity</p>",
+            "text": "<p>Hyaluronic acid & Vitamin C. Moisture locked in, skin barrier reinforced day after day.</p>"
+          }
+        },
+        "system_item_CHxJyb": {
+          "type": "system_item",
+          "settings": {
+            "icon": "shopify://shop_images/Claims_0e61c020-3562-4240-8e39-1852ed1dcac5.png",
+            "title": "<p>Gut Health</p>",
+            "text": "<p>Prebiotic fiber for a balanced gut microbiome. Supports digestion and overall wellness from the inside out.</p>"
+          }
+        },
+        "system_item_VDLwTt": {
+          "type": "system_item",
+          "settings": {
+            "icon": "shopify://shop_images/Claims_f6f2c9b1-0c8e-4768-af36-f5bdfeef9f47.png",
+            "title": "<p>Gut-Skin Axis</p>",
+            "text": "<p>What happens in your gut shows up on your face. We're the only electrolyte built with this in mind.</p>"
+          }
+        },
+        "system_item_e6dgQ6": {
+          "type": "system_item",
+          "settings": {
+            "icon": "shopify://shop_images/Claims_82492e79-15db-491f-a02b-95aac6621852.png",
+            "title": "<p>Internal UV Protection</p>",
+            "text": "<p>Polypodium Leucotomos Extract, Red Orange Complex®, and Astaxanthin. Clinically proven to strengthen UV resilience from the inside out.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "product_card_wyhUjF",
+        "system_item_TfDm8G",
+        "system_item_MGX8yc",
+        "system_item_CHxJyb",
+        "system_item_VDLwTt",
+        "system_item_e6dgQ6"
+      ],
+      "name": "Five Systems (CTR)",
+      "settings": {
+        "title": "<p>Five systems.<br/>One daily sachet</p>",
+        "media_image": "shopify://shop_images/8f099c57ccd58dc7d399a7ff9fb4b89408f7372e.jpg",
+        "desktop_media_left": false,
+        "use_container": false,
+        "container_background_color": "rgba(0,0,0,0)",
+        "background_texture": "shopify://shop_images/five_systems.png",
+        "background_color": "#ffffff03",
+        "background_gradient": "",
+        "border_color": "#d9d9d9",
+        "text_color": "#232323",
+        "heading_color": "#232323",
+        "accent_color": "#fe5000",
+        "product_card_background": "#ffffff52",
+        "product_card_button_background": "#0032a0",
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "section_padding_top_desktop": 0,
+        "section_padding_bottom_desktop": 0,
+        "section_padding_top_mobile": 0,
+        "section_padding_bottom_mobile": 0
+      }
+    },
+    "ctr_comparison_table_6VGcP9": {
+      "type": "ctr-comparison-table",
+      "blocks": {
+        "header_row_KrTkPQ": {
+          "type": "header_row",
+          "settings": {
+            "col_1_label": "",
+            "col_1_label_mobile": "",
+            "col_1_image": "shopify://shop_images/image_4_3.png",
+            "col_2_label": "",
+            "col_2_label_mobile": "",
+            "col_2_image": "shopify://shop_images/image_4_4.png",
+            "col_3_label": "",
+            "col_3_label_mobile": "",
+            "col_3_image": "shopify://shop_images/image_4_5.png",
+            "col_4_label": "",
+            "col_4_label_mobile": "",
+            "col_4_image": "shopify://shop_images/image_4_6.png"
+          }
+        },
+        "comparison_row_4dzVEN": {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Sodium</p>",
+            "col_1_label": "<h4><strong>500 MG</strong></h4>",
+            "col_1_subtitle": "",
+            "col_2_label": "<p>1000 MG</p>",
+            "col_2_subtitle": "",
+            "col_3_label": "<p>500 MG</p>",
+            "col_3_subtitle": "",
+            "col_4_label": "<p>300 MG</p>",
+            "col_4_subtitle": "",
+            "col_1_icon": "check",
+            "col_2_icon": "minus",
+            "col_3_icon": "minus",
+            "col_4_icon": "minus"
+          }
+        },
+        "comparison_row_AbyNWn": {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Potassium</p>",
+            "col_1_label": "<h4><strong>350 MG</strong></h4>",
+            "col_1_subtitle": "",
+            "col_2_label": "<p>250 MG</p>",
+            "col_2_subtitle": "",
+            "col_3_label": "<p>370 MG</p>",
+            "col_3_subtitle": "",
+            "col_4_label": "<p>150 MG</p>",
+            "col_4_subtitle": "",
+            "col_1_icon": "check",
+            "col_2_icon": "minus",
+            "col_3_icon": "minus",
+            "col_4_icon": "minus"
+          }
+        },
+        "comparison_row_9hUELG": {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Magnesium</p>",
+            "col_1_label": "<h4><strong>100 MG</strong></h4>",
+            "col_1_subtitle": "",
+            "col_2_label": "<p>60 MG</p>",
+            "col_2_subtitle": "",
+            "col_3_label": "<p>0</p>",
+            "col_3_subtitle": "",
+            "col_4_label": "<p>13 MG</p>",
+            "col_4_subtitle": "",
+            "col_1_icon": "check",
+            "col_2_icon": "minus",
+            "col_3_icon": "minus",
+            "col_4_icon": "minus"
+          }
+        },
+        "comparison_row_4qLp3n": {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Calcium</p>",
+            "col_1_label": "<h4><strong>200 MG</strong></h4>",
+            "col_1_subtitle": "",
+            "col_2_label": "<p>0</p>",
+            "col_2_subtitle": "",
+            "col_3_label": "<p>0</p>",
+            "col_3_subtitle": "",
+            "col_4_label": "<p>25 MG</p>",
+            "col_4_subtitle": "",
+            "col_1_icon": "check",
+            "col_2_icon": "minus",
+            "col_3_icon": "minus",
+            "col_4_icon": "minus"
+          }
+        },
+        "comparison_row_JijjJi": {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Chloride</p>",
+            "col_1_label": "<h4><strong>470 MG</strong></h4>",
+            "col_1_subtitle": "",
+            "col_2_label": "<p>0</p>",
+            "col_2_subtitle": "",
+            "col_3_label": "<p>0</p>",
+            "col_3_subtitle": "",
+            "col_4_label": "<p>40 MG</p>",
+            "col_4_subtitle": "",
+            "col_1_icon": "check",
+            "col_2_icon": "minus",
+            "col_3_icon": "minus",
+            "col_4_icon": "minus"
+          }
+        },
+        "comparison_row_VY99GG": {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Red Orange Complex™</p>",
+            "col_1_label": "<h4><strong>100 MG</strong></h4>",
+            "col_1_subtitle": "",
+            "col_2_label": "<p>0</p>",
+            "col_2_subtitle": "",
+            "col_3_label": "<p>0</p>",
+            "col_3_subtitle": "",
+            "col_4_label": "<p>0</p>",
+            "col_4_subtitle": "",
+            "col_1_icon": "check",
+            "col_2_icon": "minus",
+            "col_3_icon": "minus",
+            "col_4_icon": "minus"
+          }
+        },
+        "comparison_row_ARC9Lz": {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Polypodium Leucotomos</p>",
+            "col_1_label": "<h4><strong>480 MG</strong></h4>",
+            "col_1_subtitle": "",
+            "col_2_label": "<p>0</p>",
+            "col_2_subtitle": "",
+            "col_3_label": "<p>0</p>",
+            "col_3_subtitle": "",
+            "col_4_label": "<p>0</p>",
+            "col_4_subtitle": "",
+            "col_1_icon": "check",
+            "col_2_icon": "minus",
+            "col_3_icon": "minus",
+            "col_4_icon": "minus"
+          }
+        },
+        "comparison_row_87excU": {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Astaxanthin</p>",
+            "col_1_label": "<h4><strong>4 MG  </strong></h4>",
+            "col_1_subtitle": "",
+            "col_2_label": "<p>0</p>",
+            "col_2_subtitle": "",
+            "col_3_label": "<p>0</p>",
+            "col_3_subtitle": "",
+            "col_4_label": "<p>0</p>",
+            "col_4_subtitle": "",
+            "col_1_icon": "check",
+            "col_2_icon": "minus",
+            "col_3_icon": "minus",
+            "col_4_icon": "minus"
+          }
+        }
+      },
+      "block_order": [
+        "header_row_KrTkPQ",
+        "comparison_row_4dzVEN",
+        "comparison_row_AbyNWn",
+        "comparison_row_9hUELG",
+        "comparison_row_4qLp3n",
+        "comparison_row_JijjJi",
+        "comparison_row_VY99GG",
+        "comparison_row_ARC9Lz",
+        "comparison_row_87excU"
+      ],
+      "custom_css": [
+        "@media (max-width: 1023.98px) {.ctr-comparison-table__cell--highlight .ctr-comparison-table__header-image {width: 75%; } .ctr-comparison-table__cell-text {text-align: left; } .ctr-comparison-table__cell {min-height: 90px; } .ctr-comparison-table__row--header .ctr-comparison-table__cell {min-height: 57px; } .ctr-comparison-table__table-wrap {margin-top: 10px; }}"
+      ],
+      "name": "Comparison Table (CTR)",
+      "settings": {
+        "title": "<p>This isn't your<br/> standard <em>electrolyte.</em></p>",
+        "subtitle": "<p>A delicious 0-sugar electrolyte <br/>that replenishes hydration while <br/>fortifying your skin barrier.</p>",
+        "column_count": "4",
+        "use_custom_labels_column_width": true,
+        "labels_column_width": 20,
+        "labels_column_width_mobile": 23,
+        "check_icon": "shopify://shop_images/Vector_1.png",
+        "minus_icon": "shopify://shop_images/Frame_7_4cc68bd1-6bf0-4936-8ba9-6b41e189d810.png",
+        "footnote": "",
+        "legal_badge": "",
+        "button_label": "shop now",
+        "button_arrow_direction": "down",
+        "cta_adds_to_cart": false,
+        "button_link": "#ctr-product-showcase",
+        "cta_product": "skin-support-electrolyte",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "card_background": "#f9f9f9",
+        "highlight_column_background": "#e5581f1a",
+        "border_color": "#21212126",
+        "heading_color": "#212121",
+        "subheading_color": "#00000099",
+        "row_label_color": "#212121",
+        "column_label_color": "#2c2c2c",
+        "cell_text_align": "left",
+        "cell_text_align_mobile": "center",
+        "header_cell_padding_y_desktop": 20,
+        "header_cell_padding_x_desktop": 24,
+        "header_cell_padding_y_mobile": 10,
+        "header_cell_padding_x_mobile": 4,
+        "row_label_cell_padding_y_desktop": 20,
+        "row_label_cell_padding_x_desktop": 24,
+        "row_label_cell_padding_y_mobile": 16,
+        "row_label_cell_padding_x_mobile": 6,
+        "cell_padding_y_desktop": 20,
+        "cell_padding_x_desktop": 24,
+        "cell_padding_y_mobile": 20,
+        "cell_padding_x_mobile": 4,
+        "icon_width_desktop": 40,
+        "icon_width_mobile": 14,
+        "row_label_font_size_desktop": 20,
+        "row_label_font_size_mobile": 12,
+        "cell_title_font_size_desktop": 20,
+        "cell_title_font_size_mobile": 11,
+        "highlight_cell_title_font_size_desktop": 20,
+        "highlight_cell_title_font_size_mobile": 11,
+        "cell_subtitle_font_size_desktop": 20,
+        "cell_subtitle_font_size_mobile": 10,
+        "header_image_max_width_desktop": 174,
+        "header_image_max_width_mobile": 65,
+        "highlight_header_image_max_width_desktop": 119,
+        "highlight_header_image_max_width_mobile": 55,
+        "header_image_margin_top_desktop": -65,
+        "header_image_margin_top_mobile": -40,
+        "highlight_header_image_margin_top_desktop": -73,
+        "highlight_header_image_margin_top_mobile": -29,
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 0,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "wrapper_gap_desktop": 80,
+        "wrapper_gap_mobile": 16
+      }
+    },
+    "ctr_properties_8PUkMd": {
+      "type": "ctr-properties",
+      "blocks": {
+        "item_xbc3BR": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/Claims_b1118274-9666-4df5-a4a9-664798f9627c.png",
+            "title": "<p>Good for</p>",
+            "text": "<p>All skin types.</p>"
+          }
+        },
+        "item_g7w79U": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/Claims_678b0099-0018-4d77-becf-5051173146f2.png",
+            "title": "<p>Tastes like</p>",
+            "text": "<p>Tangy passionfruit, guava, and a hint of zesty lime.</p>"
+          }
+        },
+        "item_gMMT4n": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/Claims_39db5770-9be5-46ec-ad3c-433f76652e34.png",
+            "title": "<p>Color & Texture</p>",
+            "text": "<p>Starts as a sand-colored powder that turns to warm, light pink depending on water concentration.</p>"
+          }
+        },
+        "item_4LbQ7F": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/Claims_41324aab-b5fb-440a-93fc-d497c9cef374.png",
+            "title": "<p>Performance</p>",
+            "text": "<p>Designed to support electrolyte balance while promoting skin vitality and a healthy gut microbiome. Perfect before or after workouts, or anytime you need elevated hydration support.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_xbc3BR",
+        "item_g7w79U",
+        "item_gMMT4n",
+        "item_4LbQ7F"
+      ],
+      "disabled": true,
+      "name": "Properties (CTR)",
+      "settings": {
+        "title": "What to expect",
+        "title_size_desktop": "medium",
+        "title_size_mobile": "medium",
+        "section_text": "",
+        "section_image": "shopify://shop_images/Good_For.png",
+        "hide_mobile_image": false,
+        "button_label": "<p>Start my routine</p>",
+        "button_link": "#shopify-section-template--26785357594929__ctr_product_showcase_3P977N",
+        "button_style": "blue",
+        "button_arrow_direction": "right",
+        "background": "#ffffff",
+        "background_gradient": "",
+        "card_background": "#f9f9f9",
+        "border_color": "#21212126",
+        "content_gap": 40,
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "title_line_2": "",
+        "title_accent_color": "#ff7815",
+        "items_layout": "default",
+        "button_open_new_tab": false
+      }
+    },
+    "ctr_product_showcase_3P977N": {
+      "type": "ctr-product-showcase",
+      "blocks": {
+        "highlight_item_bPrwYb": {
+          "type": "highlight_item",
+          "settings": {
+            "icon": "shopify://shop_images/Circle.png",
+            "title": "<p>Five systems. One daily sachet.</p>",
+            "text": "<p>Hydration, skin barrier, gut health, gut-skin axis and internal UV protection.</p>"
+          }
+        },
+        "highlight_item_T64amH": {
+          "type": "highlight_item",
+          "settings": {
+            "icon": "shopify://shop_images/Circle.png",
+            "title": "<p>Clinically proven ingredients</p>",
+            "text": "<p>A unique blend of polypodium leucotomos, Red Orange Complex®, and astaxanthin that provides internal protection and reduces skin damage as a result of UV exposure.</p>"
+          }
+        },
+        "highlight_item_3UDERX": {
+          "type": "highlight_item",
+          "settings": {
+            "icon": "shopify://shop_images/Circle.png",
+            "title": "<p>North Shore flavor</p>",
+            "text": "<p>Tangy passionfruit, guava & a hint of zesty lime — naturally flavored with real fruit extracts.</p>"
+          }
+        },
+        "highlight_item_fEp8HE": {
+          "type": "highlight_item",
+          "settings": {
+            "icon": "shopify://shop_images/Circle.png",
+            "title": "<p>30-day money-back guarantee</p>",
+            "text": "<p>Add it to your daily routine. If it is not for you, let us know, and we'll take care of it.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "highlight_item_bPrwYb",
+        "highlight_item_T64amH",
+        "highlight_item_3UDERX",
+        "highlight_item_fEp8HE"
+      ],
+      "name": "Product Showcase (CTR)",
+      "settings": {
+        "product": "skin-support-electrolyte",
+        "subtitle_fallback": "<p>Whole-body hydration and protection from the inside out</p>",
+        "button_label": "Add to cart",
+        "cta_as_add_to_cart": true,
+        "cta_link": "",
+        "reviews_anchor_link": "#reviews",
+        "show_timer": true,
+        "timer_text": "<p>FREE FLASK + FREE SHIPPING. OFFER ENDS IN</p>",
+        "timer_duration_hours": 1,
+        "timer_duration_minutes": 0,
+        "timer_background_color": "#e2ebff",
+        "timer_text_color": "#000000",
+        "timer_segment_background_color": "#0032a0",
+        "timer_segment_text_color": "#ffffff",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "border_color": "#21212126",
+        "text_color": "#212121",
+        "muted_text_color": "#21212199",
+        "accent_color": "#fe5000",
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "reviews_HwmTAc": {
+      "type": "reviews",
+      "custom_css": [
+        ".reviews-section > .border-y {border-top-width: 0;}",
+        "@media (min-width: 1024px) {.reviews-section > div > div:first-of-type {padding: 64px 0 40px; }}"
+      ],
+      "settings": {
+        "product_override": "skin-support-electrolyte",
+        "bg_color": "bg-white",
+        "title": "Reviews",
+        "image": "shopify://shop_images/Performance2.png",
+        "hide_mute": false,
+        "full_bleed_media": false
+      }
+    },
+    "ctr_routine_hero_at6Rxp": {
+      "type": "ctr-routine-hero",
+      "custom_css": [
+        "@media (max-width: 550px) {.ctr-routine-hero__title {max-width: 305px; }}"
+      ],
+      "name": "Routine Hero (CTR)",
+      "settings": {
+        "desktop_image": "shopify://shop_images/Container_5.png",
+        "desktop_image_position": "center center",
+        "mobile_image": "shopify://shop_images/Container_4.png",
+        "mobile_image_position": "top center",
+        "title": "<p>Start your <strong>30-day</strong> skin routine</p>",
+        "subtitle": "<p>For a limited time, get a free Freak Flask with a 30-day supply.</p>",
+        "button_label": "Start my routine",
+        "button_link": "#ctr-product-showcase",
+        "button_open_new_tab": false,
+        "button_style": "orange",
+        "button_arrow_direction": "top",
+        "background_color": "#320f11",
+        "background_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(9, 5, 11, 0.25) 100%)",
+        "panel_background": "#ffffff36",
+        "text_color": "#ffffff",
+        "accent_color": "#fb5219",
+        "panel_max_width_desktop": 715,
+        "min_height_desktop": 573,
+        "min_height_mobile": 625,
+        "padding_top_desktop": 100,
+        "padding_bottom_desktop": 100,
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 32
+      }
+    }
+  },
+  "order": [
+    "custom_liquid_6fiee9",
+    "main",
+    "ctr_announcement_bar_wi8hzM",
+    "ctr_nav_section_MjWmmF",
+    "ctr_electrolyte_lp_banner_GiEAjT",
+    "reviews_slider_pN3PPj",
+    "ctr_properties_gfFXek",
+    "ctr_sticky_atc_g7bqdk",
+    "ctr_science_system_4MwbgH",
+    "ctr_five_systems_qB4MTk",
+    "ctr_comparison_table_6VGcP9",
+    "ctr_properties_8PUkMd",
+    "ctr_product_showcase_3P977N",
+    "reviews_HwmTAc",
+    "ctr_routine_hero_at6Rxp"
+  ]
+}

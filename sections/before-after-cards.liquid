@@ -1,0 +1,118 @@
+{% schema %}
+{
+  "name": "Before After Cards",
+  "tag": "section",
+  "class": "before-after-cards-section",
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Before After Cards",
+      "settings": {
+        "bg_color": "bg-white",
+        "gap": true
+      },
+      "blocks": [
+        {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "caption": "After 4 Weeks",
+            "tag": "After",
+            "padding": false
+          }
+        },
+        {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "caption": "After 4 Weeks",
+            "tag": "After",
+            "padding": false
+          }
+        },
+        {
+          "type": "clinical-study-card",
+          "settings": {
+            "yes_count": 27,
+            "no_count": 9,
+            "recommendation_text": "of participants saw a healthier skin microbiome",
+            "display_format": "percentage"
+          }
+        },
+        {
+          "type": "clinical-study-card",
+          "settings": {
+            "yes_count": 32,
+            "no_count": 4,
+            "recommendation_text": "reported improved skin texture",
+            "display_format": "percentage"
+          }
+        },
+        {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "caption": "After 4 Weeks",
+            "tag": "After",
+            "padding": false
+          }
+        },
+        {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "caption": "After 4 Weeks",
+            "tag": "After",
+            "padding": false
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "checkbox",
+      "id": "gap",
+      "label": "Gap",
+      "default": false,
+      "info": "If enabled, the gap between the card rows will be removed."
+    }
+  ],
+  "blocks": [{ "type": "clinical-study-card" }, { "type": "image-card" }, { "type": "result-card" }],
+  "enabled_on": {
+    "templates": ["*"]
+  }
+}
+{% endschema %}
+
+{% if section.blocks.size > 0 %}
+  <div class="my-24 px-24 lg:my-40 lg:px-40 {{ section.settings.bg_color }}">
+    <div
+      class="
+        {% if section.settings.gap %}lg:gap-y-40 [&>*:nth-child(3)]:mb-24 lg:[&>*:nth-child(3)]:mb-0{% endif %}
+        grid grid-cols-2 lg:grid-cols-3 [&>*:nth-child(3)]:col-span-2 [&>*:nth-child(3)]:aspect-auto
+        [&>*:nth-child(4)]:order-3 [&>*:nth-child(4)]:col-span-2
+        [&>*:nth-child(4)]:aspect-auto [&>*:nth-child(n)]:lg:order-none [&>*:nth-child(n)]:lg:col-span-1
+        [&>*:nth-child(n)]:lg:aspect-[0.8] [&>*]:-m-1 [&>*]:aspect-[0.8]
+      "
+    >
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+{% endif %}

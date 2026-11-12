@@ -1,0 +1,87 @@
+{% schema %}
+{
+  "name": "Press",
+  "tag": "section",
+  "class": "press-section",
+  "presets": [
+    {
+      "name": "Press",
+      "blocks": [
+        {
+          "type": "quote",
+          "settings": {
+            "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+            "logo": ""
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+            "logo": ""
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+            "logo": ""
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Quote",
+      "type": "quote",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author name",
+          "info": "Shown under the quote when no logo is set, e.g. for a customer review."
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Show \"Verified buyer\" badge",
+          "default": false
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% if section.blocks.size > 0 %}
+  {% render 'press-slider', bg_color: section.settings.bg_color, blocks: section.blocks %}
+{% endif %}

@@ -1,0 +1,126 @@
+{% style %}
+  #hero-video .video-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0s 0.5s;
+    opacity: 0;
+    z-index: 1001;
+  }
+
+  #hero-video .js-show-video-overlay {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease-in-out, visibility 0s 0s;
+  }
+{% endstyle %}
+
+{% case section.settings.bg_color %}
+  {% when 'offWhite' %}
+    {% assign extra_wrapper_classes = 'px-8 lg:px-12 text-balance border-none -mb-1' %}
+    {% assign bg_lines = 'bg-grey-lines' %}
+    {% assign text_color = 'text-black' %}
+    {% assign bg_color = 'bg-offWhite' %}
+
+  {% when 'orange' %}
+    {% assign extra_wrapper_classes = 'px-8 lg:px-12 text-balance border-none -mb-1' %}
+    {% assign bg_lines = 'bg-blue-lines' %}
+
+    {% assign text_color = 'text-blue' %}
+    {% assign bg_color = 'bg-orange' %}
+
+  {% else %}
+    {% assign extra_wrapper_classes = 'px-8 lg:px-12 text-balance border-none -mb-1 bg-white' %}
+    {% assign bg_lines = 'bg-grey-lines' %}
+    {% assign text_color = 'text-black' %}
+    {% assign bg_color = 'bg-white' %}
+{% endcase %}
+
+<hero-video-element id="hero-video" class="{{ bg_color }}">
+  <div class="relative flex h-screen flex-col">
+    {% render 'title',
+      title: section.settings.title,
+      text_size: 'font-neue fn-tt-title-80',
+      extra_wrapper_classes: extra_wrapper_classes,
+      text_color: text_color,
+      bg_color: bg_color,
+      bg_lines: bg_lines,
+      isH1: true
+    %}
+
+    {% if section.settings.cta != blank %}
+      <a href="{{ section.settings.cta_link }}" aria-label="{{ section.settings.cta }}">
+        <div class="lg:w-full">
+          {% render 'cta',
+            as: 'button',
+            text: section.settings.cta,
+            extra_classes: 'w-full',
+            hasIcons: true,
+            cta_color: section.settings.cta_color
+          %}
+        </div>
+      </a>
+    {% endif %}
+
+    <div data-section class="relative z-0 h-full lg:hover:cursor-pointer">
+      {% if section.settings.image != blank and section.settings.preview_video == blank %}
+        {{
+          section.settings.image
+          | image_url: width: 1920
+          | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            sizes: '100vw',
+            widths: '375, 414, 768, 1024, 1280, 1536, 1920',
+            class: 'w-full h-full object-cover absolute inset-0 z-10 transition-opacity duration-300 ease-in-out'
+        }}
+      {% endif %}
+
+      {% if section.settings.preview_video != blank %}
+        {% assign poster = section.settings.preview_video.preview_image.src | image_url: width: 2000 %}
+
+        {{
+          section.settings.preview_video
+          | video_tag:
+            class: 'w-full h-full object-cover absolute inset-0 z-0',
+            autoplay: true,
+            poster: poster,
+            preload: 'auto',
+            loop: true,
+            muted: true,
+            controls: false,
+            playsinline: true,
+            data-autopause: true
+        }}
+        <button
+          aria-label="Play Video"
+          data-control
+          class="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform bg-blue p-22 text-white lg:hidden"
+        >
+          {% render 'icon-play', class: 'w-20' %}
+        </button>
+      {% endif %}
+    </div>
+
+    {% if section.settings.show_tagline == true %}
+      {% render 'hero-tagline',
+        class: 'flex flex-col gap-4  p-8 z-20 leading-6 align-center lg:flex-row bg-white align-center lg:absolute lg:bottom-0 lg:left-0 lg:gap-16 lg:px-8 lg:py-4 border-b border-black/15'
+      %}
+    {% endif %}
+  </div>
+  {% if section.settings.video != blank %}
+    <div
+      data-cursor
+      class="z-30 hidden  gap-4 overflow-hidden bg-blue text-2xl font-medium uppercase leading-none text-white transition-transform duration-300 ease-in-out lg:fixed lg:flex lg:h-24 lg:w-[146px] lg:items-center lg:justify-center"
+    >
+      {% render 'icon-play', class: 'w-16' %}
+      <p class="lg:-mb-1">Play Video</p>
+    </div>
+    {% render 'video-overlay', video: section.settings.video %}
+  {% endif %}
+</hero-video-element>

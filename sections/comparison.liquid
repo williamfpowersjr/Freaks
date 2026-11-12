@@ -1,0 +1,115 @@
+{% schema %}
+{
+  "name": "Comparison",
+  "tag": "section",
+  "class": "comparison-section",
+  "presets": [
+    {
+      "name": "Comparison",
+      "category": "Comparison",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Lorem ipsum",
+        "title_a": "Lorem ipsum",
+        "image_1a": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+        "title_1a": "Lorem ipsum",
+        "image_2a": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+        "title_2a": "Lorem ipsum",
+        "title_b": "Lorem ipsum",
+        "image_1b": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+        "title_1b": "Lorem ipsum",
+        "image_2b": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+        "title_2b": "Lorem ipsum"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "title_a",
+      "label": "Title Comparison A"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1a",
+      "label": "Image 1 Comparison A"
+    },
+    {
+      "type": "text",
+      "id": "title_1a",
+      "label": "Title 1 Comparison A"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2a",
+      "label": "Image 2 Comparison A"
+    },
+    {
+      "type": "text",
+      "id": "title_2a",
+      "label": "Title 2 Comparison A"
+    },
+    {
+      "type": "text",
+      "id": "title_b",
+      "label": "Title Comparison B"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1b",
+      "label": "Image 1 Comparison B"
+    },
+    {
+      "type": "text",
+      "id": "title_1b",
+      "label": "Title 1 Comparison B"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2b",
+      "label": "Image 2 Comparison B"
+    },
+    {
+      "type": "text",
+      "id": "title_2b",
+      "label": "Title 2 Comparison B"
+    }
+  ]
+}
+{% endschema %}
+
+{% render 'comparison-slider',
+  title: section.settings.title,
+  title_a: section.settings.title_a,
+  title_b: section.settings.title_b,
+  bg_color: section.settings.bg_color,
+  image_a1: section.settings.image_1a,
+  title_a1: section.settings.title_1a,
+  image_a2: section.settings.image_2a,
+  title_a2: section.settings.title_2a,
+  image_b1: section.settings.image_1b,
+  title_b1: section.settings.title_1b,
+  image_b2: section.settings.image_2b,
+  title_b2: section.settings.title_2b
+%}

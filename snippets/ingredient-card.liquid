@@ -1,0 +1,29 @@
+<div class="flex flex-1 flex-col gap-24 border-t border-blue/20 p-24 lg:p-40">
+  <div class="flex flex-wrap gap-4">
+    {% if tag_title_1 %}
+      {% render 'ingredient-badge',
+        tag_title: tag_title_1,
+        tag_thumbnail: tag_thumbnail_1,
+        text_color: 'text-blue',
+        extra_classes: 'border border-blue/20'
+      %}
+    {% endif %}
+    {% if tag_title_2 %}
+      {% render 'ingredient-badge',
+        tag_title: tag_title_2,
+        tag_thumbnail: tag_thumbnail_2,
+        text_color: 'text-blue',
+        extra_classes: 'border border-blue/20'
+      %}
+    {% endif %}
+    {% if tag_title_3 %}
+      {% render 'ingredient-badge',
+        tag_title: tag_title_3,
+        tag_thumbnail: tag_thumbnail_3,
+        text_color: 'text-blue',
+        extra_classes: 'border border-blue/20'
+      %}
+    {% endif %}
+  </div>
+  <div class="fn-tt-body-10 lg:fn-tt-body-20 inline-rich-text flex-1 text-blue">{{ card_text }}</div>
+</div>

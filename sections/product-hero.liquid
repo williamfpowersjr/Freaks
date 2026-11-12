@@ -1,0 +1,1369 @@
+{% schema %}
+{
+  "name": "Product Hero",
+  "tag": "section",
+  "class": "product-hero-section",
+  "presets": [
+    {
+      "name": "Product Hero",
+      "category": "Product Hero",
+      "settings": {
+        "bg_color": "bg-white",
+        "title_size": "large",
+        "show_inventory_quantity": false,
+        "subsDefaultOption": "onetime",
+        "subsOrder": "onetime_top",
+        "discount_tag": "+ Free Shipping",
+        "subscription_title": "Subscribe",
+        "subscription_style_variant": "primary",
+        "cta": "Add to cart",
+        "social_quote": "Check out this product!",
+        "notify_text": "Get notified when the product is available again",
+        "notify_placeholder": "Enter your email",
+        "notify_success": "Thank you! We will notify you when the product is back in stock.",
+        "klaviyo_api_key": "SdwbFd",
+        "notify_subtext": "<p>By signing up, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Service</a> and our <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a>.</p>",
+        "bundle_title": "Upgrade to our bundle"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product Override"
+    },
+    {
+      "type": "product",
+      "id": "product_override",
+      "label": "Product Override",
+      "info": "If set, this product will be used instead of the page product."
+    },
+    {
+      "type": "checkbox",
+      "id": "is_landing_page",
+      "label": "Is Landing Page",
+      "default": false,
+      "info": "If enabled, variant product option siblings won't redirect to the product page. The section updates in place, keeping the landing page URL."
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": "Title Size",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_inventory_quantity",
+      "label": "Show Inventory Quantity",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Product Gallery"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_badge",
+      "label": "Badge",
+      "info": "A badge to be displayed on the lower-right corner of the product gallery. Use an image with a 1:1 aspect ratio."
+    },
+    {
+      "type": "checkbox",
+      "id": "gallery_badge_first_image_only",
+      "label": "Show badge only on first image",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "use_variant_media",
+      "label": "Use Variant Media",
+      "default": false,
+      "info": "If enabled, the product gallery will display variant-specific media from the variant's metafields instead of the default product media."
+    },
+    {
+      "type": "header",
+      "content": "Product Description"
+    },
+    {
+      "type": "text",
+      "id": "discount_tag",
+      "label": "Discount Benefit",
+      "default": "+ Free Shipping"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_from_price_and_discount",
+      "label": "Hide from price and discount row",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_description",
+      "label": "Hide Description",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_summary",
+      "label": "Hide Summary",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Product Form"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_siblings",
+      "label": "Show siblings",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "product_discount_heading",
+      "label": "Product Discount Heading"
+    },
+    {
+      "type": "select",
+      "id": "subscription_badge_type",
+      "label": "Subscription Badge",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto"
+        },
+        {
+          "value": "discount_and_free_shipping",
+          "label": "Discount + Free shipping"
+        },
+        {
+          "value": "manual",
+          "label": "Manual"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "auto",
+      "info": "If auto, the badge will be shown based on the subscription discount set in Recharge."
+    },
+    {
+      "type": "text",
+      "id": "subscription_badge_text",
+      "label": "Subscription Badge Text",
+      "default": "Save 25%",
+      "visible_if": "{{ section.settings.subscription_badge_type == 'manual' }}"
+    },
+    {
+      "type": "text",
+      "id": "subscription_badge_custom_text",
+      "label": "Subscription Badge Custom Text",
+      "default": "[extra] [saving] OFF",
+      "visible_if": "{{ section.settings.subscription_badge_type == 'custom' }}",
+      "info": "Use [extra] and [saving] placeholders. If [extra] is not included, EXTRA is appended automatically when enabled."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_extra_in_saving_badge",
+      "label": "Add EXTRA to Saving Badge for Badged Variants",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_unit_price",
+      "label": "Show Unit Price",
+      "default": false,
+      "info": "If enabled, the unit price (eg. '$20.40/stick') will be shown in the product form. Requires the 'Bundle Size' to be set in the variants' metafields. Ony applies to products with multiple variants."
+    },
+    {
+      "type": "text",
+      "id": "unit_name",
+      "label": "Unit Name",
+      "info": "eg. 'stick' will display like '$20.40/stick'",
+      "visible_if": "{{ section.settings.show_unit_price == true }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_variant_title_in_variant_picker",
+      "label": "Show Variant Title in Variant Picker",
+      "default": false,
+      "info": "If enabled, the variant title will be shown in the variant picker."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_prices_in_variant_picker",
+      "label": "Show Prices in Variant Picker",
+      "default": false,
+      "info": "If enabled, the variant prices and compare-at prices will be shown in the variant picker."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_default_variant_picker",
+      "label": "Hide Default Variant Picker",
+      "default": false,
+      "info": "If enabled, only custom variant product options will be shown."
+    },
+    {
+      "type": "text",
+      "id": "excluded_variant_options",
+      "label": "Excluded Variant Options",
+      "info": "Comma-separated option names to hide from the picker, e.g. Bundle And Save. Leave blank to show all."
+    },
+    {
+      "type": "text",
+      "id": "variant_product_option_label",
+      "label": "Variant Product Option Label",
+      "default": "Scent",
+      "info": "Label shown above variant product option swatches. Leave blank to hide the label."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_variant_product_option_badges",
+      "label": "Hide Variant Product Option Badges",
+      "default": false,
+      "info": "If enabled, badge labels on variant product option swatches will be hidden."
+    },
+    {
+      "type": "select",
+      "id": "variant_picker_style",
+      "label": "Variant Picker Style",
+      "options": [
+        {
+          "value": "title",
+          "label": "Title"
+        },
+        {
+          "value": "swatches",
+          "label": "Swatches"
+        }
+      ],
+      "default": "title"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_quantity_input",
+      "label": "Hide Quantity Input",
+      "default": false,
+      "info": "If enabled, the quantity input will be hidden in the one time purchase form."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quantity_input_for_subscription",
+      "label": "Show Quantity Input for Subscription",
+      "default": false,
+      "info": "If enabled, quantity input will also show for subscription variants."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_purchase_selector",
+      "label": "Hide Purchase Selector",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "one_time_purchase_badge_text",
+      "label": "One Time Purchase Badge Text"
+    },
+    {
+      "type": "select",
+      "id": "subsDefaultOption",
+      "label": "Subs: Default Selection",
+      "options": [
+        {
+          "value": "subscriptions",
+          "label": "Subscriptions"
+        },
+        {
+          "value": "onetime",
+          "label": "One Time Purchase"
+        }
+      ],
+      "default": "onetime"
+    },
+    {
+      "type": "select",
+      "id": "subsOrder",
+      "label": "Subs: Order",
+      "options": [
+        {
+          "value": "subs_top",
+          "label": "Subscription Purchase on top"
+        },
+        {
+          "value": "onetime_top",
+          "label": "One Time Purchase on top"
+        }
+      ],
+      "default": "onetime_top"
+    },
+    {
+      "type": "select",
+      "id": "subscription_form_style",
+      "label": "Subscription Form Style",
+      "options": [
+        {
+          "value": "stacked",
+          "label": "Stacked"
+        },
+        {
+          "value": "compact",
+          "label": "Compact"
+        }
+      ],
+      "default": "stacked"
+    },
+    {
+      "type": "select",
+      "id": "subscription_style_variant",
+      "label": "Subscription Block Style",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Primary (Default)"
+        },
+        {
+          "value": "secondary",
+          "label": "Secondary (Redesign)"
+        }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "checkbox",
+      "id": "split_subscriptions_by_variants",
+      "label": "Split Subscriptions By Variants",
+      "default": false,
+      "info": "If enabled, subscription will be split according to the variant options. One-time purchase will only be available for the last option in the variant."
+    },
+    {
+      "type": "text",
+      "id": "subscription_title",
+      "label": "Subscription Title",
+      "default": "Subscribe",
+      "info": "If 'Split Subscriptions By Variants' is enabled, add '#option#' to the title to display the variant option name. Example: Daily Routine (#option#)"
+    },
+    {
+      "type": "text",
+      "id": "one_time_title",
+      "label": "One Time Title",
+      "default": "One-time",
+      "info": "If 'Split Subscriptions By Variants' is enabled, add '#option#' to the title to display the variant option name. Example: One-time purchase (#option#)"
+    },
+    {
+      "type": "richtext",
+      "id": "subscription_delivered_every_text",
+      "label": "Delivered Every Text",
+      "info": "Optional label shown above the selling plan selector."
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse_selling_plan_order",
+      "label": "Reverse selling plan order",
+      "default": false,
+      "info": "When enabled, selling plans are shown in reverse Recharge order (e.g. 3 months first). When disabled, follows Recharge display order."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subscription_saving_message",
+      "label": "Show Subscription Saving Message",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Add to cart Cta Text",
+      "default": "Add to cart"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Optional Cta Link",
+      "info": "Optional Cta Link. If filled, instead of the Product Form, a regular Cta will be shown."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_out_of_stock_banner",
+      "label": "Show Out of Stock Banner",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "out_of_stock_banner_text",
+      "label": "Out of Stock Banner text"
+    },
+    {
+      "type": "header",
+      "content": "Social"
+    },
+    {
+      "type": "image_picker",
+      "id": "social_image",
+      "label": "Social Image"
+    },
+    {
+      "type": "text",
+      "id": "social_quote",
+      "label": "Social Quote"
+    },
+    {
+      "type": "text",
+      "id": "social_profile_name",
+      "label": "Social Profile Name",
+      "info": "Will only show if link if Social Link is filled"
+    },
+    {
+      "type": "image_picker",
+      "id": "social_profile_image",
+      "label": "Social Profile Image",
+      "info": "Will only show if link if Social Link is filled"
+    },
+    {
+      "type": "url",
+      "id": "social_link",
+      "label": "Social Link"
+    },
+    {
+      "type": "header",
+      "content": "Product Details"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_details",
+      "label": "Show details",
+      "default": true,
+      "info": "Check on if you would like to show the products details. Find the 'Product Hero Details' definition in the product's metafields."
+    },
+    {
+      "type": "header",
+      "content": "Notify Me"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_notify",
+      "label": "Show Notify Me Signup",
+      "default": true,
+      "info": "Check on if you would like to show the the 'Notify Me' signup when a product is out of stock."
+    },
+    {
+      "type": "text",
+      "id": "notify_text",
+      "label": "Notify Me Text",
+      "default": "Get notified when the product is available again"
+    },
+    {
+      "type": "text",
+      "id": "notify_placeholder",
+      "label": "Notify Me Placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "notify_success",
+      "label": "Notify Me Success Message",
+      "default": "Thank you! We will notify you when the product is back in stock."
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_api_key",
+      "label": "Klaviyo Public API Key",
+      "default": "SdwbFd"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_list_id",
+      "label": "Klaviyo List ID"
+    },
+    {
+      "type": "richtext",
+      "id": "notify_subtext",
+      "label": "Notify Me Subtext",
+      "default": "<p>By signing up, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Service</a> and our <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a>.</p>"
+    },
+    {
+      "type": "text",
+      "id": "bundle_title",
+      "label": "Bundle Title",
+      "default": "Upgrade to our bundle"
+    },
+    {
+      "type": "header",
+      "content": "Video Carousel"
+    },
+    {
+      "type": "text",
+      "id": "video_carousel_heading",
+      "label": "Video Carousel Heading",
+      "info": "Heading shown above the video carousel (rendered below Add to Cart). Add 'Video Carousel Item' blocks to populate the videos.",
+      "default": "STRAIGHT FROM THE FREAKS"
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "name": "Accordion",
+      "type": "accordion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Accordion Title"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_variant_metafield",
+          "label": "Use Variant Metafield",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "variant_metafield",
+          "label": "Variant Metafield",
+          "visible_if": "{{ block.settings.use_variant_metafield == true }}",
+          "info": "This is the key of the metafield that contains the text to display in the accordion. Eg. if the metafield is variant.metafields.custom.scent, the key would be 'scent'."
+        },
+        {
+          "type": "richtext",
+          "id": "richtext",
+          "label": "Accordion Text",
+          "visible_if": "{{ block.settings.use_variant_metafield != true }}"
+        }
+      ]
+    },
+    {
+      "name": "Summary",
+      "type": "summary",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Summary List Item"
+        }
+      ]
+    },
+    {
+      "name": "Video Carousel Item",
+      "type": "video_carousel_item",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "info": "Short uppercase tag shown top-left of the video. Eg. BIODEGRADABLE"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption",
+          "info": "Optional caption shown near the bottom of the video."
+        }
+      ]
+    },
+    {
+      "name": "Variant Product Option",
+      "type": "variant_product_option",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "variant_id",
+          "label": "Variant ID",
+          "info": "Optional variant ID to use when switching to this product."
+        },
+        {
+          "type": "text",
+          "id": "preselected_selling_plan_id",
+          "label": "Preselected Selling Plan ID",
+          "info": "Optional selling plan ID to preselect when this option is clicked. If blank, the current selling plan stays unchanged."
+        },
+        {
+          "type": "text",
+          "id": "option_label",
+          "label": "Label",
+          "info": "Optional label override for this option."
+        },
+        {
+          "type": "text",
+          "id": "badge_label",
+          "label": "Badge Label",
+          "info": "Optional badge label override. Example: 10% OFF"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_override",
+          "label": "Image Override",
+          "info": "Optional image override for this option."
+        }
+      ]
+    },
+    {
+      "name": "Bundle",
+      "type": "bundle",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "product",
+          "id": "bundle_product",
+          "label": "Product Bundle",
+          "info": "Fill this field if you would like the product bundle recommendation to show in the hero."
+        },
+        {
+          "type": "text",
+          "id": "banner",
+          "label": "Bundle Banner"
+        },
+        {
+          "type": "select",
+          "id": "bundle_cta_color",
+          "label": "Bundle Cta Color",
+          "options": [
+            {
+              "value": "orange",
+              "label": "Orange"
+            },
+            {
+              "value": "blue",
+              "label": "Blue"
+            },
+            {
+              "value": "black",
+              "label": "Black"
+            },
+            {
+              "value": "white",
+              "label": "White"
+            }
+          ],
+          "default": "blue"
+        }
+      ]
+    },
+    {
+      "name": "Subscription Benefit",
+      "type": "subscription_benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Subscription Benefit Text"
+        },
+        {
+          "type": "textarea",
+          "id": "benefit_variant_ids",
+          "label": "Benefit Variant ID's",
+          "info": "Enter the variant IDs, separated by commas. These are the variant IDs that will be used to display the benefits. Example: 1234567890,1234567891,1234567892"
+        }
+      ]
+    },
+    {
+      "name": "Refill Upsell",
+      "type": "refill_upsell",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "headline",
+          "label": "Headline",
+          "default": "Add a Refill"
+        },
+        {
+          "type": "select",
+          "id": "cta_color",
+          "label": "CTA Color",
+          "options": [
+            {
+              "value": "orange",
+              "label": "Orange"
+            },
+            {
+              "value": "blue",
+              "label": "Blue"
+            },
+            {
+              "value": "black",
+              "label": "Black"
+            },
+            {
+              "value": "white",
+              "label": "White"
+            }
+          ],
+          "default": "blue"
+        }
+      ]
+    },
+    {
+      "name": "Variant icons table",
+      "type": "variant_icons_table",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "name": "Supplement Popup",
+      "type": "supplement_popup",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Popup Heading"
+        }
+      ]
+    },
+    {
+      "name": "Warning Popup",
+      "type": "warning_popup",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Popup Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Popup Content"
+        },
+        {
+          "type": "textarea",
+          "id": "us_states_to_show",
+          "label": "Show only for specific US States",
+          "info": "Enter the US State abbreviations, separated by commas. Example: AL,CA,FL"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+{% endstyle %}
+
+{% liquid
+  assign active_product = product
+  if section.settings.is_landing_page
+    if active_product == blank
+      assign active_product = section.settings.product_override
+    endif
+  elsif section.settings.product_override != blank
+    assign active_product = section.settings.product_override
+  endif
+  assign product = active_product
+%}
+
+{%- comment -%}
+  On landing pages the default product may be one-time only while a sibling
+  offers subscriptions. Render the subscription styles up front so they are part
+  of the page's CSS subset and remain applied after an in-place section swap.
+{%- endcomment -%}
+{% if section.settings.is_landing_page %}
+  {% render 'ctr-subscription-item-styles' %}
+{% endif %}
+
+{% assign product_details = product.metafields.custom.details.value %}
+{% assign product_volume = product.metafields.custom.volume.value %}
+{% assign product_is_available = product.selected_or_first_available_variant.available %}
+
+{% if section.settings.product_discount_heading != blank %}
+  {% assign product_discount_heading = section.settings.product_discount_heading %}
+{% endif %}
+
+{% assign total_individual_price = 0 %}
+{% assign bundle_products = product.metafields.custom.bundle_products.value %}
+
+{% for bundle_product_handle in bundle_products %}
+  {% assign bundle_product = all_products[bundle_product_handle.handle] %}
+
+  {% if bundle_product %}
+    {% assign product_price = bundle_product.price %}
+    {% assign total_individual_price = total_individual_price | plus: product_price %}
+
+    {% assign product_selling_plan_prices = bundle_product.selling_plan_allocations %}
+
+    {% if product_selling_plan_prices.size > 0 %}
+      {% assign highest_savings_on_product = 0 %}
+
+      {% for selling_plan in product_selling_plan_prices %}
+        {% assign selling_plan_price = selling_plan.price %}
+        {% assign savings_for_plan = product_price | minus: selling_plan_price %}
+
+        {% if savings_for_plan > highest_savings_on_product %}
+          {% assign highest_savings_on_product = savings_for_plan %}
+        {% endif %}
+      {% endfor %}
+
+      {% assign total_individual_price = total_individual_price | minus: highest_savings_on_product %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% assign product_is_bundle = false %}
+{% if product.metafields.custom.product_is_bundle.value == true %}
+  {% assign product_is_bundle = true %}
+{% endif %}
+
+{% assign has_accordion = false %}
+{% for block in section.blocks %}
+  {% if block.type == 'accordion' or block.type == '@app' %}
+    {% assign has_accordion = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% assign has_summary_block = false %}
+{% for block in section.blocks %}
+  {% if block.type == 'summary' and block.settings.title != blank %}
+    {% assign has_summary_block = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% assign has_bundle_block = false %}
+{% for block in section.blocks %}
+  {% if block.type == 'bundle' and block.settings.bundle_product.available %}
+    {% assign has_bundle_block = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% assign has_refill_upsell_block = false %}
+{% for block in section.blocks %}
+  {% if block.type == 'refill_upsell' %}
+    {% assign has_refill_upsell_block = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% assign has_variant_icons_block = false %}
+{% for block in section.blocks %}
+  {% if block.type == 'variant_icons_table' %}
+    {% assign has_variant_icons_block = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% assign has_video_carousel_block = false %}
+{% for block in section.blocks %}
+  {% if block.type == 'video_carousel_item' and block.settings.video != blank %}
+    {% assign has_video_carousel_block = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% assign lowest_price = product.selected_or_first_available_variant.price %}
+{% assign unformatted_subscription_discounted_price = product.selected_or_first_available_variant.price %}
+{% for group in product.selling_plan_groups %}
+  {% unless group.name == 'Pre Order' %}
+    {% assign price_adjustment_value_type = group.selling_plans[0].price_adjustments[0].value_type %}
+    {% assign price_adjustment_value = group.selling_plans[0].price_adjustments[0].value %}
+    {% assign product_price = product.selected_or_first_available_variant.price %}
+    {% assign subscription_discounted_price = product.selected_or_first_available_variant.price %}
+
+    {% if price_adjustment_value_type == 'percentage' %}
+      {% assign price_adjustment_multiplier = 100 | minus: price_adjustment_value | times: 0.01 %}
+      {% assign subscription_discounted_price = product_price | times: price_adjustment_multiplier %}
+      {% assign lowest_price = subscription_discounted_price %}
+      {% assign unformatted_subscription_discounted_price = subscription_discounted_price %}
+
+    {% else %}
+      {% if price_adjustment_value_type == 'fixed_amount' %}
+        {% assign subscription_discounted_price = product_price | minus: price_adjustment_value %}
+        {% assign lowest_price = subscription_discounted_price %}
+        {% assign unformatted_subscription_discounted_price = subscription_discounted_price %}
+      {% endif %}
+    {% else %}
+      {% if price_adjustment_value_type == 'price' %}
+        {% assign subscription_discounted_price = price_adjustment_value %}
+        {% assign lowest_price = subscription_discounted_price %}
+        {% assign unformatted_subscription_discounted_price = subscription_discounted_price %}
+      {% endif %}
+    {% endif %}
+    {% assign subscription_discounted_price = subscription_discounted_price | money %}
+  {% endunless %}
+{% endfor %}
+
+{% assign lowest_price = lowest_price | money_without_trailing_zeros %}
+
+<section-renderer
+  section-id="{{ section.id }}"
+  {% if product and product.url != blank %}
+    product-url="{{ product.url }}"
+  {% endif %}
+>
+  <div
+    style="scroll-margin-top: var(--header-height)"
+    class="relative flex flex-col border-b border-t border-black/15 lg:flex-row lg:border-t-0"
+  >
+    <div
+      class="relative flex h-full flex-col overflow-hidden lg:sticky lg:top-[--dynamic-header-height] lg:z-20 lg:w-1/2"
+    >
+      {% render 'product-gallery-mobile',
+        product: product,
+        product_images: product.media,
+        gallery_badge: section.settings.gallery_badge,
+        gallery_badge_first_image_only: section.settings.gallery_badge_first_image_only,
+        use_variant_media: section.settings.use_variant_media
+      %}
+      {% render 'product-gallery-desktop',
+        product: product,
+        product_images: product.media,
+        gallery_badge: section.settings.gallery_badge,
+        gallery_badge_first_image_only: section.settings.gallery_badge_first_image_only,
+        use_variant_media: section.settings.use_variant_media
+      %}
+    </div>
+
+    <div class="relative flex h-fit w-full flex-col lg:h-auto lg:w-1/2 lg:border-l lg:border-black/15 ">
+      <div data-pdp-hero id="product-hero-content">
+        {% comment %} mobile title {% endcomment %}
+        <div class="pt-32 lg:hidden">
+          {% if section.settings.title_size == 'small' %}
+            {% assign text_size = 'fn-tt-title-50' %}
+          {% else %}
+            {% assign text_size = 'fn-tt-title-80 lg:fn-tt-title-70' %}
+          {% endif %}
+          {% render 'title',
+            title: product.title,
+            text_size: text_size,
+            extra_wrapper_classes: 'overflow-hidden text-center pdp-main-title',
+            isH1: true,
+            bg_lines: 'bg-grey-lines',
+            bg_color: section.settings.bg_color,
+            extra_text_classes: '!leading-[0.98]'
+          %}
+          {% render 'title',
+            title: product.type,
+            text_size: 'font-text text-[16px]',
+            extra_wrapper_classes: 'overflow-hidden !pt-0 text-black/60 text-center',
+            isH1: true,
+            bg_lines: 'bg-grey-lines',
+            bg_color: section.settings.bg_color,
+            extra_text_classes: '!leading-[24px] !pt-0 !-mb-3 font-medium !normal-case max-w-[278px] mx-auto',
+            lines_interval: '24px'
+          %}
+          {% if section.settings.show_inventory_quantity == true %}
+            {% render 'inventory-quantity', quantity: product.variants[0].inventory_quantity %}
+          {% endif %}
+        </div>
+
+        {% comment %} desktop title {% endcomment %}
+        <div class="menu-bar--offset hidden lg:block">
+          {% render 'title',
+            title: product.title,
+            text_size: text_size,
+            extra_wrapper_classes: 'pdp-main-title overflow-hidden text-center ',
+            isH1: true,
+            bg_lines: 'bg-grey-lines',
+            bg_color: section.settings.bg_color,
+            extra_text_classes: '!leading-[0.98]'
+          %}
+          {% render 'title',
+            title: product.type,
+            text_size: 'font-text text-[24px]',
+            extra_wrapper_classes: 'overflow-hidden -my-1 text-black/60 !pt-0 text-center',
+            isH1: true,
+            bg_lines: 'bg-grey-lines',
+            bg_color: section.settings.bg_color,
+            extra_text_classes: '!leading-[1.4] !pt-0 !-mb-3 font-medium !normal-case',
+            lines_interval: '33px'
+          %}
+          {% if section.settings.show_inventory_quantity == true %}
+            {% render 'inventory-quantity', quantity: product.variants[0].inventory_quantity %}
+          {% endif %}
+        </div>
+
+        <div class="product-hero__content relative flex flex-1 flex-col items-center p-24 lg:px-80 lg:pb-80 lg:pt-40">
+          {% if product.selected_or_first_available_variant.metafields.custom.promotional_callout != blank %}
+            <div class="fn-tt-sub-title-40 mb-16 flex items-center justify-center bg-orange/15 px-16 py-4 text-center font-medium lg:mb-40">
+              {{ product.selected_or_first_available_variant.metafields.custom.promotional_callout | metafield_tag }}
+            </div>
+          {% endif %}
+
+          <div class="flex w-full flex-wrap items-center justify-between gap-y-8 lg:justify-center lg:gap-x-24">
+            {% render 'junip-product-summary', product: product %}
+
+            {% if product_volume != blank %}
+              {% render 'label', text: product_volume, hasPadding: false %}
+            {% endif %}
+            {% unless product.selling_plan_groups.size < 1
+              or pre_order == true
+              or section.settings.hide_from_price_and_discount == true
+            %}
+              <div class="fn-tt-body-10 hidden gap-3 text-left lg:flex">
+                <div class="text-nowrap font-medium">From {{ lowest_price }}</div>
+                {% if section.settings.discount_tag != blank %}
+                  <div class="text-nowrap font-medium">{{ section.settings.discount_tag }}</div>
+                {% endif %}
+              </div>
+            {% endunless %}
+          </div>
+
+          {% unless product.selling_plan_groups.size < 1
+            or pre_order == true
+            or section.settings.hide_from_price_and_discount == true
+          %}
+            <div class="fn-tt-body-10 flex w-full gap-3 pt-16 text-left lg:hidden">
+              <div class="text-nowrap font-medium">From {{ lowest_price }}</div>
+              {% if section.settings.discount_tag != blank %}
+                <div class="text-nowrap font-medium">{{ section.settings.discount_tag }}</div>
+              {% endif %}
+            </div>
+          {% endunless %}
+
+          {% comment %} desktop description {% endcomment %}
+          {% if product.description != blank and section.settings.hide_description != true %}
+            <div class="fn-tt-body-20 lg:fn-tt-body-10 inline-rich-text hidden pb-24 lg:block lg:pb-24 lg:pt-40 lg:text-center">
+              {{ product.description }}
+            </div>
+          {% endif %}
+
+          {% comment %} mobile summary {% endcomment %}
+          {% if has_summary_block and section.settings.hide_summary != true %}
+            <ul class="hidden w-full flex-wrap gap-4 lg:flex lg:justify-center">
+              {% for block in section.blocks %}
+                {% if block.type == 'summary' %}
+                  {% assign title = block.settings.title %}
+                  <li class="bg-offWhite px-8 py-1">
+                    <p class="fn-tt-body-10 font-medium">{{ title }}</p>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          {% comment %} cta and product form {% endcomment %}
+          {% if section.settings.cta_link != blank %}
+            {% render 'cta',
+              as: 'a',
+              href: section.settings.cta_link,
+              text: section.settings.cta,
+              extra_classes: 'w-full mb-24 lg:mb-0',
+              hasIcons: true,
+              cta_color: 'orange'
+            %}
+          {% else %}
+            {% if section.settings.subscription_form_style == 'stacked' %}
+              {% assign additional_form_classes = '!border-b' %}
+            {% endif %}
+            {% assign variant_product_option_blocks = section.blocks | where: 'type', 'variant_product_option' %}
+            {% render 'product-form',
+              product: product,
+              cta: section.settings.cta,
+              product_is_available: product_is_available,
+              additional_classes: 'my-16 lg:mt-40 lg:mb-24',
+              additional_form_classes: additional_form_classes,
+              subscription_discounted_price: subscription_discounted_price,
+              price_adjustment_value_type: price_adjustment_value_type,
+              price_adjustment_value: price_adjustment_value,
+              product_discount_heading: product_discount_heading,
+              show_unit_price: section.settings.show_unit_price,
+              unit_name: section.settings.unit_name,
+              show_prices_in_variant_picker: section.settings.show_prices_in_variant_picker,
+              variant_picker_style: section.settings.variant_picker_style,
+              hide_quantity_input: section.settings.hide_quantity_input,
+              subscription_form_style: section.settings.subscription_form_style,
+              show_siblings: section.settings.show_siblings,
+              variant_product_option_blocks: variant_product_option_blocks
+            %}
+          {% endif %}
+
+          {% comment %} video carousel (below Add to Cart) {% endcomment %}
+          {% if has_video_carousel_block %}
+            {% render 'pdp-video-carousel',
+              blocks: section.blocks,
+              heading: section.settings.video_carousel_heading,
+              section: section
+            %}
+          {% endif %}
+
+          {% comment %} supplement popup {% endcomment %}
+          {% assign supplement_popup_block = section.blocks | where: 'type', 'supplement_popup' | first %}
+          {% if supplement_popup_block %}
+            {% render 'product-supplement-popup', block: supplement_popup_block, product: product %}
+          {% endif %}
+
+          {% comment %} warning popup {% endcomment %}
+          {% assign warning_popup_block = section.blocks | where: 'type', 'warning_popup' | first %}
+          {% if warning_popup_block %}
+            {% render 'product-warning-popup', block: warning_popup_block, product: product %}
+          {% endif %}
+
+          {% comment %} refill upsell {% endcomment %}
+          {% if has_refill_upsell_block %}
+            {% assign refill_variant = product.selected_or_first_available_variant.metafields.custom.refill_upsell.value %}
+            {% if refill_variant %}
+              {% for block in section.blocks %}
+                {% if block.type == 'refill_upsell' %}
+                  {% render 'refill-upsell',
+                    refill_variant: refill_variant,
+                    headline: block.settings.headline,
+                    cta_color: block.settings.cta_color,
+                    product: product
+                  %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endif %}
+
+          {% comment %} mobile description {% endcomment %}
+          {% if product.description != blank and section.settings.hide_description != true %}
+            <div class="fn-tt-body-20 inline-rich-text mt-24 pb-24 lg:hidden">
+              {{ product.description }}
+            </div>
+          {% endif %}
+
+          {% comment %} mobile summary {% endcomment %}
+          {% if has_summary_block and section.settings.hide_summary != true %}
+            <ul class="flex w-full flex-wrap gap-4 pt-24 lg:hidden">
+              {% for block in section.blocks %}
+                {% if block.type == 'summary' %}
+                  {% assign title = block.settings.title %}
+                  <li class="bg-offWhite px-8 py-1">
+                    <p class="fn-tt-body-10 font-medium">{{ title }}</p>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+
+        {% if product_is_bundle == true %}
+          <div class="product-hero__bundle-products m-24 lg:mx-80 lg:mb-80 lg:mt-0">
+            {% render 'bundle-products-accordion', bundle_products: bundle_products %}
+          </div>
+        {% endif %}
+
+        {% if section.settings.social_image != blank %}
+          {% render 'social-image-mobile',
+            social_image: section.settings.social_image,
+            social_quote: section.settings.social_quote,
+            social_link: section.settings.social_link,
+            social_profile_name: section.settings.social_profile_name,
+            social_profile_image: section.settings.social_profile_image
+          %}
+        {% endif %}
+      </div>
+
+      {% if section.settings.show_details == true %}
+        {% if product_details != blank %}
+          <div class="m-24 border border-b-0 border-black/15 lg:mx-80 lg:mb-80 lg:mt-0">
+            {% render 'product-details', product_details: product_details %}
+          </div>
+        {% endif %}
+      {% endif %}
+
+      {% if section.settings.social_image != blank %}
+        {% render 'social-image-desktop',
+          social_image: section.settings.social_image,
+          social_quote: section.settings.social_quote,
+          social_link: section.settings.social_link,
+          social_profile_name: section.settings.social_profile_name,
+          social_profile_image: section.settings.social_profile_image
+        %}
+      {% endif %}
+
+      {% if has_accordion == true %}
+        <div class="m-24 border border-b-0 border-black/15  lg:mx-80 lg:mb-80 lg:mt-0">
+          {% render 'product-accordions', blocks: section.blocks, additional_classes: 'lg:mx-80' %}
+        </div>
+      {% endif %}
+
+      {% if has_bundle_block %}
+        <div class="m-24 flex flex-col border border-grey-MEDIUM lg:mx-80 lg:mb-80 lg:mt-0">
+          {% if section.settings.bundle_title != blank %}
+            <div class="flex w-full items-center justify-center border-b border-grey-MEDIUM py-8 text-center">
+              <h3 class="fn-tt-sub-title-40 font-medium uppercase">
+                {{ section.settings.bundle_title }}
+              </h3>
+            </div>
+          {% endif %}
+          <div class="flex flex-col divide-x divide-y divide-grey-MEDIUM lg:-ml-1 lg:flex-row lg:flex-wrap">
+            {% for block in section.blocks %}
+              {% if block.type == 'bundle' %}
+                {% render 'product-bundle',
+                  bundle_banner: block.settings.banner,
+                  bundle_title: block.settings.bundle_title,
+                  bundle_product: block.settings.bundle_product,
+                  bundle_cta_color: block.settings.bundle_cta_color
+                %}
+              {% endif %}
+            {% endfor %}
+            {% for upsell in product.selected_or_first_available_variant.metafields.custom.upsells.value %}
+              {% render 'product-bundle',
+                bundle_title: upsell.variant.value.title,
+                bundle_banner: upsell.banner.value,
+                bundle_product: upsell.variant.value.product,
+                bundle_variant: upsell.variant.value,
+                bundle_cta_color: upsell.cta_color.value
+              %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if has_variant_icons_block %}
+        {%- assign variant_icon_block = product.selected_or_first_available_variant.metafields.custom.icon_blocks.value -%}
+        {% if variant_icon_block != blank %}
+          <div class="variant-icons-blocks m-24 border border-black/15 lg:mx-80 lg:mb-80 lg:mt-0">
+            {% for variant_block in variant_icon_block %}
+              {%- assign variant_block_icon = variant_block.icon -%}
+              {%- assign variant_block_title = variant_block.heading -%}
+              {%- assign variant_block_text = variant_block.text -%}
+
+              <div class="variant-icon-block">
+                {% if variant_block_icon != blank %}
+                  <div
+                    class="variant-icon-block__icon relative overflow-hidden lg:aspect-square xl:aspect-auto"
+                  >
+                    {{
+                      variant_block_icon
+                      | image_url: width: variant_block_icon.width
+                      | image_tag:
+                        loading: 'lazy',
+                        sizes: '(min-width: 1024px) 50vw, 100vw',
+                        class: 'w-full h-full object-cover absolute inset-0 z-0'
+                    }}
+                  </div>
+                {% endif %}
+
+                {% if variant_block_title != blank %}
+                  <span class="variant-icon-block__title">
+                    {{ variant_block_title }}
+                  </span>
+                {% endif %}
+
+                {% if variant_block_text != blank %}
+                  <span class="variant-icon-block__text">
+                    {{ variant_block_text }}
+                  </span>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</section-renderer>
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "url": {{ request.origin | append: product.url | json }},
+    {% if seo_media %}
+      "image": [
+        {{ seo_media | image_url: width: 1920 | prepend: "https:" | json }}
+      ],
+    {% endif %}
+    "description": {{ product.description | strip_html | json }},
+    {% if product.selected_or_first_available_variant.sku != blank %}
+      "sku": {{ product.selected_or_first_available_variant.sku | json }},
+    {% endif %}
+    "brand": {
+      "@type": "Brand",
+      "name": {{ product.vendor | json }}
+    },
+    "offers": [
+      {% for variant in product.variants %}
+        {
+          "@type" : "Offer",
+          {% if variant.sku != blank %}
+            "sku": {{ variant.sku | json }},
+          {% endif %}
+          {% if variant.barcode.size == 12 %}
+            "gtin12": {{ variant.barcode }},
+          {% endif %}
+          {% if variant.barcode.size == 13 %}
+            "gtin13": {{ variant.barcode }},
+          {% endif %}
+          {% if variant.barcode.size == 14 %}
+            "gtin14": {{ variant.barcode }},
+          {% endif %}
+          "availability" : "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+          "price" : {{ variant.price | divided_by: 100.00 | json }},
+          "priceCurrency" : {{ cart.currency.iso_code | json }},
+          "url" : {{ request.origin | append: variant.url | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  }
+</script>
+
+{% if product.metafields.reviews.rating.value != blank %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "Product",
+        "name": {{ product.title | json }},
+        "url": {{ shop.url | append: product.url | json }}
+      },
+      "ratingValue": {{ product.metafields.reviews.rating.value | json }},
+      "bestRating": {{ product.metafields.reviews.rating.value.scale_max | json }},
+      "ratingCount": {{ product.metafields.reviews.rating_count | json }}
+    }
+  </script>
+{% endif %}

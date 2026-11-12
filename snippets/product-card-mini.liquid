@@ -1,0 +1,27 @@
+{% assign product_title = product.title %}
+{% assign product_type = product.type %}
+{% assign product_image = product.featured_image %}
+{% assign product_url = product.url %}
+
+<a href="{{ product_url }}" aria-label="{{ product_title }}">
+  <div class="flex h-full items-center gap-8 p-8 lg:pr-16 {{ bg_color }} {{ extra_classes }}">
+    {% if product_image %}
+      <div class="relative">
+        <div
+          class="aspect-[0.8] h-68"
+        >
+          {{
+            product_image
+            | image_url: width: product_image.width
+            | image_tag: loading: 'lazy', sizes: '25vw', class: 'w-full h-full absolute inset-0 object-cover'
+          }}
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="flex flex-col">
+      <h3 class="lg:fn-tt-caption fn-tt-body-20 w-max">{{ product_title }}</h3>
+      <p class="lg:fn-tt-caption fn-tt-body-20 max-w-max text-black/60">{{ product_type }}</p>
+    </div>
+  </div>
+</a>

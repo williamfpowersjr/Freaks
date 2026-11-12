@@ -1,0 +1,46 @@
+{% schema %}
+{
+  "name": "Newsletter",
+  "tag": "section",
+  "class": "newsletter-section",
+  "presets": [
+    {
+      "name": "Newsletter",
+      "category": "Newsletter",
+      "settings": {
+        "title": "Lorem ipsum"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_list_id",
+      "label": "Newsletter Klaviyo List ID"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="bg-orange py-40 lg:py-80">
+  <div class="flex flex-col gap-40 lg:gap-80">
+    {% render 'title',
+      title: section.settings.title,
+      text_size: 'fn-tt-title-70',
+      extra_wrapper_classes: 'px-24 lg:px-40 text-balance overflow-hidden',
+      text_color: 'text-blue',
+      bg_color: 'bg-orange',
+      bg_lines: 'bg-blue-lines',
+      extra_text_classes: '!leading-[0.98]'
+    %}
+
+    <div class="flex flex-col gap-16">
+      {% render 'newsletter-signup', isNewsletterSection: true %}
+    </div>
+  </div>
+</div>

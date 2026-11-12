@@ -1,0 +1,20 @@
+{% if extra_wrapper_classes != blank or extra_icon_classes != blank %}
+  <div class="relative {{ extra_wrapper_classes }}">
+    <div
+      class="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2  transition-all duration-300 ease-in-out group-aria-expanded:rotate-180 {{ extra_icon_classes }}"
+    ></div>
+    <div
+      class="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 -rotate-90  transition-all duration-300 ease-in-out group-aria-expanded:rotate-0 {{ extra_icon_classes }}"
+    ></div>
+  </div>
+
+{% else %}
+  <div class="relative h-10 w-10 text-orange">
+    <div
+      class="absolute left-1/2 top-1/2 h-[1.5px] w-full -translate-x-1/2 -translate-y-1/2 bg-orange transition-all duration-300 ease-in-out group-aria-expanded:rotate-180"
+    ></div>
+    <div
+      class="absolute left-1/2 top-1/2 h-[1.5px] w-full -translate-x-1/2 -translate-y-1/2 -rotate-90 bg-orange transition-all duration-300 ease-in-out group-aria-expanded:rotate-0"
+    ></div>
+  </div>
+{% endif %}

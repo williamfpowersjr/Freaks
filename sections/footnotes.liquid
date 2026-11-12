@@ -1,0 +1,32 @@
+{% schema %}
+{
+  "name": "Footnotes",
+  "tag": "section",
+  "class": "footnotes-section",
+  "limit": 1,
+  "presets": [
+    {
+      "name": "Footnotes",
+      "category": "Footnotes",
+      "settings": {
+        "footnotes": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "footnotes",
+      "label": "Footnotes"
+    }
+  ]
+}
+{% endschema %}
+
+<div
+  data-footnotes
+  id="footnotes"
+  class="simple-inline-rich-text border-t border-black/15 px-24 py-40 text-xxs text-black/60 lg:px-80"
+>
+  {{ section.settings.footnotes }}
+</div>

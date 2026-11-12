@@ -1,0 +1,96 @@
+{% assign count = 0 %}
+{% for result in results %}
+  {% assign count = count | plus: 1 %}
+{% endfor %}
+
+<ul class="hidden lg:grid lg:grid-cols-3 lg:p-40 {{ border_class }} {% if count > 3 %}lg:grid-rows-2{% endif %}">
+  {% for result in results limit: 6 %}
+    {% assign result_percentage = result.settings.percentage %}
+    {% assign result_text = result.settings.text %}
+    {% assign result_routine_title = result.settings.routine_title %}
+    {% assign result_before = result.settings.before %}
+    {% assign result_after = result.settings.after %}
+    {% assign result_testimonial_name = result.settings.testimonial_name %}
+    {% assign result_card_color = result.settings.card_color %}
+    {% assign result_background_image = result.settings.background_image %}
+
+    {% case result_card_color %}
+      {% when 'orange' %}
+        {% assign bg_color = 'bg-orange' %}
+        {% assign text_color = 'text-blue' %}
+      {% when 'blue' %}
+        {% assign bg_color = 'bg-blue' %}
+        {% assign text_color = 'text-white' %}
+      {% else %}
+        {% assign bg_color = 'bg-white' %}
+        {% assign text_color = 'text-black' %}
+    {% endcase %}
+    <li>
+      {% render 'result-card',
+        result_percentage: result_percentage,
+        result_text: result_text,
+        result_routine_title: result_routine_title,
+        result_before: result_before,
+        result_after: result_after,
+        result_testimonial_name: result_testimonial_name,
+        result_background_image: result_background_image,
+        bg_color: bg_color,
+        text_color: text_color
+      %}
+    </li>
+  {% endfor %}
+</ul>
+
+<div class="lg:hidden">
+  <swiper-element id="result-carousel" class="result-carousel">
+    <swiper-container init="false">
+      {% for result in results %}
+        {% assign result_percentage = result.settings.percentage %}
+        {% assign result_text = result.settings.text %}
+        {% assign result_routine_title = result.settings.routine_title %}
+        {% assign result_before = result.settings.before %}
+        {% assign result_after = result.settings.after %}
+        {% assign result_testimonial_name = result.settings.testimonial_name %}
+        {% assign result_card_color = result.settings.card_color %}
+        {% assign result_background_image = result.settings.background_image %}
+
+        {% case result_card_color %}
+          {% when 'orange' %}
+            {% assign bg_color = 'bg-orange' %}
+            {% assign text_color = 'text-blue' %}
+          {% when 'blue' %}
+            {% assign bg_color = 'bg-blue' %}
+            {% assign text_color = 'text-white' %}
+          {% else %}
+            {% assign bg_color = 'bg-white' %}
+            {% assign text_color = 'text-black' %}
+        {% endcase %}
+
+        <swiper-slide class="swiper-slide">
+          {% render 'result-card',
+            result_percentage: result_percentage,
+            result_text: result_text,
+            result_routine_title: result_routine_title,
+            result_before: result_before,
+            result_after: result_after,
+            result_testimonial_name: result_testimonial_name,
+            result_background_image: result_background_image,
+            bg_color: bg_color,
+            text_color: text_color
+          %}
+        </swiper-slide>
+      {% endfor %}
+    </swiper-container>
+
+    <div class="align-center flex w-full border-t border-black/15 ">
+      <div class="relative flex w-full justify-center self-center px-24 lg:px-40">
+        <div class="swiper-scrollbar"></div>
+      </div>
+
+      <div class="border-x border-black/15">
+        <div class="swiper-button-prev" aria-label="Previous Slide {{ section.id }}" role="button"></div>
+      </div>
+      <div><div class="swiper-button-next" aria-label="Next Slide {{ section.id }}" role="button"></div></div>
+    </div>
+  </swiper-element>
+</div>

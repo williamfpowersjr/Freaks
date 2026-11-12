@@ -1,0 +1,28 @@
+{% schema %}
+{
+  "name": "Sticky Navigation",
+  "tag": "section",
+  "class": "list-section",
+  "presets": [
+    {
+      "name": "Sticky Navigation",
+      "category": "Sticky Navigation",
+      "settings": {
+        "show_sticky_navigation": true
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_sticky_navigation",
+      "label": "Show sticky Navigation",
+      "default": true,
+      "info": "Check off if you would like to hide the sticky Navigation."
+    }
+  ]
+}
+{% endschema %}
+{% if section.settings.show_sticky_navigation %}
+  {% render 'sticky-navigation' %}
+{% endif %}

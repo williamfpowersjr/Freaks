@@ -1,0 +1,89 @@
+{% comment %}
+  Product Warning Popup
+
+  Accepts:
+    block: block object with settings
+{% endcomment %}
+
+{% liquid
+  assign default_popup_button_text = 'View Warning'
+  assign popup_button_text = block.settings.button_text | default: default_popup_button_text
+  assign popup_heading = block.settings.heading
+  assign popup_content = block.settings.content
+  assign us_states_to_show = block.settings.us_states_to_show | upcase
+  assign wrapper_class_names = 'mb-24 size-full lg:mb-0'
+
+  # check if above this block supplement button exists
+  assign supplement_popup_image = product.selected_or_first_available_variant.metafields.supplement_popup.image
+  assign supplement_popup_block = section.blocks | where: 'type', 'supplement_popup' | first
+
+  if supplement_popup_block != blank and supplement_popup_image != blank
+    assign wrapper_class_names = 'lg:mt-12 mb-24 size-full lg:mb-0'
+  endif
+
+  if us_states_to_show != blank
+    assign wrapper_class_names = wrapper_class_names | append: ' hidden'
+  endif
+%}
+
+{% if popup_content != blank %}
+  <location-gate
+    id="{{ block.id }}"
+    class="{{ wrapper_class_names }}"
+    data-states="{{ us_states_to_show }}"
+  >
+    <button
+      class="warning-popup__button size-full text-sm underline"
+      onclick="document.getElementById('warning-popup-{{ block.id }}').showModal()"
+      aria-controls="warning-popup-{{ block.id }}"
+      type="button"
+    >
+      {{ popup_button_text }}
+    </button>
+
+    <dialog
+      class="warning-popup overflow-hidden p-0"
+      id="warning-popup-{{ block.id }}"
+    >
+      <div
+        class="warning-popup__backdrop fixed inset-0 bg-black/60"
+        aria-hidden="true"
+        onclick="document.getElementById('warning-popup-{{ block.id }}').close()"
+      ></div>
+
+      <button
+        class="warning-popup__close-btn d-flex absolute right-0 top-0 items-center justify-center"
+        onclick="document.getElementById('warning-popup-{{ block.id }}').close()"
+        aria-label="Close Supplement Facts"
+        type="button"
+      >
+        {% render 'icon-close', class: 'w-20' %}
+      </button>
+
+      <div
+        class="
+          warning-popup__inner
+          no-scrollbar relative max-h-full
+          w-full overflow-auto
+          bg-white
+        "
+      >
+        <div class="warning-popup__header">
+          {% if popup_heading != blank %}
+            <h2
+              class="warning-popup__heading fn-tt-title-30 mb-12 text-pretty uppercase"
+            >
+              {{ popup_heading }}
+            </h2>
+          {% endif %}
+
+          {% if popup_content != blank %}
+            <div class="warning-popup__content text-md">
+              {{ popup_content }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </dialog>
+  </location-gate>
+{% endif %}

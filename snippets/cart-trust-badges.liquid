@@ -1,0 +1,99 @@
+{% comment %}
+  Cart trust-badges row — up to three merchant-configurable claims.
+
+  A claim may contain the token {amount} for the free-shipping threshold. The
+  server renders it with the static fallback amount (free_shipping_fallback,
+  e.g. "$50+") so it's correct without JS; cart-free-shipping.ts then swaps in
+  the live Intelligems threshold for the shopper's market when IG has one. So:
+  IG amount (if available) → static fallback amount → (blank fallback) hidden.
+
+  NOTE: the {amount} token must never appear inside a {{ }} output tag — the
+  brace collides with the }} terminator and Shopify rejects the upload. Detect
+  and replace it inside {% %} tags only.
+
+  LAYOUT: icon above the text on mobile, beside it from lg up. Each claim gets a
+  third of the drawer, which left only ~89px of text width at 375px with the icon
+  inline — every claim wrapped to three lines. Stacking holds two lines to 320px.
+
+  @param {string} claim_1 @param {string} claim_2 @param {string} claim_3
+  @param {string} free_shipping_fallback  static amount when IG has none, e.g. "$50+"
+{% endcomment %}
+
+{% if claim_1 != blank or claim_2 != blank or claim_3 != blank %}
+  <div data-trust-badges class="grid grid-cols-3 bg-[#eee]">
+    {% if claim_1 != blank %}
+      {% assign claim_1_is_fs = false %}
+      {% if claim_1 contains '{amount}' %}{% assign claim_1_is_fs = true %}{% endif %}
+      {% assign claim_1_filled = claim_1 | replace: '{amount}', free_shipping_fallback %}
+      <div
+        class="flex flex-col items-center gap-[4px] overflow-hidden rounded-[4px] bg-white px-4 py-12 text-center lg:flex-row lg:items-start lg:justify-center lg:px-16 lg:py-16 lg:text-left"
+        {% if claim_1_is_fs %}
+          data-free-shipping-claim data-free-shipping-fallback="{{ free_shipping_fallback | escape }}"
+        {% endif %}
+      >
+        {% render 'icon-claim-reviews', class: 'h-24 w-24 shrink-0' %}
+        {% if claim_1_is_fs %}
+          <p
+            data-free-shipping-text
+            data-claim-template="{{ claim_1 | escape }}"
+            class="font-text text-[12px] leading-[1.5] text-[#232323] lg:text-[14px]"
+          >
+            {{ claim_1_filled }}
+          </p>
+        {% else %}
+          <p class="font-text text-[12px] leading-[1.5] text-[#232323] lg:text-[14px]">{{ claim_1 }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if claim_2 != blank %}
+      {% assign claim_2_is_fs = false %}
+      {% if claim_2 contains '{amount}' %}{% assign claim_2_is_fs = true %}{% endif %}
+      {% assign claim_2_filled = claim_2 | replace: '{amount}', free_shipping_fallback %}
+      <div
+        class="flex flex-col items-center gap-[4px] overflow-hidden rounded-[4px] bg-white px-4 py-12 text-center lg:flex-row lg:items-start lg:justify-center lg:px-16 lg:py-16 lg:text-left"
+        {% if claim_2_is_fs %}
+          data-free-shipping-claim data-free-shipping-fallback="{{ free_shipping_fallback | escape }}"
+        {% endif %}
+      >
+        {% render 'icon-claim-shipping', class: 'h-24 w-24 shrink-0' %}
+        {% if claim_2_is_fs %}
+          <p
+            data-free-shipping-text
+            data-claim-template="{{ claim_2 | escape }}"
+            class="font-text text-[12px] leading-[1.5] text-[#232323] lg:text-[14px]"
+          >
+            {{ claim_2_filled }}
+          </p>
+        {% else %}
+          <p class="font-text text-[12px] leading-[1.5] text-[#232323] lg:text-[14px]">{{ claim_2 }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if claim_3 != blank %}
+      {% assign claim_3_is_fs = false %}
+      {% if claim_3 contains '{amount}' %}{% assign claim_3_is_fs = true %}{% endif %}
+      {% assign claim_3_filled = claim_3 | replace: '{amount}', free_shipping_fallback %}
+      <div
+        class="flex flex-col items-center gap-[4px] overflow-hidden rounded-[4px] bg-white px-4 py-12 text-center lg:flex-row lg:items-start lg:justify-center lg:px-16 lg:py-16 lg:text-left"
+        {% if claim_3_is_fs %}
+          data-free-shipping-claim data-free-shipping-fallback="{{ free_shipping_fallback | escape }}"
+        {% endif %}
+      >
+        {% render 'icon-claim-ingredients', class: 'h-24 w-24 shrink-0' %}
+        {% if claim_3_is_fs %}
+          <p
+            data-free-shipping-text
+            data-claim-template="{{ claim_3 | escape }}"
+            class="font-text text-[12px] leading-[1.5] text-[#232323] lg:text-[14px]"
+          >
+            {{ claim_3_filled }}
+          </p>
+        {% else %}
+          <p class="font-text text-[12px] leading-[1.5] text-[#232323] lg:text-[14px]">{{ claim_3 }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

@@ -1,0 +1,739 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "sticky_add_to_cart_button_YwHpbY": {
+      "type": "sticky-add-to-cart-button",
+      "settings": {
+        "show_sticky_add_to_cart": true,
+        "cta": "Add to Cart",
+        "cta_color": "orange",
+        "text": "All options"
+      }
+    },
+    "product_hero_r8EjUL": {
+      "type": "product-hero",
+      "blocks": {
+        "summary_x49MLY": {
+          "type": "summary",
+          "settings": {
+            "title": "100% mineral protection"
+          }
+        },
+        "summary_Unerjx": {
+          "type": "summary",
+          "settings": {
+            "title": "Air-powered continuous spray"
+          }
+        },
+        "summary_tKULRD": {
+          "type": "summary",
+          "settings": {
+            "title": "Minimal white cast"
+          }
+        },
+        "summary_9KMHnD": {
+          "type": "summary",
+          "settings": {
+            "title": "Hydrates + soothes"
+          }
+        },
+        "summary_NxHnbE": {
+          "type": "summary",
+          "settings": {
+            "title": "Protects + strengthens skin barrier"
+          }
+        },
+        "summary_Ver6Up": {
+          "type": "summary",
+          "settings": {
+            "title": "No chemical filters"
+          }
+        },
+        "summary_KUgRqM": {
+          "type": "summary",
+          "settings": {
+            "title": "Water resistant (40 min)"
+          }
+        },
+        "summary_EkaCMF": {
+          "type": "summary",
+          "settings": {
+            "title": "Dermatologist tested"
+          }
+        },
+        "summary_PjnVXd": {
+          "type": "summary",
+          "settings": {
+            "title": "Broad spectrum UV protection"
+          }
+        },
+        "summary_mGmfWN": {
+          "type": "summary",
+          "settings": {
+            "title": "Reef safe"
+          }
+        },
+        "summary_fx8gEn": {
+          "type": "summary",
+          "settings": {
+            "title": "Fragrance free"
+          }
+        },
+        "accordion_mQnpnP": {
+          "type": "accordion",
+          "settings": {
+            "title": "Ingredients",
+            "use_variant_metafield": false,
+            "variant_metafield": "",
+            "richtext": "<p><strong>Active Ingredient:<br/></strong>Zinc Oxide 16.5%</p><p><strong>Inactive ingredients:</strong><br/>Aloe Barbendensis Leaf Juice, Aqua/ Water, Bambusa Arundinacea (Bamboo) Stem Extract, Camellia Sinensis (Japanese Green Tea) Leaf Extract, Caprylic / Capric Triglyceride, Dilauryl Citrate, Ethylhexylglycerin, Gluconolactone, Glycerin, Hydrogenated Methyl Abietate, Isopropyl Palmitate, Lauryl Glucoside, Leuconostoc / Radish Root Ferment Filtrate, Lonicera Caprifolium (Honeysuckle) Flower Extract, Lonicera Japonica (Honeysuckle) Flower Extract, Methylcellulose, Octyldodecyl Citrate Crosspolymer, Phenoxyethanol, Polyglyceryl-4 Laurate, Populus Tremuloides Bark Extract, Simmondsia Chinensis (Jojoba) Seed Oil, Sodium Lauryl Glucose Carboxylate, Sodium Phytate, Sodium Stearoyl Glutamate, Sorbitan Laurate, Tocopherol, Xanthan Gum.</p><p>See for more information on our <a href=\"/pages/ingredients\" title=\"Ingredients\">ingredients page</a>.</p>"
+          }
+        },
+        "accordion_tLHKep": {
+          "type": "accordion",
+          "settings": {
+            "title": "How to Use",
+            "use_variant_metafield": false,
+            "variant_metafield": "",
+            "richtext": "<p>Shake well before use. Hold container 4–6 inches from skin and spray liberally and evenly across the body. Rub into skin. Apply 15 minutes before sun exposure. Reapply after 40 minutes of swimming or sweating, immediately after towel drying, and at least every 2 hours.</p>"
+          }
+        },
+        "plastic_pledge_by_oceanworks_product_tile_AiRBGL": {
+          "type": "shopify://apps/plastic-pledge-by-oceanworks/blocks/product-tile/a888cb82-2596-48cc-9cb6-2a2728b595a5",
+          "settings": {
+            "theme_style": "dynamic"
+          }
+        },
+        "bundle_QL79En": {
+          "type": "bundle",
+          "settings": {
+            "bundle_product": "body-by-freaks-bundle",
+            "banner": "Bundle & Save 10%",
+            "bundle_cta_color": "blue"
+          }
+        },
+        "bundle_YQGiV3": {
+          "type": "bundle",
+          "settings": {
+            "bundle_product": "freaks-full-coverage-bundle",
+            "banner": "Bundle & Save 10%",
+            "bundle_cta_color": "blue"
+          }
+        },
+        "subscription_benefit_aeD6hk": {
+          "type": "subscription_benefit",
+          "disabled": true,
+          "settings": {
+            "title": "Save 15%",
+            "benefit_variant_ids": ""
+          }
+        },
+        "subscription_benefit_Ur4a3h": {
+          "type": "subscription_benefit",
+          "disabled": true,
+          "settings": {
+            "title": "Free Shipping.",
+            "benefit_variant_ids": ""
+          }
+        },
+        "subscription_benefit_gyFjYz": {
+          "type": "subscription_benefit",
+          "disabled": true,
+          "settings": {
+            "title": "Easily edit, pause, or cancel anytime.",
+            "benefit_variant_ids": ""
+          }
+        }
+      },
+      "block_order": [
+        "summary_x49MLY",
+        "summary_Unerjx",
+        "summary_tKULRD",
+        "summary_9KMHnD",
+        "summary_NxHnbE",
+        "summary_Ver6Up",
+        "summary_KUgRqM",
+        "summary_EkaCMF",
+        "summary_PjnVXd",
+        "summary_mGmfWN",
+        "summary_fx8gEn",
+        "accordion_mQnpnP",
+        "accordion_tLHKep",
+        "plastic_pledge_by_oceanworks_product_tile_AiRBGL",
+        "bundle_QL79En",
+        "bundle_YQGiV3",
+        "subscription_benefit_aeD6hk",
+        "subscription_benefit_Ur4a3h",
+        "subscription_benefit_gyFjYz"
+      ],
+      "settings": {
+        "product_override": "",
+        "is_landing_page": false,
+        "bg_color": "bg-white",
+        "title_size": "large",
+        "show_inventory_quantity": false,
+        "gallery_badge_first_image_only": false,
+        "use_variant_media": false,
+        "discount_tag": "+ Free Shipping",
+        "hide_from_price_and_discount": true,
+        "hide_description": false,
+        "hide_summary": false,
+        "show_siblings": false,
+        "product_discount_heading": "",
+        "subscription_badge_type": "auto",
+        "subscription_badge_text": "Save 25%",
+        "subscription_badge_custom_text": "[extra] [saving] OFF",
+        "show_extra_in_saving_badge": true,
+        "show_unit_price": false,
+        "unit_name": "",
+        "show_variant_title_in_variant_picker": false,
+        "show_prices_in_variant_picker": false,
+        "hide_default_variant_picker": false,
+        "variant_product_option_label": "Scent",
+        "hide_variant_product_option_badges": false,
+        "variant_picker_style": "title",
+        "hide_quantity_input": false,
+        "show_quantity_input_for_subscription": false,
+        "hide_purchase_selector": false,
+        "one_time_purchase_badge_text": "",
+        "subsDefaultOption": "subscriptions",
+        "subsOrder": "subs_top",
+        "subscription_form_style": "stacked",
+        "subscription_style_variant": "secondary",
+        "split_subscriptions_by_variants": false,
+        "subscription_title": "Autofill &",
+        "one_time_title": "One-Time Purchase",
+        "subscription_delivered_every_text": "<p>Delivered every</p>",
+        "reverse_selling_plan_order": true,
+        "show_subscription_saving_message": true,
+        "cta": "Add to cart",
+        "cta_link": "",
+        "show_out_of_stock_banner": false,
+        "out_of_stock_banner_text": "It will ship after July 17th due to restocking",
+        "social_image": "shopify://shop_images/Quote_Spray.png",
+        "social_quote": "\"Between the ocean, the trails, and everything else, my skin is always on the front lines. I need sun protection that's clean, natural, and can keep up with whatever I'm doing. The Solar Shield Spray does exactly that: mineral protection, minimal white cast, and effortless application whether I'm in the water or in the desert. I can focus on pushing my limits, not what I'm putting on my skin.\"",
+        "social_profile_name": "Max Jolliffe (@woah_max)",
+        "social_profile_image": "shopify://shop_images/Social.png",
+        "social_link": "https://www.instagram.com/woah_max",
+        "show_details": true,
+        "show_notify": true,
+        "notify_text": "Get notified when the product is available again",
+        "notify_placeholder": "Enter your email",
+        "notify_success": "Thank you! We will notify you when the product is back in stock.",
+        "klaviyo_api_key": "SdwbFd",
+        "klaviyo_list_id": "",
+        "notify_subtext": "<p>By signing up, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Service</a> and our <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a>.</p>",
+        "bundle_title": "Upgrade to a bundle and save",
+        "video_carousel_heading": "STRAIGHT FROM THE FREAKS"
+      }
+    },
+    "product_hero_7LbPJE": {
+      "type": "product-hero",
+      "blocks": {
+        "summary_X9GAy6": {
+          "type": "summary",
+          "settings": {
+            "title": "100% mineral protection"
+          }
+        },
+        "summary_HQcfP7": {
+          "type": "summary",
+          "settings": {
+            "title": "Air-powered continuous spray"
+          }
+        },
+        "summary_FfWiD8": {
+          "type": "summary",
+          "settings": {
+            "title": "Minimal white cast"
+          }
+        },
+        "summary_kC3hpL": {
+          "type": "summary",
+          "settings": {
+            "title": "Hydrates + soothes"
+          }
+        },
+        "summary_pawACb": {
+          "type": "summary",
+          "settings": {
+            "title": "Protects + strengthens skin barrier"
+          }
+        },
+        "summary_LCrxDf": {
+          "type": "summary",
+          "settings": {
+            "title": "No chemical filters"
+          }
+        },
+        "summary_kbGFtB": {
+          "type": "summary",
+          "settings": {
+            "title": "Water resistant (40 min)"
+          }
+        },
+        "summary_kWFbx4": {
+          "type": "summary",
+          "settings": {
+            "title": "Dermatologist tested"
+          }
+        },
+        "summary_CpTUiJ": {
+          "type": "summary",
+          "settings": {
+            "title": "Broad spectrum UV protection"
+          }
+        },
+        "summary_MPApW4": {
+          "type": "summary",
+          "settings": {
+            "title": "Reef safe"
+          }
+        },
+        "summary_qDbC7M": {
+          "type": "summary",
+          "settings": {
+            "title": "Fragrance free"
+          }
+        },
+        "accordion_67RMgq": {
+          "type": "accordion",
+          "settings": {
+            "title": "Ingredients",
+            "use_variant_metafield": false,
+            "variant_metafield": "",
+            "richtext": "<p><strong>Active Ingredient:<br/></strong>Zinc Oxide 16.5%</p><p><strong>Inactive ingredients:</strong><br/>Aloe Barbendensis Leaf Juice, Aqua/ Water, Bambusa Arundinacea (Bamboo) Stem Extract, Camellia Sinensis (Japanese Green Tea) Leaf Extract, Caprylic / Capric Triglyceride, Dilauryl Citrate, Ethylhexylglycerin, Gluconolactone, Glycerin, Hydrogenated Methyl Abietate, Isopropyl Palmitate, Lauryl Glucoside, Leuconostoc / Radish Root Ferment Filtrate, Lonicera Caprifolium (Honeysuckle) Flower Extract, Lonicera Japonica (Honeysuckle) Flower Extract, Methylcellulose, Octyldodecyl Citrate Crosspolymer, Phenoxyethanol, Polyglyceryl-4 Laurate, Populus Tremuloides Bark Extract, Simmondsia Chinensis (Jojoba) Seed Oil, Sodium Lauryl Glucose Carboxylate, Sodium Phytate, Sodium Stearoyl Glutamate, Sorbitan Laurate, Tocopherol, Xanthan Gum.</p><p>See for more information on our <a href=\"/pages/ingredients\" title=\"Ingredients\">ingredients page</a>.</p>"
+          }
+        },
+        "accordion_qjkDHd": {
+          "type": "accordion",
+          "settings": {
+            "title": "How to Use",
+            "use_variant_metafield": false,
+            "variant_metafield": "",
+            "richtext": "<p>Shake well before use. Hold container 4–6 inches from skin and spray liberally and evenly across the body. Rub into skin. Apply 15 minutes before sun exposure. Reapply after 40 minutes of swimming or sweating, immediately after towel drying, and at least every 2 hours.</p>"
+          }
+        },
+        "plastic_pledge_by_oceanworks_product_tile_7d3bWn": {
+          "type": "shopify://apps/plastic-pledge-by-oceanworks/blocks/product-tile/a888cb82-2596-48cc-9cb6-2a2728b595a5",
+          "settings": {
+            "theme_style": "dynamic"
+          }
+        },
+        "bundle_MdcCqr": {
+          "type": "bundle",
+          "settings": {
+            "bundle_product": "body-by-freaks-bundle",
+            "banner": "Bundle & Save 10%",
+            "bundle_cta_color": "blue"
+          }
+        },
+        "bundle_UEUczj": {
+          "type": "bundle",
+          "settings": {
+            "bundle_product": "freaks-full-coverage-bundle",
+            "banner": "Bundle & Save 10%",
+            "bundle_cta_color": "blue"
+          }
+        },
+        "subscription_benefit_pttMP7": {
+          "type": "subscription_benefit",
+          "disabled": true,
+          "settings": {
+            "title": "Save 15%",
+            "benefit_variant_ids": ""
+          }
+        },
+        "subscription_benefit_pjNBmr": {
+          "type": "subscription_benefit",
+          "disabled": true,
+          "settings": {
+            "title": "Free Shipping.",
+            "benefit_variant_ids": ""
+          }
+        },
+        "subscription_benefit_kNffhC": {
+          "type": "subscription_benefit",
+          "disabled": true,
+          "settings": {
+            "title": "Easily edit, pause, or cancel anytime.",
+            "benefit_variant_ids": ""
+          }
+        }
+      },
+      "block_order": [
+        "summary_X9GAy6",
+        "summary_HQcfP7",
+        "summary_FfWiD8",
+        "summary_kC3hpL",
+        "summary_pawACb",
+        "summary_LCrxDf",
+        "summary_kbGFtB",
+        "summary_kWFbx4",
+        "summary_CpTUiJ",
+        "summary_MPApW4",
+        "summary_qDbC7M",
+        "accordion_67RMgq",
+        "accordion_qjkDHd",
+        "plastic_pledge_by_oceanworks_product_tile_7d3bWn",
+        "bundle_MdcCqr",
+        "bundle_UEUczj",
+        "subscription_benefit_pttMP7",
+        "subscription_benefit_pjNBmr",
+        "subscription_benefit_kNffhC"
+      ],
+      "disabled": true,
+      "settings": {
+        "product_override": "",
+        "is_landing_page": false,
+        "bg_color": "bg-white",
+        "title_size": "large",
+        "show_inventory_quantity": false,
+        "gallery_badge_first_image_only": false,
+        "use_variant_media": false,
+        "discount_tag": "+ Free Shipping",
+        "hide_from_price_and_discount": true,
+        "hide_description": false,
+        "hide_summary": false,
+        "show_siblings": false,
+        "product_discount_heading": "",
+        "subscription_badge_type": "auto",
+        "subscription_badge_text": "Save 25%",
+        "subscription_badge_custom_text": "[extra] [saving] OFF",
+        "show_extra_in_saving_badge": true,
+        "show_unit_price": false,
+        "unit_name": "",
+        "show_variant_title_in_variant_picker": false,
+        "show_prices_in_variant_picker": false,
+        "hide_default_variant_picker": false,
+        "variant_product_option_label": "Scent",
+        "hide_variant_product_option_badges": false,
+        "variant_picker_style": "title",
+        "hide_quantity_input": false,
+        "show_quantity_input_for_subscription": true,
+        "hide_purchase_selector": true,
+        "one_time_purchase_badge_text": "",
+        "subsDefaultOption": "subscriptions",
+        "subsOrder": "subs_top",
+        "subscription_form_style": "stacked",
+        "subscription_style_variant": "secondary",
+        "split_subscriptions_by_variants": false,
+        "subscription_title": "Autofill &",
+        "one_time_title": "One-Time Purchase",
+        "subscription_delivered_every_text": "<p>Delivered every</p>",
+        "reverse_selling_plan_order": false,
+        "show_subscription_saving_message": true,
+        "cta": "Add to cart",
+        "cta_link": "",
+        "show_out_of_stock_banner": false,
+        "out_of_stock_banner_text": "It will ship after July 17th due to restocking",
+        "social_image": "shopify://shop_images/Quote_Spray.png",
+        "social_quote": "\"Between the ocean, the trails, and everything else, my skin is always on the front lines. I need sun protection that's clean, natural, and can keep up with whatever I'm doing. The Solar Shield Spray does exactly that: mineral protection, minimal white cast, and effortless application whether I'm in the water or in the desert. I can focus on pushing my limits, not what I'm putting on my skin.\"",
+        "social_profile_name": "Max Jolliffe (@woah_max)",
+        "social_profile_image": "shopify://shop_images/Social.png",
+        "social_link": "https://www.instagram.com/woah_max",
+        "show_details": true,
+        "show_notify": true,
+        "notify_text": "Get notified when the product is available again",
+        "notify_placeholder": "Enter your email",
+        "notify_success": "Thank you! We will notify you when the product is back in stock.",
+        "klaviyo_api_key": "SdwbFd",
+        "klaviyo_list_id": "",
+        "notify_subtext": "<p>By signing up, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Service</a> and our <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a>.</p>",
+        "bundle_title": "Upgrade to a bundle and save",
+        "video_carousel_heading": "STRAIGHT FROM THE FREAKS"
+      }
+    },
+    "comparison_cKkidc": {
+      "type": "comparison",
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Minimal Whitecast",
+        "title_a": "Light Skin",
+        "image_1a": "shopify://shop_images/240409_TN_DIRTYPRETTY_FREAKSOFNATURE2536_04dc8a90-40e0-485f-a8eb-7a4dbc252973.jpg",
+        "title_1a": "Applying sunscreen",
+        "image_2a": "shopify://shop_images/240409_TN_DIRTYPRETTY_FREAKSOFNATURE2634_51134d02-6f63-4ebd-81ee-1f46e27ac1ea.jpg",
+        "title_2a": "5 min after application",
+        "title_b": "Medium Skin",
+        "image_1b": "shopify://shop_images/240409_TN_DIRTYPRETTY_FREAKSOFNATURE1740_fe9300a3-e27e-4c4c-ba6f-566bcda0ca37.jpg",
+        "title_1b": "Applying sunscreen",
+        "image_2b": "shopify://shop_images/240409_TN_DIRTYPRETTY_FREAKSOFNATURE1752_cf583703-bff8-468c-b725-d470d138a7d9.jpg",
+        "title_2b": "5 min after application"
+      }
+    },
+    "ugc_slider_LeiTDN": {
+      "type": "ugc-slider",
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Loved by the freak community"
+      }
+    },
+    "properties_4a3QYn": {
+      "type": "properties",
+      "blocks": {
+        "item_8Rpxwk": {
+          "type": "item",
+          "settings": {
+            "use_variant_metafield_for_image": false,
+            "image": "shopify://shop_images/Good_For_63de248c-e19d-42cc-8118-817211639890.png",
+            "image_metafield_key": "",
+            "title": "Good for:",
+            "use_variant_metafield_for_description": false,
+            "description": "All skin types",
+            "description_metafield_key": ""
+          }
+        },
+        "item_wQQpBK": {
+          "type": "item",
+          "settings": {
+            "use_variant_metafield_for_image": false,
+            "image": "shopify://shop_images/Smells_Like.png",
+            "image_metafield_key": "",
+            "title": "Smells like:",
+            "use_variant_metafield_for_description": false,
+            "description": "Nothing! Unlike the painfully nostalgic odor (i.e. harsh and chemically) of most sunscreens, ours is completely unscented.",
+            "description_metafield_key": ""
+          }
+        },
+        "item_PXaARX": {
+          "type": "item",
+          "settings": {
+            "use_variant_metafield_for_image": false,
+            "image": "shopify://shop_images/Finish.png",
+            "image_metafield_key": "",
+            "title": "Finish:",
+            "use_variant_metafield_for_description": false,
+            "description": "Lightweight, breathable, and nearly invisible on skin.",
+            "description_metafield_key": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_8Rpxwk",
+        "item_wQQpBK",
+        "item_PXaARX"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "card_bg_color": "bg-offWhite",
+        "title": "What to Expect",
+        "image": "shopify://shop_images/20240405_AA_FreaksOfNature__Peak_Performance_SPF50_Sunscreen_017_rt1.jpg",
+        "full_bleed_image": false,
+        "hide_mobile_image": false
+      }
+    },
+    "steps_DnR78r": {
+      "type": "steps",
+      "blocks": {
+        "item_rFQjDN": {
+          "type": "item",
+          "settings": {
+            "title": "Step 1",
+            "description": "<p>Shake well before use and apply 15 minutes before sun exposure. </p>",
+            "image": "shopify://shop_images/Step_1.png",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_g6zxYF": {
+          "type": "item",
+          "settings": {
+            "title": "Step 2",
+            "description": "<p>Hold container 4–6 inches from skin and spray liberally and evenly across the body. Rub into skin.</p>",
+            "image": "shopify://shop_images/Step_2.png",
+            "video": "shopify://files/videos/comp_07.mp4",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_NzCKkk": {
+          "type": "item",
+          "settings": {
+            "title": "Step 3",
+            "description": "<p>Reapply after 40 minutes of swimming or sweating, immediately after towel drying, and at least every 2 hours.</p>",
+            "image": "shopify://shop_images/Step_3.png",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        }
+      },
+      "block_order": [
+        "item_rFQjDN",
+        "item_g6zxYF",
+        "item_NzCKkk"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "How to Apply"
+      }
+    },
+    "builder_system_DLwhq8": {
+      "type": "builder-system",
+      "blocks": {
+        "card_UzGHJp": {
+          "type": "card",
+          "settings": {
+            "text": "<p>Rich in polysaccharides and antioxidants to instantly soothe, hydrate, and support skin resilience</p>",
+            "tag_thumbnail_1": "shopify://shop_images/aloe_vera.png",
+            "tag_1": "Aloe Vera",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        },
+        "card_CznQTH": {
+          "type": "card",
+          "settings": {
+            "text": "<p>A potent antioxidant that helps defend against environmental stressors and oxidative damage</p>",
+            "tag_thumbnail_1": "shopify://shop_images/green_tea_extract.png",
+            "tag_1": "Green Tea Extract",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        },
+        "card_46jfgR": {
+          "type": "card",
+          "settings": {
+            "text": "<p>Biocompatible and non-comedogenic, this skin-identical oil nourishes without disrupting the microbiome</p>",
+            "tag_thumbnail_1": "shopify://shop_images/jojoba_oil.png",
+            "tag_1": "Jojoba Oil",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        },
+        "card_rMTpgR": {
+          "type": "card",
+          "settings": {
+            "text": "<p>Antioxidant-rich to help combat free radicals and support overall skin health</p>",
+            "tag_thumbnail_1": "shopify://shop_images/bamboo_seed_extract.png",
+            "tag_1": "Bamboo Seed Extract",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_UzGHJp",
+        "card_CznQTH",
+        "card_46jfgR",
+        "card_rMTpgR"
+      ],
+      "settings": {
+        "video": "shopify://files/videos/B-SILK™ _ SEQUENCE _ H264 (1).mp4",
+        "hide_mute": true,
+        "title": "BIO BASED INGREDIENTS THAT MAKE A DIFFERENCE",
+        "description": "<p>We formulated the Freak Barrier Defense System™️specifically to defend and strengthen your skin microbiome and skin barrier. <strong>Meet the proprietary ingredients that set us apart. </strong></p>",
+        "icon": "shopify://shop_images/Vegan_Spider_Silk-Blue.svg",
+        "cta": "Explore our ingredients",
+        "cta_link": "shopify://pages/ingredients",
+        "cta_color": "blue"
+      }
+    },
+    "title_3E6DMh": {
+      "type": "title",
+      "disabled": true,
+      "settings": {
+        "bg_color": "white",
+        "title": "Used by our freak athletes",
+        "text": "",
+        "has_margin": true,
+        "text_align": "center"
+      }
+    },
+    "gallery_yXnGXK": {
+      "type": "gallery",
+      "blocks": {
+        "gallery_item_zdpibz": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240507_Kelly_Interview_Freaks_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "mobile_video": "shopify://files/videos/MOBILE_HP_Kelly_Interview_Freaks_Specific_4x5_H.264_Final_Delivery.mp4",
+            "hide_mute": false,
+            "title": "Kelly Slater",
+            "info_text": ""
+          }
+        },
+        "gallery_item_6GHnnr": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240507_Ocean_Interview_Freaks_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "mobile_video": "shopify://files/videos/MOBILE_HP_Ocean_Interview_Freaks_Specific_4x5_H.264_Final_Delivery.mp4",
+            "hide_mute": false,
+            "title": "Ocean Ramsey",
+            "info_text": ""
+          }
+        },
+        "gallery_item_fjmikF": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240507_Nina_Interview_Freaks_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "mobile_video": "shopify://files/videos/MOBILE_HP_Nina_Interview_Freaks_Specific_4X5_H.264_Final_Delivery.mp4",
+            "hide_mute": false,
+            "title": "Nina Williams",
+            "info_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "gallery_item_zdpibz",
+        "gallery_item_6GHnnr",
+        "gallery_item_fjmikF"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_video_controls": true
+      }
+    },
+    "reviews_section_fhewjz": {
+      "type": "reviews",
+      "settings": {
+        "product_override": "",
+        "bg_color": "bg-offWhite",
+        "title": "Reviews",
+        "image": "shopify://shop_images/Reviews.png",
+        "hide_mute": false,
+        "full_bleed_media": false
+      }
+    },
+    "product_carousel_x3Ukge": {
+      "type": "product-carousel",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Shop other Products",
+        "title_style": "title_big",
+        "hide_mobile_title": false,
+        "cta": "",
+        "cta_link": "",
+        "cta_color": "blue",
+        "card_cta_text": "",
+        "card_cta_as_add_to_cart": false,
+        "card_cta_arrow_direction": "top",
+        "collections": [
+          "all-products"
+        ]
+      }
+    }
+  },
+  "order": [
+    "sticky_add_to_cart_button_YwHpbY",
+    "product_hero_r8EjUL",
+    "product_hero_7LbPJE",
+    "comparison_cKkidc",
+    "ugc_slider_LeiTDN",
+    "properties_4a3QYn",
+    "steps_DnR78r",
+    "builder_system_DLwhq8",
+    "title_3E6DMh",
+    "gallery_yXnGXK",
+    "reviews_section_fhewjz",
+    "product_carousel_x3Ukge"
+  ]
+}

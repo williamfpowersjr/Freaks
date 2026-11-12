@@ -1,0 +1,547 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "sticky-navigation",
+      "settings": {
+        "show_sticky_navigation": true
+      }
+    },
+    "simple_hero_XMUwWQ": {
+      "type": "simple-hero",
+      "settings": {
+        "image": "shopify://shop_images/Glasert_20170617_TAV_OK_2776.jpg",
+        "video": "shopify://files/videos/NEOSSANCE™ SQUALANE _ SEQUENCE _ H264 (1).mp4",
+        "title": "Your first line of defense in the outdoors.",
+        "bg_color": "white",
+        "section_height": "height_60"
+      }
+    },
+    "divider_3KWQyR": {
+      "type": "divider",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "divider_color": "bg-white",
+        "divider_color_mobile": "bg-white"
+      }
+    },
+    "title_with_navigation_iQPkW4": {
+      "type": "title-with-navigation",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "section_title": "",
+        "title": "FOR EVERY SUPERHUMAN FEAT, YOU NEED HIGH-TECH SKINCARE"
+      }
+    },
+    "copy_media_KgD7W9": {
+      "type": "copy-media",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "text": "<p>With more and more people hitting the trails, shredding waves, or catching bonus sprints, skin health is becoming a huge concern—and rightly so. Healthy skin can filter out up to 60-70% of the sun’s UV rays¹, depending on your skin color, before you protect yourself with sunscreen (which, by the way, you definitely should, regardless of skin color).</p><p>But if your skin barrier isn't in good shape, you're at a higher risk. Damaged skin lets more UV rays penetrate deeper, and also allows pathogens, irritants, and pollutants to sneak into your system.</p><p>Plus, if you don’t protect your skin from the sun, it can seriously diminish your skin barrier function². This sets off a harmful cycle where your skin becomes increasingly vulnerable to UV damage and your barrier deteriorating. </p><p>Over the last decade (2014 – 2024), the number of new invasive melanoma cases diagnosed annually jumped by 32%. This increase is likely due to better detection, more time spent in the sun, and simply more people living longer³.</p><p><em>So at Freaks of Nature we obsess over helping you to build the best natural first-line-of-defense possible, and providing you with the highest performing products to protect it.</em></p><p>Your skin barrier function is largely defined by 1) your Skin Microbiome, 2) your Stratum Corneum. Together they act as your natural defense system against environmental stressors.</p>",
+        "expansion_text": "",
+        "caption": "",
+        "hide_mute": false,
+        "alignment": "lg:flex-row",
+        "text_alignment": "text-left",
+        "border_top": false,
+        "media_aspect_square": false
+      }
+    },
+    "cards_yFX89b": {
+      "type": "cards",
+      "blocks": {
+        "card_LH9BKV": {
+          "type": "card",
+          "settings": {
+            "card_color": "orange",
+            "background_image": "shopify://shop_images/02_SLATER_1149_rt2.jpg",
+            "main_text": "Up to 60-70%",
+            "secondary_text": "Of harmful UVB rays are filtered by a healthy skin barrier ¹."
+          }
+        },
+        "card_qwizFB": {
+          "type": "card",
+          "settings": {
+            "card_color": "orange",
+            "main_text": "32%",
+            "secondary_text": "Increase of diagnoses of new invasive melanoma cases in the past decade<sup>3</sup>"
+          }
+        }
+      },
+      "block_order": [
+        "card_LH9BKV",
+        "card_qwizFB"
+      ],
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white"
+      }
+    },
+    "divider_ytTrtq": {
+      "type": "divider",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "divider_color": "bg-black/15",
+        "divider_color_mobile": "bg-white"
+      }
+    },
+    "title_with_navigation_y9tDCL": {
+      "type": "title-with-navigation",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "section_title": "Skin Microbiome",
+        "title": "Skin microbiome, The unlock for superhuman skin."
+      }
+    },
+    "copy_media_jQehM4": {
+      "type": "copy-media",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "text": "<p><strong>At Freaks of Nature we believe the skin microbiome is one of the big unlocks to building a strong skin barrier. </strong></p><p>We partnered with Dr. Elsa Jungman, a leading voice in the scientific field of the skin Microbiome and lead scientific advisor to Freaks of Nature, to formulate and design our products with the skin microbiome top of mind.</p><p>With recent leaps in DNA sequencing, both in cost and speed, we've gained a clearer understanding of the microbiome and its crucial role in our health. As a matter of fact, we’ve come to realize we are more bacterial than we are human! </p>",
+        "expansion_text": "",
+        "caption": "caption",
+        "hide_mute": false,
+        "alignment": "flex",
+        "text_alignment": "lg:text-left",
+        "border_top": false,
+        "media_aspect_square": false
+      }
+    },
+    "info_graph_jXWnFa": {
+      "type": "info-graph",
+      "blocks": {
+        "info_FwwTKV": {
+          "type": "info",
+          "settings": {
+            "info": "100 trillion microbial cells",
+            "indicator_color": "bg-blue"
+          }
+        },
+        "info_WQ7WX3": {
+          "type": "info",
+          "settings": {
+            "info": "30 trillion human cells",
+            "indicator_color": "bg-orange"
+          }
+        }
+      },
+      "block_order": [
+        "info_FwwTKV",
+        "info_WQ7WX3"
+      ],
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "bg_card_color": "bg-offWhite",
+        "description": "Of the estimated 30 trillion cells in your body—less than a third—are human. The other 70-90% are bacterial and fungal<sup>4</sup>.",
+        "image": "shopify://shop_images/microbiome-illstration.png"
+      }
+    },
+    "divider_raAie4": {
+      "type": "divider",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-offWhite",
+        "divider_color": "bg-black/15",
+        "divider_color_mobile": "bg-white"
+      }
+    },
+    "title_with_navigation_r7cHid": {
+      "type": "title-with-navigation",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-offWhite",
+        "section_title": "",
+        "title": "YOUR SKIN BARRIER NEEDS STRENGTH TRAINING TOO"
+      }
+    },
+    "copy_media_7Wg4wb": {
+      "type": "copy-media",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-offWhite",
+        "text": "<p>Think of your skin barrier like your body's armor. The health of your skin's microbiome, which is made up of trillions of bacteria, fungi, and viruses, directly impacts how strong and functional this barrier is. These tiny organisms play a big role, helping manage everything from protection to repair. When the balance is right, they're your skin's best defenders. But if harmful bacteria get the upper hand, it could weaken your skin's defenses, making it less effective at protecting you from the elements and injuries. </p><p><em>\"Specifically for athletes who spend a lot of time outdoors, keeping your skin in top shape isn’t just about looking good. It’s really important for staying comfortable, performing at your best, and avoiding infections. Having a solid skincare routine helps keep your skin barrier strong, which can actually give you a leg up in competition and help keep you performing well in the long run.\" - Dr. Elsa Jungman.</em></p>",
+        "expansion_text": "",
+        "caption": "",
+        "hide_mute": false,
+        "alignment": "lg:flex-row",
+        "text_alignment": "text-left",
+        "border_top": false,
+        "media_aspect_square": false
+      }
+    },
+    "split_screen_with_padding_NrnNVz": {
+      "type": "split-screen-with-padding",
+      "blocks": {
+        "item_tBk43N": {
+          "type": "item",
+          "settings": {
+            "title": "Balanced skin barrier",
+            "description": "<p>The outer layer of your skin, the stratum corneum, is like the protective brick wall of a house, while the skin microbiome is like a thriving forest right at your doorstep. There are many interactions between the skin microbiome and the stratum corneum, one of the key interactions is the production of lipids that are the ‘cement’ of your stratum corneum ‘brick wall’. When these structures are organized and balanced they limit dehydration (transepidermal water loss) from the underlying dermo-epidermal junction which is instrumental to the strength of your skin, and they form a natural barrier to environmental stressors like UV rays, pathogens and pollution. </p>",
+            "description_size": "small_text",
+            "image": "shopify://shop_images/Balanced_Skin_bccf5e80-df2e-4365-89a3-ea816d7fac9b.svg",
+            "caption": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_xNyXhG": {
+          "type": "item",
+          "settings": {
+            "title": "Unbalanced skin barrier",
+            "description": "<p>When the balance of skin structures is disrupted, it weakens the skin's ability to produce protective lipids, compromising the outer layer (stratum corneum) and reducing your barrier function. This leaves your skin vulnerable to UV rays, pathogens, and pollution, and can lead to dehydration (transepidermal water loss), weakening skin integrity. As an athlete, you are often exposed to outdoor conditions, and you are particularly susceptible to these kinds of disruptions.</p>",
+            "description_size": "small_text",
+            "image": "shopify://shop_images/Unbalanced_Skin_d40a1776-3cd4-4c43-8938-a0f7636a9dc4.svg",
+            "caption": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        }
+      },
+      "block_order": [
+        "item_tBk43N",
+        "item_xNyXhG"
+      ],
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-offWhite",
+        "card_bg_color": "bg-offWhite"
+      }
+    },
+    "causes_hr3wcW": {
+      "type": "causes",
+      "blocks": {
+        "cause_776kJj": {
+          "type": "cause",
+          "settings": {
+            "icon": "shopify://shop_images/Sun.svg",
+            "title": "Sun exposure",
+            "cause_title": "Cause",
+            "cause_description": "<p>Spending long hours under the sun can put your skin at risk by disrupting your skin's microbiome, reducing its diversity and possibly impacting skin health. UV radiation also directly harms skin cells, leading to premature aging and increased risk of skin cancer. Moreover, prolonged exposure can disrupt your skin's microbiome, reducing its diversity and potentially affecting its overall health.</p>",
+            "protection_title": "Protection Strategies",
+            "protection_description": "<p>Using broad-spectrum, water-resistant sunscreen, wearing protective clothing, and limiting sun exposure during peak intensity hours can help mitigate these effects.</p>",
+            "ingredients_title": "How we formulated for it",
+            "ingredients_description": "<p>Learn more about these ingredients in our formulas that help you protect your skin barrier from sun exposure on<a href=\"#\" title=\"#\"> our ingredients page</a></p>",
+            "tag_thumbnail_1": "shopify://shop_images/red_algae_free_ead2156a-04b4-4a59-b1bd-c5fc623c91a1.jpg",
+            "tag_1": "Red Algae MAA",
+            "tag_thumbnail_2": "shopify://shop_images/ZINC_OXIDE.webp",
+            "tag_2": "Zinc Oxide",
+            "tag_thumbnail_3": "shopify://shop_images/CORN_SUGAR.webp",
+            "tag_3": "Titanium Dioxide",
+            "tag_4": "",
+            "targeting_title": "Targeting Products",
+            "targeting_collection": "sun-exposure",
+            "targeting_custom_product_title": ""
+          }
+        },
+        "cause_KyGjAa": {
+          "type": "cause",
+          "settings": {
+            "icon": "shopify://shop_images/Wind_037d4c1f-9b96-4e7e-a2b9-2f0e361283bd.svg",
+            "title": "Wind & Cold",
+            "cause_title": "Cause",
+            "cause_description": "<p>Cold, windy conditions can strip moisture from your skin, leading to dryness, cracking, and irritation. The loss of moisture and natural oils (lipids) from the skin compromises your barrier function, making your skin more susceptible to infections and negatively impacting your microbiome balance.</p>",
+            "protection_title": "Protection Strategies",
+            "protection_description": "<p>Applying protective, moisturizing barriers before exposure and using clothing designed to shield your skin from the elements can reduce wind and cold damage.</p>",
+            "ingredients_title": "How we formulated for it",
+            "ingredients_description": "<p>All of our products include ingredients which aim to rebalance the skin microbiome and in the case of our moisturizer: lock in moisture<br/><br/>Learn more about these ingredients in our formulas that help you protect your skin barrier from sun exposure on our <a href=\"#\" title=\"#\">ingredient page</a></p>",
+            "tag_thumbnail_1": "shopify://shop_images/Bacteria_free.jpg",
+            "tag_1": "Bacillus Ferment",
+            "tag_thumbnail_2": "shopify://shop_images/squalane.jpg",
+            "tag_2": "Squalane",
+            "tag_thumbnail_3": "shopify://shop_images/Brown_algae_free_666e3db3-cdf0-44e3-a28c-60f4dc63c9cf.jpg",
+            "tag_3": "Brown Algae",
+            "tag_4": "",
+            "targeting_title": "Targeting Products",
+            "targeting_collection": "winter-and-cold",
+            "targeting_custom_product_title": ""
+          }
+        },
+        "cause_edJU9b": {
+          "type": "cause",
+          "settings": {
+            "icon": "shopify://shop_images/Heat_e98a029a-cec0-40d1-bf53-98b36960e86e.svg",
+            "title": "Heat & Sweating",
+            "cause_title": "Cause",
+            "cause_description": "<p>High temperatures and humidity increase sweat and sebum production, which can lead to clogged pores, poor complexion, and disruptions in the skin microbiome.</p>",
+            "protection_title": "Protection Strategies",
+            "protection_description": "<p>Staying hydrated, wearing breathable clothing, and practicing proper hygiene (e.g., showering and gently cleansing your skin after sweating) can help manage the effects of heat and humidity.</p>",
+            "ingredients_title": "How we formulated for it",
+            "ingredients_description": "<p>Mineral sunscreen to avoid heat trapping in the skin is often perceived with organic (chemical filters that absorb UV in the upper layers of your skin rather than reflecting it as is the case with mineral filters). We also formulated all our products with non-comedogenic ingredients to ensure we don’t clog any pores. </p><p>Learn more about these ingredients in our formulas that help you protect your skin barrier from sun exposure on our <a href=\"#\" title=\"#\">ingredient page</a></p>",
+            "tag_thumbnail_1": "shopify://shop_images/ZINC_OXIDE.webp",
+            "tag_1": "Zinc Oxide (non-nano)",
+            "tag_thumbnail_2": "shopify://shop_images/CORN_SUGAR.webp",
+            "tag_2": "Titanium Dioxide (non-nano)",
+            "tag_3": "",
+            "tag_4": "",
+            "targeting_title": "Targeting Products",
+            "targeting_collection": "heat",
+            "targeting_custom_product_title": ""
+          }
+        },
+        "cause_Grrihk": {
+          "type": "cause",
+          "settings": {
+            "icon": "shopify://shop_images/Air_Quality_e1894a85-9a10-49fb-a993-0177fabc14e6.svg",
+            "title": "Air Quality & Pollution",
+            "cause_title": "Cause",
+            "cause_description": "<p>Exposure to pollutants such as smoke, particulate matter, and ozone can lead to oxidative stress, damaging your skin cells and altering your skin microbiome. Pollutants can decrease the diversity of your skin microbiome and increase the abundance of harmful microorganisms.</p>",
+            "protection_title": "Protection Strategies",
+            "protection_description": "<p>Using topical antioxidants (e.g., vitamin C, E) can help protect your body from harmful molecules called free radicals.  Cleansing your skin after exposure to polluted environments can also reduce the impact of air pollutants.</p>",
+            "ingredients_title": "How we formulated for it",
+            "ingredients_description": "<p>We’ve formulated with the innovative B-Silk, vegan spidersilk, which creates a biofilm on your skin and almost doubles pollution wash-off at 90%.</p>",
+            "tag_thumbnail_1": "shopify://shop_images/bsilk.jpg",
+            "tag_1": "B-Silk™ vegan spider silk protein",
+            "tag_thumbnail_2": "shopify://shop_images/Bacteria_free.jpg",
+            "tag_2": "Vitamin E",
+            "tag_3": "",
+            "tag_4": "",
+            "targeting_title": "Targeting Products",
+            "targeting_collection": "air-quality-pollution",
+            "targeting_custom_product_title": ""
+          }
+        },
+        "cause_DGEmzm": {
+          "type": "cause",
+          "settings": {
+            "icon": "shopify://shop_images/Water_ae62a388-368e-4c76-bdd7-20e0a5746e1e.svg",
+            "title": "Water Exposure",
+            "cause_title": "Cause",
+            "cause_description": "<p>Regular exposure to chlorinated water, as found in swimming pools, can disrupt your skin's natural microbiome and degrade your skin barrier, leading to dryness and irritation. Similarly, prolonged exposure to salt water can dehydrate your skin and affect your microbiome as exogenous bacteria can be present on your skin for at least 24h after ocean water exposure and can remove normal resident bacteria from your skin microbiome. </p>",
+            "protection_title": "Protection Strategies",
+            "protection_description": "<p>Rinsing the skin with fresh water after water sports and applying a moisturizer can help restore your skin's natural barrier. Using barrier-protecting creams before swimming might also offer protection.</p>",
+            "ingredients_title": "How we formulated for it",
+            "ingredients_description": "<p>We’ve formulated with the innovative B-Silk, vegan spidersilk, which creates a biofilm on the skin to protect the skin microbiome from environmental stressors as well as a plant-based water resistance film to create a barrier between your skin and the water. Our post-biotic bacillus ferment helps balance your skin microbiome after water exposure and our squalane hydrates deep into your skin.</p>",
+            "tag_thumbnail_1": "shopify://shop_images/bsilk.jpg",
+            "tag_1": "B-Silk™ vegan spider silk protein",
+            "tag_thumbnail_2": "shopify://shop_images/soy_bean_free.jpg",
+            "tag_2": "Hydroseal soybean oil and glycerin",
+            "tag_thumbnail_3": "shopify://shop_images/oleofactif.jpg",
+            "tag_3": "Oleoactif™ Bacillus Ferment ",
+            "tag_thumbnail_4": "shopify://shop_images/squalane.jpg",
+            "tag_4": "Neossance™ vegan shark squalane",
+            "targeting_title": "Targeting Products",
+            "targeting_collection": "water",
+            "targeting_custom_product_title": ""
+          }
+        },
+        "cause_Ci8ehD": {
+          "type": "cause",
+          "settings": {
+            "icon": "shopify://shop_images/Abrasions_b7e4f37f-b66c-4edb-9e16-77d3c0315938.svg",
+            "title": "Physical Contact & Abrasions",
+            "cause_title": "Cause",
+            "cause_description": "<p>Sports that involve running, cycling, or tight-fitting equipment can cause friction against your skin, leading to blisters, chafing, and abrasions. These injuries disrupt your skin's surface, making it more susceptible to infection and altering the local microbiome. Outdoor sports such as surfing, climbing, trail biking, and trail running involve physical collisions and impacts that can cause cuts, bruises, and open wounds. Such injuries provide a direct pathway for pathogens to enter your skin and disturb your microbial balance.</p>",
+            "protection_title": "Protection Strategies",
+            "protection_description": "<p>To maintain healthy skin as an outdoor athlete, use protective gear, apply proper technique to minimize skin contact, follow a skin care regimen that includes gentle cleansing and moisturizing, promptly treat wounds to prevent infection, and allow for adequate rest and recovery time for skin injuries.</p>",
+            "ingredients_title": "How we formulated for it",
+            "ingredients_description": "<p><em>Watch this space…</em>Freaks of Nature is currently developing a series of products for cuts, scrapes and skin repairs. Sign up to our newsletter to be the first to know about new product launches.</p>",
+            "tag_1": "Coming Fall 2025",
+            "tag_2": "",
+            "tag_3": "",
+            "tag_4": "",
+            "targeting_title": "Targeting Products",
+            "targeting_collection": "",
+            "targeting_custom_product_title": ""
+          }
+        },
+        "cause_e4NrHP": {
+          "type": "cause",
+          "settings": {
+            "icon": "shopify://shop_images/Nutrition_1300f5e7-7120-4993-b4d5-e5da701e1350.svg",
+            "title": "Diet & Nutrition",
+            "cause_title": "Cause",
+            "cause_description": "<p>As an athlete, if your diet is high in protein but low in fats and carbohydrates, you might be missing out on essential fatty acids and antioxidants, which are crucial for maintaining skin hydration and barrier function. Over-relying on supplements, not drinking enough water, and poor nutrient timing around your workouts can also hurt your skin health, leaving it more vulnerable to damage and environmental stress.</p>",
+            "protection_title": "Protection Strategies",
+            "protection_description": "",
+            "ingredients_title": "How we formulated for it",
+            "ingredients_description": "<p>Fatty acids like omega-3 and omega-6 enhance hydration and can soothe the skin, while vitamins A, C, D, and E promote skin cell growth, repair, and protection against oxidative damage. Additionally, minerals like zinc and elements like probiotics boost skin resilience, and staying hydrated is crucial for maintaining skin health. Avoiding high sugar and refined carbs is also vital to prevent skin conditions and maintain barrier function.</p>",
+            "tag_1": "",
+            "tag_2": "",
+            "tag_3": "",
+            "tag_4": "",
+            "targeting_title": "Targeting Products",
+            "targeting_collection": "",
+            "targeting_custom_product_title": ""
+          }
+        },
+        "cause_C6HXHz": {
+          "type": "cause",
+          "settings": {
+            "icon": "shopify://shop_images/Stress_749cefde-bf6c-404c-9925-6d508baac836.svg",
+            "title": "Stress & Hormones",
+            "cause_title": "Cause",
+            "cause_description": "<p>It’s crucial to include fatty acids like omega-3 and omega-6 in your diet, as they boost hydration and reduce inflammation. Vitamins A, C, D, and E are also essential as they help with skin cell growth, repair, and fighting oxidative damage. Don’t forget minerals like zinc and elements like probiotics, which enhance your skin’s resilience. Staying hydrated is key for maintaining skin health. Also, cutting down on high sugar and refined carbs is important to prevent skin conditions and keep your skin barrier strong.</p>",
+            "protection_title": "Protection Strategies",
+            "protection_description": "",
+            "ingredients_title": "How we formulated for it",
+            "ingredients_description": "",
+            "tag_1": "",
+            "tag_2": "",
+            "tag_3": "",
+            "tag_4": "",
+            "targeting_title": "Targeting Products",
+            "targeting_collection": "",
+            "targeting_custom_product_title": ""
+          }
+        },
+        "cause_TVN7W8": {
+          "type": "cause",
+          "settings": {
+            "icon": "shopify://shop_images/Skincare_5b09d5d1-91c3-4923-816c-b99e23a9075a.svg",
+            "title": "Skincare Products",
+            "cause_title": "Cause",
+            "cause_description": "<p>As an athlete, you should be careful with skincare products that could harm your skin barrier. Products with ingredients like harsh alcohols or fragrances, overusing exfoliants, or those that clog pores with comedogenic substances can all be problematic. Also, make sure you're using enough sun protection and choosing products that match your specific skin type. Neglecting these aspects can lead to dryness, irritation, acne, and increased sensitivity, all of which compromise the health and function of your skin barrier.</p>",
+            "protection_title": "Protection Strategies",
+            "protection_description": "<p>It's crucial to choose the right skincare products to maintain a healthy skin barrier. Moisturizers can balance and strengthen your skin, especially in harsh conditions, while squalane increases hydration—important as you lose moisture through sweat. Use mineral, broad-spectrum sunscreen to shield against UVA and UVB rays, and gentle cleansers to keep your skin’s natural oils balanced. Antioxidant serums with vitamins C and E fend off environmental damage. Oat oils help soothe the skin, and omega fatty acids boost your skin's elasticity and moisture retention. Opt for products tailored to your skin type to enhance its health and resilience.</p>",
+            "ingredients_title": "How we formulated for it",
+            "ingredients_description": "<p>We’ve formulated our products to strengthen and protect athlete’s skin barriers by optimizing for the health and balance of your skin microbiome.</p>",
+            "tag_thumbnail_1": "shopify://shop_images/ZINC_OXIDE.webp",
+            "tag_1": "Zinc Oxide (non-nano)",
+            "tag_thumbnail_2": "shopify://shop_images/oleofactif.jpg",
+            "tag_2": "Oleoactif™ Bacillus Ferment ",
+            "tag_thumbnail_3": "shopify://shop_images/squalane.jpg",
+            "tag_3": "Neossance™ Vegan Shark Squalane",
+            "tag_thumbnail_4": "shopify://shop_images/oil_free.jpg",
+            "tag_4": "Plukenetia Volubilis Seed Oil",
+            "targeting_title": "Targeting Products",
+            "targeting_collection": "skincare-products",
+            "targeting_custom_product_title": ""
+          }
+        }
+      },
+      "block_order": [
+        "cause_776kJj",
+        "cause_KyGjAa",
+        "cause_edJU9b",
+        "cause_Grrihk",
+        "cause_DGEmzm",
+        "cause_Ci8ehD",
+        "cause_e4NrHP",
+        "cause_C6HXHz",
+        "cause_TVN7W8"
+      ],
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "card_bg_color": "bg-white",
+        "cta": "",
+        "cta_url": "",
+        "cta_color": "black"
+      }
+    },
+    "copy_media_RaQbx4": {
+      "type": "copy-media",
+      "disabled": true,
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-offWhite",
+        "text": "<p>Please note that the skin barrier and particularly the science of the skin microbiome are still poorly understood, especially in (outdoor) athletes, and requires a lot more research. At Freaks of Nature we are committed to contribute to this needed scientific work by conducting regular clinical trials with our research partner HelloBiome. But here are the key causes for outdoor athletes skin barrier to be compromised. These are also the key areas of focus which drive our current formulations and future product development pipeline.</p>",
+        "expansion_text": "",
+        "caption": "",
+        "hide_mute": false,
+        "alignment": "lg:flex-row",
+        "text_alignment": "text-center",
+        "border_top": false,
+        "media_aspect_square": false
+      }
+    },
+    "divider_YnhDcp": {
+      "type": "divider",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "divider_color": "bg-black/15",
+        "divider_color_mobile": "bg-white"
+      }
+    },
+    "title_with_navigation_XPLVcV": {
+      "type": "title-with-navigation",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "section_title": "More than Skin Deep",
+        "title": "More than Skin Deep"
+      }
+    },
+    "copy_media_pHTqeg": {
+      "type": "copy-media",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "text": "<p>While we are laser focussed on the fundamentals of balancing your skin microbiome and building up your skin barrier against environmental stressors, the skin microbiome has the potential to impact processes much deeper than just the skin.</p><p>An early 3rd party scientific study⁴ has for e.g. uncovered that there’s a possible direct correlation between increased muscle recovery and a balanced skin microbiome, that your attraction to insects is in part defined by your skin microbiome⁵, and that the way you smell under your armpits is defined by a finite set of bacteria in your biome⁶.</p><p>As we are committed to removing barriers for you to enjoy the outdoors, look out for future innovations and products from our innovation lab with HelloBiome.</p>",
+        "expansion_text": "",
+        "image": "shopify://shop_images/04_CLIMBING_2365_rt2.jpg",
+        "caption": "",
+        "hide_mute": false,
+        "alignment": "lg:flex-row",
+        "text_alignment": "text-left",
+        "border_top": true,
+        "media_aspect_square": true
+      }
+    },
+    "footnotes_qeQcEm": {
+      "type": "footnotes",
+      "settings": {
+        "footnotes": "<p><em>1 </em><a href=\"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2671032/\"><span style=\"text-decoration:underline\"><em>The Protective Role of Melanin Against UV Damage in Human Skin</em></span></a><em>. - National Library of Medicine.</em></p><p><em>2 </em><a href=\"https://www.sciencedirect.com/science/article/pii/S2405580819300688#:~:text=UV%20light%20increases%20stress%20and,and%20cohesiveness%20regardless%20of%20UV.\"><span style=\"text-decoration:underline\"><em>Role of sunscreen formulation and photostability to protect the biomechanical barrier function of skin</em></span></a><em> </em>- Science Direct.</p><p><em>3 </em><a href=\"https://www.cancer.org/research/cancer-facts-statistics/all-cancer-facts-figures/2024-cancer-facts-figures.html\"><span style=\"text-decoration:underline\"><em>Cancer Facts and Figures 2024. </em></span></a>- American Cancer Society.</p><p><em>4 </em><a href=\"https://www.amnh.org/explore/science-topics/microbiome-health/meet-your-microbiome\"><span style=\"text-decoration:underline\"><em>DR. MARTIN BLASER Author of \"Missing Microbes\"</em></span></a>.</p>"
+      }
+    },
+    "image_card_84QgCc": {
+      "type": "image-card",
+      "disabled": true,
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "bg_card_color": "bg-offWhite",
+        "card_bg_color": "bg-offWhite",
+        "section_padding": true,
+        "alignment": "lg:flex-row",
+        "title": "Title",
+        "subtitle": "Subtitle",
+        "description": "<p>Lorem ipsum dolor sit amet consectetur. Nibh pellentesque viverra integer mattis. Et ridiculus rhoncus in tortor at vitae et arcu. Quis pellentesque ac integer nunc adipiscing. In porttitor nulla sed orci a sed.</p>",
+        "label": "label",
+        "label_link": "shopify://pages/ingredients",
+        "image": "shopify://shop_images/soy_bean_free.jpg",
+        "caption": "caption",
+        "full_bleed_media": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "simple_hero_XMUwWQ",
+    "divider_3KWQyR",
+    "title_with_navigation_iQPkW4",
+    "copy_media_KgD7W9",
+    "cards_yFX89b",
+    "divider_ytTrtq",
+    "title_with_navigation_y9tDCL",
+    "copy_media_jQehM4",
+    "info_graph_jXWnFa",
+    "divider_raAie4",
+    "title_with_navigation_r7cHid",
+    "copy_media_7Wg4wb",
+    "split_screen_with_padding_NrnNVz",
+    "causes_hr3wcW",
+    "copy_media_RaQbx4",
+    "divider_YnhDcp",
+    "title_with_navigation_XPLVcV",
+    "copy_media_pHTqeg",
+    "footnotes_qeQcEm",
+    "image_card_84QgCc"
+  ]
+}

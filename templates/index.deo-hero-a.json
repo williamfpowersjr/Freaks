@@ -1,0 +1,1462 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_alternative_MQMAHY": {
+      "type": "hero-alternative",
+      "disabled": true,
+      "settings": {
+        "media_type": "image",
+        "image": "shopify://shop_images/HP3.jpg",
+        "mobile_image": "shopify://shop_images/mobile.jpg",
+        "mobile_video": "shopify://files/videos/SunStick_Montage.mp4",
+        "title": "",
+        "bg_color": "offWhite",
+        "show_tagline": false,
+        "tagline": "",
+        "credit_title": "",
+        "credit_url": "",
+        "cta_count": "2",
+        "cta_style": "full_bleed",
+        "cta": "SHOP JUMBO SUN STICK",
+        "cta_link": "shopify://products/jumbo-sun-stick",
+        "cta_color": "orange",
+        "cta_2": "SHOP SOLAR SHIELD SPRAY",
+        "cta_2_link": "shopify://products/solar-shield-spray",
+        "cta_2_color": "blue"
+      }
+    },
+    "ctr_hero_Lebd6R": {
+      "type": "ctr-hero",
+      "blocks": {
+        "star_rating_zRUWLc": {
+          "type": "star_rating",
+          "settings": {
+            "star_count": "5",
+            "text": "<p>Loved by 50,000 Freaks</p>",
+            "font_size_desktop": 16,
+            "font_size_mobile": 14
+          }
+        },
+        "title_VYNc8B": {
+          "type": "title",
+          "settings": {
+            "title": "<p>Everyday Endurance<br/>Deodorant is back</p>",
+            "font_size_desktop": 60,
+            "font_size_mobile": 29
+          }
+        },
+        "text_qp7xJa": {
+          "type": "text",
+          "settings": {
+            "text": "<p>48-hour protection, aluminum-free, and fully restocked. Now with a new scent. The natural deodorant that actually works, better than ever.</p>",
+            "font_size_desktop": 20,
+            "font_size_mobile": 18,
+            "max_width_desktop": 530
+          }
+        },
+        "button_zELDG6": {
+          "type": "button",
+          "settings": {
+            "label": "Shop deodorant",
+            "url": "shopify://products/everyday-endurance-deodorant",
+            "button_color": "orange",
+            "font_size_desktop": 20,
+            "font_size_mobile": 20,
+            "max_width_desktop": 475
+          }
+        }
+      },
+      "block_order": [
+        "star_rating_zRUWLc",
+        "title_VYNc8B",
+        "text_qp7xJa",
+        "button_zELDG6"
+      ],
+      "disabled": true,
+      "name": "Hero (CTR)",
+      "settings": {
+        "image_desktop": "shopify://shop_images/Container_12.png",
+        "image_mobile": "shopify://shop_images/Container_13.png",
+        "badge_image": "shopify://shop_images/image_21.png",
+        "badge_max_width_desktop": 168,
+        "badge_max_width_mobile": 100,
+        "content_max_width_desktop": 720,
+        "content_gap_desktop": 24,
+        "content_gap_mobile": 20,
+        "badge_position": "bottom-right",
+        "badge_position_value_x_desktop": 35,
+        "badge_position_value_y_desktop": 30,
+        "badge_position_value_x_mobile": 35,
+        "badge_position_value_y_mobile": 40,
+        "background_color": "#000000",
+        "background_gradient": "",
+        "overlay_color": "rgba(0,0,0,0)",
+        "text_color": "#ffffff",
+        "muted_text_color": "#ffffff",
+        "star_color": "#fe5000",
+        "min_height_desktop": 700,
+        "min_height_mobile": 778,
+        "padding_top_desktop": 120,
+        "padding_bottom_desktop": 120,
+        "padding_top_mobile": 24,
+        "padding_bottom_mobile": 24
+      }
+    },
+    "ctr_double_hero_CB8Unh": {
+      "type": "ctr-double-hero",
+      "blocks": {
+        "star_rating_VRW7gB": {
+          "type": "star_rating",
+          "settings": {
+            "star_count": "5",
+            "text": "<p>Loved by 85,000 Freaks</p>",
+            "text_color": "#232323",
+            "star_color": "#fe5000",
+            "font_size_desktop": 16,
+            "font_size_mobile": 14
+          }
+        },
+        "title_xHFFKN": {
+          "type": "title",
+          "settings": {
+            "title": "<p>Clean, clinical skincare built for <strong>all movement</strong></p>",
+            "title_color": "#232323",
+            "accent_color": "#fe5000",
+            "accent_color_mobile": "",
+            "font_size_desktop": 60,
+            "font_size_mobile": 32
+          }
+        },
+        "text_3MY6Le": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Mineral SPF. Bio-based hydrators. Marine-derived actives. No fillers, no fluff. Only ingredients doing exactly what they're supposed to.</p>",
+            "text_color": "#232323",
+            "font_size_desktop": 20,
+            "font_size_mobile": 18,
+            "max_width_desktop": 527
+          }
+        },
+        "button_LBFR8h": {
+          "type": "button",
+          "settings": {
+            "label": "Shop the Freaks Collection",
+            "url": "/collections/all-products",
+            "button_color": "orange",
+            "font_size_desktop": 20,
+            "font_size_mobile": 20,
+            "max_width_desktop": 527
+          }
+        }
+      },
+      "block_order": [
+        "star_rating_VRW7gB",
+        "title_xHFFKN",
+        "text_3MY6Le",
+        "button_LBFR8h"
+      ],
+      "disabled": true,
+      "name": "Double Hero (CTR)",
+      "settings": {
+        "layout": "single",
+        "primary_image": "shopify://shop_images/Container_6_0ff1063e-abed-4b4c-97a0-ecdc74995b5c.png",
+        "primary_image_mobile": "shopify://shop_images/Container_7_e11ce63e-d1bd-4afb-8e91-d6de7d2ee503.png",
+        "content_max_width": 640,
+        "content_gap_desktop": 24,
+        "content_gap_mobile": 20,
+        "content_background_desktop": "#ffffff82",
+        "content_background_mobile": "#ffffff",
+        "background_color": "#e5edf5",
+        "background_gradient": "",
+        "min_height_desktop": 690,
+        "padding_top_desktop": 84,
+        "padding_bottom_desktop": 84,
+        "padding_top_mobile": 24,
+        "padding_bottom_mobile": 24
+      }
+    },
+    "ctr_double_hero_Dp88wY": {
+      "type": "ctr-double-hero",
+      "blocks": {
+        "star_rating_B6hfFX": {
+          "type": "star_rating",
+          "settings": {
+            "star_count": "5",
+            "text": "<p>Loved by 85,000 Freaks</p>",
+            "text_color": "#232323",
+            "star_color": "#fe5000",
+            "font_size_desktop": 16,
+            "font_size_mobile": 14
+          }
+        },
+        "title_NH4DXC": {
+          "type": "title",
+          "settings": {
+            "title": "<p>Most clean deodorants aren’t built for <strong>real exertion</strong></p>",
+            "title_color": "#232323",
+            "accent_color": "#0032a0",
+            "accent_color_mobile": "#fe5000",
+            "font_size_desktop": 60,
+            "font_size_mobile": 32
+          }
+        },
+        "text_zwfYVx": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Formulated by experts. Tested by the pros. Most natural deodorants aren’t built for real sweat. So we made one that is.</p>",
+            "text_color": "#232323",
+            "font_size_desktop": 20,
+            "font_size_mobile": 18,
+            "max_width_desktop": 527
+          }
+        },
+        "button_HPktQA": {
+          "type": "button",
+          "settings": {
+            "label": "Shop deodorant",
+            "url": "shopify://products/everyday-endurance-deodorant",
+            "button_color": "orange",
+            "font_size_desktop": 20,
+            "font_size_mobile": 20,
+            "max_width_desktop": 527
+          }
+        }
+      },
+      "block_order": [
+        "star_rating_B6hfFX",
+        "title_NH4DXC",
+        "text_zwfYVx",
+        "button_HPktQA"
+      ],
+      "name": "Double Hero (CTR)",
+      "settings": {
+        "layout": "split",
+        "primary_image": "shopify://shop_images/deo-hero-a-lifestyle.jpg",
+        "primary_image_mobile": "shopify://shop_images/Container_4_89876a2a-6c77-46c4-a403-2cf3b57e9fb3.png",
+        "secondary_image": "shopify://shop_images/deo-hero-a-product.jpg",
+        "secondary_image_mobile": "shopify://shop_images/Container_1_23a8db4f-ed58-4269-a988-edd0fe002fff.png",
+        "badge_image": "shopify://shop_images/image_21.png",
+        "badge_max_width_desktop": 168,
+        "badge_max_width_mobile": 100,
+        "badge_position": "bottom-right",
+        "badge_position_value_x_desktop": 32,
+        "badge_position_value_y_desktop": 32,
+        "badge_position_value_x_mobile": 14,
+        "badge_position_value_y_mobile": 14,
+        "content_max_width": 591,
+        "content_gap_desktop": 24,
+        "content_gap_mobile": 20,
+        "content_background_desktop": "#ffffff82",
+        "content_background_mobile": "#ffffff",
+        "background_color": "#e5edf5",
+        "background_gradient": "",
+        "min_height_desktop": 690,
+        "padding_top_desktop": 84,
+        "padding_bottom_desktop": 84,
+        "padding_top_mobile": 24,
+        "padding_bottom_mobile": 24
+      }
+    },
+    "homepage_double_hero_C6pgyC": {
+      "type": "homepage-double-hero",
+      "blocks": {
+        "cta_eCtw6W": {
+          "type": "cta",
+          "settings": {
+            "cta_text": "Shop Sun Stick",
+            "cta_link": "shopify://products/sun-stick-spf50",
+            "cta_color": "orange"
+          }
+        },
+        "cta_VtKJmk": {
+          "type": "cta",
+          "settings": {
+            "cta_text": "Shop Bundles",
+            "cta_link": "shopify://collections/all-bundles",
+            "cta_color": "blue"
+          }
+        }
+      },
+      "block_order": [
+        "cta_eCtw6W",
+        "cta_VtKJmk"
+      ],
+      "disabled": true,
+      "name": "Homepage Double Hero",
+      "settings": {
+        "mobile_headline": "shopify://shop_images/stick-to-it-headline-m.png",
+        "desktop_headline": "shopify://shop_images/stick-to-it-headline-d.png",
+        "subtitle": "",
+        "left_image": "shopify://shop_images/1M5A7165.jpg",
+        "right_image": "shopify://shop_images/Kelly_Mobile.png",
+        "section_height": "height_100"
+      }
+    },
+    "hero_alternative_HCD3N8": {
+      "type": "hero-alternative",
+      "disabled": true,
+      "custom_css": [
+        "/* Make the entire hero container black with white text */div.w-full.bg-offWhite.bg-grey-lines.px-8.lg\\:px-12.text-balance.border-none.-mb-1 {background-color: #0032a0 !important; color: #ffffff !important;}",
+        " /* Ensure all text inside stays white */div.w-full.bg-offWhite.bg-grey-lines.px-8.lg\\:px-12.text-balance.border-none.-mb-1 * {color: #fe5000 !important;}"
+      ],
+      "settings": {
+        "media_type": "image",
+        "image": "shopify://shop_images/Desktop_Winter.jpg",
+        "mobile_image": "shopify://shop_images/Mobile_Winter_1.jpg",
+        "title": "Stop burning. Start gliding. Protect your skin this winter.",
+        "bg_color": "orange",
+        "show_tagline": false,
+        "tagline": "THIS IS A TAGLING",
+        "credit_title": "",
+        "credit_url": "",
+        "cta_count": "2",
+        "cta_style": "margin",
+        "cta": "SHOP SUN STICK",
+        "cta_link": "shopify://products/sun-stick-spf50",
+        "cta_color": "orange",
+        "cta_2": "SHOP BUNDLES",
+        "cta_2_link": "shopify://collections/all-bundles",
+        "cta_2_color": "blue"
+      }
+    },
+    "hero_alternative_rtBLyE": {
+      "type": "hero-alternative",
+      "disabled": true,
+      "custom_css": [
+        ".bg-orange {background-color: #db2e28 !important; color: #fff !important;}",
+        ".bg-orange:hover {background-color: #b52420 !important; color: #fff !important;}",
+        ".bg-blue {display: none !important;}",
+        ".hero-alternative-section .grid {grid-template-columns: 1fr !important;}"
+      ],
+      "settings": {
+        "media_type": "image",
+        "image": "shopify://shop_images/DesktopFull.png",
+        "mobile_image": "shopify://shop_images/Frame_7.png",
+        "title": "",
+        "bg_color": "offWhite",
+        "show_tagline": false,
+        "tagline": "",
+        "credit_title": "",
+        "credit_url": "",
+        "cta_count": "1",
+        "cta_style": "full_bleed",
+        "cta": "SHOP ELECTROLYTE",
+        "cta_link": "shopify://products/skin-support-electrolyte",
+        "cta_color": "orange",
+        "cta_2": "SHOP BUNDLES",
+        "cta_2_link": "shopify://collections/bundles",
+        "cta_2_color": "blue"
+      }
+    },
+    "hero_alternative_QgW6zK": {
+      "type": "hero-alternative",
+      "disabled": true,
+      "settings": {
+        "media_type": "image",
+        "image": "shopify://shop_images/Deo_Desktop-min.png",
+        "mobile_image": "shopify://shop_images/Deo_Mobile-min.png",
+        "mobile_video": "shopify://files/videos/SunStick_Montage.mp4",
+        "title": "",
+        "bg_color": "offWhite",
+        "show_tagline": false,
+        "tagline": "",
+        "credit_title": "",
+        "credit_url": "",
+        "cta_count": "2",
+        "cta_style": "margin",
+        "cta": "SHOP DEODORANT",
+        "cta_link": "shopify://products/everyday-endurance-deodorant",
+        "cta_color": "orange",
+        "cta_2": "SHOP BUNDLES",
+        "cta_2_link": "shopify://collections/all-bundles",
+        "cta_2_color": "blue"
+      }
+    },
+    "press_hKhhYf": {
+      "type": "press",
+      "blocks": {
+        "quote_fNC4VQ": {
+          "type": "quote",
+          "settings": {
+            "text": "This is easily one of the most effective, natural-leaning, and unique deodorants you can buy right now. It kept me smelling fresh and mostly dry all day, and I found myself looking forward to applying.",
+            "logo": "shopify://shop_images/MJLogo_black_1.jpg",
+            "author": "",
+            "verified": false
+          }
+        },
+        "quote_Wff7CN": {
+          "type": "quote",
+          "settings": {
+            "text": "An ideal choice for busy professionals looking for a reliable deodorant that can keep odor and sweat at bay during high-pressure presentations and can also be applied quickly before running out the door.",
+            "logo": "shopify://shop_images/FORTUNE-LOGO-2016.png",
+            "author": "",
+            "verified": false
+          }
+        },
+        "quote_zgjDLk": {
+          "type": "quote",
+          "settings": {
+            "text": "I’ve tried a dozen different clean deodorants, and most of them end up being cakey and thick, leaving residue on my clothes - or they just don’t work. Freaks is lightweight, doesn’t leave any residue, and actually keeps odor under control.",
+            "author": "Kristin P",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "quote_fNC4VQ",
+        "quote_Wff7CN",
+        "quote_zgjDLk"
+      ],
+      "settings": {
+        "bg_color": "bg-offWhite"
+      }
+    },
+    "product_carousel_d6PYHx": {
+      "type": "product-carousel",
+      "name": "Product Carousel",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Freak Favorites",
+        "title_style": "title_big",
+        "hide_mobile_title": false,
+        "cta": "",
+        "cta_link": "",
+        "cta_color": "blue",
+        "card_cta_text": "",
+        "card_cta_as_add_to_cart": false,
+        "card_cta_arrow_direction": "top",
+        "collections": [
+          "best-sellers",
+          "bundles"
+        ]
+      }
+    },
+    "category_grid_h9bQq7": {
+      "type": "category-grid",
+      "blocks": {
+        "category_4AjgRp": {
+          "type": "category",
+          "disabled": true,
+          "settings": {
+            "title": "DEODORANT",
+            "mobile_image": "shopify://shop_images/Deo.png",
+            "desktop_image": "shopify://shop_images/Deo.png",
+            "link": "shopify://products/everyday-endurance-deodorant"
+          }
+        },
+        "category_LNeyhJ": {
+          "type": "category",
+          "settings": {
+            "title": "ELECTROLYTE",
+            "mobile_image": "shopify://shop_images/Homepage.png",
+            "desktop_image": "shopify://shop_images/Homepage.png",
+            "link": "shopify://products/skin-support-electrolyte"
+          }
+        },
+        "category_ddbygq": {
+          "type": "category",
+          "settings": {
+            "title": "SUNCARE",
+            "mobile_image": "shopify://shop_images/Suncare.png",
+            "desktop_image": "shopify://shop_images/Suncare.png",
+            "link": "https://freaksofnature.com/collections/all-products-selector-suncare-7-1"
+          }
+        },
+        "category_YbMErm": {
+          "type": "category",
+          "settings": {
+            "title": "SKINCARE",
+            "mobile_image": "shopify://shop_images/Skin.png",
+            "desktop_image": "shopify://shop_images/Skin.png",
+            "link": "shopify://collections/website-products-selector-skincare"
+          }
+        },
+        "category_LDQtgU": {
+          "type": "category",
+          "settings": {
+            "title": "BUNDLES",
+            "mobile_image": "shopify://shop_images/Product_Image_3541b028-24d2-4bbf-ba88-1a50d3014eb6.png",
+            "desktop_image": "shopify://shop_images/Bundle2.png",
+            "link": "shopify://collections/all-bundles"
+          }
+        }
+      },
+      "block_order": [
+        "category_4AjgRp",
+        "category_LNeyhJ",
+        "category_ddbygq",
+        "category_YbMErm",
+        "category_LDQtgU"
+      ],
+      "name": "Category Grid",
+      "settings": {
+        "title": "Shop by Category",
+        "cta_text": "SHOP ALL",
+        "cta_link": "shopify://collections/all-products"
+      }
+    },
+    "product_grid_R7AHxK": {
+      "type": "product-grid",
+      "blocks": {
+        "product_i8dKFW": {
+          "type": "product",
+          "settings": {
+            "product": "peak-performance-sunscreen",
+            "feature_1": "80 min Water Resistant + 40 min Sweat Resistant",
+            "feature_2": "Dermatologist tested + Fragrance free",
+            "feature_3": "Broad Spectrum UV Protection",
+            "cta_color": "orange"
+          }
+        },
+        "product_tgeyYF": {
+          "type": "product",
+          "settings": {
+            "product": "daily-defender-sunscreen",
+            "feature_1": "40 min Water Resistant + 40 min Sweat Resistant",
+            "feature_2": "Dermatologist tested + Fragrance free ",
+            "feature_3": "Broad Spectrum UV Protection",
+            "cta_color": "orange"
+          }
+        },
+        "product_d9tgnx": {
+          "type": "product",
+          "settings": {
+            "product": "deeper-dive-moisturizer",
+            "feature_1": "Clinically proven to improve skin barrier ",
+            "feature_2": "Moisture-locking",
+            "feature_3": "Non-comodogenic (Doesn’t clog pores!)",
+            "cta_color": "orange"
+          }
+        }
+      },
+      "block_order": [
+        "product_i8dKFW",
+        "product_tgeyYF",
+        "product_d9tgnx"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "headline": "",
+        "text": "The first, natural skincare system, made for all skin types, formulated to go as hard as you do.\n\nProducts designed for daily use and longer hauls to protect and repair your skin so you can\ngo the extra 100 miles."
+      }
+    },
+    "values_8U6Dea": {
+      "type": "values",
+      "blocks": {
+        "value_QzmLzj": {
+          "type": "value",
+          "settings": {
+            "title": "You go hard. So do we. ",
+            "description": "Our skin is severely at risk. From environmental pollutants and harsh elements–the skincare systems out there aren’t cutting it. So, we made one that did. Whether you’re running an ultra marathon or just keeping up with the daily sprint of life, our products protect, repair, and strengthen your skin. "
+          }
+        },
+        "value_JhnBXe": {
+          "type": "value",
+          "settings": {
+            "title": "Clean",
+            "description": "0 chemical filters. 0 SPF boosters. 0 microplastics. Just 100% mineral, bio-based ingredients that feel good on you and you can feel good about. "
+          }
+        },
+        "value_XpNDrF": {
+          "type": "value",
+          "settings": {
+            "title": "Clinically proven, science backed innovation",
+            "description": "Since inception, we’ve worked with leading scientists  to develop formulas that not only protect, but also strengthen and repair your skin. "
+          }
+        },
+        "value_Wi7pUz": {
+          "type": "value",
+          "settings": {
+            "title": "Freaks about nature ",
+            "description": "All of our products are reef-safe, vegan, non chemical and made for all skin types. Our bottles feature the first ever airless pump made of 100% recycled plastic. For every order, we remove 5 lbs of plastic from our oceans in partnership with Oceanworks."
+          }
+        }
+      },
+      "block_order": [
+        "value_QzmLzj",
+        "value_JhnBXe",
+        "value_XpNDrF",
+        "value_Wi7pUz"
+      ],
+      "settings": {
+        "bg_color": "bg-white"
+      }
+    },
+    "influencer_pWJPkR": {
+      "type": "influencer",
+      "blocks": {
+        "influencer_EqxAeU": {
+          "type": "influencer",
+          "settings": {
+            "video": "shopify://files/videos/Freaks Team Launch_v26_Compressed_5d6335d0-124c-4a97-8878-068ccc18b385.mp4",
+            "title": "Freak Team 2026",
+            "badge": "",
+            "info_text": ""
+          }
+        },
+        "influencer_BwGTB4": {
+          "type": "influencer",
+          "settings": {
+            "video": "shopify://files/videos/RR_FREAKSOFNATUREQ1_TRIMMED_COMPRESSED.mp4",
+            "mobile_video": "shopify://files/videos/RR_FREAKSOFNATUREQ1_TRIMMED_COMPRESSED.mp4",
+            "title": "Rich Roll",
+            "badge": "Athlete, author, and podcast host",
+            "info_text": "\"I'm a freak when it comes to what goes into and onto my body — it has to come from nature. Freaks of Nature delivers, and then some, with zero trade-offs on clean ingredients”"
+          }
+        },
+        "influencer_TWrqhF": {
+          "type": "influencer",
+          "settings": {
+            "video": "shopify://files/videos/max.mp4",
+            "mobile_video": "shopify://files/videos/max.mp4",
+            "title": "Max Jolliffe",
+            "badge": "Ultrarunner",
+            "info_text": "\"I spend the majority of my life running, surfing, and enjoying time outside, so using clean and natural products is everything to me,\" says Jolliffe. \"Being a freak means pushing yourself to the extreme without fear, and having Kelly Slater in your corner while you do it doesn't hurt either.\""
+          }
+        },
+        "influencer_MYt3Um": {
+          "type": "influencer",
+          "settings": {
+            "video": "shopify://files/videos/BettyLou-GoldCoast-TRIMMED_COMPRESSED.mp4",
+            "mobile_video": "shopify://files/videos/BettyLou-GoldCoast-TRIMMED_COMPRESSED.mp4",
+            "title": "Bettylou Sakura",
+            "badge": "Surfer",
+            "info_text": "\"Being a freak means going for everything with your heart and no fear, that shows up in my career every single day. Freaks of Nature reflects the way I train and compete, and their commitment to peak performance is what makes me feel truly connected.\""
+          }
+        }
+      },
+      "block_order": [
+        "influencer_EqxAeU",
+        "influencer_BwGTB4",
+        "influencer_TWrqhF",
+        "influencer_MYt3Um"
+      ],
+      "name": "Influencer",
+      "settings": {
+        "custom_id": "freak-team",
+        "title": "The Freak Team",
+        "text": "",
+        "show_video_controls": true
+      }
+    },
+    "feature_bento_9AhNCg": {
+      "type": "feature-bento",
+      "blocks": {
+        "feature_LLghdg": {
+          "type": "feature",
+          "settings": {
+            "title": "Developed by Athletes",
+            "description": "11x WSL champion Kelly Slater",
+            "bg_color": "bg-white",
+            "image": "shopify://shop_images/FON_PRESS_SLATER_06copy.jpg",
+            "overlay": false
+          }
+        },
+        "feature_fRkzrt": {
+          "type": "feature",
+          "settings": {
+            "title": "Built for Performance",
+            "description": "Long lasting water and sweat resistance",
+            "bg_color": "bg-white",
+            "icon": "shopify://shop_images/Ingredients.svg",
+            "overlay": false
+          }
+        },
+        "feature_mBwfjU": {
+          "type": "feature",
+          "settings": {
+            "title": "Better for the Environment",
+            "description": "Reef safe + microplastic free",
+            "bg_color": "bg-blue",
+            "icon": "shopify://shop_images/Layer_1_457f6f64-ec95-446a-818c-f19d55d14ee4.svg",
+            "overlay": false
+          }
+        },
+        "feature_a8JkAg": {
+          "type": "feature",
+          "settings": {
+            "title": "Superior Textures",
+            "description": "Minimal white cast + safe for all skin type",
+            "bg_color": "bg-orange",
+            "icon": "shopify://shop_images/Layer_1_cdf9826c-d5fc-43e9-820a-806e152d0959.svg",
+            "overlay": false
+          }
+        },
+        "feature_VJ6j9x": {
+          "type": "feature",
+          "settings": {
+            "title": "Microbiome Supporting",
+            "description": "Science-backed, biobased and clinically proven",
+            "bg_color": "bg-white",
+            "image": "shopify://shop_images/GettyImages-139804244.jpg",
+            "overlay": true
+          }
+        }
+      },
+      "block_order": [
+        "feature_LLghdg",
+        "feature_fRkzrt",
+        "feature_mBwfjU",
+        "feature_a8JkAg",
+        "feature_VJ6j9x"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "High-tech, natural skincare"
+      }
+    },
+    "gallery_gmR4nV": {
+      "type": "gallery",
+      "blocks": {
+        "gallery_item_EJC9Qy": {
+          "type": "gallery_item",
+          "disabled": true,
+          "settings": {
+            "video": "shopify://files/videos/240507_Kelly_Interview_Freaks_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "mobile_video": "shopify://files/videos/MOBILE_HP_Kelly_Interview_Freaks_Specific_4x5_H.264_Final_Delivery.mp4",
+            "hide_mute": false,
+            "title": "Kelly Slater",
+            "info_text": ""
+          }
+        },
+        "gallery_item_rGaRMK": {
+          "type": "gallery_item",
+          "disabled": true,
+          "settings": {
+            "video": "shopify://files/videos/16 x 9 - Fast Version.mp4",
+            "mobile_video": "shopify://files/videos/9x16 - Fast Version.mp4",
+            "hide_mute": false,
+            "title": "Get Dirty. Get Clean.",
+            "info_text": ""
+          }
+        },
+        "gallery_item_BjCd9P": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/FON_HEAT_FINAL 25%.mp4",
+            "mobile_video": "shopify://files/videos/FON_HEAT_FINAL 25%.mp4",
+            "hide_mute": false,
+            "title": "Bring the heat. Not the burn.",
+            "info_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "gallery_item_EJC9Qy",
+        "gallery_item_rGaRMK",
+        "gallery_item_BjCd9P"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_video_controls": true
+      }
+    },
+    "bundle_upsell_BaYh3q": {
+      "type": "bundle-upsell",
+      "blocks": {
+        "bundle_7ALDaX": {
+          "type": "bundle",
+          "disabled": true,
+          "settings": {
+            "bundle_product": "deo-duo-bundle",
+            "bundle_banner": "save 10% with this bundle",
+            "bundle_cta_color": "blue"
+          }
+        },
+        "bundle_NqzjLp": {
+          "type": "bundle",
+          "settings": {
+            "bundle_product": "freak-family-pack-v2",
+            "bundle_banner": "save 10% with this bundle",
+            "bundle_cta_color": "blue"
+          }
+        },
+        "bundle_iTAkTN": {
+          "type": "bundle",
+          "settings": {
+            "bundle_product": "sun-saviors",
+            "bundle_banner": "save 10% with this bundle",
+            "bundle_cta_color": "blue"
+          }
+        },
+        "bundle_gWybaQ": {
+          "type": "bundle",
+          "settings": {
+            "bundle_product": "freak-trio",
+            "bundle_banner": "save 10% with this bundle",
+            "bundle_cta_color": "blue"
+          }
+        }
+      },
+      "block_order": [
+        "bundle_7ALDaX",
+        "bundle_NqzjLp",
+        "bundle_iTAkTN",
+        "bundle_gWybaQ"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-blue/20",
+        "title": "BUNDLE & SAVE UP TO 25%"
+      }
+    },
+    "science_module_Pk3xjG": {
+      "type": "science-module",
+      "blocks": {
+        "video_card_j3CMWq": {
+          "type": "video-card",
+          "settings": {
+            "video": "shopify://files/videos/NEOSSANCE™ SQUALANE _ SEQUENCE _ H264 (1).mp4",
+            "hide_mute": true,
+            "hide_control": true
+          },
+          "blocks": {}
+        },
+        "quote_card_NrD46d": {
+          "type": "quote-card",
+          "settings": {
+            "text": "\"Skincare extends beyond aesthetics—it's crucial for optimizing skin health to ensure maximum protection across diverse environments. Integrating a biome-focused routine supports the skin effectively, making skincare the least of your concerns while pushing your physical limits.\"",
+            "author": "Dr. Elsa Jungman",
+            "caption": "We partnered with Dr. Elsa Jungman, a leading voice in the scientific field of the skin microbiome and lead scientific advisor to Freaks of Nature, to formulate and design our products with the skin microbiome top of mind. "
+          },
+          "blocks": {}
+        },
+        "image_card_rF7Ane": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/69f1085531dac08f74b5f8212401f94c.png",
+            "caption": "A leading voice in the scientific field of the Skin Microbiome",
+            "tag": "",
+            "padding": true
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "video_card_j3CMWq",
+        "quote_card_NrD46d",
+        "image_card_rF7Ane"
+      ],
+      "settings": {
+        "bg_color": "bg-offWhite",
+        "title": "Nature is our lab so it can be your playground.",
+        "text": "The health of your skin's microbiome directly impacts how strong and functional your skin barrier is. When your skin's microbiome balance gets thrown off, your skin is more exposed and your skin’s resilience is weakened.",
+        "cta": "All our Ingredients",
+        "cta_link": "shopify://pages/ingredients",
+        "cta_color": "blue"
+      }
+    },
+    "ctr_reviews_4ExBac": {
+      "type": "ctr-reviews",
+      "blocks": {
+        "category_LHKynR": {
+          "type": "category",
+          "settings": {
+            "label": "48H ODOR PROTECTION"
+          }
+        },
+        "category_EiUwLT": {
+          "type": "category",
+          "settings": {
+            "label": "MINIMAL WHITE CAST"
+          }
+        },
+        "category_JUM7Fi": {
+          "type": "category",
+          "settings": {
+            "label": "CLEAN INGREDIENTS"
+          }
+        },
+        "category_4aATNe": {
+          "type": "category",
+          "settings": {
+            "label": "BUILT FOR PERFORMANCE"
+          }
+        },
+        "category_r63n6H": {
+          "type": "category",
+          "settings": {
+            "label": "ATHLETE TESTED"
+          }
+        },
+        "category_Vtrf9E": {
+          "type": "category",
+          "settings": {
+            "label": "FAMILY SAFE"
+          }
+        },
+        "item_amnWcm": {
+          "type": "item",
+          "settings": {
+            "category": "48H ODOR PROTECTION",
+            "media_type": "video",
+            "video": "shopify://files/videos/Max-Deo-B-9x16.mp4",
+            "stars": "5",
+            "title": "<p>Everyday Essential</p>",
+            "review": "<p>As someone who runs hundred miles races, if it works for me, it'll work for you.</p>",
+            "name": "<p>Max Jolliffe</p>"
+          }
+        },
+        "item_A8Lcqx": {
+          "type": "item",
+          "settings": {
+            "category": "48H ODOR PROTECTION",
+            "media_type": "review",
+            "stars": "5",
+            "title": "<p>Best Deodorant</p>",
+            "review": "<p>This is the best deodorant I've used. Even after the most humid day, there's no smell. Highly recommend.</p>",
+            "name": "<p>Matt H</p>"
+          }
+        },
+        "item_bxbL66": {
+          "type": "item",
+          "settings": {
+            "category": "48H ODOR PROTECTION",
+            "media_type": "video",
+            "video": "shopify://files/videos/v15044gf0000d654u5vog65j2n1svm90.MP4",
+            "stars": "5",
+            "title": "<p>Everyday Essential</p>",
+            "review": "<p>As someone who runs hundred miles races, if it works for me, it'll work for you.</p>",
+            "name": "<p>Max Jolliffe</p>"
+          }
+        },
+        "item_RVnYLy": {
+          "type": "item",
+          "settings": {
+            "category": "48H ODOR PROTECTION",
+            "media_type": "review",
+            "video": "shopify://files/videos/v15044gf0000d654u5vog65j2n1svm90.MP4",
+            "stars": "5",
+            "title": "<p>Great smell. Clean Ingredients</p>",
+            "review": "<p>Smell is great. I can't believe how long it last. Love the clean ingredients most of all</p>",
+            "name": "<p>Drew H</p>"
+          }
+        },
+        "item_n4DgQA": {
+          "type": "item",
+          "settings": {
+            "category": "48H ODOR PROTECTION",
+            "media_type": "video",
+            "video": "shopify://files/videos/v15044gf0000d74slv7og65jbvkln8bg.MP4",
+            "image": "shopify://shop_images/Screenshot_2026-09-30_at_09.53.51.png",
+            "stars": "5",
+            "title": "<p>Great smell. Clean Ingredients</p>",
+            "review": "<p>Smell is great. I can't believe how long it last. Love the clean ingredients most of all</p>",
+            "name": "<p>Drew H</p>"
+          }
+        },
+        "item_JkqfBW": {
+          "type": "item",
+          "settings": {
+            "category": "MINIMAL WHITE CAST",
+            "media_type": "video",
+            "video": "shopify://files/videos/Download.mp4",
+            "stars": "5",
+            "title": "<p>Beach Bag Essential</p>",
+            "review": "<p>It’s the perfect coverage. It doesn’t leave a white residue and packaging is awesome. Already re-ordered.</p>",
+            "name": "<p>Ingrid B.</p>"
+          }
+        },
+        "item_4P39dc": {
+          "type": "item",
+          "settings": {
+            "category": "MINIMAL WHITE CAST",
+            "media_type": "review",
+            "stars": "5",
+            "title": "<p><strong>Beach Bag Essential</strong></p>",
+            "review": "<p>It’s the perfect coverage. It doesn’t leave a white residue and packaging is awesome.<br/>Already re-ordered.</p>",
+            "name": "<p>Ingrid B.</p>"
+          }
+        },
+        "item_nYqCLQ": {
+          "type": "item",
+          "settings": {
+            "category": "MINIMAL WHITE CAST",
+            "media_type": "video",
+            "video": "shopify://files/videos/whitecast04.mp4",
+            "stars": "5",
+            "title": "<p>Beach Bag Essential</p>",
+            "review": "<p>It’s the perfect coverage. It doesn’t leave a white residue and packaging is awesome. Already re-ordered.</p>",
+            "name": "<p>Ingrid B.</p>"
+          }
+        },
+        "item_TEit3d": {
+          "type": "item",
+          "settings": {
+            "category": "MINIMAL WHITE CAST",
+            "media_type": "review",
+            "stars": "5",
+            "title": "<p><strong>This stuff ACTUALLY rubs clear!</strong></p>",
+            "review": "<p>This stuff ACTUALLY runs in and doesn’t stay white. It’s the only sunscreens around with safe ingredients, effective sun protection and it doesn’t leave a white glow like all other mineral sunscreens. A+</p>",
+            "name": "<p>Catherine K.</p>"
+          }
+        },
+        "item_AgByXM": {
+          "type": "item",
+          "settings": {
+            "category": "CLEAN INGREDIENTS",
+            "media_type": "video",
+            "video": "shopify://files/videos/clean01.mp4",
+            "stars": "5",
+            "title": "<p>Beach Bag Essential</p>",
+            "review": "<p>It’s the perfect coverage. It doesn’t leave a white residue and packaging is awesome. Already re-ordered.</p>",
+            "name": "<p>Ingrid B.</p>"
+          }
+        },
+        "item_T9yBmh": {
+          "type": "item",
+          "settings": {
+            "category": "CLEAN INGREDIENTS",
+            "media_type": "review",
+            "stars": "5",
+            "title": "<p>Best sunscreen ever</p>",
+            "review": "<p>If you are looking for a clean sunscreen that actually works Freaks of Nature is the one our family trusts!   Our family basically lives at the beach, and when my wife was diagnosed with cancer we went on the hunt for a clean sunscreen that would protect her from the sun and also be healthy for her body.</p>",
+            "name": "<p>Brian O.</p>"
+          }
+        },
+        "item_48DhNe": {
+          "type": "item",
+          "settings": {
+            "category": "CLEAN INGREDIENTS",
+            "media_type": "video",
+            "video": "shopify://files/videos/clean02.mp4",
+            "stars": "5",
+            "title": "<p>Beach Bag Essential</p>",
+            "review": "<p>It’s the perfect coverage. It doesn’t leave a white residue and packaging is awesome. Already re-ordered.</p>",
+            "name": "<p>Ingrid B.</p>"
+          }
+        },
+        "item_YGURMB": {
+          "type": "item",
+          "settings": {
+            "category": "CLEAN INGREDIENTS",
+            "media_type": "review",
+            "stars": "5",
+            "title": "<p><strong>I love this spray!...</strong></p>",
+            "review": "<p>I love this spray! I have very sensitive skin that reacts to many ingredients that are hypoallergenic. It makes finding sunscreens very difficult. This spray on, I have no adverse reactions and it feels great! No sticky feeling or feeling like I've put on extra layers.</p>",
+            "name": "<p>Sue R.</p>"
+          }
+        },
+        "item_EBE7cj": {
+          "type": "item",
+          "settings": {
+            "category": "BUILT FOR PERFORMANCE",
+            "media_type": "video",
+            "video": "shopify://files/videos/performance04.mp4",
+            "stars": "5",
+            "title": "<p>Beach Bag Essential</p>",
+            "review": "<p>It’s the perfect coverage. It doesn’t leave a white residue and packaging is awesome. Already re-ordered.</p>",
+            "name": "<p>Ingrid B.</p>"
+          }
+        },
+        "item_mANFB6": {
+          "type": "item",
+          "settings": {
+            "category": "BUILT FOR PERFORMANCE",
+            "media_type": "review",
+            "stars": "5",
+            "title": "<p><strong>Easy to apply</strong></p>",
+            "review": "<p>Easy to apply and easier to rub in than the cream. Great for surfing and sailing days. The small size is easy to throw in any bag.</p>",
+            "name": "<p>Michele S.</p>"
+          }
+        },
+        "item_FQE3aa": {
+          "type": "item",
+          "settings": {
+            "category": "BUILT FOR PERFORMANCE",
+            "media_type": "video",
+            "video": "shopify://files/videos/performance05.mp4",
+            "stars": "5",
+            "title": "<p>Beach Bag Essential</p>",
+            "review": "<p>It’s the perfect coverage. It doesn’t leave a white residue and packaging is awesome. Already re-ordered.</p>",
+            "name": "<p>Ingrid B.</p>"
+          }
+        },
+        "item_FAAGHM": {
+          "type": "item",
+          "settings": {
+            "category": "BUILT FOR PERFORMANCE",
+            "media_type": "review",
+            "stars": "5",
+            "title": "<p><strong>Great sun protection for<br/> the mountains</strong></p>",
+            "review": "<p>I’m a ski instructor and this product kept my skin hydrated and protected in cold and warm temps</p>",
+            "name": "<p>Cathy S.</p>"
+          }
+        },
+        "item_CQVUQj": {
+          "type": "item",
+          "settings": {
+            "category": "ATHLETE TESTED",
+            "media_type": "video",
+            "video": "shopify://files/videos/FON-MaxSolarShield-B-9x16_2e856e50-ae53-4c8f-b78d-b706285b553c.mp4",
+            "stars": "5",
+            "title": "<p>Beach Bag Essential</p>",
+            "review": "<p>It’s the perfect coverage. It doesn’t leave a white residue and packaging is awesome. Already re-ordered.</p>",
+            "name": "<p>Ingrid B.</p>"
+          }
+        },
+        "item_pmU9Pp": {
+          "type": "item",
+          "settings": {
+            "category": "ATHLETE TESTED",
+            "media_type": "review",
+            "stars": "5",
+            "title": "<p><strong>20 hours run</strong></p>",
+            "review": "<p>Used the product for a ultramarathon.  Kept me from getting burned.  The product didn’t get into my eyes and worked with very little re application.</p>",
+            "name": "<p>Matt M.</p>"
+          }
+        },
+        "item_MRCKBB": {
+          "type": "item",
+          "settings": {
+            "category": "ATHLETE TESTED",
+            "media_type": "video",
+            "video": "shopify://files/videos/bettylou.mp4",
+            "stars": "5",
+            "title": "<p>Beach Bag Essential</p>",
+            "review": "<p>It’s the perfect coverage. It doesn’t leave a white residue and packaging is awesome. Already re-ordered.</p>",
+            "name": "<p>Ingrid B.</p>"
+          }
+        },
+        "item_7axqze": {
+          "type": "item",
+          "settings": {
+            "category": "ATHLETE TESTED",
+            "media_type": "review",
+            "stars": "5",
+            "title": "<p><strong>Worth it!</strong></p>",
+            "review": "<p>I’m a 56 year old lifelong surfer and 50spf is a great product.  I’ve tried many different sunscreens throughout the years and this is by far one of the best.  I’m typically in the water for about an hour per session and I put in a pretty thick coat and it’s kept me from being sunburned.  It’s now my go too…stoked on it.</p>",
+            "name": "<p>Greg T.</p>"
+          }
+        },
+        "item_97Q393": {
+          "type": "item",
+          "settings": {
+            "category": "ATHLETE TESTED",
+            "media_type": "video",
+            "video": "shopify://files/videos/KellyTestimonial-TrustSuscreen-WeDevelopedOverlay-9x16.mp4",
+            "stars": "5",
+            "title": "<p>Beach Bag Essential</p>",
+            "review": "<p>It’s the perfect coverage. It doesn’t leave a white residue and packaging is awesome. Already re-ordered.</p>",
+            "name": "<p>Ingrid B.</p>"
+          }
+        },
+        "item_CKXgi7": {
+          "type": "item",
+          "settings": {
+            "category": "FAMILY SAFE",
+            "media_type": "video",
+            "video": "shopify://files/videos/family01.mp4",
+            "stars": "5",
+            "title": "<p>Beach Bag Essential</p>",
+            "review": "<p>It’s the perfect coverage. It doesn’t leave a white residue and packaging is awesome. Already re-ordered.</p>",
+            "name": "<p>Ingrid B.</p>"
+          }
+        },
+        "item_zHTeJc": {
+          "type": "item",
+          "settings": {
+            "category": "FAMILY SAFE",
+            "media_type": "review",
+            "stars": "5",
+            "title": "<p><strong>Kids love the way it glides on</strong></p>",
+            "review": "<p>Great sun protection, rubs in and becomes almost clear on your skin and it is made of ingredients that are safe for us and the planet. The kids love how smoothly it glides on, it doesn’t tug at their skin like other mineral sticks.</p>",
+            "name": "<p>Catherine K.</p>"
+          }
+        },
+        "item_TxG4En": {
+          "type": "item",
+          "settings": {
+            "category": "FAMILY SAFE",
+            "media_type": "video",
+            "video": "shopify://files/videos/family02.mp4",
+            "stars": "5",
+            "title": "<p>Beach Bag Essential</p>",
+            "review": "<p>It’s the perfect coverage. It doesn’t leave a white residue and packaging is awesome. Already re-ordered.</p>",
+            "name": "<p>Ingrid B.</p>"
+          }
+        },
+        "item_AiYYbX": {
+          "type": "item",
+          "settings": {
+            "category": "FAMILY SAFE",
+            "media_type": "review",
+            "stars": "5",
+            "title": "<p><strong>Kid approved</strong></p>",
+            "review": "<p>One of the best sunscreens I’ve ever used. Best part is both my kids ages 11 and 7 have zero complaints about using it!! No white cast and easy to reapply. Was a hit at surf camp this year. Thank you!</p>",
+            "name": "<p>Ana K.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "category_LHKynR",
+        "category_EiUwLT",
+        "category_JUM7Fi",
+        "category_4aATNe",
+        "category_r63n6H",
+        "category_Vtrf9E",
+        "item_amnWcm",
+        "item_A8Lcqx",
+        "item_bxbL66",
+        "item_RVnYLy",
+        "item_n4DgQA",
+        "item_JkqfBW",
+        "item_4P39dc",
+        "item_nYqCLQ",
+        "item_TEit3d",
+        "item_AgByXM",
+        "item_T9yBmh",
+        "item_48DhNe",
+        "item_YGURMB",
+        "item_EBE7cj",
+        "item_mANFB6",
+        "item_FQE3aa",
+        "item_FAAGHM",
+        "item_CQVUQj",
+        "item_pmU9Pp",
+        "item_MRCKBB",
+        "item_7axqze",
+        "item_97Q393",
+        "item_CKXgi7",
+        "item_zHTeJc",
+        "item_TxG4En",
+        "item_AiYYbX"
+      ],
+      "custom_css": [],
+      "name": "Reviews (CTR)",
+      "settings": {
+        "title": "<p>JOIN <strong>85,000+ FREAKS</strong> PROTECTING THEIR SKIN THE RIGHT WAY.</p>",
+        "use_title_max_width": true,
+        "title_max_width": 1500,
+        "title_font_size_desktop": 80,
+        "title_font_size_mobile": 32,
+        "title_text_align_desktop": "center",
+        "title_text_align_mobile": "center",
+        "background_color": "#f9f9f9",
+        "background_gradient": "",
+        "heading_color": "#212121",
+        "accent_color": "#fe5000",
+        "text_color": "#212121",
+        "muted_text_color": "#21212199",
+        "border_color": "#21212126",
+        "tab_active_background": "#fe5000",
+        "tab_inactive_background": "#b4b4b4",
+        "tab_text_color": "#ffffff",
+        "card_background": "#ffffff",
+        "slide_aspect_ratio_desktop": "315 / 375",
+        "slide_aspect_ratio_mobile": "225 / 350",
+        "title_gap_desktop": 80,
+        "title_gap_mobile": 40,
+        "tabs_gap_desktop": 40,
+        "tabs_gap_mobile": 40,
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 80,
+        "padding_top_mobile": 16,
+        "padding_bottom_mobile": 40
+      }
+    },
+    "reviews_slider_pXpFgC": {
+      "type": "reviews-slider",
+      "blocks": {
+        "review_LbqDC4": {
+          "type": "review",
+          "settings": {
+            "title": "Awesome Everyday SPF!",
+            "review": "While suspicious at first, I quickly became a believer after two full days on the beach. My favorite feature of this SPF30 is the consistency of the lotion, it simply feels great. Smooth and with the perfect amount of \"liquidness\" to it, so it goes on and spreads super easy. Really don't need a lot at all, a little goes along way. Great absorption. No strong or any smell really. Sun Protection and water resistance seem on point too. In and out of the ocean all day and only applied once more. No sunburn (I'm very light skinned). Stuff is legit!",
+            "name": "Chris R.",
+            "stars": "5",
+            "rating_link": ""
+          }
+        },
+        "review_WGxp3t": {
+          "type": "review",
+          "settings": {
+            "title": "Sunscreen to feel good about!",
+            "review": "Love this sunscreen! I live in CA and as an athlete, I work & play outside almost 365 days/yr. Haven't been the best about using sunscreen in the past, partly because I couldn't stand the smell or was worried about certain ingredients. FoN checks all the boxes, minimal (if any) zinc smell and the unique ingredients are a plant based blend that's not only good for you but also safe for the ocean/environment. Love the company's mission and will support and refer you guys!",
+            "name": "Felix B.",
+            "stars": "5",
+            "rating_link": ""
+          }
+        },
+        "review_R44nzC": {
+          "type": "review",
+          "settings": {
+            "title": "I'm on my 4th bottle already this summer",
+            "review": "I'm on my 4th bottle of the SPF30 and it's hard to imagine using another product. Rubs on so easily and after 2-3 minutes I don't feel it on my skin becasue it has absorbed well.\nMassive fan of this!",
+            "name": "Kamal J.",
+            "stars": "5",
+            "rating_link": ""
+          }
+        },
+        "review_zxyY7K": {
+          "type": "review",
+          "settings": {
+            "title": "Great product.",
+            "review": "This worked well on a blistering hot day at the beach with my daughter. It was comfortable to wear. I forgot it was there. Unlike other mineral sunscreens that are thick and pasty. It protected both of us well with no burning at all even on my 9 yr olds face. I will be continuing to use this product to protect my skin from now on. Thank you for a great product.",
+            "name": "Sage M.",
+            "stars": "5",
+            "rating_link": ""
+          }
+        },
+        "review_qbtcyL": {
+          "type": "review",
+          "settings": {
+            "title": "Perfect",
+            "review": "Love it. Stays on through a 90-120 minute surf session. Isn't goopy or greasy, easy to remove post activity. It's basically perfect. l've tried multiple 'high end' sunscreens, and never found one that was perfect for me. Until now.",
+            "name": "Chadd B.",
+            "stars": "5",
+            "rating_link": ""
+          }
+        },
+        "review_kizmAV": {
+          "type": "review",
+          "settings": {
+            "title": "Works great for this HI Surfer",
+            "review": "I surf all week in Hawaii. Freaks of Nature Speak Performance is more effective than any of the face sticks l've tried. (And I do a lot of pearling, so it gets put to the turbulence test.) The claim is for 80 minutes but l've never had a sunburn or redness and a I'm usually out about 2 hours without redness. The texture is a bit thick but goes on easy, no streaks on my medium toned skin. Accurately no skin irritation or breakouts, either. My new go to, signed up for a subscription.",
+            "name": "Valerie H.",
+            "stars": "5",
+            "rating_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "review_LbqDC4",
+        "review_WGxp3t",
+        "review_R44nzC",
+        "review_zxyY7K",
+        "review_qbtcyL",
+        "review_kizmAV"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "What other freaks are saying",
+        "subtitle": ""
+      }
+    },
+    "ugc_slider_UnciaM": {
+      "type": "ugc-slider",
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Loved by the freak community"
+      }
+    },
+    "quote_9gkwMG": {
+      "type": "quote",
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "text": "“Nature can teach us a lot. For one, how to thrive in the elements. \nWith nature's freaks as our inspiration and science as our compass, we are reimagining everyday skin health for the outdoors.\n<br>\n<br>\nUnlock your own Superhuman Skin with Freaks of Nature™,\nso you can thrive out there too.”\n<br>",
+        "signature": "shopify://shop_images/Kelly_Slater_Signature.svg",
+        "author": "Kelly Slater",
+        "description": "Kelly Slater, Co-Founder, Professional Surfer, 11x WSL World Champion"
+      }
+    },
+    "info_blocks_ckMWnd": {
+      "type": "info-blocks",
+      "blocks": {
+        "item_86i3jY": {
+          "type": "item",
+          "settings": {
+            "video": "shopify://files/videos/6c9eceec4bb24a209bdf97ef7b83d780.mp4",
+            "hide_mute": true,
+            "icon": "shopify://shop_images/Hero_Ingredient.svg",
+            "title": "B-Silk™ Vegan Spider Silk",
+            "description": "B-Silk™ - Inspired by the strength and elasticity of spider silk, B-Silk™ protein is a patented clean skin health breakthrough, developed in exclusive partnership with Freaks of Nature for the use in SPF. B-silk is a biobased, biodegradable, and vegan polypeptide, which gives both functional and sensorial benefits, B-Silk™ delivers silky softness, environmental defense, and clinically-proven results.",
+            "collection_caption": "Used in:",
+            "collection": "daily-defender-spf30-peak-performance-spf50"
+          }
+        },
+        "item_pdVTtD": {
+          "type": "item",
+          "settings": {
+            "video": "shopify://files/videos/OLÉOACTIF™ _ SEQUENCE _ H264 (1).mp4",
+            "hide_mute": true,
+            "icon": "shopify://shop_images/OleoActif_Icon_b3086461-abf5-442e-bcfa-7cc8705360ff.png",
+            "title": "Oléoactif™ Bacillus Ferment",
+            "description": "Oléoactif™ Bacillus Ferment, a bacterial microbe uncovered in the depths of a French volcano's thermal environment, and fermented to become a powerful post-biotic with an ability to improve skin barrier functions. Oléoactif™ Bacillus Ferment offers a natural and effective solution for enhancing the skin's protective barrier, resilience against environmental stressors and promoting overall skin health with clinically-proven results.",
+            "collection_caption": "Used in:",
+            "collection": "moisturizer-only"
+          }
+        },
+        "item_hm6RNx": {
+          "type": "item",
+          "settings": {
+            "video": "shopify://files/videos/NEOSSANCE™ SQUALANE _ SEQUENCE _ H264 (1).mp4",
+            "hide_mute": true,
+            "icon": "shopify://shop_images/Vegan_Shark_Lipid-Black_5015f607-99d0-4e9d-bd21-57768bb92963.png",
+            "title": "Neossance™ Vegan Shark Squalane",
+            "description": "Neossance™ Squalane provides a sustainable solution for enhancing skin health by offering deep moisturizing, microbial diversity in the skin's biome and anti-aging benefits. With clinically-proven results. Unlike traditional methods that extract squalene from deep-sea shark livers or rely on olive oil, which faces environmental risks, Neossance® Squalane offers superior purity and consistency. Leveraging synthetic biology, this sugarcane-derived squalane is produced through yeast fermentation, aiming to save over 2 million sharks annually.",
+            "collection_caption": "Used in:",
+            "collection": "ddm-dds-pps"
+          }
+        }
+      },
+      "block_order": [
+        "item_86i3jY",
+        "item_pdVTtD",
+        "item_hm6RNx"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-offWhite",
+        "title": "Nature is our lab, so it can be your playground.",
+        "cta": "Explore our ingredients",
+        "cta_link": "shopify://pages/ingredients",
+        "cta_color": "blue"
+      }
+    },
+    "newsletter_aqNfwe": {
+      "type": "newsletter",
+      "settings": {
+        "title": "Join our Freaks of Nature Community.",
+        "klaviyo_list_id": ""
+      }
+    },
+    "socials_ybJ9dW": {
+      "type": "socials",
+      "settings": {
+        "bg_color": "bg-offWhite",
+        "title": "<p>Your fellow freaks are here</p>"
+      }
+    }
+  },
+  "order": [
+    "hero_alternative_MQMAHY",
+    "ctr_hero_Lebd6R",
+    "ctr_double_hero_CB8Unh",
+    "ctr_double_hero_Dp88wY",
+    "homepage_double_hero_C6pgyC",
+    "hero_alternative_HCD3N8",
+    "hero_alternative_rtBLyE",
+    "hero_alternative_QgW6zK",
+    "press_hKhhYf",
+    "product_carousel_d6PYHx",
+    "category_grid_h9bQq7",
+    "product_grid_R7AHxK",
+    "values_8U6Dea",
+    "influencer_pWJPkR",
+    "feature_bento_9AhNCg",
+    "gallery_gmR4nV",
+    "bundle_upsell_BaYh3q",
+    "science_module_Pk3xjG",
+    "ctr_reviews_4ExBac",
+    "reviews_slider_pXpFgC",
+    "ugc_slider_UnciaM",
+    "quote_9gkwMG",
+    "info_blocks_ckMWnd",
+    "newsletter_aqNfwe",
+    "socials_ybJ9dW"
+  ]
+}

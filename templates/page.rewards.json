@@ -1,0 +1,90 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "split_hero_hj6BNU": {
+      "type": "split-hero",
+      "settings": {
+        "bg_color": "bg-offWhite",
+        "image": "shopify:\/\/shop_images\/Desktop.png",
+        "show_coin": true,
+        "coin": "shopify:\/\/shop_images\/freaksofnature_coin_gif_600x600__1.gif",
+        "title": "Join the Freaks Community",
+        "text": "<p><strong>Surfing. Running. Cycling. Climbing. And beyond! <\/strong>Let’s hear it for the freaks obsessed with (safely!) soaking up the sun while doing what they love most. Join our community of Freaks to get even more of what you love. Freaks will receive discounts, sneak peeks, merch, and more (!) before anyone else.<\/p>",
+        "cta": "Become a Freak",
+        "cta_section_link": "#table-section",
+        "cta_color": "black"
+      }
+    },
+    "approach_88Cmcn": {
+      "type": "approach",
+      "blocks": {
+        "approach_xD4d4H": {
+          "type": "approach",
+          "settings": {
+            "card_color": "white",
+            "approach_number": "01",
+            "approach_title": "Join!",
+            "text": "It's easy. Just sign up for our community on TYB and you're set."
+          }
+        },
+        "approach_xiabfD": {
+          "type": "approach",
+          "settings": {
+            "card_color": "orange",
+            "approach_number": "02",
+            "approach_title": "Earn coins!",
+            "text": "Earn coins every time you complete one of our challenges. You can redeem these coins on purchases on our site."
+          }
+        },
+        "approach_9TmRBx": {
+          "type": "approach",
+          "settings": {
+            "card_color": "blue",
+            "approach_number": "03",
+            "approach_title": "Redeem",
+            "text": "Use your coins for discounts and more on our site."
+          }
+        }
+      },
+      "block_order": [
+        "approach_xD4d4H",
+        "approach_xiabfD",
+        "approach_9TmRBx"
+      ],
+      "settings": {
+        "title": "How it works",
+        "textarea": "Join our community for an inside look at Freaks HQ-early and exclusive access to new products, merch, and events. Plus rewards that give you $ off purchases."
+      }
+    },
+    "table_Yn4MdD": {
+      "type": "table",
+      "settings": {
+        "bg_color": "bg-offWhite",
+        "title": "Join the freaks community",
+        "image": "shopify:\/\/shop_images\/keaton-blovad.jpg",
+        "social_link": "https:\/\/www.instagram.com\/kekekaea\/",
+        "social_title": "kekekaea",
+        "social_image": "shopify:\/\/shop_images\/keaton-social.png",
+        "cta_1": "Join",
+        "cta_1_link": "https:\/\/freaks-of-nature.tyb.xyz\/join",
+        "cta_1_color": "orange",
+        "cta_2": "Apply",
+        "cta_2_link": "https:\/\/freaks-of-nature.tyb.xyz\/join",
+        "cta_2_color": "blue"
+      }
+    }
+  },
+  "order": [
+    "split_hero_hj6BNU",
+    "approach_88Cmcn",
+    "table_Yn4MdD"
+  ]
+}

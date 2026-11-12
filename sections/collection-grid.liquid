@@ -1,0 +1,119 @@
+{% schema %}
+{
+  "name": "Collection Grid",
+  "tag": "section",
+  "class": "collection-grid-section",
+  "limit": 1,
+  "presets": [
+    {
+      "name": "Collection Grid",
+      "category": "Collection Grid"
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "Show Filters",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Filter",
+      "type": "filter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "filter_title",
+          "label": "Filter Title",
+          "default": "Filter"
+        },
+        {
+          "type": "collection",
+          "id": "filter_collection",
+          "label": "Filter Collection",
+          "info": "Select the collection this filter should link to"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "CollectionPage",
+    {% if collection.description != blank %}
+      "description": {{ collection.description | strip_html | json }},
+    {% endif %}
+    "name": {{ collection.title | json }}
+  }
+</script>
+
+{% if section.settings.show_filters and section.blocks.size > 0 %}
+  <div class="border-t border-black/15 {{ section.settings.bg_color }}">
+    <swiper-element id="collection-filters">
+      <swiper-container init="false" class="swiper-wrapper">
+        {% for block in section.blocks %}
+          {% if block.type == 'filter' and block.settings.filter_collection != blank %}
+            {% assign filter_collection = collections[block.settings.filter_collection] %}
+            {% assign is_filter_selected = false %}
+            {% if request.page_type == 'collection' and collection.handle == filter_collection.handle %}
+              {% assign is_filter_selected = true %}
+            {% elsif forloop.first and request.page_type != 'collection' %}
+              {% assign is_filter_selected = true %}
+            {% endif %}
+            <swiper-slide class="swiper-slide my-16 w-fit pr-8 first-of-type:ml-16 last-of-type:mr-16">
+              <a
+                href="{{ filter_collection.url }}"
+                class="fn-tt-body-20 flex h-40 items-center justify-center whitespace-nowrap px-16 py-2 text-center font-medium lg:h-48 {% if is_filter_selected %}bg-black text-white {% else %}bg-black/5 text-black/60 hover:bg-black/10 transition-colors duration-300 ease-in-out{% endif %}"
+              >
+                <span>{{ block.settings.filter_title }}</span>
+              </a>
+            </swiper-slide>
+          {% endif %}
+        {% endfor %}
+      </swiper-container>
+    </swiper-element>
+  </div>
+{% endif %}
+
+<div class="-mb-1 -ml-1 grid grid-cols-2 divide-grey-MEDIUM border-b border-t border-b-grey-MEDIUM border-t-black/15 max-lg:divide-x lg:grid-cols-3 {{ section.settings.bg_color }}">
+  {% if customer.tags contains 'Wholesale' %}
+    {% for product in collection.products %}
+      {% unless product.tags contains 'price_test' %}
+        <div class="z-10 -mb-1 border-b border-black/15 max-lg:last:border-b-0 lg:border-l lg:border-t-0 lg:last:-mr-1 lg:last:border-r">
+          {% render 'product-card-big', product: product, has_borders: true, is_medium_card: true %}
+        </div>
+      {% endunless %}
+    {% endfor %}
+  {% else %}
+    {% for product in collection.products %}
+      {% unless product.tags contains 'price_test' %}
+        {% unless product.tags contains 'Wholesale' %}
+          <div class="z-10 -mb-1 border-b border-black/15 max-lg:last:border-b-0 lg:border-l lg:border-t-0 lg:last:-mr-1 lg:last:border-r">
+            {% render 'product-card-big', product: product, has_borders: true, is_medium_card: true %}
+          </div>
+        {% endunless %}
+      {% endunless %}
+    {% endfor %}
+  {% endif %}
+</div>

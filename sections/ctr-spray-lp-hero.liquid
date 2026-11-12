@@ -1,0 +1,373 @@
+{{ 'ctr-spray-lp-hero.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ctr-spray-lp-hero.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign ctr_spray_lp_hero_desktop_image = section.settings.desktop_image
+  assign ctr_spray_lp_hero_mobile_image = section.settings.mobile_image | default: ctr_spray_lp_hero_desktop_image
+  assign ctr_spray_lp_hero_desktop_video = section.settings.desktop_video
+  assign ctr_spray_lp_hero_mobile_video = section.settings.mobile_video
+  assign ctr_spray_lp_hero_button_link = section.settings.button_link
+  assign ctr_spray_lp_hero_button_icon_classes = 'ctr-spray-lp-hero__button-icon'
+
+  if ctr_spray_lp_hero_button_link == blank
+    assign ctr_spray_lp_hero_button_link = '#'
+  endif
+
+  case section.settings.button_arrow_direction
+    when 'top'
+      assign ctr_spray_lp_hero_button_icon_classes = ctr_spray_lp_hero_button_icon_classes | append: ' -rotate-90'
+    when 'down'
+      assign ctr_spray_lp_hero_button_icon_classes = ctr_spray_lp_hero_button_icon_classes | append: ' rotate-90'
+  endcase
+-%}
+
+<ctr-spray-lp-hero
+  id="shopify-section-{{ section.id }}"
+  class="ctr-spray-lp-hero"
+  data-section-id="{{ section.id }}"
+  style="
+    --ctr-spray-lp-hero-bg-color: {{ section.settings.background_color }};
+    --ctr-spray-lp-hero-bg-gradient: {{ section.settings.background_gradient }};
+    --ctr-spray-lp-hero-heading-color: {{ section.settings.heading_color }};
+    --ctr-spray-lp-hero-text-color: {{ section.settings.text_color }};
+    --ctr-spray-lp-hero-accent-color: {{ section.settings.accent_color }};
+    --ctr-spray-lp-hero-rating-color: {{ section.settings.rating_color }};
+    --ctr-spray-lp-hero-button-bg: {{ section.settings.button_background }};
+    --ctr-spray-lp-hero-button-text-color: {{ section.settings.button_text_color }};
+    --ctr-spray-lp-hero-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-spray-lp-hero-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-spray-lp-hero-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-spray-lp-hero-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    {% if section.settings.text_max_width_desktop != blank %}
+      --ctr-spray-lp-hero-text-max-width-desktop: {{ section.settings.text_max_width_desktop }}px;
+    {% endif %}
+    --ctr-spray-lp-hero-badge-max-width-desktop: {{ section.settings.badge_max_width_desktop }}px;
+    --ctr-spray-lp-hero-badge-max-width-mobile: {{ section.settings.badge_max_width_mobile }}px;
+  "
+>
+  <div class="ctr-spray-lp-hero__content">
+    {% if section.settings.rating_link != blank %}
+      <a href="{{ section.settings.rating_link }}">
+    {% endif %}
+    <div class="ctr-spray-lp-hero__rating-row">
+      <span class="ctr-spray-lp-hero__stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      {% if section.settings.rating_text != blank %}
+        <div class="ctr-spray-lp-hero__rating-text">
+          {{ section.settings.rating_text }}
+        </div>
+      {% endif %}
+    </div>
+    {% if section.settings.rating_link != blank %}
+      </a>
+    {% endif %}
+
+    {% if section.settings.title != blank %}
+      <div class="ctr-spray-lp-hero__title">
+        {{ section.settings.title }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.text != blank %}
+      <div class="ctr-spray-lp-hero__text">
+        {{ section.settings.text }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.button_label != blank %}
+      {% render 'cta',
+        as: 'a',
+        href: ctr_spray_lp_hero_button_link,
+        text: section.settings.button_label,
+        hasIcons: true,
+        cta_color: 'orange',
+        extra_classes: 'ctr-spray-lp-hero__button',
+        extra_text_classes: 'ctr-spray-lp-hero__button-label',
+        extra_icon_classes: ctr_spray_lp_hero_button_icon_classes
+      %}
+    {% endif %}
+  </div>
+
+  <div class="ctr-spray-lp-hero__media">
+    {% if section.settings.badge_image != blank %}
+      <div class="ctr-spray-lp-hero__badge-wrap">
+        <img
+          class="ctr-spray-lp-hero__badge"
+          src="{{ section.settings.badge_image | image_url: width: 600 }}"
+          img_url="{{ section.settings.badge_image | img_url: '600x' }}"
+          alt="{{ section.settings.badge_image.alt | escape }}"
+          loading="lazy"
+          width="{{ section.settings.badge_image.width }}"
+          height="{{ section.settings.badge_image.height }}"
+        >
+      </div>
+    {% endif %}
+
+    {% if ctr_spray_lp_hero_desktop_video != blank %}
+      <div class="ctr-spray-lp-hero__video ctr-spray-lp-hero__video--desktop">
+        {% render 'lazy-video',
+          video: ctr_spray_lp_hero_desktop_video,
+          class: 'object-cover w-full h-full',
+          autopause: false
+        %}
+      </div>
+    {% elsif ctr_spray_lp_hero_desktop_image != blank %}
+      <img
+        class="ctr-spray-lp-hero__image ctr-spray-lp-hero__image--desktop"
+        src="{{ ctr_spray_lp_hero_desktop_image | img_url: '2400x' }}"
+        alt="{{ ctr_spray_lp_hero_desktop_image.alt | escape }}"
+        loading="lazy"
+        width="{{ ctr_spray_lp_hero_desktop_image.width }}"
+        height="{{ ctr_spray_lp_hero_desktop_image.height }}"
+      >
+    {% endif %}
+
+    {% if ctr_spray_lp_hero_mobile_video != blank %}
+      <div class="ctr-spray-lp-hero__video ctr-spray-lp-hero__video--mobile">
+        {% render 'lazy-video',
+          video: ctr_spray_lp_hero_mobile_video,
+          class: 'object-cover w-full h-full',
+          autopause: false
+        %}
+      </div>
+    {% elsif ctr_spray_lp_hero_desktop_video != blank %}
+      <div class="ctr-spray-lp-hero__video ctr-spray-lp-hero__video--mobile">
+        {% render 'lazy-video',
+          video: ctr_spray_lp_hero_desktop_video,
+          class: 'object-cover w-full h-full',
+          autopause: false
+        %}
+      </div>
+    {% elsif ctr_spray_lp_hero_mobile_image != blank %}
+      <img
+        class="ctr-spray-lp-hero__image ctr-spray-lp-hero__image--mobile"
+        src="{{ ctr_spray_lp_hero_mobile_image | img_url: '1400x' }}"
+        alt="{{ ctr_spray_lp_hero_mobile_image.alt | escape }}"
+        loading="lazy"
+        width="{{ ctr_spray_lp_hero_mobile_image.width }}"
+        height="{{ ctr_spray_lp_hero_mobile_image.height }}"
+      >
+    {% endif %}
+  </div>
+</ctr-spray-lp-hero>
+
+{% schema %}
+{
+  "name": "Spray LP Hero (CTR)",
+  "tag": "section",
+  "class": "ctr-spray-lp-hero-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image"
+    },
+    {
+      "type": "video",
+      "id": "desktop_video",
+      "label": "Desktop video"
+    },
+    {
+      "type": "video",
+      "id": "mobile_video",
+      "label": "Mobile video"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_image",
+      "label": "Badge image"
+    },
+    {
+      "type": "number",
+      "id": "badge_max_width_desktop",
+      "label": "Badge max width desktop",
+      "default": 250
+    },
+    {
+      "type": "number",
+      "id": "badge_max_width_mobile",
+      "label": "Badge max width mobile",
+      "default": 180
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "url",
+      "id": "rating_link",
+      "label": "Rating link"
+    },
+    {
+      "type": "richtext",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "<p>4.8 · 75,000+ Freaks and counting</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p><strong>Mineral SPF,</strong> built to keep up.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Kelly Slater helped build a full-body mineral SPF 30 spray with non-nano zinc, air-powered coverage, and no chemical filters. So you can spray, rub in, and get back out there.</p>"
+    },
+    {
+      "type": "number",
+      "id": "text_max_width_desktop",
+      "label": "Text max width desktop (px)",
+      "default": 527
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Get the spray"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_arrow_direction",
+      "label": "Button arrow direction",
+      "options": [
+        {
+          "value": "right",
+          "label": "Right"
+        },
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "down",
+          "label": "Down"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#DADDE5"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Background gradient",
+      "info": "Example: linear-gradient(180deg, #FFFFFF 0%, #FFF2E9 100%)",
+      "default": "linear-gradient(180deg, #DADDE5 0%, #DDE2EC 100%)"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#232323"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#232323"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#FE5000"
+    },
+    {
+      "type": "color",
+      "id": "rating_color",
+      "label": "Rating color",
+      "default": "#212121BA"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#FE5000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Padding desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Padding mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Spray LP Hero (CTR)",
+      "category": "CTR Sections"
+    }
+  ]
+}
+{% endschema %}

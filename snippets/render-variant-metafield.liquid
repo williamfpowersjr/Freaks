@@ -1,0 +1,60 @@
+{% comment %}
+  Renders a variant metafield value, supporting both simple metafields and metaobject references.
+
+  Usage (standard):
+    {% render 'render-variant-metafield',
+      variant: product.selected_or_first_available_variant,
+      metafield_key: 'scent.description'
+    %}
+
+  Usage (image with custom attributes):
+    {% render 'render-variant-metafield',
+      variant: product.selected_or_first_available_variant,
+      metafield_key: 'scent.image',
+      is_image: true,
+      loading: 'lazy',
+      sizes: '(min-width: 1024px) 50vw, 100vw',
+      class: 'w-full h-full object-cover'
+    %}
+
+  Parameters:
+    - variant: The product variant object (required)
+    - metafield_key: The metafield key to access. Can be:
+      - Simple metafield: "field_name"
+      - Metaobject reference: "metaobject_name.field_name"
+    - is_image: Set to true to render as an image with custom attributes (optional)
+    - loading: Image loading attribute (optional, only used when is_image is true)
+    - sizes: Image sizes attribute (optional, only used when is_image is true)
+    - class: CSS classes to apply to the image (optional, only used when is_image is true)
+{% endcomment %}
+
+{% assign key_parts = metafield_key | split: '.' %}
+{% assign key_parts_size = key_parts | size %}
+
+{% if key_parts_size > 1 %}
+  {% comment %} Handle metaobject reference (e.g., "scent.description") {% endcomment %}
+  {% assign metaobject_key = key_parts | first %}
+  {% assign field_key = key_parts | last %}
+  {% assign metaobject_reference = variant.metafields.custom[metaobject_key] %}
+  {% if metaobject_reference != blank %}
+    {% assign metaobject = metaobject_reference.value %}
+    {% if metaobject != blank %}
+      {% assign metafield_value = metaobject[field_key] %}
+    {% endif %}
+  {% endif %}
+{% else %}
+  {% comment %} Handle simple metafield (e.g., "description") {% endcomment %}
+  {% assign metafield_value = variant.metafields.custom[metafield_key] %}
+{% endif %}
+
+{% if metafield_value != blank %}
+  {% if is_image == true %}
+    {{
+      metafield_value
+      | image_url: width: metafield_value.width
+      | image_tag: loading: loading, sizes: sizes, class: class
+    }}
+  {% else %}
+    {{ metafield_value | metafield_tag }}
+  {% endif %}
+{% endif %}

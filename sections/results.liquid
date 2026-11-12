@@ -1,0 +1,167 @@
+{% schema %}
+{
+  "name": "Results",
+  "tag": "section",
+  "class": "results-section",
+  "presets": [
+    {
+      "name": "Results",
+      "category": "Results",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Lorem ipsum"
+      },
+      "blocks": [
+        {
+          "type": "result",
+          "settings": {
+            "card_color": "blue",
+            "percentage": "100%",
+            "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+            "routine_title": "Lorem ipsum",
+            "testimonial_name": "Lorem ipsum"
+          }
+        },
+        {
+          "type": "result",
+          "settings": {
+            "card_color": "white",
+            "percentage": "100%",
+            "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+            "routine_title": "Lorem ipsum",
+            "testimonial_name": "Lorem ipsum",
+            "before": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "after": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg"
+          }
+        },
+        {
+          "type": "result",
+          "settings": {
+            "card_color": "orange",
+            "percentage": "100%",
+            "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+            "routine_title": "Lorem ipsum",
+            "testimonial_name": "Lorem ipsum"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Result",
+      "type": "result",
+      "settings": [
+        {
+          "type": "select",
+          "id": "card_color",
+          "label": "Card Color",
+          "options": [
+            {
+              "value": "orange",
+              "label": "Orange"
+            },
+            {
+              "value": "blue",
+              "label": "Blue"
+            },
+            {
+              "value": "white",
+              "label": "White"
+            }
+          ],
+          "default": "white"
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background Image",
+          "info": "Optional"
+        },
+        {
+          "type": "text",
+          "id": "percentage",
+          "label": "Text",
+          "info": "Optional: will show on top edge of the card."
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "info": "Required"
+        },
+        {
+          "type": "text",
+          "id": "routine_title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "testimonial_name",
+          "label": "Testimonial Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "before",
+          "label": "Image Before",
+          "info": "Optional"
+        },
+        {
+          "type": "image_picker",
+          "id": "after",
+          "label": "Image After",
+          "info": "Optional"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% assign title = section.settings.title %}
+{% assign result_blocks = section.blocks | where: 'type', 'result' %}
+
+{% assign border_class = '' %}
+{% if title != blank %}
+  {% assign border_class = 'lg:border-t lg:border-black/15' %}
+{% endif %}
+
+<div class="border-b border-black/15 {{ section.settings.bg_color }}">
+  {% if title != blank %}
+    <div class="w-full py-40 lg:py-80">
+      {% render 'title',
+        title: title,
+        text_size: 'fn-tt-title-70',
+        extra_wrapper_classes: 'overflow-hidden text-center px-24 my-11 lg:px-16 {{ section.settings.bg_color }}',
+        bg_lines: 'bg-grey-lines'
+      %}
+    </div>
+  {% endif %}
+
+  {% if result_blocks != blank %}
+    {% render 'result-cards', results: result_blocks, border_class: border_class %}
+  {% endif %}
+</div>

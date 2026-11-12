@@ -1,0 +1,139 @@
+{% schema %}
+{
+  "name": "Steps",
+  "tag": "section",
+  "class": "steps",
+
+  "presets": [
+    {
+      "name": "Steps",
+      "category": "Steps",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Lorem ipsum"
+      },
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>",
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "video": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>",
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "video": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>",
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "video": "",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Desktop Section Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Item",
+      "type": "item",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Add an Image for the indicator"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+          "info": "If you add a video, it will be shown. If you want to have a still image, leave the video field blank."
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_mute",
+          "label": "Hide Mute",
+          "info": "Check on if you would like to hide the mute/unmute control button for the video.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "full_bleed_media",
+          "label": "Media is full bleed",
+          "default": false,
+          "info": "Check on if you would like the media to be full bleed."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% if section.blocks.size > 0 %}
+  <div class="{{ section.settings.bg_color }} lg:p-40">
+    {% render 'steps-accordion',
+      bg_color: 'bg-black/15',
+      blocks: section.blocks,
+      title: section.settings.title,
+      additional_classes: 'hidden lg:block'
+    %}
+
+    {% render 'steps-swiper',
+      bg_color: 'bg-black/15',
+      blocks: section.blocks,
+      title: section.settings.title,
+      additional_classes: 'lg:hidden'
+    %}
+  </div>
+{% endif %}

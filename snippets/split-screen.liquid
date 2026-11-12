@@ -1,0 +1,239 @@
+{% comment %} mobile only {% endcomment %}
+<split-screen-element id="split-screen-section" class="lg:hidden">
+  <div class="{{ bg_color }} {% if title != blank %}pt-40{% endif %}">
+    {% if title != blank %}
+      {% render 'title',
+        title: title,
+        text_size: 'fn-tt-title-70',
+        extra_wrapper_classes: 'overflow-hidden text-center px-24 mb-40 {{ bg_color }}',
+        bg_lines: 'bg-grey-lines'
+      %}
+    {% endif %}
+    <div class="flex h-full w-full flex-col" data-accordion>
+      <ul class="flex max-h-full flex-col ">
+        <div class="">
+          {% for block in blocks %}
+            {% if block.type == 'item' %}
+              {% assign is_first = forloop.first %}
+
+              <button
+                aria-label="Info Block"
+                data-accordion-trigger
+                aria-expanded="{{ is_first }}"
+                aria-controls="content-{{ forloop.index0 }}"
+                class="flex w-full items-center gap-16 border-t border-black/15 px-24 py-16 text-left "
+              >
+                <div class="relative h-40 w-40 overflow-hidden rounded-full">
+                  <div
+                    data-accordion-indicator-circle
+                    class="h-full w-full {% if is_first %}split-screen-section__active-indicator{% endif %}"
+                  >
+                    {% if block.settings.image != blank %}
+                      {{
+                        block.settings.image
+                        | image_url: width: block.settings.image.width
+                        | image_tag:
+                          loading: 'lazy',
+                          sizes: '25vw',
+                          class: 'w-full h-full object-cover absolute inset-0 z-0'
+                      }}
+                    {% endif %}
+                  </div>
+                  <span
+                    data-accordion-indicator-center
+                    class="absolute left-1/2 top-1/2 z-10 h-12 w-12 -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange transition-opacity duration-300 ease-in-out {% if is_first %}opacity-1{% else %}opacity-0{% endif %}"
+                  ></span>
+                </div>
+                <h3
+                  data-title
+                  class="fn-tt-title-30 transition-opacity duration-300 ease-in-out {% unless is_first %}opacity-60{% endunless %}"
+                >
+                  {{ block.settings.title }}
+                </h3>
+              </button>
+              <li>
+                <div
+                  data-accordion-content
+                  class="relative flex h-full flex-col overflow-hidden transition-all ease-in-out will-change-[max-width]"
+                  id="content-{{ forloop.index0 }}"
+                  {% if is_first %}
+                    style="max-height: none;"
+                  {% else %}
+                    style="max-height: 0;"
+                  {% endif %}
+                >
+                  <div class="relative px-24">
+                    {% render 'split-screen-media',
+                      split_screen_image: block.settings.image,
+                      split_screen_video: block.settings.video,
+                      split_screen_caption: block.settings.caption,
+                      split_screen_aspect_classes: 'aspect-[1]',
+                      full_bleed_media: block.settings.full_bleed_media,
+                      hide_mute: block.settings.hide_mute
+                    %}
+                  </div>
+
+                  {% if block.settings.description != blank and description_size == 'big' %}
+                    <div class="p-24">
+                      <div class="fn-tt-title-30 simple-inline-rich-text">{{ block.settings.description }}</div>
+                    </div>
+                  {% else %}
+                    {% if block.settings.description != blank %}
+                      <div class="p-24">
+                        <div class="fn-tt-body-20 simple-inline-rich-text">{{ block.settings.description }}</div>
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                </div>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </ul>
+    </div>
+  </div>
+</split-screen-element>
+
+{% comment %} desktop only {% endcomment %}
+<split-screen-element id="split-screen-section" class="hidden lg:block {{ bg_color }} ">
+  <div
+    class="flex h-fit w-full {% if has_border_top == true %}border-t border-black/15{% endif %} flex-row"
+    data-accordion
+    data-no-autoscroll
+  >
+    <ul class="flex max-h-full w-1/2 flex-col border-r border-black/15">
+      <div class="flex-1">
+        {% for block in blocks %}
+          {% if block.type == 'item' %}
+            {% assign is_first = forloop.first %}
+
+            <li
+              data-accordion-content
+              class="no-scrollbar flex h-full flex-col overflow-hidden overflow-y-scroll px-40 transition-all ease-in-out will-change-[max-width]"
+              id="content-{{ forloop.index0 }}"
+              {% if is_first %}
+                style="max-height: none;"
+              {% else %}
+                style="max-height: 0;"
+              {% endif %}
+            >
+              <div class="flex flex-col gap-24 py-40">
+                {% if section.settings.title != blank %}
+                  <h3 class="fn-tt-body-20">
+                    {{ section.settings.title }}
+                  </h3>
+                {% endif %}
+
+                {% if block.settings.title != blank and has_headline != false %}
+                  <h3 class="fn-tt-body-20">
+                    {{ block.settings.title }}
+                  </h3>
+                {% endif %}
+                {% if block.settings.description != blank and block.settings.description_size == 'big_text' %}
+                  {% assign text_with_sup = block.settings.description
+                    | replace: '¹', '<sup>1</sup>'
+                    | replace: '²', '<sup>2</sup>'
+                    | replace: '³', '<sup>3</sup>'
+                    | replace: '⁴', '<sup>4</sup>'
+                    | replace: '⁵', '<sup>5</sup>'
+                    | replace: '⁶', '<sup>6</sup>'
+                    | replace: '⁷', '<sup>7</sup>'
+                    | replace: '⁸', '<sup>8</sup>'
+                    | replace: '⁹', '<sup>9</sup>'
+                  %}
+                  <div class="fn-tt-title-30 simple-inline-rich-text">{{ text_with_sup }}</div>
+                {% else %}
+                  {% if block.settings.description != blank %}
+                    {% assign text_with_sup = block.settings.description
+                      | replace: '¹', '<sup>1</sup>'
+                      | replace: '²', '<sup>2</sup>'
+                      | replace: '³', '<sup>3</sup>'
+                      | replace: '⁴', '<sup>4</sup>'
+                      | replace: '⁵', '<sup>5</sup>'
+                      | replace: '⁶', '<sup>6</sup>'
+                      | replace: '⁷', '<sup>7</sup>'
+                      | replace: '⁸', '<sup>8</sup>'
+                      | replace: '⁹', '<sup>9</sup>'
+                    %}
+
+                    <div class="fn-tt-body-20 simple-inline-rich-text">{{ text_with_sup }}</div>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% for block in blocks %}
+        {% if block.type == 'item' %}
+          {% assign is_first = forloop.first %}
+
+          <button
+            aria-label="Info Block"
+            data-accordion-trigger
+            aria-expanded="{{ is_first }}"
+            aria-controls="content-{{ forloop.index0 }}"
+            class="group flex w-full items-center gap-16 border-t border-black/15 px-40 py-16 text-left"
+          >
+            <div class="relative h-40 w-40 overflow-hidden rounded-full">
+              <div
+                data-accordion-indicator-circle
+                class="h-full w-full {% if is_first %}split-screen-section__active-indicator{% endif %}"
+              >
+                {% if block.settings.image != blank %}
+                  {{
+                    block.settings.image
+                    | image_url: width: block.settings.image.width
+                    | image_tag:
+                      loading: 'lazy',
+                      sizes: '25vw',
+                      class: 'w-full h-full object-cover absolute inset-0 z-0'
+                  }}
+                {% endif %}
+              </div>
+              <span
+                data-accordion-indicator-center
+                class="absolute left-1/2 top-1/2 z-10 h-12 w-12 -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange transition-opacity duration-300 ease-in-out {% if is_first %}opacity-1{% else %}opacity-0{% endif %}"
+              ></span>
+            </div>
+            <h3
+              data-title
+              class="fn-tt-title-20 text-black transition-opacity duration-300 ease-in-out  {% unless is_first %}opacity-60 group-hover:opacity-100{% endunless %}"
+            >
+              {{ block.settings.title }}
+            </h3>
+          </button>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    <ul class="h-full w-1/2">
+      <div class="relative aspect-square">
+        {% for block in blocks %}
+          {% if block.type == 'item' %}
+            {% assign is_first = forloop.first %}
+            <li
+              data-accordion-desktop-media
+              id="content-{{ forloop.index0 }}"
+              class="absolute h-full w-full overflow-hidden transition-opacity duration-300 ease-in-out"
+              {% if is_first %}
+                style="z-index: 10"
+              {% else %}
+                style="z-index: 1"
+              {% endif %}
+            >
+              {% render 'split-screen-media',
+                split_screen_image: block.settings.image,
+                split_screen_video: block.settings.video,
+                split_screen_caption: block.settings.caption,
+                full_bleed_media: block.settings.full_bleed_media,
+                hide_mute: block.settings.hide_mute
+              %}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </ul>
+  </div>
+</split-screen-element>

@@ -1,0 +1,137 @@
+{% comment %}
+  Cart order summary. Subtotal = Σ per-line reference price (shared cart-line-reference-price
+  snippet — the same "was" each line strikes through, so summary and lines can't diverge).
+  Savings = reference − cart.total_price (one figure covering compare-at, subscription, and
+  cart-level discounts); cart.total_price is the payable, checkout-accurate amount.
+{% endcomment %}
+
+{% assign reference_subtotal = 0 %}
+{% for item in cart.items %}
+  {%- capture item_ref -%}{%- render 'cart-line-reference-price', line_item: item -%}{%- endcapture -%}
+  {% assign item_ref_cents = item_ref | plus: 0 %}
+  {% assign reference_subtotal = reference_subtotal | plus: item_ref_cents %}
+{% endfor %}
+
+{% assign total_savings = reference_subtotal | minus: cart.total_price %}
+{% assign savings_pct = 0 %}
+{% if total_savings > 0 and reference_subtotal > 0 %}
+  {% assign savings_pct = total_savings | times: 100.0 | divided_by: reference_subtotal | round %}
+{% endif %}
+
+{% assign has_free_shipping_discount = false %}
+{% for discount_application in cart.cart_level_discount_applications %}
+  {% if discount_application.target_type == 'shipping_line' %}
+    {% assign has_free_shipping_discount = true %}
+  {% endif %}
+{% endfor %}
+
+{%- comment -%}
+  A real subscription line means the store's "Free Shipping" automatic discount
+  (appliesOnSubscription, no minimum) comps shipping at checkout, so the row can
+  promise FREE server-side. Toggleable in theme settings — the discount only
+  covers rates under its cap, so international markets may need it off.
+{%- endcomment -%}
+{% assign free_ship_sub_line = false %}
+{% if settings.cart_free_shipping_on_subscription %}
+  {% for item in cart.items %}
+    {% if item.selling_plan_allocation != null and item.selling_plan_allocation.selling_plan.name != 'Pre Order' %}
+      {% assign free_ship_sub_line = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{%- comment -%}
+  data-free-shipping-basis (live qualifying subtotal, cents; after line-level
+  discounts), data-free-shipping-basis-discounted (payable total, after order-
+  level codes too — used when the IG bar config measures afterDiscount), and
+  the server-side data-free-shipping-qualified flag are read by
+  cart-free-shipping.ts / cart.css.
+{%- endcomment -%}
+<div
+  data-cart-order-summary
+  data-free-shipping-basis="{{ cart.items_subtotal_price }}"
+  data-free-shipping-basis-discounted="{{ cart.total_price }}"
+  {% if has_free_shipping_discount or free_ship_sub_line %}
+    data-free-shipping-qualified
+  {% endif %}
+  class="flex flex-col"
+>
+  {%- comment -%} Savings breakdown — Figma 5308:844 {%- endcomment -%}
+  <div class="flex flex-col gap-[2px] border-t border-black/[0.16] px-8 pb-8 pt-[17px]">
+    <div class="flex items-center justify-between">
+      <p class="font-text text-[16px] leading-[1.5] text-[#232323]">Subtotal</p>
+      <p class="font-text text-[16px] leading-[1.5] text-[#212121]">{{ reference_subtotal | money }}</p>
+    </div>
+
+    {% if total_savings > 0 %}
+      {%- comment -%}
+        Discount row: the blended % badge and any order-level discount-name
+        chips (codes) sit inline right of the label; the value is the dollar
+        amount. No per-program copy here — a blended % attributed to one
+        program would contradict the per-line tags. Product-level discount
+        names show on the product card.
+      {%- endcomment -%}
+      <div class="flex items-center justify-between gap-8">
+        <div class="flex min-w-0 flex-wrap items-center gap-x-8 gap-y-[2px]">
+          <p class="font-text text-[16px] leading-[1.5] text-[#232323]">Discount</p>
+          {% if savings_pct > 0 %}
+            <span class="bg-[#fe5000] px-[4px] py-[2px]">
+              <span class="font-text text-[12px] font-medium uppercase leading-[15.6px] text-white">
+                {{- savings_pct }}% off</span
+              >
+            </span>
+          {% endif %}
+          {% for discount_application in cart.cart_level_discount_applications %}
+            {% unless discount_application.target_type == 'shipping_line' %}
+              <span class="flex w-fit items-center gap-[6px] bg-[#ffe9e3] px-[4px] py-[2px]">
+                {% render 'icon-tag', class: 'w-[11px]' %}
+                <span class="font-text text-[10px] font-medium uppercase leading-[15.6px] text-[#fe5000]">
+                  {{- discount_application.title -}}
+                </span>
+              </span>
+            {% endunless %}
+          {% endfor %}
+        </div>
+        <p class="shrink-0 font-text text-[16px] leading-[1.5] text-[#fe5000]">-{{ total_savings | money }}</p>
+      </div>
+    {% endif %}
+
+    <div class="flex items-center justify-between">
+      <p class="font-text text-[16px] leading-[1.5] text-[#232323]">Shipping</p>
+      {%- comment -%}
+        Both states render; cart.css shows one. Qualified = html.js-free-shipping
+        (cart-free-shipping.ts: IG free-ship offer threshold vs live subtotal) OR
+        a server-side shipping-line discount (e.g. an applied free-shipping code,
+        via data-free-shipping-qualified on the wrapper). Default: pending.
+      {%- endcomment -%}
+      <p data-shipping-free class="font-text text-[16px] uppercase leading-[1.5] text-[#fe5000]">
+        {{ settings.cart_shipping_free_text }}
+      </p>
+      <p data-shipping-calc class="font-text text-[16px] leading-[1.5] text-[#939393]">
+        {{ settings.cart_shipping_pending_text }}
+      </p>
+    </div>
+  </div>
+
+  {%- comment -%} Total — Figma 5172:1672 {%- endcomment -%}
+  <div class="flex items-center justify-between gap-[12px] border-b border-black/[0.16] px-8 pb-[17px] pt-8">
+    <p class="font-text text-[16px] font-medium leading-[1.5] text-[#232323]">
+      Subtotal ({{ cart.item_count }}
+      {%- if cart.item_count == 1 %} item{% else %} items{% endif -%}
+      )
+    </p>
+    <div class="flex items-center gap-[12px]">
+      <p class="flex items-center gap-[4px]">
+        {% if total_savings > 0 %}
+          <s class="font-text text-[14px] leading-[1.5] text-[#939393] line-through">
+            {{- reference_subtotal | money -}}
+          </s>
+        {% endif %}
+        <span class="font-text text-[18px] font-medium leading-[1.5] text-[#212121]">
+          {{- cart.total_price | money -}}
+        </span>
+      </p>
+    </div>
+  </div>
+</div>

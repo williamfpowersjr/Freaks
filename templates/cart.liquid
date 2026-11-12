@@ -1,0 +1,12 @@
+<script data-cfasync="false" type="text/javascript">
+  if (typeof Shopify === "undefined")
+      var Shopify = {};
+
+  Shopify.cart = {{ cart | json }};
+</script>
+<div id="sca_fg_cart">
+  <script>
+    console.warn('redirecting to home with minicart open: [/?viewcart=true]');
+    window.location = '/?viewcart=true';
+  </script>
+</div>

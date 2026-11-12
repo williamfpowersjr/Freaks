@@ -1,0 +1,56 @@
+{% comment %}
+  accepts the following arguments:
+  - product: a product object
+  - extra_classes: additional classes to apply to the card
+  - isHeader: boolean to determine if the card is for the header
+{% endcomment %}
+
+{% assign product_title = product.title %}
+{% assign product_image = product.featured_image %}
+{% assign product_type = product.type %}
+{% assign product_url = product.url %}
+{% assign product_slider_subline = product.metafields.custom.product_slider_subline.value %}
+
+<a href="{{ product_url }}" aria-label="{{ product_title }}">
+  <div class="h-full pt-24 {{ extra_classes }}">
+    <div
+      class="relative mx-24 flex h-184 flex-col items-center justify-center overflow-hidden"
+    >
+      <div class="relative aspect-[0.9]">
+        {{
+          product_image
+          | image_url: width: product_image.width
+          | image_tag:
+            loading: 'lazy',
+            sizes: '(min-width: 1024px) 50vw, 100vw',
+            class: 'w-full h-full object-cover object-center'
+        }}
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-16 {% if isHeader == true %}lg:p-24 lg:pt-16 lg:gap-16{% else %}px-24 py-16 lg:gap-24 lg:p-40{% endif %}">
+      {% if has_reviews == true %}
+        {% render 'junip-product-summary', product: product %}
+      {% endif %}
+
+      <div class="flex flex-col">
+        <h3 class="fn-tt-title-20 text-[16px]">{{ product_title }}</h3>
+        <p class="fn-tt-title-20 text-[16px] text-black/60">{{ product_type }}</p>
+      </div>
+
+      {% unless isHeader == true %}
+        <div class="flex items-baseline gap-8">
+          {% render 'one-time-price', variant: product.selected_or_first_available_variant %}
+        </div>
+      {% endunless %}
+
+      {% if isHeader == true %}
+        {% if product_slider_subline != blank %}
+          <div>
+            <p class="fn-tt-caption text-[12px]">{{ product_slider_subline }}</p>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</a>

@@ -1,0 +1,238 @@
+{{ 'ctr-science-timeline.css' | asset_url | stylesheet_tag }}
+
+<ctr-science-timeline
+  id="shopify-section-{{ section.id }}"
+  class="ctr-science-timeline"
+  data-section-id="{{ section.id }}"
+  style="
+    {% if section.settings.background_gradient != blank %}
+      --ctr-science-timeline-background: {{ section.settings.background_gradient }};
+    {% else %}
+      --ctr-science-timeline-background: {{ section.settings.background_color }};
+    {% endif %}
+    --ctr-science-timeline-card-background: {{ section.settings.card_background_color }};
+    --ctr-science-timeline-border-color: {{ section.settings.border_color }};
+    --ctr-science-timeline-text-color: {{ section.settings.text_color }};
+    --ctr-science-timeline-muted-color: {{ section.settings.muted_text_color }};
+    --ctr-science-timeline-accent-color: {{ section.settings.accent_color }};
+    --ctr-science-timeline-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-science-timeline-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-science-timeline-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-science-timeline-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  <div class="ctr-science-timeline__wrapper">
+    {% if section.settings.title != blank %}
+      <div class="ctr-science-timeline__title-wrap bg-grey-lines" style="">
+        <div class="ctr-science-timeline__title inline-rich-text">
+          {{ section.settings.title }}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="ctr-science-timeline__card">
+        <div class="ctr-science-timeline__list">
+          {% for block in section.blocks %}
+            <article
+              class="ctr-science-timeline__item{% if forloop.first %} is-first{% endif %}{% if forloop.last %} is-last{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="ctr-science-timeline__item-icon-wrap">
+                <span class="ctr-science-timeline__item-icon">
+                  {% if block.settings.icon != blank %}
+                    <img
+                      src="{{ block.settings.icon | img_url: '120x' }}"
+                      img_url="{{ block.settings.icon | img_url: '120x' }}"
+                      alt="{{ block.settings.icon.alt | default: 'Timeline icon' | escape }}"
+                      class="ctr-science-timeline__item-icon-image"
+                      loading="lazy"
+                      width="{{ block.settings.icon.width }}"
+                      height="{{ block.settings.icon.height }}"
+                    >
+                  {% else %}
+                    <svg viewBox="0 0 63 63" fill="none" aria-hidden="true">
+                      <circle cx="31.5" cy="31.5" r="31" stroke="currentColor"></circle>
+                      <path d="M31.5 14L22 31.2C20.8 33.4 20.8 36 22.1 38.2C23.9 41.4 27.4 43.4 31.1 43.4C34.7 43.4 38.1 41.5 40 38.5C41.5 36.1 41.6 33 40.2 30.5L31.5 14Z" stroke="currentColor"></path>
+                      <path d="M27.2 31.8L31 35.7L36.4 28.5" stroke="currentColor"></path>
+                    </svg>
+                  {% endif %}
+                </span>
+              </div>
+
+              <div class="ctr-science-timeline__item-content">
+                {% if block.settings.title != blank %}
+                  <div class="ctr-science-timeline__item-title inline-rich-text">
+                    {{ block.settings.title }}
+                  </div>
+                {% endif %}
+                {% if block.settings.text != blank %}
+                  <div class="ctr-science-timeline__item-text inline-rich-text">
+                    {{ block.settings.text }}
+                  </div>
+                {% endif %}
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</ctr-science-timeline>
+
+{% schema %}
+{
+  "name": "Science Timeline (CTR)",
+  "tag": "section",
+  "class": "ctr-science-timeline-section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>YOUR SKIN IS A LONG GAME.<br>PLAY IT RIGHT.</p>"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "alpha": true,
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Section background gradient",
+      "info": "Example: linear-gradient(180deg, #FFFFFF 0%, #FFF2E9 100%)"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Card background",
+      "alpha": true,
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "alpha": true,
+      "default": "#21212126"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Muted text color",
+      "alpha": true,
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#fe5000"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "timeline_item",
+      "name": "Timeline item (CTR)",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Title",
+          "default": "<p>Week 1-2</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Your body starts absorbing the mineral blend. Hydration feels more sustained. Digestion starts to balance out.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Science Timeline (CTR)",
+      "category": "CTR Sections",
+      "blocks": [
+        {
+          "type": "timeline_item",
+          "settings": {
+            "title": "<p>Week 1-2</p>",
+            "text": "<p>Your body starts absorbing the mineral blend. Hydration feels more sustained. Digestion starts to balance out.</p>"
+          }
+        },
+        {
+          "type": "timeline_item",
+          "settings": {
+            "title": "<p>Month 1</p>",
+            "text": "<p>Skin barrier support kicks in. Hyaluronic acid and Vitamin C work to reinforce moisture retention and resilience from within.</p>"
+          }
+        },
+        {
+          "type": "timeline_item",
+          "settings": {
+            "title": "<p>Month 1-3+</p>",
+            "text": "<p>The compounding phase. Internal UV resilience builds, gut-skin axis support deepens, and your skin starts to reflect the work happening inside.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,107 @@
+.ctr-as-seen-in {
+  background: var(--ctr-as-seen-in-bg);
+  color: var(--ctr-as-seen-in-text-color);
+  padding-bottom: var(--ctr-as-seen-in-padding-bottom-mobile);
+  padding-top: var(--ctr-as-seen-in-padding-top-mobile);
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    padding-bottom: var(--ctr-as-seen-in-padding-bottom-desktop);
+    padding-top: var(--ctr-as-seen-in-padding-top-desktop);
+  }
+}
+
+.ctr-as-seen-in .ctr-as-seen-in__inner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ctr-as-seen-in .ctr-as-seen-in__title {
+  background: var(--ctr-as-seen-in-panel-bg);
+  border-color: var(--ctr-as-seen-in-border-color);
+  border-style: solid;
+  border-width: 1px 1px 0;
+  font-family: 'Alliance Text', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 8px 0;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.ctr-as-seen-in .ctr-as-seen-in__title p {
+  margin: 0;
+}
+
+.ctr-as-seen-in .ctr-as-seen-in__title * {
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-transform: inherit;
+}
+
+.ctr-as-seen-in .ctr-as-seen-in__logos {
+  background: var(--ctr-as-seen-in-panel-bg);
+  border: 1px solid var(--ctr-as-seen-in-border-color);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    align-items: center;
+    display: flex;
+    gap: 48px;
+    justify-content: center;
+    min-height: 72px;
+  }
+}
+
+.ctr-as-seen-in .ctr-as-seen-in__logo {
+  align-items: center;
+  border-color: var(--ctr-as-seen-in-border-color);
+  border-style: solid;
+  border-width: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 48px;
+  opacity: var(--ctr-as-seen-in-logo-opacity, 1);
+  overflow: hidden;
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    flex: 1 1 0;
+    min-height: 72px;
+  }
+}
+
+.ctr-as-seen-in .ctr-as-seen-in__logo:nth-child(n + 3) {
+  border-top-width: 1px;
+
+  @media (min-width: 1024px) {
+    border-top-width: 0;
+  }
+}
+
+.ctr-as-seen-in .ctr-as-seen-in__logo-link {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+.ctr-as-seen-in .ctr-as-seen-in__logo-image {
+  display: block;
+  height: var(--ctr-as-seen-in-logo-height-mobile);
+  max-width: 100%;
+  object-fit: contain;
+  width: auto;
+
+  @media (min-width: 1024px) {
+    height: var(--ctr-as-seen-in-logo-height-desktop);
+  }
+}

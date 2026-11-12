@@ -1,0 +1,170 @@
+{% schema %}
+{
+  "name": "Category Grid",
+  "tag": "section",
+  "class": "category-grid-section",
+  "presets": [
+    {
+      "name": "Category Grid",
+      "category": "Category Grid",
+      "settings": {
+        "title": "Shop by Category",
+        "cta_text": "SHOP ALL",
+        "cta_link": "#"
+      },
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "title": "SUNCARE",
+            "link": "#"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "DEODORANT",
+            "link": "#"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "SKINCARE",
+            "link": "#"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Cta Text"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Cta link"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Category",
+      "type": "category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "Desktop Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% if section.blocks.size > 0 %}
+  <div class="bg-blue/20">
+    {% unless section.settings.title == blank
+      and section.settings.cta_text == blank
+      and section.settings.cta_link == blank
+    %}
+      <div class="flex flex-col gap-16 border-b border-blue/20 px-24 py-40 lg:flex-row lg:items-center lg:justify-between lg:px-80">
+        {% if section.settings.title != blank %}
+          <h2 class="fn-tt-title-50">{{ section.settings.title }}</h2>
+        {% endif %}
+
+        {% if section.settings.cta_text != blank and section.settings.cta_link != blank %}
+          <a
+            href="{{ section.settings.cta_link }}"
+            class="fn-tt-cta-20 font-medium uppercase"
+          >
+            <div class="duration-250 flex w-fit items-center gap-2 border-b border-black leading-tight transition ease-in-out hover:border-transparent ">
+              {{ section.settings.cta_text }}
+              {% render 'icon-normal-arrow-right', class: 'size-16' %}
+            </div>
+          </a>
+        {% endif %}
+      </div>
+    {% endunless %}
+
+    {% if section.blocks.size > 4 %}
+      {% comment %} Mobile: Grid layout {% endcomment %}
+      <div class="flex flex-col gap-16 p-24 lg:hidden">
+        {% for block in section.blocks %}
+          {% if block.type == 'category' %}
+            {% if block.settings.link != blank %}
+              {% render 'category-grid-item',
+                title: block.settings.title,
+                link: block.settings.link,
+                mobile_image: block.settings.mobile_image,
+                desktop_image: block.settings.desktop_image
+              %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% comment %} Desktop: Carousel {% endcomment %}
+      {% capture slides %}
+        {% for block in section.blocks %}
+          {% if block.type == 'category' %}
+            {% if block.settings.link != blank %}
+              <swiper-slide class="swiper-slide w-1/3 xl:w-1/4">
+                {% render 'category-grid-item',
+                  title: block.settings.title,
+                  link: block.settings.link,
+                  mobile_image: block.settings.mobile_image,
+                  desktop_image: block.settings.desktop_image
+                %}
+              </swiper-slide>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endcapture %}
+      {% capture carousel_id %}category-grid-{{ section.id }}{% endcapture %}
+      {% assign carousel_label = section.settings.title | default: 'Category grid' %}
+      <div class="hidden lg:block">
+        {% render 'carousel', slides: slides, carousel_id: carousel_id, carousel_label: carousel_label %}
+      </div>
+    {% else %}
+      {% comment %} Grid layout for <= 4 blocks {% endcomment %}
+      <div class="flex flex-col gap-16 p-24 lg:grid lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-blue/20 lg:p-0">
+        {% for block in section.blocks %}
+          {% if block.type == 'category' %}
+            {% if block.settings.link != blank %}
+              {% render 'category-grid-item',
+                title: block.settings.title,
+                link: block.settings.link,
+                mobile_image: block.settings.mobile_image,
+                desktop_image: block.settings.desktop_image
+              %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

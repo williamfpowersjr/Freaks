@@ -1,0 +1,732 @@
+{% schema %}
+{
+  "name": "HeadlineHero",
+  "tag": "section",
+  "class": "hero-alternative-section",
+  "presets": [
+    {
+      "name": "Headline Hero",
+      "category": "Hero",
+      "blocks": {
+        "value_prop_MXwcnt": {
+          "type": "value_prop",
+          "settings": {
+            "icon": "shopify://shop_images/Claims.svg",
+            "text": "Founded by 11x world surfing champion Kelly Slater"
+          }
+        },
+        "value_prop_mVAty8": {
+          "type": "value_prop",
+          "settings": {
+            "icon": "shopify://shop_images/Claims_f7868f97-8ce5-4357-ab6d-ca6cd4fc7e07.svg",
+            "text": "Clean, bio-based ingredients safe for daily use"
+          }
+        },
+        "value_prop_atLKiw": {
+          "type": "value_prop",
+          "settings": {
+            "icon": "shopify://shop_images/Claims_1b989685-a234-4f05-876d-1415b93e4437.svg",
+            "text": "Science-backed formulas built to protect, strengthen, and repair"
+          }
+        }
+      },
+      "block_order": [
+        "value_prop_MXwcnt",
+        "value_prop_mVAty8",
+        "value_prop_atLKiw"
+      ],
+      "settings": {
+        "layout_type": "split",
+        "media_type": "image",
+        "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+        "image_2": "shopify://shop_images/Screenshot_2025-07-23_at_11.51.08_AM.png",
+        "title": "Strength training\nfor your skin",
+        "description": "Sun, snow, or surf – your skin should be as strong as you are. Freaks of Nature builds simple, bio-based skincare that keeps up with your life.",
+        "bg_color": "white",
+        "show_tagline": true,
+        "tagline_width": "full_width",
+        "tagline": "Loved by over 25,000 Freaks",
+        "credit_title": "",
+        "credit_url": "",
+        "cta_count": "2",
+        "cta_style": "margin",
+        "cta": "Shop Skincare",
+        "cta_link": "shopify://collections/skincare-products",
+        "cta_color": "orange",
+        "cta_2": "Shop Suncare",
+        "cta_2_link": "shopify://collections/sunscreen",
+        "cta_2_color": "blue"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "select",
+      "id": "layout_type",
+      "label": "Layout Type",
+      "options": [
+        {
+          "value": "single",
+          "label": "Single Image"
+        },
+        {
+          "value": "split",
+          "label": "Split Image"
+        }
+      ],
+      "default": "single"
+    },
+    {
+      "type": "select",
+      "id": "media_type",
+      "label": "Media Type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "visible_if": "{{ section.settings.media_type == 'image' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Image",
+      "info": "Image to be shown on mobile devices.  If left blank, the desktop image will be shown on all devices.",
+      "visible_if": "{{ section.settings.media_type == 'image' }}"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "This video is going to loop in the index page hero.",
+      "visible_if": "{{ section.settings.media_type == 'video' }}"
+    },
+    {
+      "type": "video",
+      "id": "mobile_video",
+      "label": "Mobile Video",
+      "info": "Video to be shown on mobile devices.  If left blank, the desktop video will be shown on all devices.",
+      "visible_if": "{{ section.settings.media_type == 'video' }}"
+    },
+    {
+      "type": "header",
+      "content": "Second Image (Split Layout)",
+      "info": "Settings for the second image when using split layout"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Second Image",
+      "visible_if": "{{ section.settings.layout_type == 'split' and section.settings.media_type == 'image' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image_2",
+      "label": "Second Mobile Image",
+      "info": "Image to be shown on mobile devices.  If left blank, the desktop image will be shown on all devices.",
+      "visible_if": "{{ section.settings.layout_type == 'split' and section.settings.media_type == 'image' }}"
+    },
+    {
+      "type": "video",
+      "id": "video_2",
+      "label": "Second Video",
+      "info": "This video is going to loop in the split layout.",
+      "visible_if": "{{ section.settings.layout_type == 'split' and section.settings.media_type == 'video' }}"
+    },
+    {
+      "type": "video",
+      "id": "mobile_video_2",
+      "label": "Second Mobile Video",
+      "info": "Video to be shown on mobile devices.  If left blank, the desktop video will be shown on all devices.",
+      "visible_if": "{{ section.settings.layout_type == 'split' and section.settings.media_type == 'video' }}"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Title Background Color",
+      "options": [
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "offWhite",
+          "label": "Off White"
+        },
+        {
+          "value": "orange",
+          "label": "Orange"
+        }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tagline",
+      "label": "Show tagline",
+      "default": true,
+      "info": "Use the checkbox to hide or show the Tagline in this section."
+    },
+    {
+      "type": "select",
+      "id": "tagline_width",
+      "label": "Tagline Width",
+      "options": [
+        {
+          "value": "centered",
+          "label": "Centered"
+        },
+        {
+          "value": "full_width",
+          "label": "Full Width"
+        }
+      ],
+      "default": "centered",
+      "info": "Choose whether the tagline should be centered or full width"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "info": "This will show as a small tagline on the bottom of the hero section"
+    },
+    {
+      "type": "text",
+      "id": "credit_title",
+      "label": "Credit Title",
+      "info": "This will show as a credit title in the tagline"
+    },
+    {
+      "type": "image_picker",
+      "id": "credit_logo",
+      "label": "Credit Logo",
+      "info": "This will show as the credit logo in the tagline"
+    },
+    {
+      "type": "url",
+      "id": "credit_url",
+      "label": "Credit Url",
+      "info": "This will link the credit inside the tagline"
+    },
+
+    {
+      "type": "header",
+      "content": "CTAs"
+    },
+    {
+      "type": "select",
+      "id": "cta_count",
+      "label": "CTA Count",
+      "options": [
+        {
+          "value": "1",
+          "label": "Single CTA"
+        },
+        {
+          "value": "2",
+          "label": "Two CTAs"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "cta_style",
+      "label": "CTA Style",
+      "options": [
+        {
+          "value": "full_bleed",
+          "label": "Full Bleed"
+        },
+        {
+          "value": "margin",
+          "label": "Margin"
+        }
+      ],
+      "default": "full_bleed"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Cta Text",
+      "info": "Optional: If you want to show a cta, fill in a Cta text. If you don't want to show it, leave the field blank."
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Cta link"
+    },
+    {
+      "type": "select",
+      "id": "cta_color",
+      "label": "Cta Color",
+      "options": [
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "orange"
+    },
+    {
+      "type": "text",
+      "id": "cta_2",
+      "label": "Cta Text 2",
+      "visible_if": "{{ section.settings.cta_count == '2' }}"
+    },
+    {
+      "type": "url",
+      "id": "cta_2_link",
+      "label": "Cta link 2",
+      "visible_if": "{{ section.settings.cta_count == '2' }}"
+    },
+    {
+      "type": "select",
+      "id": "cta_2_color",
+      "label": "Cta Color 2",
+      "options": [
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "blue",
+      "visible_if": "{{ section.settings.cta_count == '2' }}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value_prop",
+      "name": "Value Prop",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+{% assign extra_wrapper_classes = 'overflow-hidden text-center ' %}
+{% case section.settings.bg_color %}
+  {% when 'offWhite' %}
+    {% assign extra_wrapper_classes = extra_wrapper_classes | append: 'px-8 lg:px-12 text-balance border-none ' %}
+    {% assign bg_lines = 'bg-grey-lines' %}
+    {% assign text_color = 'text-black' %}
+    {% assign bg_color = 'bg-offWhite' %}
+
+  {% when 'orange' %}
+    {% assign extra_wrapper_classes = extra_wrapper_classes | append: 'px-8 lg:px-12 text-balance border-none ' %}
+    {% assign bg_lines = 'bg-blue-lines' %}
+
+    {% assign text_color = 'text-blue' %}
+    {% assign bg_color = 'bg-orange' %}
+
+  {% else %}
+    {% assign extra_wrapper_classes = extra_wrapper_classes
+      | append: 'px-8 lg:px-12 text-balance border-none  bg-white'
+    %}
+    {% assign bg_lines = 'bg-grey-lines' %}
+    {% assign text_color = 'text-black' %}
+    {% assign bg_color = 'bg-white' %}
+{% endcase %}
+
+{% assign value_prop_blocks = section.blocks | where: 'type', 'value_prop' %}
+
+<div>
+  <div class="relative flex h-[calc(100svh-var(--header-height))] flex-col">
+    <div class="relative z-0  lg:mb-0 grow flex flex-col">
+      <div class="grow {% if section.settings.layout_type == 'split' %}grid grid-cols-2{% endif %}">
+        {% if section.settings.layout_type == 'single' %}
+          {% comment %} Single Layout {% endcomment %}
+          {% if section.settings.media_type == 'image' %}
+            {% comment %} Desktop Image {% endcomment %}
+            {% if section.settings.image != blank %}
+              {{
+                section.settings.image
+                | image_url: width: 1920
+                | image_tag:
+                  loading: 'eager',
+                  fetchpriority: 'high',
+                  sizes: '100vw',
+                  widths: '1024, 1280, 1536, 1920',
+                  class: 'w-full h-full object-cover absolute inset-0 z-10 transition-opacity duration-300 ease-in-out hidden lg:block'
+              }}
+            {% endif %}
+
+            {% comment %} Mobile Image {% endcomment %}
+            {% assign mobile_img = section.settings.mobile_image | default: section.settings.image %}
+            {% if mobile_img != blank %}
+              {{
+                mobile_img
+                | image_url: width: 832
+                | image_tag:
+                  loading: 'eager',
+                  fetchpriority: 'high',
+                  sizes: '100vw',
+                  widths: '375, 414, 768, 832',
+                  class: 'w-full h-full object-cover absolute inset-0 z-10 transition-opacity duration-300 ease-in-out lg:hidden'
+              }}
+            {% endif %}
+          {% endif %}
+
+          {% if section.settings.media_type == 'video' %}
+            {% comment %} Desktop Video {% endcomment %}
+            {% if section.settings.video != blank %}
+              {% assign poster = section.settings.video.preview_image.src | image_url: width: 2000 %}
+              {{
+                section.settings.video
+                | video_tag:
+                  class: 'w-full h-full object-cover absolute inset-0 z-0 hidden lg:block',
+                  autoplay: true,
+                  poster: poster,
+                  preload: 'auto',
+                  loop: true,
+                  muted: true,
+                  controls: false,
+                  playsinline: true,
+                  data-autopause: true
+              }}
+            {% endif %}
+
+            {% comment %} Mobile Video {% endcomment %}
+            {% assign mobile_vid = section.settings.mobile_video | default: section.settings.video %}
+            {% if mobile_vid != blank %}
+              {% assign mobile_poster = mobile_vid.preview_image.src | image_url: width: 2000 %}
+              {{
+                mobile_vid
+                | video_tag:
+                  class: 'w-full h-full object-cover absolute inset-0 z-0 lg:hidden',
+                  autoplay: true,
+                  poster: mobile_poster,
+                  preload: 'auto',
+                  loop: true,
+                  muted: true,
+                  controls: false,
+                  playsinline: true,
+                  data-autopause: true
+              }}
+            {% endif %}
+          {% endif %}
+        {% else %}
+          {% comment %} Split Layout {% endcomment %}
+          {% comment %} First Image/Video Column {% endcomment %}
+          <div class="relative w-full h-full">
+            {% if section.settings.media_type == 'image' %}
+              {% comment %} Desktop Image {% endcomment %}
+              {% if section.settings.image != blank %}
+                {{
+                  section.settings.image
+                  | image_url: width: 1920
+                  | image_tag:
+                    loading: 'eager',
+                    fetchpriority: 'high',
+                    sizes: '50vw',
+                    widths: '512, 640, 768, 960',
+                    class: 'w-full h-full object-cover absolute inset-0 z-10 transition-opacity duration-300 ease-in-out hidden lg:block'
+                }}
+              {% endif %}
+
+              {% comment %} Mobile Image {% endcomment %}
+              {% assign mobile_img = section.settings.mobile_image | default: section.settings.image %}
+              {% if mobile_img != blank %}
+                {{
+                  mobile_img
+                  | image_url: width: 832
+                  | image_tag:
+                    loading: 'eager',
+                    fetchpriority: 'high',
+                    sizes: '50vw',
+                    widths: '187, 207, 384, 416',
+                    class: 'w-full h-full object-cover absolute inset-0 z-10 transition-opacity duration-300 ease-in-out lg:hidden'
+                }}
+              {% endif %}
+            {% endif %}
+
+            {% if section.settings.media_type == 'video' %}
+              {% comment %} Desktop Video {% endcomment %}
+              {% if section.settings.video != blank %}
+                {% assign poster = section.settings.video.preview_image.src | image_url: width: 2000 %}
+                {{
+                  section.settings.video
+                  | video_tag:
+                    class: 'w-full h-full object-cover absolute inset-0 z-0 hidden lg:block',
+                    autoplay: true,
+                    poster: poster,
+                    preload: 'auto',
+                    loop: true,
+                    muted: true,
+                    controls: false,
+                    playsinline: true,
+                    data-autopause: true
+                }}
+              {% endif %}
+
+              {% comment %} Mobile Video {% endcomment %}
+              {% assign mobile_vid = section.settings.mobile_video | default: section.settings.video %}
+              {% if mobile_vid != blank %}
+                {% assign mobile_poster = mobile_vid.preview_image.src | image_url: width: 2000 %}
+                {{
+                  mobile_vid
+                  | video_tag:
+                    class: 'w-full h-full object-cover absolute inset-0 z-0 lg:hidden',
+                    autoplay: true,
+                    poster: mobile_poster,
+                    preload: 'auto',
+                    loop: true,
+                    muted: true,
+                    controls: false,
+                    playsinline: true,
+                    data-autopause: true
+                }}
+              {% endif %}
+            {% endif %}
+          </div>
+
+          {% comment %} Second Image/Video Column {% endcomment %}
+          <div class="relative w-full h-full">
+            {% if section.settings.media_type == 'image' %}
+              {% comment %} Desktop Image {% endcomment %}
+              {% if section.settings.image_2 != blank %}
+                {{
+                  section.settings.image_2
+                  | image_url: width: 1920
+                  | image_tag:
+                    loading: 'eager',
+                    fetchpriority: 'high',
+                    sizes: '50vw',
+                    widths: '512, 640, 768, 960',
+                    class: 'w-full h-full object-cover absolute inset-0 z-10 transition-opacity duration-300 ease-in-out hidden lg:block'
+                }}
+              {% endif %}
+
+              {% comment %} Mobile Image {% endcomment %}
+              {% assign mobile_img_2 = section.settings.mobile_image_2 | default: section.settings.image_2 %}
+              {% if mobile_img_2 != blank %}
+                {{
+                  mobile_img_2
+                  | image_url: width: 832
+                  | image_tag:
+                    loading: 'eager',
+                    fetchpriority: 'high',
+                    sizes: '50vw',
+                    widths: '187, 207, 384, 416',
+                    class: 'w-full h-full object-cover absolute inset-0 z-10 transition-opacity duration-300 ease-in-out lg:hidden'
+                }}
+              {% endif %}
+            {% endif %}
+
+            {% if section.settings.media_type == 'video' %}
+              {% comment %} Desktop Video {% endcomment %}
+              {% if section.settings.video_2 != blank %}
+                {% assign poster_2 = section.settings.video_2.preview_image.src | image_url: width: 2000 %}
+                {{
+                  section.settings.video_2
+                  | video_tag:
+                    class: 'w-full h-full object-cover absolute inset-0 z-0 hidden lg:block',
+                    autoplay: true,
+                    poster: poster_2,
+                    preload: 'auto',
+                    loop: true,
+                    muted: true,
+                    controls: false,
+                    playsinline: true,
+                    data-autopause: true
+                }}
+              {% endif %}
+
+              {% comment %} Mobile Video {% endcomment %}
+              {% assign mobile_vid_2 = section.settings.mobile_video_2 | default: section.settings.video_2 %}
+              {% if mobile_vid_2 != blank %}
+                {% assign mobile_poster_2 = mobile_vid_2.preview_image.src | image_url: width: 2000 %}
+                {{
+                  mobile_vid_2
+                  | video_tag:
+                    class: 'w-full h-full object-cover absolute inset-0 z-0 lg:hidden',
+                    autoplay: true,
+                    poster: mobile_poster_2,
+                    preload: 'auto',
+                    loop: true,
+                    muted: true,
+                    controls: false,
+                    playsinline: true,
+                    data-autopause: true
+                }}
+              {% endif %}
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      {% if section.settings.show_tagline == true %}
+        {% assign tagline_wrapper_classes = '' %}
+        {% if section.settings.tagline_width == 'full_width' %}
+          {% assign tagline_wrapper_classes = tagline_wrapper_classes | append: ' w-full' %}
+        {% else %}
+          {% assign tagline_wrapper_classes = tagline_wrapper_classes
+            | append: ' absolute bottom-0 z-50 translate-y-1/2 left-1/2 w-max -translate-x-1/2 lg:w-full'
+          %}
+        {% endif %}
+        <div class="{{ tagline_wrapper_classes }}">
+          {% render 'hero-tagline',
+            tagline: section.settings.tagline,
+            credit_title: section.settings.credit_title,
+            credit_logo: section.settings.credit_logo,
+            credit_url: section.settings.credit_url,
+            class: ' flex flex-col gap-4 p-8 z-20 leading-6 align-center lg:flex-row bg-blue text-white align-center text-center lg:justify-center  lg:gap-16 lg:px-8 lg:py-4'
+          %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div>
+      <div class="fn-tt-title-80 flex flex-col gap-16 {% unless section.settings.tagline_width == 'full_width' %}pt-[1em] border-t border-black/15{% endunless %}">
+        {% render 'title',
+          title: section.settings.title,
+          text_size: 'font-neue',
+          extra_wrapper_classes: extra_wrapper_classes,
+          extra_text_classes: '!pt-[.06em] !mb-[calc(-.06em-1px)] overflow-hidden whitespace-pre-line',
+          text_color: text_color,
+          bg_color: bg_color,
+          bg_lines: bg_lines,
+          isH1: true
+        %}
+        {% if section.settings.description != blank %}
+          <div class="fn-tt-body-10 text-center mx-24">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+
+        {% comment %}
+          CTAs
+        {% endcomment %}
+        {% assign cta_container_classes = 'grid grid-cols-1  w-full ' %}
+        {% if section.settings.cta_count == '2' %}
+          {% assign cta_container_classes = cta_container_classes | append: ' lg:grid-cols-2' %}
+        {% endif %}
+        {% if section.settings.cta_style == 'margin' %}
+          {% assign cta_container_classes = cta_container_classes
+            | append: ' gap-8 lg:gap-24 px-24 lg:px-40 lg:pb-40 pb-24'
+          %}
+        {% endif %}
+        <div class="{{ cta_container_classes }}">
+          {% if section.settings.cta != blank %}
+            <a href="{{ section.settings.cta_link }}" aria-label="{{ section.settings.cta }}">
+              <div class="w-full">
+                {% render 'cta',
+                  as: 'button',
+                  text: section.settings.cta,
+                  extra_classes: 'w-full focus:border-none',
+                  hasIcons: true,
+                  cta_color: section.settings.cta_color
+                %}
+              </div>
+            </a>
+          {% endif %}
+
+          {% if section.settings.cta_count == '2'
+            and section.settings.cta_2 != blank
+            and section.settings.cta_2_link != blank
+          %}
+            <a href="{{ section.settings.cta_2_link }}" aria-label="{{ section.settings.cta_2 }}">
+              <div class="w-full">
+                {% render 'cta',
+                  as: 'button',
+                  text: section.settings.cta_2,
+                  extra_classes: 'w-full focus:border-none',
+                  hasIcons: true,
+                  cta_color: section.settings.cta_2_color
+                %}
+              </div>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% comment %}
+    Value Props
+  {% endcomment %}
+  {% assign value_prop_blocks = section.blocks | where: 'type', 'value_prop' %}
+  {% if value_prop_blocks.size > 0 %}
+    <div class="pb-24 {% if section.settings.cta_style == 'full_bleed' %}pt-24{% endif %}">
+      <div class="mx-24 overflow-hidden border border-black/15">
+        <ul class="flex flex-col">
+          {% for block in value_prop_blocks %}
+            <li class="flex flex-row items-center gap-16 border-b border-black/15 p-16 last:border-b-0 lg:gap-24 lg:p-24">
+              {% if block.settings.icon != blank %}
+                {{
+                  block.settings.icon
+                  | image_url: width: block.settings.icon.width
+                  | image_tag: loading: 'lazy', sizes: '25vw', class: 'w-48 lg:w-64'
+                }}
+              {% endif %}
+              {% if block.settings.text != blank %}
+                <p class="fn-tt-body-10 text-left">{{ block.settings.text }}</p>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endif %}
+</div>

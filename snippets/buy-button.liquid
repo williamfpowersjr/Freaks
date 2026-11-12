@@ -1,0 +1,151 @@
+{% comment %}
+  Renders a customizable element (button, anchor, or div) with various styling and functionality options.
+
+  Accepts:
+  - as, text, href, extra_classes, extra_attributes, hasIcon, hasIcons,
+    extra_icon_classes, onclick, product_is_available, cta_color, is_slim
+  - price_block_html: optional HTML that fully renders the price block.
+    If provided, it replaces the internal price and compare block.
+  - price, compare_at_price: legacy inputs used only when price_block_html is not passed.
+{% endcomment %}
+
+{% assign original_cta = text %}
+{% if product_is_available == false %}
+  {% assign text = 'Sold Out' %}
+  {% assign disabled_attribute = 'disabled' %}
+{% else %}
+  {% assign text = text | default: 'Buy Now' %}
+  {% assign disabled_attribute = '' %}
+{% endif %}
+
+{% assign text_classes = extra_text_classes | default: 'fn-tt-cta-40' %}
+
+{% assign base_classes = 'relative overflow-hidden group min-h-52 lg:min-h-56  max-h-52 max-h-56 leading-none relative px-16 py-18 flex items-stretch font-medium uppercase transition-all duration-300 ease-in-out focus:border focus:backdrop-blur-[9px] disabled:bg-black/40 disabled:text-white disabled:cursor-not-allowed focus:border-none focus-visible:border-none' %}
+{% if is_slim == true %}
+  {% assign base_classes = 'relative overflow-hidden group min-h-fit max-h-56 leading-none relative px-16 py-8 flex items-stretch font-medium uppercase transition-all duration-300 ease-in-out focus:border focus:backdrop-blur-[9px] disabled:bg-black/40 disabled:text-white disabled:cursor-not-allowed focus:border-none focus-visible:border-none' %}
+{% endif %}
+{% if hasIcon or hasIcons %}
+  {% assign justify_class = 'justify-between' %}
+{% else %}
+  {% assign justify_class = 'justify-center' %}
+{% endif %}
+{% if onclick %}
+  {% assign onclick_attribute = 'onclick="' | append: onclick | append: '"' %}
+{% else %}
+  {% assign onclick_attribute = '' %}
+{% endif %}
+
+{% assign base_classes = base_classes | append: ' ' | append: justify_class %}
+
+{% if cta_color == 'orange' %}
+  {% assign color_classes = 'text-white bg-orange' %}
+  {% assign hover_classes = 'from-black/15 to-black/15' %}
+{% elsif cta_color == 'blue' %}
+  {% assign color_classes = 'text-white bg-blue' %}
+  {% assign hover_classes = 'from-black/15 to-black/15' %}
+{% elsif cta_color == 'white' %}
+  {% assign color_classes = 'text-black bg-white disabled:text-black/60' %}
+  {% assign hover_classes = 'from-black/15 to-black/15' %}
+{% elsif cta_color == 'black' %}
+  {% assign color_classes = 'text-white bg-black' %}
+  {% assign hover_classes = 'from-white/15 to-white/15' %}
+{% endif %}
+
+{% if color_classes != empty %}
+  {% assign classes = base_classes | append: ' ' | append: color_classes %}
+{% endif %}
+
+{% if extra_classes != empty %}
+  {% assign classes = classes | append: ' ' | append: extra_classes %}
+{% endif %}
+
+{% assign icon_classes = 'w-14' %}
+{% if extra_icon_classes != empty %}
+  {% assign icon_classes = icon_classes | append: ' ' | append: extra_icon_classes %}
+{% endif %}
+
+{% capture content %}
+  {% if hasIcon %}
+    <div class="flex items-center {% if as != 'marquee' %}transition duration-300 ease-in-out lg:group-has-[:focus]:-translate-y-60 lg:group-has-[:hover]:-translate-y-60 lg:group-disabled:group-has-[:hover]:-translate-y-0{% endif %}">
+      {% render 'icon-thick-small-arrow', class: icon_classes %}
+    </div>
+  {% elsif hasIcons %}
+    <div class="flex items-center {% if as != 'marquee' %}transition duration-300 ease-in-out lg:group-has-[:focus]:-translate-y-60 lg:group-has-[:hover]:-translate-y-60 lg:group-disabled:group-has-[:hover]:-translate-y-0{% endif %}">
+      {% render 'icon-thick-small-arrow', class: icon_classes %}
+    </div>
+  {% endif %}
+
+  {% if text %}
+    <div class="-mb-1 flex items-center justify-center gap-x-8 text-center z-10{% if as != 'marquee' %}transition duration-300 ease-in-out lg:group-has-[:focus]:-translate-y-60 lg:group-has-[:hover]:-translate-y-60 lg:group-disabled:group-has-[:hover]:-translate-y-0 delay-[20ms]{% endif %} {{ text_classes }}">
+      <span class="js-cta">{{ text }}</span>
+
+      {% if price_block_html %}
+        {{ price_block_html }}
+      {% elsif price != blank %}
+        <div class="flex flex-wrap items-baseline gap-x-12 text-center">
+          <span class="igPrice" data-product-id="{{ product_intelligems }}">{{ price }}</span>
+          {% if compare_at_price > price %}
+            <span class="igComparePrice fn-tt-caption inline text-white/60 line-through" data-product-id="{{ product_intelligems }}">{{ compare_at_price }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if hasIcons %}
+    <div class="flex items-center {% if as != 'marquee' %}transition duration-300 ease-in-out lg:group-has-[:focus]:-translate-y-60 lg:group-has-[:hover]:-translate-y-60 lg:group-disabled:group-has-[:hover]:-translate-y-0 delay-[40ms]{% endif %}">
+      {% render 'icon-thick-small-arrow', class: icon_classes %}
+    </div>
+  {% endif %}
+
+  {% if as != 'marquee' and disabled_attribute != "disabled" %}
+    <div class="hidden lg:absolute lg:flex lg:overflow-hidden lg:px-16 {% if is_slim == true %}lg:py-8{% else %}lg:py-18{% endif %} lg:left-0 lg:top-0 lg:h-full lg:max-h-56 lg:w-full lg:items-stretch lg:justify-between">
+      <span class="absolute left-0 top-0 h-full w-full transform overflow-hidden bg-black/15 {{ hover_classes }} translate-y-full transition duration-300 ease-in-out group-has-[:focus]:translate-y-0 group-has-[:hover]:translate-y-0"></span>
+
+      {% if hasIcon %}
+        <div class="flex translate-y-60 items-center transition duration-300 ease-in-out lg:group-has-[:focus]:translate-y-0 lg:group-has-[:hover]:translate-y-0">
+          {% render 'icon-thick-small-arrow', class: icon_classes %}
+        </div>
+      {% elsif hasIcons %}
+        <div class="flex translate-y-60 items-center transition duration-300 ease-in-out lg:group-has-[:focus]:translate-y-0 lg:group-has-[:hover]:translate-y-0">
+          {% render 'icon-thick-small-arrow', class: icon_classes %}
+        </div>
+      {% endif %}
+
+      {% if text %}
+        <div class="z-10 -mb-1 flex w-full flex-1 translate-y-60 items-center justify-center gap-x-8 text-center transition delay-[20ms] duration-300 ease-in-out lg:group-has-[:focus]:translate-y-0 lg:group-has-[:hover]:translate-y-0 {{ text_classes }}">
+          <span class="js-cta">{{ text }}</span>
+
+          {% if price_block_html %}
+            {{ price_block_html }}
+          {% elsif price != blank %}
+            <div class="flex flex-wrap items-baseline gap-x-8 text-center">
+              <span class="igPrice">{{ price }}</span>
+              {% if compare_at_price > price %}
+                <span class="igComparePrice fn-tt-caption inline text-white/60 line-through">{{ compare_at_price }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endcapture %}
+
+<button
+  id="main-atc-button"
+  aria-label="Buy"
+  data-buy-button
+  name="{{ name }}"
+  type="{{ type }}"
+  class="{{ classes }}"
+  data-cta="{{ original_cta }}"
+  {% if product_is_available == false %}
+    data-sold-out
+  {% endif %}
+  {{ extra_attributes }}
+  {{ onclick_attribute }}
+  {{ disabled_attribute }}
+>
+  {{ content }}
+</button>

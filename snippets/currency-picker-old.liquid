@@ -1,0 +1,44 @@
+<div class="flex justify-center">
+  <localization-form>
+    {% form 'localization' %}
+      <div class="relative">
+        <button
+          type="button"
+          class="fn-tt-caption flex gap-8 bg-black/15 p-8 text-white"
+          aria-expanded="false"
+          aria-controls="CountryList"
+        >
+          <span class="whitespace-nowrap">
+            {{- localization.country.name }} ({{ localization.country.currency.iso_code }}
+            {{ localization.country.currency.symbol }})</span
+          ><span class="block w-4 text-left" id="plus">+</span>
+        </button>
+
+        <ul
+          id="CountryList"
+          role="list"
+          class="absolute left-1/2 top-0 max-h-200 -translate-x-1/2 -translate-y-full overflow-auto bg-white px-8"
+          hidden
+        >
+          {% for country in localization.available_countries %}
+            <li class="my-8" tabindex="-1">
+              <a
+                href="#"
+                {% if country.iso_code == localization.country.iso_code %}
+                  aria-current="true"
+                {% endif %}
+                data-value="{{ country.iso_code }}"
+                class="whitespace-nowrap"
+              >
+                {{ country.name }} ({{ country.currency.iso_code }}
+                {{ country.currency.symbol }})
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+      </div>
+    {% endform %}
+  </localization-form>
+</div>

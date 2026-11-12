@@ -1,0 +1,265 @@
+{{ 'ctr-nav-section.css' | asset_url | stylesheet_tag }}
+
+{% if section.settings.enable_sticky_header %}
+  {% style %}
+    #shopify-section-{{ section.id }} {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+  {% endstyle %}
+{% endif %}
+
+<ctr-nav-section
+  id="shopify-section-{{ section.id }}"
+  class="ctr-nav-section"
+  data-section-id="{{ section.id }}"
+  style="
+    --ctr-nav-section-background: {{ section.settings.background_color }};
+    --ctr-nav-section-border-color: {{ section.settings.border_color }};
+    --ctr-nav-section-text-color: {{ section.settings.text_color }};
+    --ctr-nav-section-icon-bubble-background: {{ section.settings.icon_bubble_background }};
+    --ctr-nav-section-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-nav-section-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-nav-section-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-nav-section-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  <accordion-element>
+    <div class="ctr-nav-section__bar">
+      <div class="ctr-nav-section__container">
+        {% if section.settings.show_account %}
+          <div data-accordion class="ctr-nav-section__account-mobile relative">
+            <div>
+              <button
+                aria-label="Content"
+                data-accordion-hover-trigger
+                aria-expanded="false"
+                aria-controls="content-account-mobile-{{ section.id }}"
+                class="group flex w-full items-center justify-center gap-4 aria-expanded:text-blue"
+                type="button"
+              >
+                {% render 'header-nav-icons', is_desktop: true %}
+                <p class="fn-tt-sub-title-30 font-medium">Account</p>
+              </button>
+            </div>
+            <div
+              data-accordion-content
+              id="content-account-mobile-{{ section.id }}"
+              style="max-height: 0;"
+              class="absolute left-0 max-h-0 overflow-hidden border-l border-r border-black/15 transition-all duration-300 ease-in-out will-change-[max-width]"
+            >
+              <ul class="flex w-full flex-col border-b border-t border-black/15 bg-white">
+                <li class="group whitespace-nowrap border-b border-black/15 last:border-b-0">
+                  {% render 'header-desktop-submenu-item',
+                    link: '/tools/recurring/get-subscription-access',
+                    title: 'Manage Subscriptions'
+                  %}
+                </li>
+                <li class="group whitespace-nowrap border-b border-black/15 last:border-b-0">
+                  {% if customer %}
+                    {% render 'header-desktop-submenu-item', link: routes.account_logout_url, title: 'Log out' %}
+                  {% else %}
+                    {% render 'header-desktop-submenu-item', link: routes.account_login_url, title: 'Wholesale Login' %}
+                  {% endif %}
+                </li>
+              </ul>
+            </div>
+          </div>
+        {% endif %}
+
+        {% if section.settings.logo_link != blank %}
+          <a class="ctr-nav-section__logo-link" href="{{ section.settings.logo_link }}" aria-label="Index Page">
+        {% else %}
+          <div class="ctr-nav-section__logo-link">
+        {% endif %}
+        {% if section.settings.logo != blank %}
+          <img
+            src="{{ section.settings.logo | img_url: '600x' }}"
+            img_url="{{ section.settings.logo | img_url: '600x' }}"
+            alt="{{ section.settings.logo.alt | default: settings.site_name | default: shop.name | escape }}"
+            class="ctr-nav-section__logo-image"
+            loading="lazy"
+            width="{{ section.settings.logo.width }}"
+            height="{{ section.settings.logo.height }}"
+          >
+        {% else %}
+          <span class="fn-tt-sub-title-30 font-medium">{{ settings.site_name | default: shop.name }}</span>
+        {% endif %}
+        {% if section.settings.logo_link != blank %}
+          </a>
+        {% else %}
+          </div>
+        {% endif %}
+
+        <div class="ctr-nav-section__actions">
+          {% if section.settings.show_account %}
+            <div data-accordion class="ctr-nav-section__account-dropdown ctr-nav-section__account-desktop relative">
+              <div>
+                <button
+                  aria-label="Content"
+                  data-accordion-hover-trigger
+                  aria-expanded="false"
+                  aria-controls="content-account-desktop-{{ section.id }}"
+                  class="group flex w-full items-center justify-center gap-4 aria-expanded:text-blue"
+                  type="button"
+                >
+                  {% render 'header-nav-icons', is_desktop: true %}
+                  <p class="fn-tt-sub-title-30 font-medium">Account</p>
+                </button>
+              </div>
+              <div
+                data-accordion-content
+                id="content-account-desktop-{{ section.id }}"
+                style="max-height: 0;"
+                class="absolute left-1/2 max-h-0 -translate-x-1/2 overflow-hidden border-l border-r border-black/15 transition-all duration-300 ease-in-out will-change-[max-width]"
+              >
+                <ul class="flex w-full flex-col border-b border-t border-black/15 bg-white">
+                  <li class="group whitespace-nowrap border-b border-black/15 last:border-b-0">
+                    {% render 'header-desktop-submenu-item',
+                      link: '/tools/recurring/get-subscription-access',
+                      title: 'Manage Subscriptions'
+                    %}
+                  </li>
+                  <li class="group whitespace-nowrap border-b border-black/15 last:border-b-0">
+                    {% if customer %}
+                      {% render 'header-desktop-submenu-item', link: routes.account_logout_url, title: 'Log out' %}
+                    {% else %}
+                      {% render 'header-desktop-submenu-item',
+                        link: routes.account_login_url,
+                        title: 'Wholesale Login'
+                      %}
+                    {% endif %}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if section.settings.show_cart %}
+            <button aria-label="Open Cart" class="flex items-center justify-center gap-4" data-open-cart type="button">
+              <span class="sr-only">Cart</span>
+              <span class="fn-tt-sub-title-30 font-medium leading-none">Cart</span>
+              <span
+                class="fn-tt-body-10 ctr-nav-section__cart-count mb-1 flex size-20 items-center justify-center rounded-full leading-none lg:size-24 lg:pt-1"
+                data-cart-count
+              >
+                {{ cart.item_count }}
+              </span>
+            </button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </accordion-element>
+</ctr-nav-section>
+
+{% schema %}
+{
+  "name": "Nav Section (CTR)",
+  "tag": "section",
+  "class": "ctr-nav-section-wrapper",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "url",
+      "id": "logo_link",
+      "label": "Logo link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show account",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Show cart",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_header",
+      "label": "Enable sticky header",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "alpha": true,
+      "default": "#21212126"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "icon_bubble_background",
+      "label": "Icon bubble background",
+      "alpha": true,
+      "default": "#0032A033"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Nav Section (CTR)",
+      "category": "CTR Sections"
+    }
+  ]
+}
+{% endschema %}

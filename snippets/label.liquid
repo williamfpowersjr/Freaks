@@ -1,0 +1,22 @@
+<div
+  class="
+    {%- if hasPadding == true -%}mx-16 mt-16 w-[calc(100%-32px)] {% endif %}
+    flex h-fit items-center justify-center overflow-hidden p-4 {% case bg_color -%}
+    {%- when 'orange' -%}
+      bg-orange text-white
+    {%- when 'blue' -%}
+      bg-blue text-white
+    {%- when 'grey' -%}
+      bg-black/5 text-black
+    {%- when 'black' -%}
+      bg-black text-white
+    {%- when 'white' -%}
+      bg-white text-black
+    {%- else -%}
+      bg-black/5 text-black {% endcase %} p-4 {{ extra_classes }}
+  "
+>
+  <p class="fn-tt-body-10 -mb-1 overflow-hidden font-medium leading-none {% if has_uppercase %}uppercase{% endif %}">
+    {{ text }}
+  </p>
+</div>

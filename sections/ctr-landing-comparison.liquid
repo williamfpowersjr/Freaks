@@ -1,0 +1,439 @@
+{{ 'ctr-landing-comparison.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="ctr-landing-comparison"
+  style="
+    --ctr-landing-comparison-background: {{ section.settings.background_color }};
+    --ctr-landing-comparison-background-gradient: {{ section.settings.background_gradient }};
+    --ctr-landing-comparison-highlight-background: {{ section.settings.highlight_background }};
+    --ctr-landing-comparison-conventional-background: {{ section.settings.conventional_background }};
+    --ctr-landing-comparison-border-color: {{ section.settings.border_color }};
+    --ctr-landing-comparison-heading-color: {{ section.settings.heading_color }};
+    --ctr-landing-comparison-accent-color: {{ section.settings.accent_color }};
+    --ctr-landing-comparison-text-color: {{ section.settings.text_color }};
+    --ctr-landing-comparison-check-icon-size: {{ section.settings.check_icon_size }}px;
+    --ctr-landing-comparison-x-icon-size: {{ section.settings.x_icon_size }}px;
+    --ctr-landing-comparison-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-landing-comparison-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-landing-comparison-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-landing-comparison-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  <div class="ctr-landing-comparison__inner">
+    {% if section.settings.title != blank %}
+      <div class="ctr-landing-comparison__title-wrap bg-grey-lines font-neue">
+        <div class="ctr-landing-comparison__title">
+          {{ section.settings.title }}
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="ctr-landing-comparison__panels">
+      <div class="ctr-landing-comparison__panel ctr-landing-comparison__panel--highlight">
+        <div class="ctr-landing-comparison__panel-media">
+          {% if section.settings.highlight_image != blank %}
+            <img
+              class="ctr-landing-comparison__panel-image ctr-landing-comparison__panel-image--desktop"
+              src="{{ section.settings.highlight_image | img_url: '900x' }}"
+              alt="{{ section.settings.highlight_image.alt | escape }}"
+              loading="lazy"
+              width="{{ section.settings.highlight_image.width }}"
+              height="{{ section.settings.highlight_image.height }}"
+            >
+          {% endif %}
+          {% if section.settings.highlight_image_mobile != blank %}
+            <img
+              class="ctr-landing-comparison__panel-image ctr-landing-comparison__panel-image--mobile"
+              src="{{ section.settings.highlight_image_mobile | img_url: '700x' }}"
+              alt="{{ section.settings.highlight_image_mobile.alt | escape }}"
+              loading="lazy"
+              width="{{ section.settings.highlight_image_mobile.width }}"
+              height="{{ section.settings.highlight_image_mobile.height }}"
+            >
+          {% elsif section.settings.highlight_image != blank %}
+            <img
+              class="ctr-landing-comparison__panel-image ctr-landing-comparison__panel-image--mobile"
+              src="{{ section.settings.highlight_image | img_url: '700x' }}"
+              alt="{{ section.settings.highlight_image.alt | escape }}"
+              loading="lazy"
+              width="{{ section.settings.highlight_image.width }}"
+              height="{{ section.settings.highlight_image.height }}"
+            >
+          {% endif %}
+        </div>
+
+        <div class="ctr-landing-comparison__panel-features">
+          {% for block in section.blocks %}
+            {% if block.type == 'highlight_feature' and block.settings.text != blank %}
+              <div class="ctr-landing-comparison__feature" {{ block.shopify_attributes }}>
+                {% if section.settings.check_icon != blank %}
+                  <img
+                    class="ctr-landing-comparison__feature-icon ctr-landing-comparison__feature-icon--check"
+                    src="{{ section.settings.check_icon | img_url: '80x' }}"
+                    alt=""
+                    loading="lazy"
+                    width="{{ section.settings.check_icon.width }}"
+                    height="{{ section.settings.check_icon.height }}"
+                  >
+                {% endif %}
+                <div class="ctr-landing-comparison__feature-text">
+                  {{ block.settings.text }}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="ctr-landing-comparison__panel ctr-landing-comparison__panel--conventional">
+        <div class="ctr-landing-comparison__panel-media">
+          {% if section.settings.conventional_image != blank %}
+            <img
+              class="ctr-landing-comparison__panel-image ctr-landing-comparison__panel-image--desktop"
+              src="{{ section.settings.conventional_image | img_url: '900x' }}"
+              alt="{{ section.settings.conventional_image.alt | escape }}"
+              loading="lazy"
+              width="{{ section.settings.conventional_image.width }}"
+              height="{{ section.settings.conventional_image.height }}"
+            >
+          {% endif %}
+          {% if section.settings.conventional_image_mobile != blank %}
+            <img
+              class="ctr-landing-comparison__panel-image ctr-landing-comparison__panel-image--mobile"
+              src="{{ section.settings.conventional_image_mobile | img_url: '700x' }}"
+              alt="{{ section.settings.conventional_image_mobile.alt | escape }}"
+              loading="lazy"
+              width="{{ section.settings.conventional_image_mobile.width }}"
+              height="{{ section.settings.conventional_image_mobile.height }}"
+            >
+          {% elsif section.settings.conventional_image != blank %}
+            <img
+              class="ctr-landing-comparison__panel-image ctr-landing-comparison__panel-image--mobile"
+              src="{{ section.settings.conventional_image | img_url: '700x' }}"
+              alt="{{ section.settings.conventional_image.alt | escape }}"
+              loading="lazy"
+              width="{{ section.settings.conventional_image.width }}"
+              height="{{ section.settings.conventional_image.height }}"
+            >
+          {% endif %}
+        </div>
+
+        <div class="ctr-landing-comparison__panel-features">
+          {% for block in section.blocks %}
+            {% if block.type == 'conventional_feature' and block.settings.text != blank %}
+              <div class="ctr-landing-comparison__feature" {{ block.shopify_attributes }}>
+                {% if section.settings.x_icon != blank %}
+                  <img
+                    class="ctr-landing-comparison__feature-icon ctr-landing-comparison__feature-icon--x"
+                    src="{{ section.settings.x_icon | img_url: '80x' }}"
+                    alt=""
+                    loading="lazy"
+                    width="{{ section.settings.x_icon.width }}"
+                    height="{{ section.settings.x_icon.height }}"
+                  >
+                {% endif %}
+                <div class="ctr-landing-comparison__feature-text">
+                  {{ block.settings.text }}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Landing Compare (CTR)",
+  "tag": "section",
+  "class": "ctr-landing-comparison-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>How Are We <em>Different?</em></p>"
+    },
+    {
+      "type": "header",
+      "content": "Highlight column"
+    },
+    {
+      "type": "image_picker",
+      "id": "highlight_image",
+      "label": "Highlight image",
+      "info": "Used on desktop when no mobile image is set."
+    },
+    {
+      "type": "image_picker",
+      "id": "highlight_image_mobile",
+      "label": "Highlight image mobile",
+      "info": "Optional. If blank, desktop image is used on mobile."
+    },
+    {
+      "type": "header",
+      "content": "Conventional column"
+    },
+    {
+      "type": "image_picker",
+      "id": "conventional_image",
+      "label": "Conventional image",
+      "info": "Used on desktop when no mobile image is set."
+    },
+    {
+      "type": "image_picker",
+      "id": "conventional_image_mobile",
+      "label": "Conventional image mobile",
+      "info": "Optional. If blank, desktop image is used on mobile."
+    },
+    {
+      "type": "header",
+      "content": "Icons"
+    },
+    {
+      "type": "image_picker",
+      "id": "check_icon",
+      "label": "Check icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "x_icon",
+      "label": "X icon"
+    },
+    {
+      "type": "range",
+      "id": "check_icon_size",
+      "label": "Check icon size",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 21
+    },
+    {
+      "type": "range",
+      "id": "x_icon_size",
+      "label": "X icon size",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F9F9F9"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Background gradient",
+      "default": "linear-gradient(180deg, #F9F9F9 0%, #F9F9F9 100%)"
+    },
+    {
+      "type": "color",
+      "id": "highlight_background",
+      "label": "Highlight column background",
+      "alpha": true,
+      "default": "#FE500026"
+    },
+    {
+      "type": "color",
+      "id": "conventional_background",
+      "label": "Conventional column background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "alpha": true,
+      "default": "#21212126"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#FE5000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Feature text color",
+      "default": "#212121"
+    },
+    {
+      "type": "header",
+      "content": "Padding desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Padding mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "highlight_feature",
+      "name": "Highlight feature (CTR)",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Feature text.</p>"
+        }
+      ]
+    },
+    {
+      "type": "conventional_feature",
+      "name": "Conventional (CTR)",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Feature text.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing Comparison (CTR)",
+      "category": "CTR Sections",
+      "blocks": [
+        {
+          "type": "highlight_feature",
+          "settings": {
+            "text": "<p>100% non-nano mineral zinc oxide</p>"
+          }
+        },
+        {
+          "type": "highlight_feature",
+          "settings": {
+            "text": "<p>Sits on top of skin — blocks UV before it penetrates</p>"
+          }
+        },
+        {
+          "type": "highlight_feature",
+          "settings": {
+            "text": "<p>Microbiome-strengthening formula</p>"
+          }
+        },
+        {
+          "type": "highlight_feature",
+          "settings": {
+            "text": "<p>80-min water resistance. FDA tested.</p>"
+          }
+        },
+        {
+          "type": "highlight_feature",
+          "settings": {
+            "text": "<p>Hawaii Act 104 reef safe certified</p>"
+          }
+        },
+        {
+          "type": "highlight_feature",
+          "settings": {
+            "text": "<p>Non-melting. Won't warp, slip, or sting.</p>"
+          }
+        },
+        {
+          "type": "conventional_feature",
+          "settings": {
+            "text": "<p>Chemical UV filters that absorb into your skin</p>"
+          }
+        },
+        {
+          "type": "conventional_feature",
+          "settings": {
+            "text": "<p>Penetrates the bloodstream after a single application</p>"
+          }
+        },
+        {
+          "type": "conventional_feature",
+          "settings": {
+            "text": "<p>Disrupts your skin microbiome</p>"
+          }
+        },
+        {
+          "type": "conventional_feature",
+          "settings": {
+            "text": "<p>Loses efficacy fast in water</p>"
+          }
+        },
+        {
+          "type": "conventional_feature",
+          "settings": {
+            "text": "<p>Contains oxybenzone — banned in Hawaii</p>"
+          }
+        },
+        {
+          "type": "conventional_feature",
+          "settings": {
+            "text": "<p>Melts under heat. Stings your eyes.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,545 @@
+{% comment %}
+  Subscription item (secondary style) styles.
+
+  Extracted into its own snippet so the styles can be pulled into a page's
+  render tree even when the current product has no subscription (e.g. a landing
+  page whose default product is one-time only, but a sibling has subscriptions).
+  Shopify subsets {% stylesheet %} CSS per page render tree, so this snippet is
+  rendered wherever the subscription markup may appear via a section swap.
+{% endcomment %}
+
+{% stylesheet %}
+  .ctr-subscription-secondary .ctr-subscription-secondary__subscription-label {
+    border: 1px solid #ff641a;
+    background: #fff6f2;
+    > div {
+      padding: 18px 12px;
+    }
+  }
+  .js-one-time-active .ctr-subscription-secondary .ctr-subscription-secondary__subscription-label {
+    border: 1px solid rgba(34, 32, 47, 0.15);
+    background: #ffffff;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__save-badge {
+    display: inline-flex;
+    align-items: center;
+    background: #fe5000;
+    color: #ffffff;
+    border-radius: 0;
+    padding: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    text-transform: uppercase;
+
+    @media (max-width: 768px) {
+      font-size: 12px;
+    }
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__save-badge.hidden {
+    display: none;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__label-text {
+    font-size: 17px;
+    line-height: 1.2;
+
+    @media (max-width: 430px) {
+      font-size: 16px;
+    }
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__main-price {
+    font-size: 17px;
+    line-height: 1.2;
+
+    @media (max-width: 430px) {
+      font-size: 16px;
+    }
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__radio {
+    width: 24px;
+    height: 24px;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__delivered-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+    align-items: center;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__delivered-group {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    row-gap: 2px;
+    flex-wrap: wrap;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__delivery-text {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__header-row {
+    align-items: center;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__plan-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__plan-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    color: #ff641a;
+    font-family: 'Alliance Text', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.3;
+    cursor: pointer;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__plan-trigger::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M13.2649 6.26492L8.26492 11.2649C8.19461 11.3351 8.0993 11.3746 7.99992 11.3746C7.90055 11.3746 7.80524 11.3351 7.73492 11.2649L2.73492 6.26492C2.66868 6.19384 2.63262 6.09981 2.63434 6.00266C2.63605 5.90551 2.67541 5.81282 2.74411 5.74411C2.81282 5.67541 2.90551 5.63605 3.00266 5.63434C3.09981 5.63262 3.19384 5.66868 3.26492 5.73492L7.99992 10.4693L12.7349 5.73492C12.806 5.66868 12.9 5.63262 12.9972 5.63434C13.0943 5.63605 13.187 5.67541 13.2557 5.74411C13.3244 5.81282 13.3638 5.90551 13.3655 6.00266C13.3672 6.09981 13.3312 6.19384 13.2649 6.26492Z' fill='black'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px 16px;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__plan-trigger[disabled] {
+    opacity: 0.45;
+    cursor: default;
+  }
+  .ctr-subscription-secondary .ctr-subscription-plan-locked .ctr-subscription-secondary__plan-trigger,
+  .ctr-subscription-secondary .ctr-subscription-plan-locked .ctr-subscription-secondary__plan-trigger[disabled] {
+    cursor: default;
+    opacity: 1;
+    pointer-events: none;
+  }
+  .ctr-subscription-secondary .ctr-subscription-plan-locked .ctr-subscription-secondary__plan-trigger::after,
+  .ctr-subscription-secondary .ctr-subscription-plan-locked .ctr-subscription-secondary__plan-menu {
+    display: none;
+  }
+  select.ctr-subscription-plan-locked {
+    pointer-events: none;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__plan-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: -5px;
+    z-index: 60;
+    min-width: 168px;
+    border-radius: 4px;
+    background: #ffffff;
+    box-shadow: 0 8px 19.9px 0 rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    padding: 12px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__plan-menu.hidden {
+    display: none;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__plan-option {
+    width: 100%;
+    display: block;
+    border: 0;
+    background: transparent;
+    padding: 6px 11px;
+    color: #22202f;
+    text-align: left;
+    font-family: 'Alliance Text', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__plan-option:hover,
+  .ctr-subscription-secondary .ctr-subscription-secondary__plan-option.is-active {
+    background: #bcc7dd;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__plan-select-native {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__plan-select {
+    pointer-events: none;
+    border: 0;
+    background: transparent;
+    padding: 0 16px 0 0;
+    margin: 0;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    color: #ff641a;
+    font-family: 'Alliance Text', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.3;
+    min-width: 70px;
+    width: auto;
+    background-image: none !important;
+    color-scheme: light;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__subscription-extra {
+    padding-top: 6px;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__message--subscription {
+    font-size: 12px;
+  }
+  .ctr-subscription-secondary
+    .subscription-group:has(.subscription-radio:checked)
+    .ctr-subscription-secondary__plan-select {
+    pointer-events: auto;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__message--onetime {
+    display: none;
+  }
+  .js-one-time-active .ctr-subscription-secondary__onetime-label {
+    .ctr-subscription-secondary__onetime-inner {
+      align-items: flex-start;
+    }
+    .ctr-subscription-secondary__price-row {
+      padding-top: 4px;
+    }
+  }
+  .js-one-time-active .ctr-subscription-secondary .ctr-subscription-secondary__subscription-extra {
+    display: none;
+  }
+  .js-one-time-active .ctr-subscription-secondary .ctr-subscription-secondary__message--subscription {
+    display: none;
+  }
+  .js-one-time-active .ctr-subscription-secondary .ctr-subscription-secondary__message--onetime {
+    display: block;
+  }
+  .js-subscription-active .ctr-subscription-secondary .ctr-subscription-secondary__message--onetime-inline {
+    display: none;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__message--onetime-inline {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__benefits {
+    border-top: 1px solid #ff641a;
+    background: #fff1ea;
+    margin-top: 24px;
+    margin-left: -12px;
+    margin-right: -12px;
+    margin-bottom: -18px;
+    padding: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 20px;
+    min-height: 57px;
+    justify-content: center;
+
+    @media (max-width: 768px) {
+      gap: 4px 12px;
+    }
+
+    @media (max-width: 430px) {
+      gap: 4px 8px;
+      padding: 12px 8px;
+    }
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__plan-select option {
+    color: #22202f;
+    text-decoration: none;
+    background: #ffffff;
+    font-size: 16px;
+    line-height: 1.3;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    p {
+      font-size: 12px;
+
+      @media (max-width: 768px) {
+        font-size: 10px;
+      }
+
+      @media (max-width: 415px) {
+        font-size: 9px;
+      }
+    }
+
+    svg {
+      @media (max-width: 768px) {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__onetime-label {
+    border: 1px solid rgba(34, 32, 47, 0.15);
+    background: #ffffff;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__onetime-inner {
+    padding: 18px 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__onetime-left,
+  .ctr-subscription-secondary .ctr-subscription-secondary__onetime-right {
+    padding: 0;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__onetime-left {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__onetime-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    flex: 0 0 auto;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__price-row {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 8px;
+    text-align: right;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__price-row .igPrice {
+    order: 1;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__price-row [data-subscription-compare-at-price],
+  .ctr-subscription-secondary .ctr-subscription-secondary__price-row [data-one-time-compare-at-price] {
+    order: 2;
+  }
+  .ctr-subscription-secondary .ctr-subscription-secondary__price-row [data-one-time-price] {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  @media (min-width: 1024px) {
+    .ctr-subscription-secondary .ctr-subscription-secondary__benefits {
+      margin-left: -12px;
+      margin-right: -12px;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+  }
+
+  /* Tertiary buy-box subscription style */
+  .ctr-subscription-tertiary.ctr-subscription-secondary .ctr-subscription-secondary__subscription-label,
+  .ctr-subscription-tertiary .ctr-subscription-tertiary__subscription-label {
+    border: 0;
+    background: transparent;
+  }
+  .js-one-time-active
+    .ctr-subscription-tertiary.ctr-subscription-secondary
+    .ctr-subscription-secondary__subscription-label,
+  .js-subscription-active
+    .ctr-subscription-tertiary.ctr-subscription-secondary
+    .ctr-subscription-secondary__subscription-label {
+    border: 0;
+    background: transparent;
+  }
+  .ctr-subscription-tertiary .ctr-subscription-tertiary__subscription-label > div,
+  .ctr-subscription-tertiary.ctr-subscription-secondary .ctr-subscription-secondary__subscription-label > div {
+    padding: 0;
+  }
+  .ctr-subscription-tertiary .ctr-subscription-secondary__radio,
+  .ctr-subscription-tertiary .ctr-subscription-tertiary__radio-wrap {
+    display: none;
+  }
+  .ctr-subscription-tertiary
+    .ctr-subscription-secondary__header-row
+    .gap-8
+    > div:first-child:has(input.subscription-radio) {
+    display: none;
+  }
+  .ctr-subscription-tertiary__card {
+    border: 1px solid rgba(33, 33, 33, 0.15);
+    background: #ffffff;
+    width: 100%;
+  }
+  .ctr-subscription-tertiary__fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+  .ctr-subscription-tertiary .ctr-subscription-secondary__header-row {
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 12px 4px;
+  }
+  .ctr-subscription-tertiary .ctr-subscription-secondary__label-text {
+    font-size: 14px;
+    line-height: 1.1;
+    font-weight: 500;
+  }
+  .ctr-subscription-tertiary .ctr-subscription-secondary__save-badge {
+    background: #fe5000;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1.1;
+    padding: 2px 4px;
+    text-transform: uppercase;
+  }
+  .ctr-subscription-tertiary .ctr-subscription-secondary__main-price {
+    font-size: 17.7px;
+    line-height: 1.5;
+  }
+  .ctr-subscription-tertiary .ctr-subscription-secondary__subscription-extra {
+    padding: 0;
+  }
+  .ctr-subscription-tertiary__onetime-price {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 4px;
+
+    [data-base-compare-at-price] {
+      opacity: 0.7;
+    }
+  }
+  .ctr-subscription-tertiary .ctr-subscription-secondary__benefits {
+    display: none;
+  }
+  .ctr-subscription-tertiary .ctr-subscription-secondary__delivered-row {
+    margin: 0;
+    padding: 0 12px 18px;
+    align-items: flex-start;
+  }
+  .ctr-subscription-tertiary .ctr-subscription-secondary__delivery-text {
+    font-size: 12px;
+    line-height: 2.2;
+  }
+  .ctr-subscription-tertiary .ctr-subscription-secondary__plan-trigger {
+    color: #fe5000;
+  }
+  .ctr-subscription-tertiary .ctr-subscription-secondary__message--subscription {
+    font-size: 12px;
+    line-height: 2.2;
+    color: #212121;
+  }
+  .js-one-time-active .ctr-subscription-tertiary .ctr-subscription-secondary__subscription-extra {
+    display: flex;
+  }
+  .js-one-time-active .ctr-subscription-tertiary .ctr-subscription-secondary__plan-trigger,
+  .ctr-subscription-tertiary .ctr-subscription-secondary__plan-trigger[disabled] {
+    opacity: 1;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+  .ctr-subscription-tertiary .ctr-subscription-plan-locked .ctr-subscription-secondary__plan-trigger,
+  .ctr-subscription-tertiary .ctr-subscription-plan-locked .ctr-subscription-secondary__plan-trigger[disabled] {
+    cursor: default;
+    pointer-events: none;
+    opacity: 1;
+  }
+  .ctr-subscription-tertiary__atc {
+    padding: 0 12px;
+  }
+  .ctr-subscription-tertiary__benefits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 20px;
+    justify-content: center;
+    margin: 0;
+    padding: 12px;
+    list-style: none;
+    border-top: 0;
+
+    @media (max-width: 768px) {
+      padding-bottom: 6px;
+    }
+
+    @media (max-width: 430px) {
+      gap: 2px 8px;
+    }
+  }
+  .ctr-subscription-tertiary__benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    p {
+      font-size: 12px;
+      line-height: 2.2;
+      margin: 0;
+      color: #212121;
+    }
+
+    @media (max-width: 768px) {
+      gap: 6px;
+
+      svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      p {
+        font-size: 10px;
+      }
+    }
+  }
+  .ctr-subscription-tertiary__onetime-label {
+    border: 0 !important;
+    background: transparent !important;
+    justify-content: center;
+  }
+  .ctr-subscription-tertiary__onetime-inner {
+    justify-content: center !important;
+    padding: 0 !important;
+  }
+  .ctr-subscription-tertiary__onetime-left {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    justify-content: center;
+    padding: 0 !important;
+    flex: 0 1 auto !important;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+
+    &:disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  }
+  .ctr-subscription-tertiary__onetime-right {
+    display: none !important;
+  }
+  .ctr-subscription-tertiary__onetime-title {
+    font-family: 'Alliance Platt', 'Alliance Text', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.9;
+    color: #000000;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border-bottom: 1px solid #000000;
+  }
+  .ctr-subscription-tertiary__onetime-title-wrap {
+    justify-content: center;
+  }
+  .js-one-time-active .ctr-subscription-tertiary__onetime-title {
+    color: #000000;
+  }
+{% endstylesheet %}

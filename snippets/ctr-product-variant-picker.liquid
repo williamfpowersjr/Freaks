@@ -1,0 +1,279 @@
+{% comment %}
+  Renders product variant-picker
+
+  Accepts:
+  - product: {Object} product object.
+  - product_form_id: {String} Id of the product form to which the variant picker is associated.
+  Usage:
+  {% render 'ctr-product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+{% endcomment %}
+{% assign variant_callout = product.selected_or_first_available_variant.metafields.custom.pdp_callout %}
+{% assign variant_select_class = 'flex w-full flex-col gap-24 lg:flex-row lg:flex-wrap lg:gap-y-40 mb-[16px]' %}
+{% if variant_callout == blank %}
+  {% assign variant_select_class = variant_select_class | append: ' lg:mb-[40px]' %}
+{% endif %}
+{% assign hide_default_variant_picker = hide_default_variant_picker
+  | default: section.settings.hide_default_variant_picker
+%}
+{% assign has_variant_product_options = false %}
+{% if variant_product_option_blocks != blank %}
+  {% for block in variant_product_option_blocks %}
+    {% if block.settings.product != blank %}
+      {% assign has_variant_product_options = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+{% if has_variant_product_options %}
+  <product-siblings-variant-options
+    class="js product-form__input product-form__input--pill flex w-full flex-col gap-24 pb-16"
+    {% if section.settings.is_landing_page %}
+      data-landing-page="true"
+    {% endif %}
+  >
+    {% assign current_variant_id = product.selected_or_first_available_variant.id | append: '' %}
+    {% assign selected_variant_product_label = '' %}
+    {% for block in variant_product_option_blocks %}
+      {% assign option_product = block.settings.product %}
+      {% if option_product != blank %}
+        {% assign selected_option_variant_id = block.settings.variant_id
+          | default: option_product.selected_or_first_available_variant.id
+        %}
+        {% if selected_option_variant_id == blank and option_product.variants.first != blank %}
+          {% assign selected_option_variant_id = option_product.variants.first.id %}
+        {% endif %}
+        {% assign selected_option_variant_id = selected_option_variant_id | append: '' %}
+      {% endif %}
+      {% if option_product != blank
+        and option_product.id == product.id
+        and selected_option_variant_id == current_variant_id
+      %}
+        {% assign selected_variant_product_label = block.settings.option_label | default: option_product.title %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+    {% assign variant_product_option_label = section.settings.variant_product_option_label | strip %}
+    {% if variant_product_option_label != blank or selected_variant_product_label != blank %}
+      <h3 class="text-[14px]/[1.5] font-medium">
+        {%- if variant_product_option_label != blank -%}
+          {{- variant_product_option_label -}}
+          {%- if selected_variant_product_label != blank -%}: {{ selected_variant_product_label }}{%- endif -%}
+        {%- else -%}
+          {{- selected_variant_product_label -}}
+        {%- endif -%}
+      </h3>
+    {% endif %}
+    <div class="flex items-start gap-8">
+      {%- assign variant_product_variants = '' | split: '' -%}
+      {% for block in variant_product_option_blocks %}
+        {% assign option_product = block.settings.product %}
+        {% if option_product == blank %}
+          {% continue %}
+        {% endif %}
+        {% liquid
+          assign option_variant_id = block.settings.variant_id | default: option_product.selected_or_first_available_variant.id
+          if option_variant_id == blank and option_product.variants.first != blank
+            assign option_variant_id = option_product.variants.first.id
+          endif
+          assign option_variant_id = option_variant_id | append: ''
+          assign option_preselected_selling_plan_id = block.settings.preselected_selling_plan_id | strip
+          assign option_label = block.settings.option_label | default: option_product.title
+          assign option_variant = option_product.selected_or_first_available_variant | default: option_product.variants.first
+          for product_variant in option_product.variants
+            assign product_variant_id = product_variant.id | append: ''
+            if product_variant_id == option_variant_id
+              assign option_variant = product_variant
+              break
+            endif
+          endfor
+          assign option_image = block.settings.image_override | default: option_variant.featured_image | default: option_product.featured_image
+          assign option_badge = block.settings.badge_label | default: option_variant.metafields.custom.badge
+          assign classes = 'relative aspect-square flex-[1_0_0] min-w-px max-w-[72px] cursor-pointer border border-[#22202F29]'
+          assign is_active_option = false
+          if option_product.id == product.id and option_variant_id == current_variant_id
+            assign is_active_option = true
+          endif
+          if is_active_option
+            assign classes = classes | append: ' !border-[#0032A0] ring-1 ring-inset ring-[#0032A0] m-active'
+          endif
+          if option_product.available == false
+            assign classes = classes | append: ' line-through'
+          endif
+          assign variant_product_variants = variant_product_variants | concat: option_product.variants
+        %}
+        {% capture label_unavailable %}
+          <span class="label-unavailable sr-only">
+            Sold Out
+          </span>
+        {% endcapture %}
+        <a
+          href="{{ option_product.url }}"
+          data-swap-url="{{ option_product.url }}"
+          data-swap-variant-id="{{ option_variant_id }}"
+          data-swap-selling-plan-id="{{ option_preselected_selling_plan_id }}"
+          class="{{ classes }}"
+          {{ block.shopify_attributes }}
+        >
+          <span class="sr-only">{{ option_label }}</span>
+          {% if option_image != blank %}
+            <img
+              src="{{ option_image | image_url: width: 200, height: 200 }}"
+              alt="{{ option_label | escape }}"
+              class="w-full object-cover"
+              loading="lazy"
+              width="72"
+              height="72"
+            >
+          {% else %}
+            <span class="flex size-full items-center justify-center bg-[#E3E3E3] p-4 text-center text-[12px] uppercase leading-[1.3]">
+              {{ option_label }}
+            </span>
+          {% endif %}
+          {% if option_badge != blank and section.settings.hide_variant_product_option_badges != true %}
+            {% assign badge_classes = 'absolute -left-1 -right-1 top-[-24px] border-l border-r border-t p-4 text-center text-[11px] sm:text-[12px] font-medium uppercase leading-[1.3]' %}
+            {% if is_active_option %}
+              {% assign badge_classes = badge_classes | append: ' border-[#0032A0] bg-[#0032A033]' %}
+            {% else %}
+              {% assign badge_classes = badge_classes | append: ' border-[#22202F29] bg-[#EFEFEF66]' %}
+            {% endif %}
+            <span class="{{ badge_classes }}">
+              {{ option_badge }}
+            </span>
+          {% endif %}
+          {% unless option_product.available %}
+            {{ label_unavailable }}
+          {% endunless %}
+          {% if show_prices_in_variant_picker and option_variant != blank %}
+            <span class="sr-only">
+              {% if option_variant.compare_at_price > option_variant.price %}
+                {{ option_variant.compare_at_price | money }}
+              {% endif %}
+              {{ option_variant.price | money }}
+            </span>
+          {% endif %}
+        </a>
+      {% endfor %}
+      <script type="application/json" data-variants>
+        {{ variant_product_variants | json }}
+      </script>
+    </div>
+  </product-siblings-variant-options>
+{% endif %}
+{% liquid
+  assign quantity_option_name = section.settings.quantity_option_name | strip
+  assign has_quantity_variant_options = false
+  if section.settings.hide_quantity_variant_selector != true and quantity_variant_option_blocks != blank and quantity_option_name != blank
+    for block in quantity_variant_option_blocks
+      if block.settings.option_value != blank
+        assign has_quantity_variant_options = true
+        break
+      endif
+    endfor
+  endif
+
+  assign show_variant_selects = false
+  unless product.has_only_default_variant
+    if hide_default_variant_picker != true
+      assign show_variant_selects = true
+    elsif has_quantity_variant_options
+      assign show_variant_selects = true
+    endif
+  endunless
+%}
+{% if show_variant_selects %}
+  <ctr-variant-selects
+    id="ctr-variant-selects-{{ section.id }}"
+    data-section="{{ section.id }}"
+    class="{{ variant_select_class }}"
+  >
+    {%- for option in product.options_with_values -%}
+      {%- if section.settings.split_subscriptions_by_variants and forloop.first != true -%}
+        {%- assign hidden_class = 'hidden' -%}
+      {%- else -%}
+        {%- assign hidden_class = '' -%}
+      {%- endif -%}
+
+      {% if has_quantity_variant_options and option.name == quantity_option_name %}
+        {% capture quantity_option_markup %}
+          {% render 'ctr-product-quantity-variant-options',
+            product: product,
+            option: option,
+            quantity_variant_option_blocks: quantity_variant_option_blocks,
+            unit_name: unit_name
+          %}
+        {% endcapture %}
+        {% assign quantity_option_markup_stripped = quantity_option_markup | strip %}
+        {% if quantity_option_markup_stripped != blank %}
+          {{ quantity_option_markup }}
+        {% else %}
+          <fieldset class="js product-form__input product-form__input--pill flex w-full flex-col gap-16 {{ hidden_class }}">
+            <h3 class="text-[14px]/[1.5] font-medium">
+              {{ option.name -}}
+              {%- if variant_picker_style == 'swatches' -%}
+                : {{ option.selected_value }}
+              {% endif %}
+            </h3>
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              show_unit_price: show_unit_price,
+              unit_name: unit_name,
+              show_prices_in_variant_picker: show_prices_in_variant_picker,
+              variant_picker_style: variant_picker_style
+            %}
+          </fieldset>
+        {% endif %}
+      {% elsif hide_default_variant_picker %}
+        {% comment %} Keep hidden radios so quantity selection can still resolve the full variant. {% endcomment %}
+        <fieldset class="js product-form__input hidden">
+          {% assign product_form_id = 'product-form-' | append: section.id %}
+          <input
+            type="radio"
+            id="{{ section.id }}-{{ option.position }}-hidden"
+            name="{{ option.name | escape }}-{{ option.position }}"
+            value="{{ option.selected_value | escape }}"
+            form="{{ product_form_id }}"
+            checked
+            class="hidden"
+          >
+        </fieldset>
+      {% else %}
+        <fieldset class="js product-form__input product-form__input--pill flex w-full flex-col gap-16 {{ hidden_class }}">
+          <h3 class="text-[14px]/[1.5] font-medium">
+            {%- assign option_alt_value_key = 'option_' | append: forloop.index | append: '_alt_text' -%}
+            {%- assign option_selected_value = option.selected_value -%}
+            {%- assign option_alt_value = '' -%}
+
+            {%- for value in option.values -%}
+              {%- if value == option_selected_value -%}
+                {%- assign option_alt_value = value.variant.metafields.custom[option_alt_value_key] -%}
+              {%- endif -%}
+            {%- endfor -%}
+
+            {%- if option_alt_value != blank -%}
+              {%- assign option_selected_value = option_alt_value -%}
+            {%- endif -%}
+
+            {{ option.name -}}
+            {%- if variant_picker_style == 'swatches' -%}
+              : {{ option_selected_value }}
+            {% endif %}
+          </h3>
+          {% render 'product-variant-options',
+            product: product,
+            option: option,
+            show_unit_price: show_unit_price,
+            unit_name: unit_name,
+            show_prices_in_variant_picker: show_prices_in_variant_picker,
+            variant_picker_style: variant_picker_style
+          %}
+        </fieldset>
+      {% endif %}
+    {%- endfor -%}
+
+    <script type="application/json" data-variants>
+      {{ product.variants | json }}
+    </script>
+  </ctr-variant-selects>
+{% endif %}
+{% render 'product-variant-callout', variant: product.selected_or_first_available_variant %}

@@ -1,0 +1,446 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "sticky_add_to_cart_button_YwHpbY": {
+      "type": "sticky-add-to-cart-button",
+      "settings": {
+        "show_sticky_add_to_cart": true,
+        "cta": "Add to Cart",
+        "cta_color": "orange",
+        "text": "All options"
+      }
+    },
+    "product_hero_7LbPJE": {
+      "type": "product-hero",
+      "blocks": {
+        "summary_X9GAy6": {
+          "type": "summary",
+          "settings": {
+            "title": "80 min water / 40 min sweat resistant"
+          }
+        },
+        "summary_LCrxDf": {
+          "type": "summary",
+          "settings": {
+            "title": "100% mineral SPF"
+          }
+        },
+        "summary_HQcfP7": {
+          "type": "summary",
+          "settings": {
+            "title": "No chemical filters"
+          }
+        },
+        "summary_qDbC7M": {
+          "type": "summary",
+          "settings": {
+            "title": "Clinically proven to improve the skin microbiome"
+          }
+        },
+        "summary_FfWiD8": {
+          "type": "summary",
+          "settings": {
+            "title": "Instant skin firming"
+          }
+        },
+        "summary_pawACb": {
+          "type": "summary",
+          "settings": {
+            "title": "Invisible shield – no whitecast!"
+          }
+        },
+        "summary_kWFbx4": {
+          "type": "summary",
+          "settings": {
+            "title": "Blue light and pollutant repelling"
+          }
+        },
+        "summary_kbGFtB": {
+          "type": "summary",
+          "settings": {
+            "title": "Moisture locking"
+          }
+        },
+        "summary_kC3hpL": {
+          "type": "summary",
+          "settings": {
+            "title": "Broad spectrum UV protection"
+          }
+        },
+        "summary_MPApW4": {
+          "type": "summary",
+          "settings": {
+            "title": "Dermatologist Tested "
+          }
+        },
+        "accordion_67RMgq": {
+          "type": "accordion",
+          "settings": {
+            "title": "Ingredients",
+            "use_variant_metafield": false,
+            "variant_metafield": "",
+            "richtext": "<p><strong>Deep Dive Hydrator</strong></p><p>Squalane, Avena Sativa (Oat) Kernel Oil, Dextrin Palmitate, Plukenetia Volubilis (Sacha Inchi) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Padina Pavonica Thallus Extract, Bacillus Ferment, Tocopherol</p><p><strong>Peak Performance Sun Stick:</strong></p><p><strong>Active Ingredient:<br/></strong>Zinc Oxide (non-nano): Zinc Oxide 25%</p><p><strong>Inactive ingredients:</strong><br/>Helianthus Annuus (Sunflower) Seed Wax, Isoamyl Laurate, Ethylhexyl Olivate, Caprylic/Capric Triglyceride, C13-15 Alkane, Polyhydroxystearic Acid, Oryza Sativa (Rice Bran) Oil, Quaternium-90 Bentonite, Capryloyl Glycerin/Sebacic Acid Copolymer, Prototheca Moriformis (Microalgae) Oil, Theobroma Cacao (Cocoa) Seed Butter, Isostearic Acid, Lecithin, Polyglyceryl-3 Polyricinoleate, Triethyl Citrate, Squalane, Physalis Angulata (Ground Cherry) Extract, Rhododendron Ferrugineum (Alpenrose) Extract, Undaria Pinnatifida (Wakame) Extract, Saccharomyces Ferment, Laurel Lysine, Tocopherol Acetate,  Tocopherol</p><p></p><p></p><p>See for more information on our <a href=\"/pages/ingredients\" title=\"Ingredients\">ingredients page</a>.</p>"
+          }
+        },
+        "accordion_qjkDHd": {
+          "type": "accordion",
+          "settings": {
+            "title": "How to Use",
+            "use_variant_metafield": false,
+            "variant_metafield": "",
+            "richtext": "<p><strong>Deeper Dive Moisturizer:</strong></p><p><strong>Step 1:</strong><br/>After AM/PM cleansing, or when you wash yourself after a workout session, apply one pump amount into hands and gently rub onto face, neck and chest if applicable. For optimal results use in the AM and PM.</p><p><strong>Step 2:<br/></strong>If heading outside apply Peak Performance SPF50 Sun Stick as the final step in your daily routine.</p><p>Reapply after 80 min of swimming or sweating, immediately after towel drying and at least every 2 hours when exposed to the sun. </p><p>Product can be re-applied over or under makeup. </p>"
+          }
+        },
+        "plastic_pledge_by_oceanworks_product_tile_7d3bWn": {
+          "type": "shopify://apps/plastic-pledge-by-oceanworks/blocks/product-tile/a888cb82-2596-48cc-9cb6-2a2728b595a5",
+          "settings": {
+            "theme_style": "dynamic"
+          }
+        },
+        "bundle_MdcCqr": {
+          "type": "bundle",
+          "disabled": true,
+          "settings": {
+            "bundle_product": "endurance-system",
+            "banner": "",
+            "bundle_cta_color": "blue"
+          }
+        },
+        "bundle_UEUczj": {
+          "type": "bundle",
+          "settings": {
+            "bundle_product": "freak-family-pack",
+            "banner": "",
+            "bundle_cta_color": "blue"
+          }
+        }
+      },
+      "block_order": [
+        "summary_X9GAy6",
+        "summary_LCrxDf",
+        "summary_HQcfP7",
+        "summary_qDbC7M",
+        "summary_FfWiD8",
+        "summary_pawACb",
+        "summary_kWFbx4",
+        "summary_kbGFtB",
+        "summary_kC3hpL",
+        "summary_MPApW4",
+        "accordion_67RMgq",
+        "accordion_qjkDHd",
+        "plastic_pledge_by_oceanworks_product_tile_7d3bWn",
+        "bundle_MdcCqr",
+        "bundle_UEUczj"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "title_size": "large",
+        "show_inventory_quantity": false,
+        "use_variant_media": false,
+        "discount_tag": "+ Free Shipping",
+        "product_discount_heading": "Bundle Savings: 25%",
+        "subscription_badge_type": "manual",
+        "subscription_badge_text": "Save 25%",
+        "show_unit_price": false,
+        "unit_name": "",
+        "show_prices_in_variant_picker": false,
+        "variant_picker_style": "title",
+        "hide_quantity_input": false,
+        "one_time_purchase_badge_text": "Save 10%",
+        "subsDefaultOption": "subscriptions",
+        "subsOrder": "subs_top",
+        "subscription_form_style": "stacked",
+        "subscription_title": "Subscribe",
+        "cta": "Add to cart",
+        "cta_link": "",
+        "show_out_of_stock_banner": false,
+        "out_of_stock_banner_text": "",
+        "social_image": "shopify://shop_images/Screenshot_2025-02-12_at_3.52.32_PM.png",
+        "social_quote": "“Freaks of Nature SPF leverages cutting-edge ingredients that go beyond conventional products made with chemical filters and other ingredients that can disrupt the skin barrier. Instead, our products ensure that the skin barrier is supported rather than compromised, making our products ideal for daily use.”",
+        "social_profile_name": "@dr.elsajungman",
+        "social_profile_image": "shopify://shop_images/Screenshot_2025-02-12_at_3.54.54_PM.png",
+        "social_link": "https://www.instagram.com/dr.elsajungman/?hl=en",
+        "show_details": true,
+        "show_notify": true,
+        "notify_text": "Get notified when the product is available again",
+        "notify_placeholder": "Enter your email",
+        "notify_success": "Thank you! We will notify you when the product is back in stock.",
+        "klaviyo_api_key": "SdwbFd",
+        "klaviyo_list_id": "",
+        "notify_subtext": "<p>By signing up, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Service</a> and our <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a>.</p>",
+        "bundle_title": "Upgrade to a bundle and save"
+      }
+    },
+    "comparison_cKkidc": {
+      "type": "comparison",
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "No Whitecast",
+        "title_a": "Light Skin",
+        "image_1a": "shopify://shop_images/240409_TN_DIRTYPRETTY_FREAKSOFNATURE2536_04dc8a90-40e0-485f-a8eb-7a4dbc252973.jpg",
+        "title_1a": "Applying sunscreen",
+        "image_2a": "shopify://shop_images/240409_TN_DIRTYPRETTY_FREAKSOFNATURE2634_51134d02-6f63-4ebd-81ee-1f46e27ac1ea.jpg",
+        "title_2a": "5 min after application",
+        "title_b": "Medium Skin",
+        "image_1b": "shopify://shop_images/240409_TN_DIRTYPRETTY_FREAKSOFNATURE1740_fe9300a3-e27e-4c4c-ba6f-566bcda0ca37.jpg",
+        "title_1b": "Applying sunscreen",
+        "image_2b": "shopify://shop_images/240409_TN_DIRTYPRETTY_FREAKSOFNATURE1752_cf583703-bff8-468c-b725-d470d138a7d9.jpg",
+        "title_2b": "5 min after application"
+      }
+    },
+    "ugc_slider_LeiTDN": {
+      "type": "ugc-slider",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Application"
+      }
+    },
+    "properties_4a3QYn": {
+      "type": "properties",
+      "blocks": {
+        "item_8Rpxwk": {
+          "type": "item",
+          "settings": {
+            "use_variant_metafield_for_image": false,
+            "image_metafield_key": "",
+            "title": "Good for:",
+            "use_variant_metafield_for_description": false,
+            "description": "All Skin Types",
+            "description_metafield_key": ""
+          }
+        },
+        "item_wQQpBK": {
+          "type": "item",
+          "settings": {
+            "use_variant_metafield_for_image": false,
+            "image_metafield_key": "",
+            "title": "Smells like:",
+            "use_variant_metafield_for_description": false,
+            "description": "Deeper Dive Hydrator: Minerally with a slight nuttiness. Think of it like a crisp day near the lake!\n\nPeak Performance Sun Stick: Nothing! Unlike the painfully  nostalgic odor (i.e. harsh and chemically) of most sunscreens, ours is completely unscented.",
+            "description_metafield_key": ""
+          }
+        },
+        "item_PXaARX": {
+          "type": "item",
+          "settings": {
+            "use_variant_metafield_for_image": false,
+            "image_metafield_key": "",
+            "title": "Color and texture:",
+            "use_variant_metafield_for_description": false,
+            "description": "Deeper Dive Hydrator: Natural oil color and texture for maximum hydration without the greasy look.\n\n\nPeak Performance Sun Stick: Goes on silky smooth, clear, and easily with a bare skin feel that won't warp, slip or drip into your eyes.",
+            "description_metafield_key": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_8Rpxwk",
+        "item_wQQpBK",
+        "item_PXaARX"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "card_bg_color": "bg-offWhite",
+        "title": "What to Expect",
+        "image": "shopify://shop_images/FREAKSOFNATURE3490.jpg",
+        "full_bleed_image": false,
+        "hide_mobile_image": false
+      }
+    },
+    "steps_DnR78r": {
+      "type": "steps",
+      "blocks": {
+        "item_rFQjDN": {
+          "type": "item",
+          "settings": {
+            "title": "Step 1",
+            "description": "<p>Complete your skincare routine. We recommend priming your skin with a pump of our Deeper Dive Moisturizer.</p>",
+            "image": "shopify://shop_images/application-01-peak-performance-spf50.jpg",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_g6zxYF": {
+          "type": "item",
+          "settings": {
+            "title": "Step 2",
+            "description": "<p>Apply Peak Performance SPF50 Sunscreen in the morning before you go outside, or 15 minutes before going in the sun, and as the final step in your daily skincare routine. Apply one pump amount or more of our Peak Performance SPF50 Sunscreen into hands and gently rub onto face, neck, chest and body if applicable.</p>",
+            "image": "shopify://shop_images/application-02-peak-performance-sp.jpg",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_NzCKkk": {
+          "type": "item",
+          "settings": {
+            "title": "Step 3",
+            "description": "<p>Reapply after 80 min of swimming or sweating, immediately after towel drying and at least every 2 hours when exposed to the sun.</p>",
+            "image": "shopify://shop_images/application-03-peak-performance-sp.jpg",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        }
+      },
+      "block_order": [
+        "item_rFQjDN",
+        "item_g6zxYF",
+        "item_NzCKkk"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "How to Apply"
+      }
+    },
+    "gallery_yXnGXK": {
+      "type": "gallery",
+      "blocks": {
+        "gallery_item_zdpibz": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/FREAKS_REFERENCE.mp4",
+            "mobile_video": "shopify://files/videos/FREAKS_REFERENCE.mp4",
+            "hide_mute": false,
+            "title": "STICK TO IT",
+            "info_text": ""
+          }
+        },
+        "gallery_item_6GHnnr": {
+          "type": "gallery_item",
+          "disabled": true,
+          "settings": {
+            "video": "shopify://files/videos/240507_Ocean_Interview_Freaks_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "mobile_video": "shopify://files/videos/MOBILE_HP_Ocean_Interview_Freaks_Specific_4x5_H.264_Final_Delivery.mp4",
+            "hide_mute": false,
+            "title": "Ocean Ramsey",
+            "info_text": ""
+          }
+        },
+        "gallery_item_fjmikF": {
+          "type": "gallery_item",
+          "disabled": true,
+          "settings": {
+            "video": "shopify://files/videos/240507_Nina_Interview_Freaks_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "mobile_video": "shopify://files/videos/MOBILE_HP_Nina_Interview_Freaks_Specific_4X5_H.264_Final_Delivery.mp4",
+            "hide_mute": false,
+            "title": "Nina Williams",
+            "info_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "gallery_item_zdpibz",
+        "gallery_item_6GHnnr",
+        "gallery_item_fjmikF"
+      ],
+      "settings": {
+        "show_video_controls": true
+      }
+    },
+    "builder_system_DLwhq8": {
+      "type": "builder-system",
+      "blocks": {
+        "card_CznQTH": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>Small but mighty algae is super food but for your skin because </li><li>Super ingredient known for it’s moisture locking properties. Studies have shown microalgae extracts to stimulate collagen production leaving your skin looking hydrated and firmer. Plus it’s rich in antioxidants helping combat free radicals that accelerate aging and skin damage.</li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/squalane.jpg",
+            "tag_1": "Microalgae Oil",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        },
+        "card_UzGHJp": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>Superstar ingredient found in a french volcano. Oléoactif™ is a post-biotic proven to improve your skin barrier. </li><li><strong>Repairs your skin and fortifies your skin barrier to promote overall skin health.</strong></li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/Screenshot_2024-05-04_at_6.20.12_PM.png",
+            "tag_1": "Oléoactif™ Post-Biotic Bacillus Ferment",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        },
+        "card_46jfgR": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>The closest thing to the fountain of youth that we could find. </li><li><strong>This powerful ingredient restores skin elasticity and moisture resulting in visibly plumper, firmer, and healthier looking skin. Plus, it aids your body’s natural collagen production. </strong></li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/Padina_Pavonica_Thallus.jpg",
+            "tag_1": "Padinami™ Brown Algae Extract",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_CznQTH",
+        "card_UzGHJp",
+        "card_46jfgR"
+      ],
+      "settings": {
+        "video": "shopify://files/videos/B-SILK™ _ SEQUENCE _ H264 (1).mp4",
+        "hide_mute": true,
+        "title": "BIO BASED INGREDIENTS THAT MAKE A DIFFERENCE",
+        "description": "<p>We formulated the Freak Barrier Defense System™️specifically to defend and strengthen your skin microbiome and skin barrier. <strong>Meet the proprietary ingredients that set us apart. </strong></p>",
+        "icon": "shopify://shop_images/Vegan_Spider_Silk-Blue.svg",
+        "cta": "Explore our ingredients",
+        "cta_link": "shopify://pages/ingredients",
+        "cta_color": "blue"
+      }
+    },
+    "reviews_section_fhewjz": {
+      "type": "reviews",
+      "settings": {
+        "bg_color": "bg-offWhite",
+        "title": "Reviews",
+        "image": "shopify://shop_images/TB_CHILE25_FON_4X5_0286.jpg",
+        "hide_mute": false,
+        "full_bleed_media": false
+      }
+    },
+    "title_3E6DMh": {
+      "type": "title",
+      "disabled": true,
+      "settings": {
+        "bg_color": "white",
+        "title": "Used by our freak athletes",
+        "text": "",
+        "has_margin": true,
+        "text_align": "center"
+      }
+    },
+    "product_carousel_x3Ukge": {
+      "type": "product-carousel",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Shop other Products",
+        "title_style": "title_big",
+        "hide_mobile_title": false,
+        "cta": "",
+        "cta_link": "",
+        "cta_color": "blue",
+        "collections": ["all-products"]
+      }
+    }
+  },
+  "order": [
+    "sticky_add_to_cart_button_YwHpbY",
+    "product_hero_7LbPJE",
+    "comparison_cKkidc",
+    "ugc_slider_LeiTDN",
+    "properties_4a3QYn",
+    "steps_DnR78r",
+    "gallery_yXnGXK",
+    "builder_system_DLwhq8",
+    "reviews_section_fhewjz",
+    "title_3E6DMh",
+    "product_carousel_x3Ukge"
+  ]
+}

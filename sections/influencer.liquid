@@ -1,0 +1,266 @@
+{% schema %}
+{
+  "name": "Influencer",
+  "tag": "section",
+  "class": "influencer-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom ID",
+      "default": "influencer-section",
+      "info": "Add a custom ID to the section, for example 'influencer-section'. This allows you to link directly to this section using #influencer-section in the URL."
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_video_controls",
+      "label": "Show Video Controls",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Influencer",
+      "type": "influencer",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "info": "This is the required field!",
+          "label": "Video"
+        },
+        {
+          "type": "video",
+          "id": "mobile_video",
+          "label": "Mobile Video",
+          "visible_if": "{{ block.settings.video != blank }}"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "info": "This is the required field!",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge",
+          "visible_if": "{{ block.settings.title != blank }}"
+        },
+        {
+          "type": "textarea",
+          "id": "info_text",
+          "label": "Info Text",
+          "visible_if": "{{ block.settings.title != blank }}"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Influencer",
+      "category": "Gallery",
+      "settings": {
+        "title": "Freaks Team",
+        "show_video_controls": true
+      },
+      "blocks": [
+        {
+          "type": "influencer",
+          "settings": {
+            "video": "shopify://files/videos/240507_Kelly_Interview_Freaks_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "mobile_video": "shopify://files/videos/MOBILE_HP_Kelly_Interview_Freaks_Specific_4x5_H.264_Final_Delivery.mp4",
+            "title": "Member 1",
+            "info_text": "Text about member 1",
+            "badge": "Badge"
+          }
+        },
+        {
+          "type": "influencer",
+          "settings": {
+            "video": "shopify://files/videos/240507_Kelly_Interview_Freaks_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "mobile_video": "shopify://files/videos/MOBILE_HP_Kelly_Interview_Freaks_Specific_4x5_H.264_Final_Delivery.mp4",
+            "title": "Member 2",
+            "info_text": "Text about member 2",
+            "badge": "Badge 2"
+          }
+        },
+        {
+          "type": "influencer",
+          "settings": {
+            "video": "shopify://files/videos/240507_Kelly_Interview_Freaks_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "mobile_video": "shopify://files/videos/MOBILE_HP_Kelly_Interview_Freaks_Specific_4x5_H.264_Final_Delivery.mp4",
+            "title": "Member 3"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% if section.blocks != blank %}
+  <div
+    class="relative flex flex-col"
+    id="{{ section.settings.custom_id | default: 'influencer-section' }}"
+  >
+    {% if section.settings.title != blank %}
+      <div class="w-full flex-none py-40 lg:py-80">
+        {% render 'title',
+          title: section.settings.title,
+          text_size: 'fn-tt-title-70',
+          bg_color: section.settings.bg_color,
+          border_color: 'border-black/15',
+          extra_wrapper_classes: 'text-center px-24 lg:px-16 overflow-hidden',
+          bg_lines: 'bg-grey-lines',
+          extra_text_classes: '!leading-[0.98]'
+        %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.text != blank %}
+      <div class="mx-auto px-24 pb-40 lg:max-w-768">
+        <p class="fn-tt-body-30 text-center">{{ section.settings.text }}</p>
+      </div>
+    {% endif %}
+
+    <video-gallery-element
+      data-auto-move-to-next-tab="false"
+    >
+      <div class="relative h-640 overflow-hidden lg:h-[90vh]">
+        <ul>
+          {% for block in section.blocks %}
+            {% if block.type == 'influencer' %}
+              {% liquid
+                assign item_title = block.settings.title
+                assign item_video = block.settings.video
+                assign item_mobile_video = block.settings.mobile_video
+                assign is_first = forloop.first
+
+                if item_title == blank or item_video == blank
+                  continue
+                endif
+              %}
+
+              <li
+                data-tab-content
+                class="transition-opacity duration-300 ease-in-out"
+                id="content-{{ forloop.index }}-{{ section.id }}"
+                {% if is_first %}
+                  style="max-height: none;"
+                {% else %}
+                  style="max-height: 0;"
+                {% endif %}
+                {% if is_first %}
+                  active
+                {% endif %}
+              >
+                {% if item_video != blank %}
+                  {% render 'lazy-video',
+                    video: item_video,
+                    class: 'hidden lg:block w-full h-full object-cover absolute inset-0 z-0',
+                    loop: false,
+                    autopause: false,
+                    media_query: 'desktop',
+                    poster: item_video.preview_image
+                  %}
+                {% endif %}
+                {% if item_mobile_video != blank %}
+                  {% render 'lazy-video',
+                    video: item_mobile_video,
+                    class: 'lg:hidden w-full h-full object-cover absolute inset-0 z-0',
+                    loop: false,
+                    autopause: false,
+                    media_query: 'mobile',
+                    poster: item_mobile_video.preview_image
+                  %}
+                {% endif %}
+                {% if item_mobile_video == blank and item_video != blank %}
+                  {% render 'lazy-video',
+                    video: item_video,
+                    class: 'lg:hidden w-full h-full object-cover absolute inset-0 z-0',
+                    loop: false,
+                    autopause: false,
+                    media_query: 'mobile',
+                    poster: item_video.preview_image
+                  %}
+                {% endif %}
+              </li>
+            {% endif %}
+          {% endfor %}
+
+          <li class="influencer-tabs-panel absolute">
+            <div class="influencer-tabs-panel__inner no-scrollbar flex gap-8">
+              {% for block in section.blocks %}
+                {% if block.type == 'influencer' %}
+                  {% liquid
+                    assign is_first = forloop.first
+                    assign item_title = block.settings.title
+                    assign item_info_text = block.settings.info_text
+                    assign item_badge = block.settings.badge
+                    assign item_video = block.settings.video
+
+                    if item_title == blank or item_video == blank
+                      continue
+                    endif
+                  %}
+
+                  <div class="influencer-tab-wrapper">
+                    <button
+                      aria-label="Video {{ forloop.index }}"
+                      {% if is_first %}
+                        active
+                      {% endif %}
+                      data-tab-trigger
+                      data-index="content-{{ forloop.index }}-{{ section.id }}"
+                      aria-expanded="{{ forloop.first }}"
+                    >
+                      <h3>
+                        {{ item_title }}
+                      </h3>
+
+                      <span class="influencer-tab-icon">
+                        {% render 'icon-plus', class: 'icon-plus' %}
+                        {% render 'icon-minus', class: 'icon-minus' %}
+                      </span>
+                    </button>
+
+                    {% if item_badge != blank or item_info_text != blank %}
+                      <div class="influencer-tab-text">
+                        {% if item_badge != blank %}
+                          <span class="influencer-tab-badge text-white">
+                            {{ item_badge }}
+                          </span>
+                        {% endif %}
+
+                        {% if item_info_text != blank %}
+                          <div class="influencer-tab-info">
+                            {{ item_info_text }}
+                          </div>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </li>
+        </ul>
+        {% if section.settings.show_video_controls == true %}
+          {% render 'gallery-video-controls' %}
+        {% endif %}
+      </div>
+    </video-gallery-element>
+  </div>
+{% endif %}

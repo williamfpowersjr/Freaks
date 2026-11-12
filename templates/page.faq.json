@@ -1,0 +1,342 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "title_Aptnnn": {
+      "type": "title",
+      "settings": {
+        "bg_color": "white",
+        "title": "Frequently Asked Questions",
+        "text": "",
+        "has_margin": false,
+        "text_align": "left"
+      }
+    },
+    "text_divider_KnfDc7": {
+      "type": "text-divider",
+      "settings": {
+        "text": "<p>Have a question that is not answered below? Reach out to <a href=\"mailto:hi@freaksofnature.com\" title=\"mailto:hi@freaksofnature.com\">hi@freaksofnature.com</a> and we will get back to you.</p>",
+        "bg_color": "bg-offWhite"
+      }
+    },
+    "faqs_VGbbQF": {
+      "type": "faqs",
+      "blocks": {
+        "accordion_zygz4k": {
+          "type": "accordion",
+          "settings": {
+            "title": "Are your products vegan and cruelty free?",
+            "description": "<p>Yes, all of our products are 100% vegan. When we reference things like bioengineered 'spider silk' we are not referencing an animal bi-product, but an ingredient that is engineered in a lab to mimic the qualities of 'spider silk'.</p><p>All of our products are 100% cruelty free and we're in the process of receiving our Leaping Bunny certification.</p>"
+          }
+        },
+        "accordion_ExN4rA": {
+          "type": "accordion",
+          "settings": {
+            "title": "Are your products fragrance free?",
+            "description": "<p>Yes, all of our products are formulated without fragrance.</p>"
+          }
+        },
+        "accordion_tUGLii": {
+          "type": "accordion",
+          "settings": {
+            "title": "Do your products contain nano-particles?",
+            "description": "<p>No, all Freaks of Nature products are proudly made with non-nano particles.</p>"
+          }
+        },
+        "accordion_6YWdhk": {
+          "type": "accordion",
+          "settings": {
+            "title": "What are 'bio-based' ingredients?",
+            "description": "<p>'Bio-based' ingredients are ingredients derived from natural sources such as plants, minerals, and microorganisms. These are an alternative to synthetic or fossil based ingredients. If you have any questions about a specific ingredient, please review our ingredient page.</p>"
+          }
+        },
+        "accordion_ne9TW3": {
+          "type": "accordion",
+          "settings": {
+            "title": "What skin types are Freaks of Nature products suitable for?",
+            "description": "<p>Freaks of Nature products are proudly formulated for all skin types. All of our products are dermatologist tested for safety and all ingredients are deemed non-comedogenic. If you have any questions about a specific ingredient, please review our ingredient page. If you have any concerns, we recommend conducting a patch test or sharing our ingredient list with your healthcare provider.</p>"
+          }
+        },
+        "accordion_3TrD7z": {
+          "type": "accordion",
+          "settings": {
+            "title": "Are Freaks of Nature products safe to use while pregnant / breastfeeding?",
+            "description": "<p>Nothing in our formulas has been identified as unsafe for pregnant or breastfeeding persons and we adhere to all mandatory guidelines to ensure the safety of our products. If you have concerns we recommend you consult with your physician.</p>"
+          }
+        },
+        "accordion_TNhCia": {
+          "type": "accordion",
+          "settings": {
+            "title": "Can I use Freaks of Nature on my children?",
+            "description": "<p>Yes, all of our products are 100% mineral sunscreens and safe enough for your children. If you have a child 6 months or younger please consult with a physician.</p>"
+          }
+        },
+        "accordion_J6kGzA": {
+          "type": "accordion",
+          "settings": {
+            "title": "Do your products expire?",
+            "description": "<p>Expiration dates are printed on the bottom of our SPF products and expire within 36 months. We recommend all products be used 6 months after opening to maintain freshness and efficacy.</p>"
+          }
+        },
+        "accordion_9b7gMe": {
+          "type": "accordion",
+          "settings": {
+            "title": "Are Freaks of Nature products clean?",
+            "description": "<p>Freaks of Nature products are formulated with the highest standards. Though we are direct-to-consumer, our ingredient lists are in line with clean standards specified by third-party retailers such as Credo and Wholefoods standards.</p>"
+          }
+        },
+        "accordion_ByCeTL": {
+          "type": "accordion",
+          "settings": {
+            "title": "What ingredients does Freaks of Nature not formulate with?",
+            "description": "<p>Freaks of Nature does not formulate with chemicals UV filters, parabens, PEGS, phthalates, silicones, petrolatum, synthetic fragrances, sulfates, phosphates or formaldehyde.</p>"
+          }
+        },
+        "accordion_gDxPmi": {
+          "type": "accordion",
+          "settings": {
+            "title": "Are your products Reef Safe?",
+            "description": "<p>Yes, our products are Hawaii Reef Compliant Act 104.</p>"
+          }
+        },
+        "accordion_aPAaKz": {
+          "type": "accordion",
+          "settings": {
+            "title": "Is your packaging recyclable?",
+            "description": "<p>Yes, our packaging is a mono-material, made from 100% recycled Oceanworks plastics. Please recycle our bottles with like material.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_zygz4k",
+        "accordion_ExN4rA",
+        "accordion_tUGLii",
+        "accordion_6YWdhk",
+        "accordion_ne9TW3",
+        "accordion_3TrD7z",
+        "accordion_TNhCia",
+        "accordion_J6kGzA",
+        "accordion_9b7gMe",
+        "accordion_ByCeTL",
+        "accordion_gDxPmi",
+        "accordion_aPAaKz"
+      ],
+      "settings": {
+        "title": "Products",
+        "bg_color": "bg-white",
+        "enable_autoscroll": true,
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "faqs_qQPXpV": {
+      "type": "faqs",
+      "blocks": {
+        "accordion_bGgt77": {
+          "type": "accordion",
+          "settings": {
+            "title": "How can I check the status of my order?",
+            "description": "<p>Navigate to the account section, sign in and click orders. You will be able to see tracking numbers for each order that has shipped. After placing an order you will also receive an email with tracking.</p>"
+          }
+        },
+        "accordion_aTAmxi": {
+          "type": "accordion",
+          "settings": {
+            "title": "How can I make changes to my order?",
+            "description": "<p>We aim to process orders at our fulfillment center as quickly as possible so we cannot guarantee we will be able to make a change to an order after it has been placed. If you'd like to make a change to your order please email <a href=\"mailto:hi@freaksofnature.com\"><span style=\"text-decoration:underline\">hi@freaksofnature.com</span></a> with your order number and the details of the change and we will do our best to accommodate.</p>"
+          }
+        },
+        "accordion_FybDa9": {
+          "type": "accordion",
+          "settings": {
+            "title": "Which payment methods do you accept?",
+            "description": "<p>We accept all major credit cards (American Express, Discover, MasterCard and Visa), PayPal and Apple Pay.</p>"
+          }
+        },
+        "accordion_hHMWW7": {
+          "type": "accordion",
+          "settings": {
+            "title": "When will my credit card be charged?",
+            "description": "<p>Your credit card will be charged as soon as the order is processed.</p>"
+          }
+        },
+        "accordion_yFNDTr": {
+          "type": "accordion",
+          "settings": {
+            "title": "What should I do if I receive a damaged item or an item is missing?",
+            "description": "<p>If you receive a damaged or missing item, we apologize! Please take a picture of the package within 48 hours and reach out to <a href=\"mailto:hi@freaksofnature.com\"><span style=\"text-decoration:underline\">hi@freaksofnature.com</span></a> or +1 (888) 272-9391 with your order number and the details. We will work to resolve the issue immediately. </p>"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_bGgt77",
+        "accordion_aTAmxi",
+        "accordion_FybDa9",
+        "accordion_hHMWW7",
+        "accordion_yFNDTr"
+      ],
+      "settings": {
+        "title": "Orders and Payments",
+        "bg_color": "bg-offWhite",
+        "enable_autoscroll": true,
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "faqs_K3cnXc": {
+      "type": "faqs",
+      "blocks": {
+        "accordion_azN9mK": {
+          "type": "accordion",
+          "settings": {
+            "title": "How long will my order take to arrive?",
+            "description": "<p>All orders will ship within 3 days of order receipt. Our standard shipping policy takes anywhere from 4-9 days, depending on location, and our expedited service takes anywhere from 3-5 days. </p><p>For international shipments, you can expect the following lead times:</p><p>Canada: 1 - 4 days</p><p>EU: 1 - 3 days</p><p>United Kingdom: 1 - 4 days</p><p>Asia: 1 - 4 days</p><p>Africa: 1- 2 days</p><p>Australia: 1 - 4 days</p><p>New Zealand: 1 - 3 days</p>"
+          }
+        },
+        "accordion_fq7mKz": {
+          "type": "accordion",
+          "settings": {
+            "title": "Where do you ship and do you ship internationally?",
+            "description": "<p>We currently ship within the USA. </p><p>As of Oct. 16, we will begin fulfilling international orders to the following geographies: Canada, EU, UK, Asia, Australia. We cannot support international shipments to PO boxes.</p><p></p>"
+          }
+        },
+        "accordion_KCgCcH": {
+          "type": "accordion",
+          "settings": {
+            "title": "How much does shipping cost?",
+            "description": "<p>Standard shipping is complementary on orders of $60 and over. If your order is below $60 then standard shipping is $7.95 and our expedited shipping is between $10-20 based on the product volume ordered.</p><p>For international shipments, orders over $80 will have complimentary shipping. If your order is below $80 our shipping is $15.</p>"
+          }
+        },
+        "accordion_4NBCXH": {
+          "type": "accordion",
+          "settings": {
+            "title": "What is your return policy?",
+            "description": "<p>If you wish to initiate a return for your order please reach out to <a href=\"mailto:hi@freaksofnature.com\"><span style=\"text-decoration:underline\">hi@freaksofnature.com</span></a> or +1 (888) 272-9391 within 30 days of receiving your order. Items must be unused in their original carton packaging and, at this time, we do not provide the shipping label or cost of postage. </p><p>If you receive a damaged or missing item, we apologize! Please take a picture of the package within 48 hours and reach out to <a href=\"mailto:hi@freaksofnature.com\"><span style=\"text-decoration:underline\">hi@freaksofnature.com</span></a> with your order number and the details. We will work to resolve the issue immediately. </p>"
+          }
+        },
+        "accordion_8aRXt6": {
+          "type": "accordion",
+          "settings": {
+            "title": "How long does an exchange or return take to process?",
+            "description": "<p>In some instances, it may take our customer service 1-2 to review your return request. Once a return is dropped off and scanned by the shipping carrier, the return is processed - credit card refunds usually take 3-10 business days to appear on your statement.</p>"
+          }
+        },
+        "accordion_Q9MiMF": {
+          "type": "accordion",
+          "settings": {
+            "title": "Where can I buy Freaks of Nature in person?",
+            "description": "<p>We currently ship within the USA and at this time we are entirely direct-to-consumer. Please sign up to our newsletter for updates!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_azN9mK",
+        "accordion_fq7mKz",
+        "accordion_KCgCcH",
+        "accordion_4NBCXH",
+        "accordion_8aRXt6",
+        "accordion_Q9MiMF"
+      ],
+      "settings": {
+        "title": "SHIPPING, RETURNS AND EXCHANGES",
+        "bg_color": "bg-white",
+        "enable_autoscroll": true,
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "faqs_ptUiXy": {
+      "type": "faqs",
+      "blocks": {
+        "accordion_JcaBGf": {
+          "type": "accordion",
+          "settings": {
+            "title": "How do subscriptions work?",
+            "description": "<p>We offer a monthly subscription for our products so that you never run out of your skincare. Select delivery every 1, 2 or 3 months for up to 15% off the product + free shipping. To subscribe, head to the product page and select the `Subscribe` option and select your preferred delivery cadence.</p>"
+          }
+        },
+        "accordion_CBEbfd": {
+          "type": "accordion",
+          "settings": {
+            "title": "When will my next subscription ship?",
+            "description": "<p>Your next subscription will ship between 1-3 months from your original shipment, depending on your requested frequency. </p>"
+          }
+        },
+        "accordion_nqNRMy": {
+          "type": "accordion",
+          "settings": {
+            "title": "How can I cancel or change my subscription?",
+            "description": "<p>You can cancel or change your subscription at any time by visiting the manage my subscription page in your Freaks of Nature Account. </p>"
+          }
+        },
+        "accordion_AtFbXj": {
+          "type": "accordion",
+          "settings": {
+            "title": "When will I be charged for my subscription?",
+            "description": "<p>You will be billed for your subscription on the day the order replenishment is generated and processed at our warehouse.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_JcaBGf",
+        "accordion_CBEbfd",
+        "accordion_nqNRMy",
+        "accordion_AtFbXj"
+      ],
+      "settings": {
+        "title": "SUBSCRIPTIONS",
+        "bg_color": "bg-white",
+        "enable_autoscroll": true,
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "product_carousel_kVMjpW": {
+      "type": "product-carousel",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Our products meet the strictest industry standards, are clinically tested and dermatologist approved.",
+        "title_style": "title_small",
+        "hide_mobile_title": false,
+        "cta": "Shop all Products",
+        "cta_link": "shopify://collections/all",
+        "cta_color": "blue",
+        "card_cta_text": "",
+        "card_cta_as_add_to_cart": false,
+        "card_cta_arrow_direction": "top",
+        "collections": [
+          "all-products"
+        ]
+      }
+    }
+  },
+  "order": [
+    "main",
+    "title_Aptnnn",
+    "text_divider_KnfDc7",
+    "faqs_VGbbQF",
+    "faqs_qQPXpV",
+    "faqs_K3cnXc",
+    "faqs_ptUiXy",
+    "product_carousel_kVMjpW"
+  ]
+}

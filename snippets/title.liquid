@@ -1,0 +1,63 @@
+{% comment %}
+  Renders a customizable title with various styling and functionality options.
+
+  Accepts:
+  - title (String): Central text to display on the element. Optional.
+  - text_size (String): CSS class for text size. Optional.
+  - text_color (String): CSS class for text color. Optional.
+  - bg_color (String): CSS class for background color. Optional.
+  - border_color (String): CSS class for border color. Optional.
+  - extra_wrapper_classes (String): Additional CSS classes to apply to the element for further styling. Optional.
+  - extra_text_classes (String): Additional CSS classes to apply to the element for further styling. Optional.
+  - isH1 (Boolean): Additional, if true is is a <h1></h1>
+
+  Usage Example:
+    {% render 'title', title: 'Your Title Here', text_size: 'fn-tt-title-80', bg_color: 'bg-offWhite', border_color: 'border-black/15', extra_classes: 'my-40' %}
+{% endcomment %}
+
+{% assign wrapper_classes = 'w-full' %}
+
+{% if logo != blank %}
+  {% assign bg_lines = '' %}
+{% endif %}
+
+{% assign combined_wrapper_classes = wrapper_classes
+  | append: ' '
+  | append: bg_color
+  | append: ' '
+  | append: bg_lines
+  | append: ' '
+  | append: border_color
+  | append: ' '
+  | append: extra_wrapper_classes
+  | append: ' '
+  | append: text_size
+%}
+
+{% assign title_classes = 'uppercase pt-3 -mb-[0.17rem] lg:-mb-4 lg:pt-5 text-pretty' %}
+
+{% assign combined_title_classes = title_classes
+  | append: ' '
+  | append: text_color
+  | append: ' '
+  | append: extra_text_classes
+%}
+
+{% assign inline_styles = '' %}
+{% if lines_interval != blank %}
+  {% assign inline_styles = '--lines-interval: ' | append: lines_interval | append: ';' %}
+{% endif %}
+
+<div
+  data-title
+  class="{{ combined_wrapper_classes }}  mb-[-1.5px]"
+  {% if inline_styles != blank %}
+    style="{{ inline_styles }}"
+  {% endif %}
+>
+  {% if isH1 == true %}
+    <h1 class="{{ combined_title_classes }}">{{ title }}</h1>
+  {% else %}
+    <h2 class="{{ combined_title_classes }}">{{ title }}</h2>
+  {% endif %}
+</div>

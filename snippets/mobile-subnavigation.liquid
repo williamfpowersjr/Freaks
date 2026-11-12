@@ -1,0 +1,18 @@
+{% doc %}
+  @param {object} mobile_subnavigation_items
+{% enddoc %}
+
+<nav
+  class="z-[-1] relative lg:hidden bg-white border-b border-black/15 h-[var(--subnavigation-bar-height)] overflow-hidden [html[data-scroll-direction='down']_&]:-translate-y-1 transition-translate duration-300 ease-in-out"
+  id="mobile-subnavigation"
+>
+  <ul class="flex divide-x divide-black/15 h-full">
+    {% for item in mobile_subnavigation_items %}
+      <li class="grow text-center fn-tt-body-20 font-medium">
+        <a href="{{ item.settings.url }}" class="size-full flex items-center justify-center">
+          {{ item.settings.title }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

@@ -1,0 +1,51 @@
+{% assign autoplay = false %}
+{% if index == 1 %}
+  {% assign autoplay = true %}
+{% else %}
+  {% assign autoplay = false %}
+{% endif %}
+
+<video-element>
+  <div class="relative -mb-3 -ml-2 aspect-[2/3] overflow-hidden hover:cursor-pointer ">
+    <div data-whole-video-toggle>
+      {% render 'lazy-video',
+        video: ugc_video,
+        class: 'w-full h-full object-cover absolute inset-0 z-0',
+        vtt: vtt,
+        autopause: false,
+        autoplay: autoplay,
+        lazy_poster: false,
+        loop: false
+      %}
+
+      {% if social_link != blank %}
+        <a
+          href="{{ social_link }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group absolute bottom-16 left-16 flex w-fit transform-gpu items-center justify-center gap-x-8 text-white lg:bottom-22 lg:left-23"
+        >
+          {% if social_profile_image != blank %}
+            <div class="relative aspect-square h-28 overflow-hidden rounded-full">
+              {{
+                social_profile_image
+                | image_url: width: social_profile_image.width
+                | image_tag: sizes: '20vw', class: 'size-full object-cover absolute inset-0 '
+              }}
+            </div>
+          {% endif %}
+          <p class="fn-tt-body-20 lg:fn-tt-body-10 font-medium transition-opacity duration-300 ease-in-out lg:group-hover:opacity-[0.8]">
+            {{ social_profile_name }}
+          </p>
+        </a>
+      {% endif %}
+    </div>
+    {% render 'video-controls',
+      hide_mute: hide_mute,
+      icons_class: 'absolute w-fit m-16 top-0 right-0 ',
+      data_video_id: 'video-{{ index }}',
+      icons_class: 'w-full justify-between p-16 ',
+      no_border: true
+    %}
+  </div>
+</video-element>

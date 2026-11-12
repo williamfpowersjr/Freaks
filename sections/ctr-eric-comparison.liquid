@@ -1,0 +1,570 @@
+{{ 'ctr-eric-comparison.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign ctr_eric_comparison_button_link = section.settings.button_link | default: '#'
+  assign ctr_eric_comparison_button_icon_classes = ''
+  case section.settings.button_arrow_direction
+    when 'top'
+      assign ctr_eric_comparison_button_icon_classes = '-rotate-90'
+    when 'down'
+      assign ctr_eric_comparison_button_icon_classes = 'rotate-90'
+  endcase
+-%}
+
+<div
+  id="shopify-section-{{ section.id }}"
+  class="ctr-eric-comparison"
+  style="
+    --ctr-eric-comparison-bg: {% if section.settings.background_gradient != blank %}{{ section.settings.background_gradient }}{% else %}{{ section.settings.background_color }}{% endif %};
+    --ctr-eric-comparison-heading-color: {{ section.settings.heading_color }};
+    --ctr-eric-comparison-text-color: {{ section.settings.text_color }};
+    --ctr-eric-comparison-subtitle-color: {{ section.settings.subtitle_color }};
+    --ctr-eric-comparison-border-color: {{ section.settings.border_color }};
+    --ctr-eric-comparison-column-label-color: {{ section.settings.column_label_color }};
+    --ctr-eric-comparison-check-color: {{ section.settings.check_color }};
+    --ctr-eric-comparison-question-color: {{ section.settings.question_color }};
+    --ctr-eric-comparison-cross-color: {{ section.settings.cross_color }};
+    --ctr-eric-comparison-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-eric-comparison-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-eric-comparison-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-eric-comparison-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  {% if section.settings.title != blank %}
+    <div class="ctr-eric-comparison__title bg-grey-lines">
+      {{ section.settings.title }}
+    </div>
+  {% endif %}
+  <div class="ctr-eric-comparison__inner">
+    {% if section.settings.subtitle != blank %}
+      <div class="ctr-eric-comparison__subtitle">
+        {{ section.settings.subtitle }}
+      </div>
+    {% endif %}
+
+    {%- liquid
+      assign ctr_eric_comparison_header_block = blank
+      for block in section.blocks
+        if block.type == 'header_row'
+          assign ctr_eric_comparison_header_block = block
+          break
+        endif
+      endfor
+      assign ctr_eric_comparison_rows = section.blocks | where: 'type', 'comparison_row'
+    -%}
+
+    <div class="ctr-eric-comparison__table-wrap">
+      <div class="ctr-eric-comparison__table" role="table">
+        <div class="ctr-eric-comparison__labels-col">
+          <div class="ctr-eric-comparison__cell ctr-eric-comparison__cell--header" role="columnheader"></div>
+          {% for block in ctr_eric_comparison_rows %}
+            <div
+              class="ctr-eric-comparison__cell ctr-eric-comparison__cell--label"
+              role="rowheader"
+              {{ block.shopify_attributes }}
+            >
+              {% if block.settings.label != blank %}
+                <div class="ctr-eric-comparison__row-label">
+                  {{ block.settings.label }}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="ctr-eric-comparison__brands">
+          {% for ctr_eric_comparison_col in (1..3) %}
+            {% capture ctr_eric_comparison_label_key %}col_{{ ctr_eric_comparison_col }}_label{% endcapture %}
+            {% capture ctr_eric_comparison_label_mobile_key %}col_{{ ctr_eric_comparison_col }}_label_mobile{% endcapture %}
+            {% assign ctr_eric_comparison_col_label = '' %}
+            {% assign ctr_eric_comparison_col_label_mobile = '' %}
+            {% if ctr_eric_comparison_header_block != blank %}
+              {% assign ctr_eric_comparison_col_label = ctr_eric_comparison_header_block.settings[ctr_eric_comparison_label_key] %}
+              {% assign ctr_eric_comparison_col_label_mobile = ctr_eric_comparison_header_block.settings[ctr_eric_comparison_label_mobile_key] %}
+            {% endif %}
+
+            <div
+              class="ctr-eric-comparison__brand-col"
+              role="column"
+              {% if ctr_eric_comparison_header_block != blank and ctr_eric_comparison_col == 1 %}
+                {{- ctr_eric_comparison_header_block.shopify_attributes -}}
+              {% endif %}
+            >
+              <div class="ctr-eric-comparison__cell ctr-eric-comparison__cell--header" role="columnheader">
+                {% if ctr_eric_comparison_col_label != blank %}
+                  <div class="ctr-eric-comparison__column-label ctr-eric-comparison__column-label--desktop">
+                    {{ ctr_eric_comparison_col_label }}
+                  </div>
+                {% endif %}
+                {% if ctr_eric_comparison_col_label_mobile != blank %}
+                  <div class="ctr-eric-comparison__column-label ctr-eric-comparison__column-label--mobile">
+                    {{ ctr_eric_comparison_col_label_mobile }}
+                  </div>
+                {% elsif ctr_eric_comparison_col_label != blank %}
+                  <div class="ctr-eric-comparison__column-label ctr-eric-comparison__column-label--mobile">
+                    {{ ctr_eric_comparison_col_label }}
+                  </div>
+                {% endif %}
+              </div>
+
+              {% for block in ctr_eric_comparison_rows %}
+                {% capture ctr_eric_comparison_icon_key %}col_{{ ctr_eric_comparison_col }}_icon{% endcapture %}
+                {% assign ctr_eric_comparison_icon = block.settings[ctr_eric_comparison_icon_key] %}
+                <div class="ctr-eric-comparison__cell" role="cell">
+                  {% case ctr_eric_comparison_icon %}
+                    {% when 'check' %}
+                      {% if section.settings.check_icon != blank %}
+                        <img
+                          class="ctr-eric-comparison__icon-image"
+                          src="{{ section.settings.check_icon | img_url: '96x' }}"
+                          alt="Yes"
+                          loading="lazy"
+                          width="{{ section.settings.check_icon.width }}"
+                          height="{{ section.settings.check_icon.height }}"
+                        >
+                      {% else %}
+                        <span class="ctr-eric-comparison__icon ctr-eric-comparison__icon--check" aria-label="Yes">
+                          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M6.5 12.5L10.2 16.2L17.5 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </span>
+                      {% endif %}
+                    {% when 'question' %}
+                      {% if section.settings.question_icon != blank %}
+                        <img
+                          class="ctr-eric-comparison__icon-image"
+                          src="{{ section.settings.question_icon | img_url: '96x' }}"
+                          alt="Uncertain"
+                          loading="lazy"
+                          width="{{ section.settings.question_icon.width }}"
+                          height="{{ section.settings.question_icon.height }}"
+                        >
+                      {% else %}
+                        <span
+                          class="ctr-eric-comparison__icon ctr-eric-comparison__icon--question"
+                          aria-label="Uncertain"
+                          >?</span
+                        >
+                      {% endif %}
+                    {% when 'cross' %}
+                      {% if section.settings.cross_icon != blank %}
+                        <img
+                          class="ctr-eric-comparison__icon-image"
+                          src="{{ section.settings.cross_icon | img_url: '96x' }}"
+                          alt="No"
+                          loading="lazy"
+                          width="{{ section.settings.cross_icon.width }}"
+                          height="{{ section.settings.cross_icon.height }}"
+                        >
+                      {% else %}
+                        <span class="ctr-eric-comparison__icon ctr-eric-comparison__icon--cross" aria-label="No">
+                          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M7 7L17 17M17 7L7 17" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                          </svg>
+                        </span>
+                      {% endif %}
+                  {% endcase %}
+                </div>
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    {% if section.settings.button_label != blank %}
+      <div class="ctr-eric-comparison__button-wrap">
+        <a
+          class="ctr-eric-comparison__button-link"
+          href="{{ ctr_eric_comparison_button_link }}"
+          {% if section.settings.button_open_new_tab %}
+            target="_blank"
+            rel="noopener noreferrer"
+          {% endif %}
+        >
+          {% render 'cta',
+            as: 'button',
+            text: section.settings.button_label,
+            hasIcons: true,
+            cta_color: section.settings.button_style,
+            extra_classes: 'ctr-eric-comparison__button',
+            extra_icon_classes: ctr_eric_comparison_button_icon_classes
+          %}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Eric Comparison (CTR)",
+  "tag": "section",
+  "class": "ctr-eric-comparison-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>the freaks</p><p>difference</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "<p>Developed to perform without compromising your skin or the planet.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Icons"
+    },
+    {
+      "type": "image_picker",
+      "id": "check_icon",
+      "label": "Check icon",
+      "info": "Optional. Defaults to green checkmark."
+    },
+    {
+      "type": "image_picker",
+      "id": "question_icon",
+      "label": "Question icon",
+      "info": "Optional. Defaults to yellow question mark."
+    },
+    {
+      "type": "image_picker",
+      "id": "cross_icon",
+      "label": "Cross icon",
+      "info": "Optional. Defaults to orange X."
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop Deodorant"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_open_new_tab",
+      "label": "Open link in new tab",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        { "value": "blue", "label": "Blue" },
+        { "value": "orange", "label": "Orange" },
+        { "value": "black", "label": "Black" },
+        { "value": "white", "label": "White" }
+      ],
+      "default": "blue"
+    },
+    {
+      "type": "select",
+      "id": "button_arrow_direction",
+      "label": "Button arrow direction",
+      "options": [
+        { "value": "right", "label": "Right" },
+        { "value": "top", "label": "Top" },
+        { "value": "down", "label": "Down" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Background gradient",
+      "info": "Optional. Example: linear-gradient(180deg, #FFF 0%, #FFF2E9 100%). Overrides background color when set."
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "column_label_color",
+      "label": "Column label color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "alpha": true,
+      "default": "#22202F29"
+    },
+    {
+      "type": "color",
+      "id": "check_color",
+      "label": "Check icon color",
+      "default": "#57A639"
+    },
+    {
+      "type": "color",
+      "id": "question_color",
+      "label": "Question icon color",
+      "default": "#FFC337"
+    },
+    {
+      "type": "color",
+      "id": "cross_color",
+      "label": "Cross icon color",
+      "default": "#F55000"
+    },
+    {
+      "type": "header",
+      "content": "Padding desktop"
+    },
+    {
+      "type": "number",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
+      "default": 80
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Padding mobile"
+    },
+    {
+      "type": "number",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "header_row",
+      "name": "Header row (CTR)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "col_1_label",
+          "label": "Column 1 label",
+          "default": "<p>Freaks of Nature</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "col_1_label_mobile",
+          "label": "Column 1 mobile label",
+          "default": "<p>freaks of nature</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "col_2_label",
+          "label": "Column 2 label",
+          "default": "<p>other “clean”</p><p>deodorants</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "col_2_label_mobile",
+          "label": "Column 2 mobile label",
+          "default": "<p>other “clean” deodorants</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "col_3_label",
+          "label": "Column 3 label",
+          "default": "<p>drugstore</p><p>antiperspirant</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "col_3_label_mobile",
+          "label": "Column 3 mobile label",
+          "default": "<p>drugstore anti-perspirant</p>"
+        }
+      ]
+    },
+    {
+      "type": "comparison_row",
+      "name": "Row (CTR)",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "label",
+          "label": "Feature label",
+          "default": "<p>48-hour Odor Protection</p>"
+        },
+        {
+          "type": "select",
+          "id": "col_1_icon",
+          "label": "Column 1 icon",
+          "options": [
+            { "value": "check", "label": "Check" },
+            { "value": "question", "label": "Question" },
+            { "value": "cross", "label": "Cross" },
+            { "value": "none", "label": "None" }
+          ],
+          "default": "check"
+        },
+        {
+          "type": "select",
+          "id": "col_2_icon",
+          "label": "Column 2 icon",
+          "options": [
+            { "value": "check", "label": "Check" },
+            { "value": "question", "label": "Question" },
+            { "value": "cross", "label": "Cross" },
+            { "value": "none", "label": "None" }
+          ],
+          "default": "question"
+        },
+        {
+          "type": "select",
+          "id": "col_3_icon",
+          "label": "Column 3 icon",
+          "options": [
+            { "value": "check", "label": "Check" },
+            { "value": "question", "label": "Question" },
+            { "value": "cross", "label": "Cross" },
+            { "value": "none", "label": "None" }
+          ],
+          "default": "cross"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Eric Comparison (CTR)",
+      "category": "CTR Sections",
+      "blocks": [
+        {
+          "type": "header_row",
+          "settings": {
+            "col_1_label": "<p>Freaks of Nature</p>",
+            "col_1_label_mobile": "<p>freaks of nature</p>",
+            "col_2_label": "<p>other “clean”</p><p>deodorants</p>",
+            "col_2_label_mobile": "<p>other “clean” deodorants</p>",
+            "col_3_label": "<p>drugstore</p><p>antiperspirant</p>",
+            "col_3_label_mobile": "<p>drugstore anti-perspirant</p>"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>48-hour Odor Protection</p>",
+            "col_1_icon": "check",
+            "col_2_icon": "question",
+            "col_3_icon": "check"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Aluminum Free</p>",
+            "col_1_icon": "check",
+            "col_2_icon": "check",
+            "col_3_icon": "cross"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Baking Soda Free</p>",
+            "col_1_icon": "check",
+            "col_2_icon": "question",
+            "col_3_icon": "check"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Microbiome Safe</p>",
+            "col_1_icon": "check",
+            "col_2_icon": "cross",
+            "col_3_icon": "cross"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>No White Marks</p>",
+            "col_1_icon": "check",
+            "col_2_icon": "cross",
+            "col_3_icon": "cross"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Recycled Packaging</p>",
+            "col_1_icon": "check",
+            "col_2_icon": "question",
+            "col_3_icon": "cross"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Sensitive-Skin Friendly</p>",
+            "col_1_icon": "check",
+            "col_2_icon": "question",
+            "col_3_icon": "cross"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Clean Formula</p>",
+            "col_1_icon": "check",
+            "col_2_icon": "question",
+            "col_3_icon": "cross"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

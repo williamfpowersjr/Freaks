@@ -1,0 +1,107 @@
+{% schema %}
+{
+  "name": "Reviews",
+  "tag": "section",
+  "class": "reviews-section",
+  "presets": [
+    {
+      "name": "Reviews",
+      "category": "Reviews",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Lorem ipsum",
+        "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+        "full_bleed_media": false
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product Override"
+    },
+    {
+      "type": "product",
+      "id": "product_override",
+      "label": "Product Override",
+      "info": "If set, this product will be used instead of the page product."
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Faq Image",
+      "info": "Mobile only."
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "Mobile only. If you add a video, it will be shown. If you want to have a still image, leave the video field blank."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mute",
+      "label": "Hide Mute",
+      "info": "Check on if you would like to hide the mute/unmute control button for the video.",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "full_bleed_media",
+      "label": "Media is full bleed",
+      "default": false,
+      "info": "Check on if you would like the media to be full bleed."
+    }
+  ]
+}
+{% endschema %}
+
+{% if section.settings.product_override != blank %}
+  {% assign product = section.settings.product_override %}
+{% endif %}
+
+<div id="reviews-section" class="{{ section.settings.bg_color }} border-y border-black/15">
+  <div class="w-full py-40 lg:py-80">
+    {% render 'title',
+      title: section.settings.title,
+      text_size: 'fn-tt-title-70',
+      bg_color: section.settings.bg_color,
+      extra_wrapper_classes: 'overflow-hidden text-center px-24 my-11 lg:px-16',
+      bg_lines: 'bg-grey-lines',
+      extra_text_classes: '!leading-[0.98]'
+    %}
+  </div>
+  <div class="relative flex w-full flex-col border-t border-black/15 lg:flex-row">
+    <div class="hidden h-fit w-full border-b border-black/15 lg:sticky lg:top-[var(--announcement-bar-height)] lg:-ml-1 lg:block lg:w-1/2 lg:border-b-0">
+      {% render 'split-screen-media',
+        split_screen_image: section.settings.image,
+        full_bleed_media: section.settings.full_bleed_media,
+        split_screen_aspect_classes: 'aspect-square',
+        split_screen_video: section.settings.video,
+        hide_mute: section.settings.hide_mute
+      %}
+    </div>
+    <div class="lg:flex-1 lg:border-l lg:border-black/15">{% render 'junip-product-review', product: product %}</div>
+  </div>
+</div>

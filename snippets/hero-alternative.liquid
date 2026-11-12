@@ -1,0 +1,158 @@
+{% case bg_color %}
+  {% when 'offWhite' %}
+    {% assign extra_wrapper_classes = 'px-8 lg:px-12 text-balance border-none -mb-1' %}
+    {% assign bg_lines = 'bg-grey-lines' %}
+    {% assign text_color = 'text-black' %}
+    {% assign bg_color = 'bg-offWhite' %}
+
+  {% when 'orange' %}
+    {% assign extra_wrapper_classes = 'px-8 lg:px-12 text-balance border-none -mb-1' %}
+    {% assign bg_lines = 'bg-blue-lines' %}
+
+    {% assign text_color = 'text-blue' %}
+    {% assign bg_color = 'bg-orange' %}
+
+  {% else %}
+    {% assign extra_wrapper_classes = 'px-8 lg:px-12 text-balance border-none -mb-1 bg-white' %}
+    {% assign bg_lines = 'bg-grey-lines' %}
+    {% assign text_color = 'text-black' %}
+    {% assign bg_color = 'bg-white' %}
+{% endcase %}
+
+<div class="relative flex h-fit flex-col">
+  {% render 'title',
+    title: title,
+    text_size: 'font-neue fn-tt-title-80',
+    extra_wrapper_classes: extra_wrapper_classes,
+    text_color: text_color,
+    bg_color: bg_color,
+    bg_lines: bg_lines,
+    isH1: true
+  %}
+  {% assign container_classes = 'relative z-0 -mb-1 lg:mb-0 ' %}
+  {% if cta_style == 'margin' %}
+    {% assign container_classes = container_classes | append: ' aspect-[0.76] lg:aspect-[2.4]' %}
+  {% else %}
+    {% assign container_classes = container_classes | append: ' aspect-[0.9] lg:aspect-[2.4]' %}
+  {% endif %}
+  <div class="{{ container_classes }}">
+    {% if media_type == 'image' %}
+      {% comment %} Desktop Image {% endcomment %}
+      {% if image != blank %}
+        {{
+          image
+          | image_url: width: 1920
+          | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            sizes: '100vw',
+            widths: '1024, 1280, 1536, 1920',
+            class: 'w-full h-full object-cover absolute inset-0 z-10 transition-opacity duration-300 ease-in-out hidden lg:block'
+        }}
+      {% endif %}
+
+      {% comment %} Mobile Image {% endcomment %}
+      {% assign mobile_img = mobile_image | default: image %}
+      {% if mobile_img != blank %}
+        {{
+          mobile_img
+          | image_url: width: 832
+          | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            sizes: '100vw',
+            widths: '375, 414, 768, 832',
+            class: 'w-full h-full object-cover absolute inset-0 z-10 transition-opacity duration-300 ease-in-out lg:hidden'
+        }}
+      {% endif %}
+    {% endif %}
+
+    {% if media_type == 'video' %}
+      {% comment %} Desktop Video {% endcomment %}
+      {% if video != blank %}
+        {% assign poster = video.preview_image.src | image_url: width: 2000 %}
+        {{
+          video
+          | video_tag:
+            class: 'w-full h-full object-cover absolute inset-0 z-0 hidden lg:block',
+            autoplay: true,
+            poster: poster,
+            preload: 'auto',
+            loop: true,
+            muted: true,
+            controls: false,
+            playsinline: true,
+            data-autopause: true
+        }}
+      {% endif %}
+
+      {% comment %} Mobile Video {% endcomment %}
+      {% assign mobile_vid = mobile_video | default: video %}
+      {% if mobile_vid != blank %}
+        {% assign mobile_poster = mobile_vid.preview_image.src | image_url: width: 2000 %}
+        {{
+          mobile_vid
+          | video_tag:
+            class: 'w-full h-full object-cover absolute inset-0 z-0 lg:hidden',
+            autoplay: true,
+            poster: mobile_poster,
+            preload: 'auto',
+            loop: true,
+            muted: true,
+            controls: false,
+            playsinline: true,
+            data-autopause: true
+        }}
+      {% endif %}
+    {% endif %}
+
+    {% if show_tagline == true %}
+      <div class="absolute bottom-0 left-0 z-50 lg:w-full">
+        {% render 'hero-tagline',
+          tagline: tagline,
+          credit_title: credit_title,
+          credit_logo: credit_logo,
+          credit_url: credit_url,
+          class: 'flex flex-col gap-4 p-8 z-20 leading-6 align-center lg:flex-row bg-white align-center lg:absolute lg:bottom-0 lg:left-0 lg:gap-16 lg:px-8 lg:py-4 border-b border-black/15'
+        %}
+      </div>
+    {% endif %}
+  </div>
+
+  {% comment %} CTAs {% endcomment %}
+  {% assign cta_container_classes = 'grid grid-cols-1 lg:grid-cols-2 w-full ' %}
+  {% if cta_style == 'margin' %}
+    {% assign cta_container_classes = cta_container_classes
+      | append: ' absolute bottom-0 inset-x-0 gap-8 lg:gap-24 px-24 pb-24 lg:px-40 lg:pb-40'
+    %}
+  {% endif %}
+  <div class="{{ cta_container_classes }}">
+    {% if cta != blank %}
+      <a href="{{ cta_link }}" aria-label="{{ cta }}">
+        <div class="w-full">
+          {% render 'cta',
+            as: 'button',
+            text: cta,
+            extra_classes: 'w-full focus:border-none',
+            hasIcons: true,
+            cta_color: cta_color
+          %}
+        </div>
+      </a>
+    {% endif %}
+
+    {% if cta_count == '2' and cta_2 != blank and cta_2_link != blank %}
+      <a href="{{ cta_2_link }}" aria-label="{{ cta_2 }}">
+        <div class="w-full">
+          {% render 'cta',
+            as: 'button',
+            text: cta_2,
+            extra_classes: 'w-full focus:border-none',
+            hasIcons: true,
+            cta_color: cta_2_color
+          %}
+        </div>
+      </a>
+    {% endif %}
+  </div>
+</div>

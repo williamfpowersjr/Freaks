@@ -1,0 +1,367 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "product_hero_DCaKqk": {
+      "type": "product-hero",
+      "blocks": {
+        "summary_QpUPcd": {
+          "type": "summary",
+          "settings": {
+            "title": "80 min water resistant / 40 min sweat resistance"
+          }
+        },
+        "summary_BWGqcJ": {
+          "type": "summary",
+          "settings": {
+            "title": "100% mineral sunscreen"
+          }
+        },
+        "summary_pL7ifP": {
+          "type": "summary",
+          "settings": {
+            "title": "No chemical filters"
+          }
+        },
+        "summary_qHRWVw": {
+          "type": "summary",
+          "settings": {
+            "title": "Broad spectrum  UV protection"
+          }
+        },
+        "summary_FPcKyH": {
+          "type": "summary",
+          "settings": {
+            "title": "Clinically proven to improve the skin microbiome"
+          }
+        },
+        "summary_MpDXqg": {
+          "type": "summary",
+          "settings": {
+            "title": "Instant skin firming"
+          }
+        },
+        "summary_LHPrAm": {
+          "type": "summary",
+          "settings": {
+            "title": "Moisture locking"
+          }
+        },
+        "summary_AERiUr": {
+          "type": "summary",
+          "settings": {
+            "title": "Blue light and pollutant repelling"
+          }
+        },
+        "summary_4W6fbh": {
+          "type": "summary",
+          "settings": {
+            "title": "Minimal white cast"
+          }
+        },
+        "summary_Enzf3H": {
+          "type": "summary",
+          "settings": {
+            "title": "Dermatologist Tested"
+          }
+        },
+        "accordion_zYUe86": {
+          "type": "accordion",
+          "settings": {
+            "title": "Ingredients",
+            "use_variant_metafield": false,
+            "variant_metafield": "",
+            "richtext": "<p><strong>Daily Defender SPF30</strong></p><p><strong>Active Ingredient:<br/></strong>Zinc Oxide (non-nano) 18%</p><p><strong>Inactive ingredients:<br/></strong>Water, Coco-Caprylate/Caprate, Caprylic/Capric Triglyceride, Polyglyceryl-4 Diisostearate/Polyhydroxystearate/Sebacate, Propanediol, C13-15 Alkane, Squalane, Maleated Soybean Oil Glyceryl/Octyldodecanol Esters, Copernicia Cerifera (Carnauba) Wax, Methylheptylglycerin, Sr-wasp spider polypeptide-1 oligopeptide-178, Bentonite, Polyricinoleic acid, Polyhydroxystearic Acid, Glycerin, Pongamia Pinnata Seed Extract, Xanthan Gum, Caprylhydroxamic Acid, Oryza Sativa (Rice) Bran Wax, DL-Alpha Tocopherol, Sodium Phytate</p><p><strong>Peak Performance SPF50</strong></p><p><strong>Active Ingredient:<br/></strong>Zinc Oxide (non-nano): 18.75%, Titanium Dioxide (non-nano): 4.75%</p><p><strong>Inactive ingredients:</strong><br/>Water, Coco-Caprylate/Caprate, Caprylic/Capric Triglyceride, Maleated Soybean Oil Glyceryl/Octyldodecanol Esters, Polyglyceryl-4 Diisostearate/Polyhydroxystearate/Sebacate, Propanediol, Stearyl/Octyldodecyl Citrate Crosspolymer, Copernicia Cerifera (Carnauba) Wax, Bentonite, Methylheptylglycerin, Squalane, Sr-wasp spider polypeptide-1 oligopeptide-178, Porphyra Umbilicalis Extract (and) Aqua, Cetearyl Olivate, Sorbitan Olivate, Polyhydroxystearic Acid, Polyricinoleic acid, Glycerin, Xanthan Gum, Cetyl Alcohol, Pongamia Pinnata Seed Extract, Caprylhydroxamic Acid, Oryza Sativa (Rice) Bran Wax, DL-Alpha Tocopherol, Stearic Acid, Sodium Phytate</p><p><strong>Deep Dive Hydrator</strong></p><p>Squalane, Avena Sativa (Oat) Kernel Oil, Dextrin Palmitate, Plukenetia Volubilis (Sacha Inchi) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Padina Pavonica Thallus Extract, Bacillus Ferment, Tocopherol</p><p>See for more information on our <a href=\"https://freaksofnature.com/pages/ingredients\" title=\"Ingredients\">ingredients page</a>.</p>"
+          }
+        },
+        "accordion_MecVrz": {
+          "type": "accordion",
+          "settings": {
+            "title": "How to Use",
+            "use_variant_metafield": false,
+            "variant_metafield": "",
+            "richtext": "<p><strong>Daily Defender SPF30</strong></p><p><strong>Step 1:<br/></strong>Complete your skincare routine. We recommend priming your skin with a pump of our Deep Dive Hydrator.</p><p><strong>Step 2:</strong><br/>Apply Daily Defender SPF30 Sunscreen in the morning before you go outside, or 15 minutes before going in the sun, and as the final step in your daily skincare routine. Apply one pump amount or more of our Daily Defender SPF30 Sunscreen into hands and gently rub onto face, neck, chest and body if applicable. Reapply after 40 min of swimming or sweating, immediately after towel drying and at least every 2 hours when exposed to the sun.</p><p><strong>Peak Performance SPF50</strong></p><p><strong>Step 1:</strong><br/>Complete your skincare routine. We recommend priming your skin with a pump of our Deeper Dive Moisturizer.</p><p><strong>Step 2:<br/></strong>Apply Peak Performance SPF50 Sunscreen in the morning before you go outside, or 15 minutes before going in the sun, and as the final step in your daily skincare routine. Apply one pump amount or more of our Peak Performance SPF50 Sunscreen into hands and gently rub onto face, neck, chest and body if applicable. Reapply after 80 min of swimming or sweating, immediately after towel drying and at least every 2 hours when exposed to the sun.</p><p><strong>Deep Dive Hydrator</strong></p><p><strong>Step 1:</strong><br/>After AM/PM cleansing, or when you wash yourself after a workout session, apply one pump amount into hands and gently rub onto face, neck and chest if applicable. For optimal results use in the AM and PM.</p><p><strong>Step 2:<br/></strong>If heading outside apply Daily Defender SPF30 Sunscreen as the final step in your daily routine.</p>"
+          }
+        },
+        "plastic_pledge_by_oceanworks_product_tile_BXPw7x": {
+          "type": "shopify://apps/plastic-pledge-by-oceanworks/blocks/product-tile/a888cb82-2596-48cc-9cb6-2a2728b595a5",
+          "settings": {
+            "theme_style": "dynamic"
+          }
+        },
+        "bundle_JtM7eQ": {
+          "type": "bundle",
+          "settings": {
+            "bundle_product": "daily-system",
+            "banner": "",
+            "bundle_cta_color": "blue"
+          }
+        },
+        "bundle_TziKJT": {
+          "type": "bundle",
+          "settings": {
+            "bundle_product": "endurance-system",
+            "banner": "",
+            "bundle_cta_color": "blue"
+          }
+        }
+      },
+      "block_order": [
+        "summary_QpUPcd",
+        "summary_BWGqcJ",
+        "summary_pL7ifP",
+        "summary_qHRWVw",
+        "summary_FPcKyH",
+        "summary_MpDXqg",
+        "summary_LHPrAm",
+        "summary_AERiUr",
+        "summary_4W6fbh",
+        "summary_Enzf3H",
+        "accordion_zYUe86",
+        "accordion_MecVrz",
+        "plastic_pledge_by_oceanworks_product_tile_BXPw7x",
+        "bundle_JtM7eQ",
+        "bundle_TziKJT"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "title_size": "large",
+        "show_inventory_quantity": false,
+        "use_variant_media": false,
+        "discount_tag": "+ Free Shipping",
+        "product_discount_heading": "Subscribe & get 25% off",
+        "subscription_badge_type": "manual",
+        "subscription_badge_text": "Save 25%",
+        "show_unit_price": false,
+        "unit_name": "",
+        "show_prices_in_variant_picker": false,
+        "variant_picker_style": "title",
+        "hide_quantity_input": false,
+        "one_time_purchase_badge_text": "Save 10%",
+        "subsDefaultOption": "subscriptions",
+        "subsOrder": "subs_top",
+        "subscription_form_style": "stacked",
+        "subscription_title": "Subscribe",
+        "cta": "Add to cart",
+        "cta_link": "",
+        "show_out_of_stock_banner": false,
+        "out_of_stock_banner_text": "",
+        "social_image": "shopify://shop_images/Screenshot_2025-02-12_at_3.52.32_PM.png",
+        "social_quote": "\"Healthy skin starts with a routine that protects and repairs your skin barrier. Freaks of Nature SPF leverages cutting-edge ingredients that go beyond conventional products made with chemical filters and other ingredients that can disrupt the skin barrier. Instead, our products ensure that the skin barrier is supported rather than compromised, making our products ideal for daily use.\"",
+        "social_profile_name": "@dr.elsajungman",
+        "social_profile_image": "shopify://shop_images/Screenshot_2025-02-12_at_3.54.54_PM.png",
+        "social_link": "https://www.instagram.com/dr.elsajungman/?hl=en",
+        "show_details": true,
+        "show_notify": true,
+        "notify_text": "Get notified when the product is available again",
+        "notify_placeholder": "Enter your email",
+        "notify_success": "Thank you! We will notify you when the product is back in stock.",
+        "klaviyo_api_key": "SdwbFd",
+        "klaviyo_list_id": "",
+        "notify_subtext": "<p>By signing up, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Service</a> and our <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a>.</p>",
+        "bundle_title": "Other Bundles"
+      }
+    },
+    "ugc_slider_kjcqDb": {
+      "type": "ugc-slider",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Loved by the freak community"
+      }
+    },
+    "steps_aJeP9b": {
+      "type": "steps",
+      "blocks": {
+        "item_JRQXRR": {
+          "type": "item",
+          "settings": {
+            "title": "Step 1",
+            "description": "<p>After AM/PM cleansing, or when you wash yourself after a workout session, apply one pump of the Deeper Dive Moisturizer into hands and gently rub onto face, neck and chest if applicable. For optimal results use in the AM and PM.</p>",
+            "image": "shopify://shop_images/application-01-endurance-system.jpg",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_C7UB4d": {
+          "type": "item",
+          "settings": {
+            "title": "Step 2",
+            "description": "<p>Apply Daily Defender SPF30 or Peak Performance SPF50 Sunscreen in the morning before you go outside, or 15 minutes before going in the sun, and as the final step in your daily skincare routine. Apply one pump amount or more of our sunscreen selection into hands and gently rub onto face, neck, chest and body if applicable.</p>",
+            "image": "shopify://shop_images/application-02-endurance-system.jpg",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_bQdhy9": {
+          "type": "item",
+          "settings": {
+            "title": "Step 3",
+            "description": "<p>Reapply after 40 or 80 min, depending on your sunscreen selection and the amount of of swimming or sweating, immediately after towel drying and at least every 2 hours when exposed to the sun.</p>",
+            "image": "shopify://shop_images/application-03-endurance-system.jpg",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        }
+      },
+      "block_order": [
+        "item_JRQXRR",
+        "item_C7UB4d",
+        "item_bQdhy9"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "How to Apply"
+      }
+    },
+    "builder_system_46hqQF": {
+      "type": "builder-system",
+      "blocks": {
+        "card_CKizgc": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>We formulate with vegan Squalane derived from sugarcane, where as traditional squalene comes from shark livers - harming hundreds of thousands of sharks each year. </li><li><strong>Our vegan, bio-based formula supports a healthy skin microbiome while leaving your skin silky smooth.</strong></li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/squalane.jpg",
+            "tag_1": "Neossance™ vegan shark squalane",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        },
+        "card_EyfCFV": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>B-Silk is a groundbreaking vegan, biodegradable silk protein made from plant-based sources—no spiders harmed!</li><li><strong>It helps strengthen skin, improve elasticity, and protect against environmental stressors.</strong></li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/bsilk.jpg",
+            "tag_1": "B-Silk™ vegan spider silk",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        },
+        "card_GnFRKG": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>Hate to break it to you, but up to 83% of sunscreens use microplastics to help with water resistance. </li><li><strong>HydroSeal, on the other hand, is plant based but supports water resistance so you can catch waves longer. </strong></li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/water_free_94bd774c-1b4a-4eee-80b5-db6efbda5c2b.jpg",
+            "tag_1": "HydroSeal",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_CKizgc",
+        "card_EyfCFV",
+        "card_GnFRKG"
+      ],
+      "settings": {
+        "video": "shopify://files/videos/OLÉOACTIF™ _ SEQUENCE _ H264 (1).mp4",
+        "hide_mute": true,
+        "title": "BIO BASED INGREDIENTS THAT MAKE A DIFFERENCE",
+        "description": "<p>We formulated the Freak Barrier Defense System™️specifically to defend and strengthen your skin microbiome and skin barrier. <strong>Meet the proprietary ingredients that set us apart. </strong></p>",
+        "icon": "shopify://shop_images/Bassilicus_x_Shark_bc01bcbc-801c-4001-b45c-6e749825c547.svg",
+        "cta": "See all our ingredients",
+        "cta_link": "shopify://pages/ingredients",
+        "cta_color": "blue"
+      }
+    },
+    "title_tLj7kY": {
+      "type": "title",
+      "settings": {
+        "bg_color": "white",
+        "title": "Used by our freak athletes",
+        "text": "",
+        "has_margin": true,
+        "text_align": "center"
+      }
+    },
+    "gallery_zGaiQw": {
+      "type": "gallery",
+      "blocks": {
+        "gallery_item_cgYWyt": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240507_Kelly_Interview_Product_Specific_16x9_H.264_Final_Delivery_V2_3c0061f0-ca55-47a0-b81a-3e37b764543c.mp4",
+            "hide_mute": false,
+            "title": "Kelly Slater",
+            "info_text": ""
+          }
+        },
+        "gallery_item_fNJajx": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240507_Ocean_Interview_Product_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "hide_mute": false,
+            "title": "Ocean Ramsey",
+            "info_text": ""
+          }
+        },
+        "gallery_item_7C87nP": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240507_Nina_Interview_Product_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "hide_mute": false,
+            "title": "Nina Williams",
+            "info_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "gallery_item_cgYWyt",
+        "gallery_item_fNJajx",
+        "gallery_item_7C87nP"
+      ],
+      "settings": {
+        "show_video_controls": true
+      }
+    },
+    "reviews_kcAiCi": {
+      "type": "reviews",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "The Reviews are in",
+        "image": "shopify://shop_images/02_SLATER_1626_rt1_49c71d3a-b68f-4101-8459-0de6cbffff5b.jpg",
+        "hide_mute": false,
+        "full_bleed_media": false
+      }
+    },
+    "product_carousel_djNrdH": {
+      "type": "product-carousel",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Shop other products",
+        "title_style": "title_big",
+        "hide_mobile_title": false,
+        "cta": "",
+        "cta_link": "",
+        "cta_color": "blue",
+        "collections": ["all-products"]
+      }
+    },
+    "sticky_add_to_cart_button_D7FQha": {
+      "type": "sticky-add-to-cart-button",
+      "settings": {
+        "show_sticky_add_to_cart": true,
+        "cta": "Add to cart",
+        "cta_color": "orange",
+        "text": "All options"
+      }
+    }
+  },
+  "order": [
+    "product_hero_DCaKqk",
+    "ugc_slider_kjcqDb",
+    "steps_aJeP9b",
+    "builder_system_46hqQF",
+    "title_tLj7kY",
+    "gallery_zGaiQw",
+    "reviews_kcAiCi",
+    "product_carousel_djNrdH",
+    "sticky_add_to_cart_button_D7FQha"
+  ]
+}

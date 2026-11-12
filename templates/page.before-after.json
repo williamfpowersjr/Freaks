@@ -1,0 +1,297 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "title_aNE4UF": {
+      "type": "title",
+      "settings": {
+        "bg_color": "white",
+        "title": "Clinically proven to improve The skin microbiome",
+        "text": "Deeper Dive didn’t just hydrate, it improved the  Shannon Diversity Index! What’s that? It means a more diverse and balanced skin microbiome, which is a critical component for healthier, more resilient skin.",
+        "has_margin": true,
+        "text_align": "center"
+      }
+    },
+    "before_after_facts_slider_QjWVdw": {
+      "type": "before-after-facts-slider",
+      "blocks": {
+        "clinical_study_card_LLtE4Y": {
+          "type": "clinical-study-card",
+          "settings": {
+            "yes_count": 31,
+            "no_count": 36,
+            "recommendation_text": "participants reported calmer, more balanced skin",
+            "display_format": "fraction"
+          }
+        },
+        "clinical_study_card_yx3PYm": {
+          "type": "clinical-study-card",
+          "settings": {
+            "yes_count": 31,
+            "no_count": 5,
+            "recommendation_text": "participants reported more hydrated skin ",
+            "display_format": "fraction"
+          }
+        },
+        "clinical_study_card_GgtkiV": {
+          "type": "clinical-study-card",
+          "settings": {
+            "yes_count": 9,
+            "no_count": 26,
+            "recommendation_text": "participants hadan increase in the Shannon Biodiversity of their skin ",
+            "display_format": "fraction"
+          }
+        }
+      },
+      "block_order": [
+        "clinical_study_card_LLtE4Y",
+        "clinical_study_card_yx3PYm",
+        "clinical_study_card_GgtkiV"
+      ],
+      "settings": {
+        "card_color": "blue",
+        "title": "Here's what we found:",
+        "text": "Deeper Dive didn’t just hydrate, it improved the Shannon Diversity Index! What’s that? It means a more diverse and balanced skin microbiome, which is a critical component for healthier, more resilient skin."
+      }
+    },
+    "before_after_cards_CHeyJi": {
+      "type": "before-after-cards",
+      "blocks": {
+        "image_card_Rmt8JQ": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/Emmeline.png",
+            "caption": "",
+            "tag": "Before",
+            "padding": false
+          }
+        },
+        "image_card_YVDk9Y": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/Emmeline.png",
+            "caption": "",
+            "tag": "After 30 days",
+            "padding": false
+          }
+        },
+        "clinical_study_card_brmLqb": {
+          "type": "clinical-study-card",
+          "settings": {
+            "yes_count": 27,
+            "no_count": 9,
+            "recommendation_text": "of participants would recommend Deeper Dive to a friend",
+            "display_format": "percentage"
+          }
+        },
+        "clinical_study_card_KfVkKc": {
+          "type": "clinical-study-card",
+          "settings": {
+            "yes_count": 27,
+            "no_count": 9,
+            "recommendation_text": "of participants would recommend Deeper Dive to a friend",
+            "display_format": "percentage"
+          }
+        },
+        "image_card_RHFrnw": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/Jacobi.png",
+            "caption": "",
+            "tag": "Before",
+            "padding": false
+          }
+        },
+        "image_card_XJwhjj": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/Jacobi_df6e4006-a20f-4ec2-b916-0e9ecf67595e.png",
+            "caption": "",
+            "tag": "After 30 Days",
+            "padding": false
+          }
+        }
+      },
+      "block_order": [
+        "image_card_Rmt8JQ",
+        "image_card_YVDk9Y",
+        "clinical_study_card_brmLqb",
+        "clinical_study_card_KfVkKc",
+        "image_card_RHFrnw",
+        "image_card_XJwhjj"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "gap": false
+      }
+    },
+    "before_after_callout_PUmnTN": {
+      "type": "before-after-callout",
+      "blocks": {
+        "image_card_meTXnJ": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/Emmeline.png",
+            "caption": "",
+            "tag": "Before",
+            "padding": false
+          }
+        },
+        "image_card_rjxmyT": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/Emmeline.png",
+            "caption": "",
+            "tag": "Before",
+            "padding": false
+          }
+        },
+        "image_card_hbKxCn": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/Emmeline.png",
+            "caption": "",
+            "tag": "Before",
+            "padding": false
+          }
+        }
+      },
+      "block_order": [
+        "image_card_meTXnJ",
+        "image_card_rjxmyT",
+        "image_card_hbKxCn"
+      ],
+      "settings": {
+        "card_color": "blue",
+        "number": "86%",
+        "text": "of participants reported more hydrated skin.",
+        "caption": "*After 4 Weeks of use morning and night"
+      }
+    },
+    "before_after_product_XMkrwk": {
+      "type": "before-after-product",
+      "blocks": {
+        "image_card_xEDq4c": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/fb57febd84bdbc4864a845154256b0af.jpg",
+            "caption": "",
+            "tag": "Before",
+            "padding": false
+          }
+        },
+        "image_card_cR7y89": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/fb57febd84bdbc4864a845154256b0af.jpg",
+            "caption": "",
+            "tag": "Before",
+            "padding": false
+          }
+        }
+      },
+      "block_order": [
+        "image_card_xEDq4c",
+        "image_card_cR7y89"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "product": "deeper-dive-moisturizer",
+        "text": "Clinically proven to improve the skin microbiome for clearer, brighter, more hydrated skin."
+      }
+    },
+    "before_after_cards_Be6Bke": {
+      "type": "before-after-cards",
+      "blocks": {
+        "image_card_znYYiM": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/fb57febd84bdbc4864a845154256b0af.jpg",
+            "caption": "",
+            "tag": "Before",
+            "padding": false
+          }
+        },
+        "image_card_xUUwwQ": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/fb57febd84bdbc4864a845154256b0af_b6247eae-1823-47b1-a4ba-b2c3bed6dd26.jpg",
+            "caption": "",
+            "tag": "After 30 days",
+            "padding": false
+          }
+        },
+        "result_card_gXhLyd": {
+          "type": "result-card",
+          "settings": {
+            "bg_color": "bg-offWhite",
+            "name": "Emmeline",
+            "text": "Result: clearer, brighter skin. Redness gone.",
+            "caption_headline": "Skin concern",
+            "caption": "Acne along the cheeks and mouth. Dull complexion."
+          }
+        },
+        "result_card_enAJWL": {
+          "type": "result-card",
+          "settings": {
+            "bg_color": "bg-offWhite",
+            "name": "Jacobi",
+            "text": "Result: Calmer and clearer skin. Brighter complexion.",
+            "caption_headline": "Skin concern",
+            "caption": "Acne along the cheeks and mouth. Dull complexion."
+          }
+        },
+        "image_card_pPXcw4": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/83bb01bc198942f3cca61557ab5f24a9_44942625-1bba-4a28-9ed9-2a765b006774.jpg",
+            "caption": "",
+            "tag": "Before",
+            "padding": false
+          }
+        },
+        "image_card_naXGHX": {
+          "type": "image-card",
+          "settings": {
+            "image": "shopify://shop_images/24008f1beea1ecafbf805f3860c59d8e-1.jpg",
+            "caption": "",
+            "tag": "After 30 days",
+            "padding": false
+          }
+        }
+      },
+      "block_order": [
+        "image_card_znYYiM",
+        "image_card_xUUwwQ",
+        "result_card_gXhLyd",
+        "result_card_enAJWL",
+        "image_card_pPXcw4",
+        "image_card_naXGHX"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "gap": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "title_aNE4UF",
+    "before_after_facts_slider_QjWVdw",
+    "before_after_cards_CHeyJi",
+    "before_after_callout_PUmnTN",
+    "before_after_product_XMkrwk",
+    "before_after_cards_Be6Bke"
+  ]
+}

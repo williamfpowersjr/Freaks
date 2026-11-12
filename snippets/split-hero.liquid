@@ -1,0 +1,99 @@
+{% if show_coin == true %}
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.23/build/spline-viewer.js"></script>
+{% endif %}
+
+<div
+  class="relative flex w-full flex-col-reverse overflow-hidden lg:-mb-2 lg:flex-row {{ bg_color }}"
+>
+  <div
+    class="relative flex w-full flex-col lg:h-[calc(var(--top-split-section-height)+2px)] lg:max-h-736 lg:w-1/2 lg:justify-between lg:gap-y-80 lg:pt-80"
+  >
+    {% render 'title',
+      title: title,
+      text_size: 'fn-tt-title-70',
+      extra_wrapper_classes: 'text-center',
+      text_color: 'text-black',
+      bg_color: bg_color,
+      bg_lines: 'bg-grey-lines',
+      isH1: true,
+      extra_text_classes: '!leading-[0.98] hidden lg:block'
+    %}
+
+    <div class="flex flex-col">
+      <div class="fn-tt-body-20 inline-rich-text p-24 pb-40 text-center lg:px-80 lg:pb-80">
+        {{ text }}
+      </div>
+      {% if cta_section_link != blank %}
+        <a href="{{ cta_section_link }}" aria-label="{{ cta }}">
+          <div class="w-full">
+            {% render 'cta',
+              as: 'button',
+              text: cta,
+              extra_classes: 'w-full focus:border-none',
+              hasIcons: true,
+              cta_color: cta_color,
+              extra_icon_classes: 'rotate-90'
+            %}
+          </div>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="relative mt-40 flex w-full flex-col lg:mt-0 lg:h-[calc(var(--top-split-section-height)+2px)] lg:max-h-736 lg:w-1/2">
+    <div class="overflow-hidden lg:hidden {{ bg_color }} -my-1">
+      {% render 'title',
+        title: title,
+        text_size: 'fn-tt-title-80',
+        extra_wrapper_classes: 'text-center',
+        text_color: 'text-black',
+        bg_color: bg_color,
+        bg_lines: 'bg-grey-lines',
+        extra_text_classes: '!leading-[0.98] lg:hidden',
+        isH1: true
+      %}
+    </div>
+
+    <div class="relative z-0 mt-40 aspect-[0.9] overflow-hidden lg:mt-0 lg:h-full lg:w-full">
+      {% if hero_image != blank and hero_video == blank %}
+        {{
+          hero_image
+          | image_url: width: hero_image.width
+          | image_tag: loading: 'lazy', sizes: '100vw', class: 'w-full h-full object-cover absolute inset-0 object-top'
+        }}
+      {% endif %}
+      {% if hero_video != blank %}
+        {% assign poster = hero_video.preview_image.src | image_url: width: 2000 %}
+        {{
+          hero_video
+          | video_tag:
+            class: 'w-full h-full object-cover absolute inset-0 z-0',
+            autoplay: true,
+            poster: poster,
+            preload: 'auto',
+            loop: true,
+            muted: true,
+            controls: false,
+            playsinline: true,
+            data-autopause: true
+        }}
+      {% endif %}
+      {% if coin != blank %}
+        {% if show_coin != true %}
+          <div class="absolute left-1/2 top-1/2 h-auto w-288 -translate-x-1/2 -translate-y-1/2 transform lg:w-448">
+            {{
+              coin
+              | image_url: width: coin.width
+              | image_tag: loading: 'lazy', sizes: '100vw', class: 'size-full object-contain '
+            }}
+          </div>
+        {% endif %}
+      {% endif %}
+      {% if show_coin == true %}
+        <div class="pointer-events-none absolute inset-0 z-10 -my-100 w-full overflow-hidden">
+          <spline-viewer url="https://prod.spline.design/TSJU-LiC9GWBPCSw/scene.splinecode"></spline-viewer>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

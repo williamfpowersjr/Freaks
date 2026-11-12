@@ -1,0 +1,90 @@
+{% case bg_color %}
+  {% when 'offWhite' %}
+    {% assign extra_wrapper_classes = 'px-8 lg:px-12 text-balance border-none text-balance ' %}
+    {% assign bg_lines = 'bg-grey-lines' %}
+    {% assign text_color = 'text-black' %}
+    {% assign bg_color = 'bg-offWhite' %}
+
+  {% when 'orange' %}
+    {% assign extra_wrapper_classes = 'px-8 lg:px-12 text-balance border-none text-balance ' %}
+    {% assign bg_lines = 'bg-blue-lines' %}
+
+    {% assign text_color = 'text-blue' %}
+    {% assign bg_color = 'bg-orange' %}
+
+  {% else %}
+    {% assign extra_wrapper_classes = 'px-8 lg:px-12 text-balance border-none bg-white text-balance' %}
+    {% assign bg_lines = 'bg-grey-lines' %}
+    {% assign text_color = 'text-black' %}
+    {% assign bg_color = 'bg-white' %}
+{% endcase %}
+
+<div data-simple-hero>
+  <video-element>
+    <div class="relative z-10 flex flex-col {{ section_height }}">
+      {% render 'title',
+        title: title,
+        text_size: 'fn-tt-title-70',
+        extra_wrapper_classes: extra_wrapper_classes,
+        text_color: text_color,
+        bg_color: bg_color,
+        bg_lines: bg_lines,
+        isH1: true
+      %}
+
+      <div data-section class="group relative z-0 h-full lg:hover:cursor-pointer">
+        {% if video == blank %}
+          {% if mobile_image != blank and image != blank %}
+            <div class="block md:hidden">
+              {{
+                mobile_image
+                | image_url: width: mobile_image.width
+                | image_tag:
+                  sizes: '100vw',
+                  loading: 'lazy',
+                  class: 'w-full h-full object-cover absolute inset-0 z-10 transition-opacity duration-300 ease-in-out'
+              }}
+            </div>
+            <div class="hidden md:block">
+              {{
+                image
+                | image_url: width: image.width
+                | image_tag:
+                  sizes: '100vw',
+                  loading: 'lazy',
+                  class: 'w-full h-full object-cover absolute inset-0 z-10 transition-opacity duration-300 ease-in-out'
+              }}
+            </div>
+          {% elsif image != blank %}
+            {{
+              image
+              | image_url: width: image.width
+              | image_tag:
+                sizes: '100vw',
+                loading: 'lazy',
+                class: 'w-full h-full object-cover absolute inset-0 z-10 transition-opacity duration-300 ease-in-out'
+            }}
+          {% endif %}
+        {% endif %}
+
+        {% if video != blank %}
+          {{
+            video
+            | video_tag:
+              class: 'w-full h-full object-cover absolute inset-0 z-0',
+              autoplay: true,
+              loop: true,
+              muted: true,
+              controls: false,
+              poster: video.preview_image,
+              playsinline: true,
+              data-autopause: true
+          }}
+          <div class="transition-opacity duration-300 ease-in-out lg:opacity-0 lg:group-hover:opacity-100">
+            {% render 'video-controls', icons_class: 'absolute w-fit m-16 top-0 right-0' %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </video-element>
+</div>

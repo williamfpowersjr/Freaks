@@ -1,0 +1,113 @@
+<style>
+  .mobile-sticky-nav {
+    top: 0;
+    transform: translateY(-100%);
+  }
+
+  .desktop-sticky-nav {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms;
+    z-index: 5;
+  }
+  .desktop-sticky-nav.desktop-sticky-nav-visible {
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity 0.5s;
+    z-index: 10;
+    background-color: var(--tw-color-white);
+  }
+  html:not([data-scrolled='true']) .mobile-sticky-nav.mobile-sticky-nav-visible {
+    transform: translateY(var(--header-height));
+  }
+  html[data-scrolled='true'] .mobile-sticky-nav.mobile-sticky-nav-visible {
+    transform: translateY(var(--total-navigation-height));
+  }
+
+  .mobile-sticky-nav select {
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,%3Csvg%20width%3D%2240%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cmask%20id%3D%22path-1-inside-1_2589_2665%22%20fill%3D%22white%22%3E%3Cpath%20d%3D%22M0%200H56V56H0V0Z%22/%3E%3C/mask%3E%3Cpath%20d%3D%22M1%2056V0H-1V56H1Z%22%20fill%3D%22%2322202F%22%20fill-opacity%3D%220.16%22%20mask%3D%22url(%23path-1-inside-1_2589_2665)%22/%3E%3Crect%20width%3D%2220%22%20height%3D%2220%22%20transform%3D%22translate(18%2018)%22%20fill%3D%22white%22%20style%3D%22mix-blend-mode%3Amultiply%22/%3E%3Cpath%20d%3D%22M33%2025.5L28%2031.75L23%2025.5H33Z%22%20fill%3D%22%23FE5000%22/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 1px center;
+  }
+  @media (min-width: 1024px) {
+    .desktop-sticky-nav .link {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .desktop-sticky-nav .link:hover {
+      cursor: pointer;
+    }
+
+    .desktop-sticky-nav a {
+      color: var(--tw-color-black);
+      opacity: 0.6;
+      padding: 2px 0px;
+      transition: opacity 200ms;
+    }
+
+    @media (min-width: 1024px) {
+      .desktop-sticky-nav a:hover {
+        opacity: 1;
+      }
+    }
+
+    .desktop-sticky-nav .link-indicator {
+      width: 8px;
+      height: 8px;
+      overflow: hidden;
+      border-radius: 100%;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .desktop-sticky-nav .link-active .link-indicator {
+      width: 8px;
+      height: 8px;
+      overflow: hidden;
+      border-radius: 100%;
+      background-color: var(--tw-color-orange);
+    }
+
+    .desktop-sticky-nav .link:hover .link-indicator {
+      opacity: 0.15;
+      background-color: var(--tw-color-orange);
+    }
+
+    .desktop-sticky-nav .link-active a {
+      color: var(--tw-color-black);
+      opacity: 1;
+    }
+  }
+
+  #mobile-sticky-navigations {
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,%3Csvg%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cmask%20id%3D%22path-1-inside-1_2589_2665%22%20fill%3D%22white%22%3E%3Cpath%20d%3D%22M0%200H56V56H0V0Z%22/%3E%3C/mask%3E%3Cpath%20d%3D%22M1%2056V0H-1V56H1Z%22%20fill%3D%22%2322202F%22%20fill-opacity%3D%220.16%22%20mask%3D%22url(%23path-1-inside-1_2589_2665)%22/%3E%3Crect%20width%3D%2220%22%20height%3D%2220%22%20transform%3D%22translate(18%2018)%22%20fill%3D%22white%22%20style%3D%22mix-blend-mode%3Amultiply%22/%3E%3Cpath%20d%3D%22M33%2025.5L28%2031.75L23%2025.5H33Z%22%20fill%3D%22%23FE5000%22/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 1px center;
+  }
+</style>
+<sticky-navigation-element>
+  <div
+    data-desktop-sticky-nav
+    id="sticky-navigation"
+    class="desktop-sticky-nav top-100 hidden transition-opacity duration-300 ease-in-out lg:fixed lg:z-50 lg:ml-40 lg:block lg:w-fit lg:px-22"
+  >
+    <navigation>
+      <ul class="fn-tt-body-10"></ul>
+    </navigation>
+  </div>
+
+  <div
+    data-mobile-sticky-nav
+    class="mobile-sticky-nav transition-translate fixed top-0 z-50 w-full bg-white duration-300 ease-in-out lg:hidden "
+  >
+    <navigation>
+      <select
+        class="fn-tt-sub-title-30 relative z-10 flex w-full appearance-none border-b border-black/15 px-8 py-10 font-medium text-black"
+      ></select>
+    </navigation>
+  </div>
+</sticky-navigation-element>

@@ -1,0 +1,186 @@
+{% schema %}
+{
+  "name": "Properties",
+  "tag": "section",
+  "class": "properties",
+
+  "presets": [
+    {
+      "name": "Properties",
+      "category": "Properties",
+      "settings": {
+        "bg_color": "bg-white",
+        "card_bg_color": "bg-offWhite",
+        "title": "Lorem ipsum",
+        "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+        "full_bleed_image": false,
+        "hide_mobile_image": false
+      },
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Desktop Section Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "select",
+      "id": "card_bg_color",
+      "label": "Desktop Section Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-offWhite"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Add a single title for the section if it is not supposed to change with each item"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_bleed_image",
+      "label": "Image is / Images are full bleed on Desktop",
+      "default": false,
+      "info": "Check on if you would like the image to be full bleed."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile_image",
+      "label": "Hide Image/s on mobile",
+      "default": false,
+      "info": "Check on if you want to hide images on mobile."
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Item",
+      "type": "item",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "use_variant_metafield_for_image",
+          "label": "Use Variant Metafield for Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Add only if it should update with each item",
+          "visible_if": "{{ block.settings.use_variant_metafield_for_image != true }}"
+        },
+        {
+          "type": "text",
+          "id": "image_metafield_key",
+          "label": "Image Metafield",
+          "visible_if": "{{ block.settings.use_variant_metafield_for_image == true }}",
+          "info": "This is the key of the metafield that contains the image. Eg. if the metafield is variant.metafields.custom.scent_image, the key would be 'scent_image'."
+        },
+
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_variant_metafield_for_description",
+          "label": "Use Variant Metafield"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "visible_if": "{{ block.settings.use_variant_metafield_for_description != true }}"
+        },
+        {
+          "type": "text",
+          "id": "description_metafield_key",
+          "label": "Metafield",
+          "visible_if": "{{ block.settings.use_variant_metafield_for_description == true }}",
+          "info": "This is the key of the metafield that contains the text to display in the accordion. Eg. if the metafield is variant.metafields.custom.scent, the key would be 'scent'."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% assign show_section_image = true %}
+
+{% if section.blocks.size > 0 %}
+  {% for block in section.blocks %}
+    {% if block.type == 'item' %}
+      {% assign item_image = block.settings.image %}
+      {% if item_image != blank %}
+        {% assign show_section_image = false %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% if section.settings.image == blank %}
+    {% assign show_section_image = false %}
+  {% endif %}
+  <section-renderer section-id="{{ section.id }}">
+    <div class="{{ section.settings.bg_color }} p-24 lg:p-40">
+      {% render 'properties-accordion',
+        title: section.settings.title,
+        card_bg_color: section.settings.card_bg_color,
+        blocks: section.blocks,
+        image: section.settings.image,
+        hide_mobile_image: section.settings.hide_mobile_image,
+        show_section_image: show_section_image,
+        full_bleed_image: section.settings.full_bleed_image
+      %}
+    </div>
+  </section-renderer>
+{% endif %}

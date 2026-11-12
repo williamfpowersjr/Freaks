@@ -1,0 +1,94 @@
+{%- doc -%}
+Displays the one-time purchase price for a product variant. Applies percentage discount with the following precedence:
+1. Variant-level discount (variant.metafields.custom.discount_override) - takes precedence if set 2. Global shop
+discount (shop.metafields.custom.global_discount_override) - fallback Allows 100% discount (free product).
+
+@param {variant} variant - The variant to render. @param {boolean} [show_compare] - Whether to show the strike price.
+@param {string} [price_id] - Optional ID for the price element. @param {string} [money_format] - Money filter to use:
+'money' or 'money_without_trailing_zeros'. Defaults to 'money'. @param {boolean} [show_save_badge] - Show a "SAVE N%"
+badge before the prices when a discount applies. Defaults to false.
+
+Behavior: - Applies the discount percentage to variant.price to calculate the final price - Shows
+variant.compare_at_price as strikethrough if it exists and is higher than variant.price - Falls back to showing
+variant.price as strikethrough if no compare_at_price but discount is applied
+{%- enddoc -%}
+
+{%- assign price_id = price_id | default: null -%}
+{%- assign money_format = money_format | default: 'money' -%}
+{%- assign variant_discount = variant.metafields.custom.discount_override -%}
+{%- assign global_discount = shop.metafields.custom.global_discount_override -%}
+{%- assign price = variant.price -%}
+{%- assign compare_at_price = variant.compare_at_price -%}
+
+{%- comment -%} Determine which discount to use - variant takes precedence over global if set {%- endcomment -%}
+{%- assign active_discount = null -%}
+{%- assign has_valid_discount = false -%}
+
+{%- if variant_discount != blank and variant_discount >= 1 and variant_discount <= 100 -%}
+  {%- assign active_discount = variant_discount -%}
+  {%- assign has_valid_discount = true -%}
+{%- elsif global_discount != blank and global_discount >= 1 and global_discount <= 100 -%}
+  {%- assign active_discount = global_discount -%}
+  {%- assign has_valid_discount = true -%}
+{%- endif -%}
+
+{%- assign final_price = price -%}
+{%- assign save_percent = null -%}
+{%- if has_valid_discount -%}
+  {%- assign discount_fraction = active_discount | divided_by: 100.0 -%}
+  {%- assign discount_factor = 1.0 | minus: discount_fraction -%}
+  {%- assign final_price = price | times: discount_factor -%}
+{%- endif -%}
+
+{%- if show_save_badge -%}
+  {%- if has_valid_discount -%}
+    {%- assign save_percent = active_discount | round -%}
+  {%- elsif compare_at_price and compare_at_price > price -%}
+    {%- assign save_percent = compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price | round -%}
+  {%- endif -%}
+  {%- if save_percent and save_percent > 0 -%}
+    <span class="price-save-badge">SAVE {{ save_percent }}%</span>
+  {%- endif -%}
+{%- endif -%}
+
+<span
+  {% if price_id %}
+    id="{{ price_id }}"
+  {% endif %}
+  class="price"
+  data-base-price="{{ final_price | divided_by: 100.0 }}"
+>
+  {%- if money_format == 'money_without_trailing_zeros' -%}
+    {{- final_price | money_without_trailing_zeros -}}
+  {%- else -%}
+    {{- final_price | money -}}
+  {%- endif -%}
+</span>
+
+{%- if show_compare != false -%}
+  {%- if has_valid_discount and price > final_price -%}
+    {%- comment -%} When visual discount is active, show original price as strikethrough (ignore compare_at_price) {%- endcomment -%}
+    <span
+      data-base-compare-at-price="{{ price | divided_by: 100.0 }}"
+      class="fn-tt-caption igComparePrice line-through"
+    >
+      {%- if money_format == 'money_without_trailing_zeros' -%}
+        {{- price | money_without_trailing_zeros -}}
+      {%- else -%}
+        {{- price | money -}}
+      {%- endif -%}
+    </span>
+  {%- elsif compare_at_price and compare_at_price > price -%}
+    {%- comment -%} When no visual discount, show compare_at_price if it exists and is higher {%- endcomment -%}
+    <span
+      data-base-compare-at-price="{{ compare_at_price | divided_by: 100.0 }}"
+      class="fn-tt-caption igComparePrice line-through"
+    >
+      {%- if money_format == 'money_without_trailing_zeros' -%}
+        {{- compare_at_price | money_without_trailing_zeros -}}
+      {%- else -%}
+        {{- compare_at_price | money -}}
+      {%- endif -%}
+    </span>
+  {%- endif -%}
+{%- endif -%}

@@ -1,0 +1,65 @@
+{% schema %}
+{
+  "name": "Result Card",
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-offWhite"
+    },
+    {
+      "type": "text",
+      "id": "name",
+      "label": "Name"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "caption_headline",
+      "label": "Caption Headline",
+      "default": "Skin concern"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Caption"
+    }
+  ],
+  "blocks": [],
+  "presets": [{ "name": "Result Card" }]
+}
+{% endschema %}
+
+{% assign caption_bg_color = 'bg-white' %}
+
+{% if block.settings.bg_color == 'bg-white' %}
+  {% assign caption_bg_color = 'bg-offWhite' %}
+{% endif %}
+
+<div class="{{ block.settings.bg_color }} h-full p-16 lg:p-40">
+  <div class="flex h-full flex-col justify-between gap-24">
+    <div class="flex flex-col gap-16">
+      <p class="fn-tt-title-30 text-blue">{{ block.settings.name }}</p>
+      <p class="fn-tt-title-30">{{ block.settings.text }}</p>
+    </div>
+    <div class="mt-auto flex flex-col gap-8 p-12 lg:p-24 {{ caption_bg_color }}">
+      <p class="fn-tt-caption-20 uppercase">{{ block.settings.caption_headline }}</p>
+      <p class="fn-tt-body-20">{{ block.settings.caption }}</p>
+    </div>
+  </div>
+</div>

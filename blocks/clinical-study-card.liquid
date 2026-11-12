@@ -1,0 +1,62 @@
+{% schema %}
+{
+  "name": "Clinical Study Card",
+  "settings": [
+    {
+      "type": "number",
+      "id": "yes_count",
+      "label": "Number of 'Yes' Responses"
+    },
+    {
+      "type": "number",
+      "id": "no_count",
+      "label": "Number of 'No' Responses"
+    },
+    {
+      "type": "text",
+      "id": "recommendation_text",
+      "label": "Recommendation Text",
+      "info": "Custom text to describe the recommendation"
+    },
+    {
+      "type": "select",
+      "id": "display_format",
+      "label": "Display Format",
+      "options": [
+        {
+          "value": "percentage",
+          "label": "Percentage"
+        },
+        {
+          "value": "fraction",
+          "label": "Fraction (X of Y)"
+        }
+      ],
+      "default": "percentage",
+      "info": "If 'Percentage' is selected, the percentage of 'Yes' responses will be displayed. If 'Fraction (X of Y)' is selected, the number of 'Yes' responses will be displayed as a fraction of the total number of responses."
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Clinical Study Card",
+      "settings": {
+        "yes_count": 27,
+        "no_count": 9,
+        "recommendation_text": "of participants saw a healthier skin microbiome",
+        "display_format": "percentage"
+      }
+    }
+  ]
+}
+{% endschema %}
+
+{% if block.settings.yes_count != blank and block.settings.no_count != blank %}
+  {% render 'clinical-study-card',
+    yes_count: block.settings.yes_count,
+    no_count: block.settings.no_count,
+    recommendation_text: block.settings.recommendation_text,
+    display_format: block.settings.display_format,
+    mobile_pie_size: 'sm'
+  %}
+{% endif %}

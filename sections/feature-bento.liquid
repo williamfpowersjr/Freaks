@@ -1,0 +1,156 @@
+{% schema %}
+{
+  "name": "Feature Bento",
+  "tag": "section",
+  "class": "feature-bento-section",
+  "presets": [
+    {
+      "name": "Feature Bento",
+      "category": "Feature Bento",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Lorem ipsum"
+      },
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+            "bg_color": "bg-white",
+            "video": "shopify:\/\/files\/videos\/MOBILE_HP_Ocean_Interview_Freaks_Specific_4x5_H.264_Final_Delivery.mp4",
+            "overlay": false
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+            "bg_color": "bg-white",
+            "icon": "shopify://shop_images/Bassilicus_x_Shark_bc01bcbc-801c-4001-b45c-6e749825c547.svg",
+            "overlay": false
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+            "bg_color": "bg-orange",
+            "icon": "shopify://shop_images/Bassilicus_x_Shark_bc01bcbc-801c-4001-b45c-6e749825c547.svg",
+            "overlay": false
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+            "bg_color": "bg-blue",
+            "icon": "shopify://shop_images/Bassilicus_x_Shark_bc01bcbc-801c-4001-b45c-6e749825c547.svg",
+            "overlay": false
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+            "bg_color": "bg-white",
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "overlay": true
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "select",
+          "id": "bg_color",
+          "label": "Background Color",
+          "options": [
+            {
+              "value": "bg-orange",
+              "label": "Orange"
+            },
+            {
+              "value": "bg-blue",
+              "label": "Blue"
+            },
+            {
+              "value": "bg-white",
+              "label": "White"
+            }
+          ],
+          "default": "bg-white"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "If you fill an image, it will be displayed as a background."
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+          "info": "If you fill a video and no image, it will be displayed as a background."
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "checkbox",
+          "id": "overlay",
+          "label": "Soft Color Overlay",
+          "default": false
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% render 'feature-bento', title: section.settings.title, bg_color: section.settings.bg_color, blocks: section.blocks %}

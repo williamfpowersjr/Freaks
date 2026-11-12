@@ -1,0 +1,437 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "sticky_add_to_cart_button_YwHpbY": {
+      "type": "sticky-add-to-cart-button",
+      "settings": {
+        "show_sticky_add_to_cart": true,
+        "cta": "Add to Cart",
+        "cta_color": "orange",
+        "text": "All options"
+      }
+    },
+    "product_hero_7LbPJE": {
+      "type": "product-hero",
+      "blocks": {
+        "summary_TFfYDV": {
+          "type": "summary",
+          "settings": {
+            "title": "Instant + lasting whole-body hydration"
+          }
+        },
+        "summary_pDie9K": {
+          "type": "summary",
+          "settings": {
+            "title": "Supports digestion + gut microbiome"
+          }
+        },
+        "summary_LCrxDf": {
+          "type": "summary",
+          "settings": {
+            "title": "100% mineral SPF"
+          }
+        },
+        "summary_X9GAy6": {
+          "type": "summary",
+          "settings": {
+            "title": "80 min water / 40 min sweat resistant"
+          }
+        },
+        "summary_pawACb": {
+          "type": "summary",
+          "settings": {
+            "title": "Broad spectrum UV Protection"
+          }
+        },
+        "summary_MPApW4": {
+          "type": "summary",
+          "settings": {
+            "title": "Reef safe"
+          }
+        },
+        "summary_CpTUiJ": {
+          "type": "summary",
+          "settings": {
+            "title": "Dermatologist tested."
+          }
+        },
+        "summary_Jr4haY": {
+          "type": "summary",
+          "settings": {
+            "title": "48 Hour odor protection"
+          }
+        },
+        "accordion_67RMgq": {
+          "type": "accordion",
+          "settings": {
+            "title": "Ingredients",
+            "use_variant_metafield": false,
+            "variant_metafield": "",
+            "richtext": "<p><strong>Skin Support Electrolyte:</strong></p><p><strong>Active ingredients: </strong>Vitamin A (as B-carotene), Vitamin C (as Ascorbic Acid), Vitamin D (as Cholecalciferol), Vitamin E (as d-alpha tocopheryl acetate), Vitamin B3 (as Niacinamide), Calcium (as Calcium Citrate), Magnesium (as Magnesium Malate), Zinc (as Zinc Gluconate), Chloride (from Pink Himalayan Salt and Potassium Chloride), Sodium (from Pink Himalayan Salt), Potassium (as Potassium Chloride), Astaxanthin (from Haematococcus pluvialis Algae), Polypodium leucotomos Leaf Extract, Red Orange (Citrus sinensis) Fruit Extract (RedOrange Complex™), Partially Hydrolyzed Guar Gum, Ginger (Zingiber officinale) Root Extract, and Sodium Hyaluronate.</p><p><strong>Other Ingredients:</strong> Natural Flavors, Citric Acid, Malic Acid, Rebaudioside A (Stevia Leaf Extract)</p><p><strong>Peak Performance SPF50 Sun Stick:</strong></p><p><strong>Active Ingredient:<br/></strong>Zinc Oxide (non-nano): Zinc Oxide 25%</p><p><strong>Inactive ingredients:</strong><br/>Helianthus Annuus (Sunflower) Seed Wax, Isoamyl Laurate, Ethylhexyl Olivate, Caprylic/Capric Triglyceride, C13-15 Alkane, Polyhydroxystearic Acid, Oryza Sativa (Rice Bran) Oil, Quaternium-90 Bentonite, Capryloyl Glycerin/Sebacic Acid Copolymer, Prototheca Moriformis (Microalgae) Oil, Theobroma Cacao (Cocoa) Seed Butter, Isostearic Acid, Lecithin, Polyglyceryl-3 Polyricinoleate, Triethyl Citrate, Squalane, Physalis Angulata (Ground Cherry) Extract, Rhododendron Ferrugineum (Alpenrose) Extract, Undaria Pinnatifida (Wakame) Extract, Saccharomyces Ferment, Laurel Lysine, Tocopherol Acetate,  Tocopherol</p><p><strong>Everyday Endurance Deodorant</strong><br/>Caprylic/Capric Triglyceride, Maranta Arundinacea (Arrowroot) Root Extract, Helianthus Annuus (Sunflower) Seed Oil, Ethylhexyl Palmitate, Myrica Pubescens (Laurel) Fruit Wax, Theobroma Cacao (Cocoa) Seed Butter, Triethyl Citrate, Bambusa Arundinacea (Bamboo) Stem Extract, Zinc Ricinoleate, Bentonite, Glyceryl Laurate, Helianthus Annuus (Sunflower) Seed Wax, Silica, Oryza Sativa (Rice) Bran Wax, Citronellyl Methylcrotonate, Tocopheryl Acetate, Fragrance (Parfum), Chromium Hydroxide Green (CI 77289)</p><p>See for more information on our <a href=\"https://freaks-of-nature-skincare.myshopify.com/pages/ingredients\" title=\"Ingredients\">ingredients page</a>.</p>"
+          }
+        },
+        "accordion_qjkDHd": {
+          "type": "accordion",
+          "settings": {
+            "title": "How to Use",
+            "use_variant_metafield": false,
+            "variant_metafield": "",
+            "richtext": "<p><strong>Skin Support Electrolyte</strong></p><p>Mix one sachet into 16–20 oz of cold water, shake or stir until dissolved, and drink daily. Best enjoyed whenever you want–before, during, or after training. The North Shore flavor makes it easy to stay consistent. Just mix and sip. </p><p><strong>Peak Performance SPF50 Sun Stick </strong></p><p>15 minutes before going in the sun liberally apply onto face, neck, chest and body if applicable.Reapply after 80 min of swimming or sweating, immediately after towel drying and at least every 2 hours when exposed to the sun. Product can be re-applied over or under makeup.</p><p><strong>Everyday Endurance Deodorant</strong></p><p><strong>Step 1:<br/></strong>Remove top and twist the bottom until formula begins to appear from perforated cap (Don’t overtwist! A little goes a long way)</p><p><strong>Step 2:</strong><br/>Apply formula directly on clean, dry underarms – damp skin reduces effectiveness.</p><p><strong>Step 3:</strong><br/>Store in a cool, dry place</p>"
+          }
+        },
+        "plastic_pledge_by_oceanworks_product_tile_7d3bWn": {
+          "type": "shopify://apps/plastic-pledge-by-oceanworks/blocks/product-tile/a888cb82-2596-48cc-9cb6-2a2728b595a5",
+          "settings": {
+            "theme_style": "dynamic"
+          }
+        },
+        "bundle_MdcCqr": {
+          "type": "bundle",
+          "disabled": true,
+          "settings": {
+            "bundle_product": "peak-performance-duo",
+            "banner": "",
+            "bundle_cta_color": "blue"
+          }
+        },
+        "bundle_UEUczj": {
+          "type": "bundle",
+          "disabled": true,
+          "settings": {
+            "bundle_product": "freak-trio",
+            "banner": "",
+            "bundle_cta_color": "blue"
+          }
+        }
+      },
+      "block_order": [
+        "summary_TFfYDV",
+        "summary_pDie9K",
+        "summary_LCrxDf",
+        "summary_X9GAy6",
+        "summary_pawACb",
+        "summary_MPApW4",
+        "summary_CpTUiJ",
+        "summary_Jr4haY",
+        "accordion_67RMgq",
+        "accordion_qjkDHd",
+        "plastic_pledge_by_oceanworks_product_tile_7d3bWn",
+        "bundle_MdcCqr",
+        "bundle_UEUczj"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "title_size": "large",
+        "show_inventory_quantity": false,
+        "use_variant_media": false,
+        "discount_tag": "+ Free Shipping",
+        "product_discount_heading": "Subscribe & get 25% off",
+        "subscription_badge_type": "manual",
+        "subscription_badge_text": "Save 25%",
+        "show_unit_price": false,
+        "unit_name": "",
+        "show_variant_title_in_variant_picker": false,
+        "show_prices_in_variant_picker": false,
+        "variant_picker_style": "title",
+        "hide_quantity_input": false,
+        "one_time_purchase_badge_text": "Save 10%",
+        "subsDefaultOption": "subscriptions",
+        "subsOrder": "subs_top",
+        "subscription_form_style": "stacked",
+        "split_subscriptions_by_variants": false,
+        "subscription_title": "Subscribe",
+        "one_time_title": "One-time",
+        "cta": "Add to cart",
+        "cta_link": "",
+        "show_out_of_stock_banner": false,
+        "out_of_stock_banner_text": "",
+        "social_image": "shopify://shop_images/Screenshot_2025-02-12_at_3.52.32_PM.png",
+        "social_quote": "“Freaks of Nature SPF leverages cutting-edge ingredients that go beyond conventional products made with chemical filters and other ingredients that can disrupt the skin barrier. Instead, our products ensure that the skin barrier is supported rather than compromised, making our products ideal for daily use.”",
+        "social_profile_name": "@dr.elsajungman",
+        "social_profile_image": "shopify://shop_images/Screenshot_2025-02-12_at_3.54.54_PM.png",
+        "social_link": "https://www.instagram.com/dr.elsajungman/?hl=en",
+        "show_details": true,
+        "show_notify": true,
+        "notify_text": "Get notified when the product is available again",
+        "notify_placeholder": "Enter your email",
+        "notify_success": "Thank you! We will notify you when the product is back in stock.",
+        "klaviyo_api_key": "SdwbFd",
+        "klaviyo_list_id": "",
+        "notify_subtext": "<p>By signing up, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Service</a> and our <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a>.</p>",
+        "bundle_title": "Upgrade to a bundle and save"
+      }
+    },
+    "comparison_cKkidc": {
+      "type": "comparison",
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "No Whitecast",
+        "title_a": "Light Skin",
+        "image_1a": "shopify://shop_images/240409_TN_DIRTYPRETTY_FREAKSOFNATURE2536_04dc8a90-40e0-485f-a8eb-7a4dbc252973.jpg",
+        "title_1a": "Applying sunscreen",
+        "image_2a": "shopify://shop_images/240409_TN_DIRTYPRETTY_FREAKSOFNATURE2634_51134d02-6f63-4ebd-81ee-1f46e27ac1ea.jpg",
+        "title_2a": "5 min after application",
+        "title_b": "Medium Skin",
+        "image_1b": "shopify://shop_images/240409_TN_DIRTYPRETTY_FREAKSOFNATURE1740_fe9300a3-e27e-4c4c-ba6f-566bcda0ca37.jpg",
+        "title_1b": "Applying sunscreen",
+        "image_2b": "shopify://shop_images/240409_TN_DIRTYPRETTY_FREAKSOFNATURE1752_cf583703-bff8-468c-b725-d470d138a7d9.jpg",
+        "title_2b": "5 min after application"
+      }
+    },
+    "ugc_slider_LeiTDN": {
+      "type": "ugc-slider",
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Application"
+      }
+    },
+    "properties_4a3QYn": {
+      "type": "properties",
+      "blocks": {
+        "item_8Rpxwk": {
+          "type": "item",
+          "settings": {
+            "use_variant_metafield_for_image": false,
+            "image_metafield_key": "",
+            "title": "Good for:",
+            "use_variant_metafield_for_description": false,
+            "description": "All Skin Types",
+            "description_metafield_key": ""
+          }
+        },
+        "item_wQQpBK": {
+          "type": "item",
+          "settings": {
+            "use_variant_metafield_for_image": false,
+            "image_metafield_key": "",
+            "title": "Tastes / Smells like:",
+            "use_variant_metafield_for_description": false,
+            "description": "<b>Skin Support Electrolyte</b> Tangy passionfruit, guava, and a hint of zesty lime.<br><br>\n\n<b>Peak Performance Sun Stick SPF 50</b> Nothing! Unlike the painfully  nostalgic odor (i.e. harsh and chemically) of most sunscreens, ours is completely unscented.<br><br>\n\n<b> Everyday Endurance Deodorant Scents:</b><br>\n\n<b>Santal Dune:</b> Warm amber and smooth santal finished with earthy spice.<br>\n<b>Bergamot Canyon:</b> Bright citrus and neroli with a crisp oakmoss and bergamot finish<br>",
+            "description_metafield_key": ""
+          }
+        },
+        "item_PXaARX": {
+          "type": "item",
+          "settings": {
+            "use_variant_metafield_for_image": false,
+            "image_metafield_key": "",
+            "title": "Color and texture:",
+            "use_variant_metafield_for_description": false,
+            "description": "<b>Skin Support Electrolyte</b> Starts as a sand-colored powder that turns to warm, light pink depending on water concentration.<br><br>\n\n<b>Peak Performance Sun Stick SPF50:</b><br>\nFreakishly easy to apply. Goes on silky smooth with minimal whitecast.<br><br>\n\n<b>Everyday Endurance Deodorant:</b><br>\nA creamy texture that dries within 30 seconds. Not sticky or wet and lasts for 48 hours.<br><br>",
+            "description_metafield_key": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_8Rpxwk",
+        "item_wQQpBK",
+        "item_PXaARX"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "card_bg_color": "bg-offWhite",
+        "title": "What to Expect",
+        "image": "shopify://shop_images/InsideOut.png",
+        "full_bleed_image": true,
+        "hide_mobile_image": false
+      }
+    },
+    "steps_DnR78r": {
+      "type": "steps",
+      "blocks": {
+        "item_rFQjDN": {
+          "type": "item",
+          "settings": {
+            "title": "Step 1",
+            "description": "<p>Complete your skincare routine. We recommend priming your skin with a pump of our Deeper Dive Moisturizer.</p>",
+            "image": "shopify://shop_images/application-01-peak-performance-spf50.jpg",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_g6zxYF": {
+          "type": "item",
+          "settings": {
+            "title": "Step 2",
+            "description": "<p>Apply Peak Performance SPF50 Sunscreen in the morning before you go outside, or 15 minutes before going in the sun, and as the final step in your daily skincare routine. Apply one pump amount or more of our Peak Performance SPF50 Sunscreen into hands and gently rub onto face, neck, chest and body if applicable.</p>",
+            "image": "shopify://shop_images/application-02-peak-performance-sp.jpg",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        },
+        "item_NzCKkk": {
+          "type": "item",
+          "settings": {
+            "title": "Step 3",
+            "description": "<p>Reapply after 80 min of swimming or sweating, immediately after towel drying and at least every 2 hours when exposed to the sun.</p>",
+            "image": "shopify://shop_images/application-03-peak-performance-sp.jpg",
+            "hide_mute": false,
+            "full_bleed_media": false
+          }
+        }
+      },
+      "block_order": [
+        "item_rFQjDN",
+        "item_g6zxYF",
+        "item_NzCKkk"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "How to Apply"
+      }
+    },
+    "gallery_yXnGXK": {
+      "type": "gallery",
+      "blocks": {
+        "gallery_item_fjmikF": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/FON_HEAT_FINAL 25%.mp4",
+            "mobile_video": "shopify://files/videos/FON_HEAT_FINAL 25%.mp4",
+            "hide_mute": false,
+            "title": "Bring the heat. Not the burn.",
+            "info_text": ""
+          }
+        },
+        "gallery_item_zdpibz": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/FREAKS_REFERENCE.mp4",
+            "mobile_video": "shopify://files/videos/FREAKS_REFERENCE.mp4",
+            "hide_mute": false,
+            "title": "Stick to it",
+            "info_text": ""
+          }
+        },
+        "gallery_item_6GHnnr": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/Final_Deo_Desktop.mp4",
+            "mobile_video": "shopify://files/videos/FINAL_DEO_9x16.mp4",
+            "hide_mute": false,
+            "title": "Sweat smells good",
+            "info_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "gallery_item_fjmikF",
+        "gallery_item_zdpibz",
+        "gallery_item_6GHnnr"
+      ],
+      "settings": {
+        "show_video_controls": true
+      }
+    },
+    "builder_system_DLwhq8": {
+      "type": "builder-system",
+      "blocks": {
+        "card_CznQTH": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>Small but mighty algae is super food but for your skin because </li><li>Super ingredient known for it’s moisture locking properties. Studies have shown microalgae extracts to stimulate collagen production leaving your skin looking hydrated and firmer. Plus it’s rich in antioxidants helping combat free radicals that accelerate aging and skin damage.</li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/Screenshot_2024-05-04_at_6.42.18_PM.png",
+            "tag_1": "Microalgae Oil",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        },
+        "card_UzGHJp": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>We formulate with vegan Squalane derived from sugarcane, where as traditional squalene comes from shark livers - harming hundreds of thousands of sharks each year. </li><li><strong>Our vegan, bio-based formula supports a healthy skin microbiome while leaving your skin silky smooth.</strong></li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/squalane.jpg",
+            "tag_1": "Neossance™ Vegan Shark Squalane",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        },
+        "card_46jfgR": {
+          "type": "card",
+          "settings": {
+            "text": "<ul><li>Hate to break it to you, but up to 83% of sunscreens use microplastics to help with water resistance. </li><li><strong>HydroSeal, on the other hand, is plant based but supports water resistance so you can catch waves longer. </strong></li></ul>",
+            "tag_thumbnail_1": "shopify://shop_images/water_free.jpg",
+            "tag_1": "HydroSeal",
+            "tag_2": "",
+            "tag_3": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_CznQTH",
+        "card_UzGHJp",
+        "card_46jfgR"
+      ],
+      "settings": {
+        "video": "shopify://files/videos/B-SILK™ _ SEQUENCE _ H264 (1).mp4",
+        "hide_mute": true,
+        "title": "BIO BASED INGREDIENTS THAT MAKE A DIFFERENCE",
+        "description": "<p>We formulated the Freak Barrier Defense System™️specifically to defend and strengthen your skin microbiome and skin barrier. <strong>Meet the proprietary ingredients that set us apart. </strong></p>",
+        "icon": "shopify://shop_images/Vegan_Spider_Silk-Blue.svg",
+        "cta": "Explore our ingredients",
+        "cta_link": "shopify://pages/ingredients",
+        "cta_color": "blue"
+      }
+    },
+    "reviews_section_fhewjz": {
+      "type": "reviews",
+      "settings": {
+        "bg_color": "bg-offWhite",
+        "title": "Reviews",
+        "image": "shopify://shop_images/TB_CHILE25_FON_4X5_0286.jpg",
+        "hide_mute": false,
+        "full_bleed_media": false
+      }
+    },
+    "title_3E6DMh": {
+      "type": "title",
+      "disabled": true,
+      "settings": {
+        "bg_color": "white",
+        "title": "Used by our freak athletes",
+        "text": "",
+        "has_margin": true,
+        "text_align": "center"
+      }
+    },
+    "product_carousel_x3Ukge": {
+      "type": "product-carousel",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Shop other Products",
+        "title_style": "title_big",
+        "hide_mobile_title": false,
+        "cta": "",
+        "cta_link": "",
+        "cta_color": "blue",
+        "collections": [
+          "all-products"
+        ]
+      }
+    }
+  },
+  "order": [
+    "sticky_add_to_cart_button_YwHpbY",
+    "product_hero_7LbPJE",
+    "comparison_cKkidc",
+    "ugc_slider_LeiTDN",
+    "properties_4a3QYn",
+    "steps_DnR78r",
+    "gallery_yXnGXK",
+    "builder_system_DLwhq8",
+    "reviews_section_fhewjz",
+    "title_3E6DMh",
+    "product_carousel_x3Ukge"
+  ]
+}

@@ -1,0 +1,60 @@
+{% schema %}
+{
+  "name": "Proofpoints",
+  "tag": "section",
+  "class": "proofpoins-section",
+  "presets": [
+    {
+      "name": "Proofpoints",
+      "category": "Proofpoints",
+      "settings": {
+        "title": "Lorem ipsum",
+        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    }
+  ]
+}
+{% endschema %}
+
+{% assign claims = shop.metaobjects.detail.values %}
+{% assign sorted_claims = claims | sort_natural: 'position' %}
+{% assign filtered_claims = sorted_claims | where: 'show_in_proofpoints_module', true %}
+
+<section class="bg-grey-LIGHT p-24 lg:p-80">
+  <div class="flex flex-col border border-black/15 bg-white lg:flex-row">
+    <div class="flex flex-col justify-between gap-32 p-24 lg:w-[44.44%] lg:p-40">
+      <h2 class="fn-tt-title-50 whitespace-pre-wrap">{{ section.settings.title }}</h2>
+      <p class="fn-tt-body-20">{{ section.settings.description }}</p>
+    </div>
+    <div class=" border-black/15 bg-black/15 lg:w-[55.556%] ">
+      <ul class="grid grid-cols-2 gap-1 pl-0 pt-1 lg:grid-cols-3 lg:pl-1 lg:pt-0">
+        {% for claim in filtered_claims limit: 6 %}
+          {% assign title = claim.title %}
+          {% assign icon = claim.icon %}
+          <li class="flex flex-col items-center justify-center gap-16 bg-white px-8 py-16 lg:items-start lg:gap-24 lg:p-24">
+            {% if icon %}
+              {{
+                icon
+                | image_url: width: icon.width
+                | image_tag: loading: 'lazy', sizes: '25vw', class: 'w-48 lg:w-64'
+              }}
+            {% endif %}
+            <p class="fn-tt-caption text-center font-medium uppercase lg:text-left">{{ title }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>

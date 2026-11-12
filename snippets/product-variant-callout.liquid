@@ -1,0 +1,19 @@
+{% comment %}
+  Renders a per-variant callout directly below the variant selector.
+  Content comes from the variant metafield custom.pdp_callout (rich text):
+  shows only when the selected variant has a value, otherwise outputs nothing.
+  Fully independent of the section's global Out of Stock Banner.
+
+  Accepts:
+  - variant: {Object} the currently selected variant (required)
+  Usage:
+  {% render 'product-variant-callout', variant: product.selected_or_first_available_variant %}
+{% endcomment %}
+
+{% assign variant_callout = variant.metafields.custom.pdp_callout %}
+
+{% if variant_callout != blank %}
+  <div class="fn-tt-body-10 mb-16 bg-orange/15 p-8 text-center font-medium text-orange lg:mb-24 lg:p-16">
+    {{ variant_callout | metafield_tag }}
+  </div>
+{% endif %}

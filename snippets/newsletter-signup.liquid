@@ -1,0 +1,41 @@
+{% comment %}
+  Renders the newsletter in the footer.
+
+  Accepts:
+  - text (String): Central text to display on the element.
+  - success (String): Success message to display after the form is submitted.
+  - newsletter_placeholder (String): Placeholder text for the email input.
+  - isFooter (boolean): if it is the newsletter in the footer section.
+  - isNewsletterSection (boolean): If it is the newsletter in the newsletter section.
+  - policies (richtText): policies richtext in the newsletter section.
+{% endcomment %}
+
+{% if section.settings.klaviyo_list_id != blank %}
+  {% assign klaviyo_list_id = section.settings.klaviyo_list_id %}
+{% else %}
+  {% assign klaviyo_list_id = settings.klaviyo_list_id %}
+{% endif %}
+
+<newsletter-signup>
+  {% comment %} NEWSLETTER IN FOOTER {% endcomment %}
+
+  {% if isFooter %}
+    {% render 'newsletter-signup-footer',
+      text: text,
+      klaviyo_list_id: klaviyo_list_id,
+      policies: policies,
+      newsletter_placeholder: newsletter_placeholder
+    %}
+  {% endif %}
+
+  {% comment %} NEWSLETTER AS SECTION {% endcomment %}
+
+  {% if isNewsletterSection %}
+    {% render 'newsletter-signup-section',
+      text: text,
+      klaviyo_list_id: klaviyo_list_id,
+      policies: policies,
+      newsletter_placeholder: newsletter_placeholder
+    %}
+  {% endif %}
+</newsletter-signup>

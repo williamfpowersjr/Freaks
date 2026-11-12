@@ -1,0 +1,39 @@
+<div class="flex flex-col-reverse divide-black/15 border-b border-black/15 lg:flex-row lg:divide-x {{ alignment }} {{ bg_color}}">
+  <div class="flex-1 border-t border-black/15 ">
+    {% render 'split-screen-media',
+      split_screen_video: image_card_video,
+      split_screen_image: image_card_image,
+      split_screen_caption: image_card_caption,
+      full_bleed_media: full_bleed_media,
+      split_screen_aspect_classes: 'aspect-square lg:h-full',
+      hide_mute: hide_mute
+    %}
+  </div>
+  <div class="flex flex-1 flex-col border-t border-black/15">
+    {% if title != blank %}
+      {% render 'title',
+        title: title,
+        text_size: 'fn-tt-title-70',
+        extra_wrapper_classes: 'overflow-hidden mt-40 px-24 lg:my-80 lg:px-40 {{ bg_color }}',
+        extra_text_classes: '!-mb-3 lg:!-mb-6 ',
+        bg_lines: 'bg-grey-lines'
+      %}
+    {% endif %}
+    {% if subtitle != blank or description != blank or label != blank %}
+      <div class="flex flex-1 flex-col gap-24 p-24 lg:p-40">
+        {% if subtitle != blank %}
+          <h5 class="fn-tt-title-20 font-medium">{{ subtitle }}</h5>
+        {% endif %}
+        {% if description != blank %}
+          <div class="inline-rich-text fn-tt-body-20">{{ description }}</div>
+        {% endif %}
+
+        {% if label != blank %}
+          {% render 'text-label', label: label, label_link: label_link %}
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div></div>
+  </div>
+</div>

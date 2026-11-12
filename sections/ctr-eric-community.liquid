@@ -1,0 +1,315 @@
+{{ 'ctr-eric-community.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign ctr_eric_community_members = section.blocks | where: 'type', 'member'
+  assign ctr_eric_community_swiper_id = 'ctr-eric-community-' | append: section.id
+-%}
+
+<div
+  id="shopify-section-{{ section.id }}"
+  class="ctr-eric-community"
+  style="
+    --ctr-eric-community-bg: {% if section.settings.background_gradient != blank %}{{ section.settings.background_gradient }}{% else %}{{ section.settings.background_color }}{% endif %};
+    --ctr-eric-community-heading-color: {{ section.settings.heading_color }};
+    --ctr-eric-community-text-color: {{ section.settings.text_color }};
+    --ctr-eric-community-name-color: {{ section.settings.name_color }};
+    --ctr-eric-community-role-color: {{ section.settings.role_color }};
+    --ctr-eric-community-quote-color: {{ section.settings.quote_color }};
+    --ctr-eric-community-border-color: {{ section.settings.border_color }};
+    --ctr-eric-community-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-eric-community-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-eric-community-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-eric-community-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  {% if section.settings.title != blank %}
+    <div class="ctr-eric-community__title-wrap">
+      <div class="ctr-eric-community__title bg-grey-lines">
+        {{ section.settings.title }}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if ctr_eric_community_members.size > 0 %}
+    <div class="ctr-eric-community__grid">
+      {% for block in ctr_eric_community_members %}
+        <div class="ctr-eric-community__card" {{ block.shopify_attributes }}>
+          <div class="ctr-eric-community__media">
+            {% if block.settings.image != blank %}
+              <img
+                class="ctr-eric-community__image"
+                src="{{ block.settings.image | img_url: '1200x' }}"
+                alt="{{ block.settings.image.alt | default: block.settings.name | strip_html | escape }}"
+                loading="lazy"
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}"
+              >
+            {% endif %}
+          </div>
+
+          <div class="ctr-eric-community__copy">
+            <div class="ctr-eric-community__identity">
+              {% if block.settings.name != blank %}
+                <div class="ctr-eric-community__name">
+                  {{ block.settings.name }}
+                </div>
+              {% endif %}
+
+              {% if block.settings.role != blank %}
+                <div class="ctr-eric-community__role">
+                  {{ block.settings.role }}
+                </div>
+              {% endif %}
+            </div>
+
+            {% if block.settings.quote != blank %}
+              <div class="ctr-eric-community__quote">
+                {{ block.settings.quote }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="ctr-eric-community__mobile">
+      <swiper-element
+        id="{{ ctr_eric_community_swiper_id }}"
+        class="ctr-eric-community__mobile-swiper"
+      >
+        <swiper-container init="false">
+          {% for block in ctr_eric_community_members %}
+            <swiper-slide class="swiper-slide ctr-eric-community__mobile-slide">
+              <div class="ctr-eric-community__media">
+                {% if block.settings.image != blank %}
+                  <img
+                    class="ctr-eric-community__image"
+                    src="{{ block.settings.image | img_url: '900x' }}"
+                    alt="{{ block.settings.image.alt | default: block.settings.name | strip_html | escape }}"
+                    loading="lazy"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}"
+                  >
+                {% endif %}
+              </div>
+
+              <div class="ctr-eric-community__copy">
+                <div class="ctr-eric-community__identity">
+                  {% if block.settings.name != blank %}
+                    <div class="ctr-eric-community__name">
+                      {{ block.settings.name }}
+                    </div>
+                  {% endif %}
+
+                  {% if block.settings.role != blank %}
+                    <div class="ctr-eric-community__role">
+                      {{ block.settings.role }}
+                    </div>
+                  {% endif %}
+                </div>
+
+                {% if block.settings.quote != blank %}
+                  <div class="ctr-eric-community__quote">
+                    {{ block.settings.quote }}
+                  </div>
+                {% endif %}
+              </div>
+            </swiper-slide>
+          {% endfor %}
+        </swiper-container>
+
+        {% if ctr_eric_community_members.size > 1 %}
+          <div class="ctr-eric-community__nav">
+            <div class="ctr-eric-community__scrollbar-wrap">
+              <div class="swiper-scrollbar"></div>
+            </div>
+
+            <div class="ctr-eric-community__nav-btn-wrap">
+              <div
+                class="swiper-button-prev"
+                aria-label="Previous slide"
+                role="button"
+              ></div>
+            </div>
+
+            <div class="ctr-eric-community__nav-btn-wrap">
+              <div
+                class="swiper-button-next"
+                aria-label="Next slide"
+                role="button"
+              ></div>
+            </div>
+          </div>
+        {% endif %}
+      </swiper-element>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Eric Community (CTR)",
+  "tag": "section",
+  "class": "ctr-eric-community-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>dermatologist-tested.</p><p>athlete-approved.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Background gradient",
+      "info": "Optional. Example: linear-gradient(180deg, #FFF 0%, #FFF2E9 100%). Overrides background color when set."
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "name_color",
+      "label": "Name color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "role_color",
+      "label": "Role color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "quote_color",
+      "label": "Quote color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "alpha": true,
+      "default": "#22202F29"
+    },
+    {
+      "type": "header",
+      "content": "Padding desktop"
+    },
+    {
+      "type": "number",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
+      "default": 0
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Padding mobile"
+    },
+    {
+      "type": "number",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "default": 0
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "member",
+      "name": "Member (CTR)",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "richtext",
+          "id": "name",
+          "label": "Name",
+          "default": "<p>Kelly Slater</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "role",
+          "label": "Role",
+          "default": "<p>11x World Surfing Champion</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Quote",
+          "default": "<p>“I was tired of deodorants that smelled like chemicals and didn’t work. Our deodorant is formulated to keep you fresh and take care of your skin at the same time.”</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Eric Community (CTR)",
+      "category": "CTR Sections",
+      "blocks": [
+        {
+          "type": "member",
+          "settings": {
+            "name": "<p>Kelly Slater</p>",
+            "role": "<p>11x World Surfing Champion</p>",
+            "quote": "<p>“I was tired of deodorants that smelled like chemicals and didn’t work. Our deodorant is formulated to keep you fresh and take care of your skin at the same time.”</p>"
+          }
+        },
+        {
+          "type": "member",
+          "settings": {
+            "name": "<p>eric hinman</p>",
+            "role": "<p>5x Ironman, serial entrepreneur, and brand builder</p>",
+            "quote": "<p>“Skincare products I trust to not damage my skin with harsh chemicals.”</p>"
+          }
+        },
+        {
+          "type": "member",
+          "settings": {
+            "name": "<p>elsa jungman</p>",
+            "role": "<p>Ph.D. in skin barrier function, CEO of HelloBiome</p>",
+            "quote": "<p>“It’s remarkably gentle on the skin while being highly effective, a true demonstration that performance and gentleness can coexist.”</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

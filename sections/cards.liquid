@@ -1,0 +1,181 @@
+{% schema %}
+{
+  "name": "Cards",
+  "tag": "section",
+  "class": "cards-section",
+  "presets": [
+    {
+      "name": "Cards",
+      "category": "Cards",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white"
+      },
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "card_color": "white",
+            "background_image": "",
+            "main_text": "Lorem ipsum",
+            "secondary_text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "card_color": "blue",
+            "background_image": "",
+            "main_text": "Lorem ipsum",
+            "secondary_text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "card_color": "orange",
+            "background_image": "",
+            "main_text": "Lorem ipsum",
+            "secondary_text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "card_color": "white",
+            "background_image": "",
+            "main_text": "Lorem ipsum",
+            "secondary_text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr."
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "lg_bg_color",
+      "label": "Desktop Section Background Color",
+      "options": [
+        {
+          "value": "lg:bg-white",
+          "label": "White"
+        },
+        {
+          "value": "lg:bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "lg:bg-white"
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Mobile Section Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Card",
+      "type": "card",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "select",
+          "id": "card_color",
+          "label": "Card Color",
+          "options": [
+            {
+              "value": "orange",
+              "label": "Orange"
+            },
+            {
+              "value": "blue",
+              "label": "Blue"
+            },
+            {
+              "value": "white",
+              "label": "White"
+            }
+          ],
+          "default": "white"
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background Image",
+          "info": "Optional"
+        },
+        {
+          "type": "text",
+          "id": "main_text",
+          "label": "Main Text"
+        },
+        {
+          "type": "textarea",
+          "id": "secondary_text",
+          "label": "Secondary Text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% assign count = 0 %}
+{% for block in section.blocks %}
+  {% if block.type == 'card' %}
+    {% assign count = count | plus: 1 %}
+  {% endif %}
+{% endfor %}
+
+{% if section.blocks.size > 0 %}
+  <div class="flex w-full px-24 pb-32 lg:flex lg:justify-end lg:px-40 lg:pb-112 {{ section.settings.bg_color }} {{ section.settings.lg_bg_color }}">
+    <div class="w-full lg:w-3/4 lg:px-16">
+      <ul class=" grid grid-rows-1 gap-8 lg:grid-cols-2 {% if count > 1 %}grid-rows-2 lg:grid-rows-1 lg:grid-cols-2{% endif %}">
+        {% for block in section.blocks %}
+          {% if block.type == 'card' %}
+            {% assign result_percentage = block.settings.main_text %}
+            {% assign result_text = block.settings.secondary_text %}
+            {% assign result_card_color = block.settings.card_color %}
+            {% assign result_background_image = block.settings.background_image %}
+
+            {% case result_card_color %}
+              {% when 'orange' %}
+                {% assign bg_color = 'bg-orange' %}
+                {% assign text_color = 'text-blue' %}
+              {% when 'blue' %}
+                {% assign bg_color = 'bg-blue' %}
+                {% assign text_color = 'text-white' %}
+              {% else %}
+                {% assign bg_color = 'bg-white' %}
+                {% assign text_color = 'text-black' %}
+            {% endcase %}
+
+            <li>
+              {% render 'result-card',
+                result_percentage: result_percentage,
+                result_text: result_text,
+                result_background_image: result_background_image,
+                bg_color: bg_color,
+                text_color: text_color,
+                min_height: 'lg:min-h-640'
+              %}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endif %}

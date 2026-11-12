@@ -1,0 +1,1138 @@
+{% comment %}
+  Renders the subscription item block for the product form.
+
+    @param {product} product - The product object
+    @param {variant} variant - The variant object
+    @param {string} product_discount_heading - The heading for the product discount
+    @param {string} subscription_form_style - The style of the subscription form ('compact' or 'stacked')
+    @param {section} section - The section object
+    @param {string} additional_form_classes - Additional classes for the form
+    @param {number} subscription_discounted_price - The discounted price for the subscription
+    @param {number} price_adjustment_value - The value of the price adjustment
+    @param {string} price_adjustment_value_type - The type of the price adjustment value
+    @param {cart} cart - The cart object
+    @param {boolean} hide_one_tine_purchase - Show / Hide one tine purchase option
+    @param {boolean} hide_subscription - Show / Hide subscription option
+{% endcomment %}
+
+{%- assign hide_one_tine_purchase = hide_one_tine_purchase | default: false -%}
+{%- assign hide_subscription = hide_subscription | default: false -%}
+
+{%- if subscription_form_style == 'compact' -%}
+  {%- assign hide_one_tine_purchase = false -%}
+  {%- assign hide_subscription = false -%}
+{%- endif -%}
+
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{% assign selling_plan_groups = current_variant.selling_plan_allocations %}
+{% assign id = product.id %}
+
+{% if variant %}
+  {%- assign current_variant = variant -%}
+  {% assign selling_plan_groups = variant.selling_plan_allocations %}
+  {% assign id = variant.id %}
+
+  {%- capture data_variant_id -%}
+    data-variant-id="{{ variant.id }}"
+  {%- endcapture -%}
+{% endif %}
+
+{% comment %}
+  Drop ReCharge dynamic bundle plans (Build Your Pack). Child variants carry allocations for the
+  bundle's plans, which share names with the regular plans and only apply inside the bundle.
+{% endcomment %}
+{%- assign bundle_plan_ids = ',' -%}
+{%- for group in all_products['build-your-pack'].selling_plan_groups -%}
+  {%- for plan in group.selling_plans -%}
+    {%- assign bundle_plan_ids = bundle_plan_ids | append: plan.id | append: ',' -%}
+  {%- endfor -%}
+{%- endfor -%}
+{%- if bundle_plan_ids != ',' -%}
+  {%- assign filtered_selling_plan_groups = '' | split: '' -%}
+  {%- for allocation in selling_plan_groups -%}
+    {%- assign plan_key = allocation.selling_plan.id | prepend: ',' | append: ',' -%}
+    {%- unless bundle_plan_ids contains plan_key -%}
+      {%- assign kept_allocation = selling_plan_groups | slice: forloop.index0, 1 -%}
+      {%- assign filtered_selling_plan_groups = filtered_selling_plan_groups | concat: kept_allocation -%}
+    {%- endunless -%}
+  {%- endfor -%}
+  {%- if filtered_selling_plan_groups.size > 0 -%}
+    {%- assign selling_plan_groups = filtered_selling_plan_groups -%}
+  {%- endif -%}
+{%- endif -%}
+
+{% if section.settings.reverse_selling_plan_order == false %}
+  {% assign ordered_selling_plan_groups = selling_plan_groups %}
+{% else %}
+  {% assign ordered_selling_plan_groups = selling_plan_groups | reverse %}
+{% endif %}
+
+{%- unless current_variant.available -%}
+  {%- assign hide_one_tine_purchase = true -%}
+  {%- assign hide_subscription = true -%}
+{%- endunless -%}
+
+{% assign options_title_classes = 'font-medium' %}
+{% if subscription_form_style == 'compact' %}
+  {% assign options_title_classes = options_title_classes | append: ' fn-tt-sub-title-30' %}
+{% else %}
+  {% assign options_title_classes = options_title_classes | append: ' text-[14px] lg:text-[18px]' %}
+{% endif %}
+{% assign is_secondary_subscription_style = false %}
+{% if section.settings.subscription_style_variant == 'secondary' %}
+  {% assign is_secondary_subscription_style = true %}
+{% endif %}
+{% assign delivered_every_text = section.settings.subscription_delivered_every_text | strip_html | strip %}
+{% assign use_product_saving_message_metafields = product.has_only_default_variant %}
+{% if use_product_saving_message_metafields %}
+  {% assign subscription_saving_message_template = product.metafields.custom.subscription_saving_message.value
+    | default: product.metafields.custom.subscription_saving_message
+    | default: current_variant.metafields.custom.subscription_saving_message.value
+    | default: current_variant.metafields.custom.subscription_saving_message
+  %}
+  {% assign one_time_saving_message_template = product.metafields.custom.one_time_saving_message.value
+    | default: product.metafields.custom.one_time_saving_message
+    | default: current_variant.metafields.custom.one_time_saving_message.value
+    | default: current_variant.metafields.custom.one_time_saving_message
+  %}
+{% else %}
+  {% assign subscription_saving_message_template = current_variant.metafields.custom.subscription_saving_message.value
+    | default: current_variant.metafields.custom.subscription_saving_message
+  %}
+  {% assign one_time_saving_message_template = current_variant.metafields.custom.one_time_saving_message.value
+    | default: current_variant.metafields.custom.one_time_saving_message
+  %}
+{% endif %}
+{% assign show_subscription_saving_message = section.settings.show_subscription_saving_message | default: false %}
+{% assign variant_badge_text = current_variant.metafields.custom.badge.value
+  | default: current_variant.metafields.custom.badge
+%}
+{% assign current_variant_product_option_badge_label = '' %}
+{% assign current_variant_product_option_preselected_selling_plan_id = '' %}
+{% assign current_variant_id_string = current_variant.id | append: '' %}
+{% for block in section.blocks %}
+  {% if block.type == 'variant_product_option' and block.settings.product != blank %}
+    {% if block.settings.product.id == product.id %}
+      {% assign block_option_variant_id = block.settings.variant_id
+        | default: block.settings.product.selected_or_first_available_variant.id
+      %}
+      {% if block_option_variant_id == blank and block.settings.product.variants.first != blank %}
+        {% assign block_option_variant_id = block.settings.product.variants.first.id %}
+      {% endif %}
+      {% assign block_option_variant_id = block_option_variant_id | append: '' %}
+      {% if block_option_variant_id == current_variant_id_string %}
+        {% if block.settings.badge_label != blank %}
+          {% assign current_variant_product_option_badge_label = block.settings.badge_label %}
+        {% endif %}
+        {% assign current_variant_product_option_preselected_selling_plan_id = block.settings.preselected_selling_plan_id
+          | strip
+        %}
+        {% break %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% assign should_append_extra_badge = false %}
+{% if section.settings.show_extra_in_saving_badge %}
+  {% if variant_badge_text != blank or current_variant_product_option_badge_label != blank %}
+    {% assign should_append_extra_badge = true %}
+  {% endif %}
+{% endif %}
+{% assign subscription_badge_custom_text = section.settings.subscription_badge_custom_text | default: 'Save [saving]' %}
+{% unless subscription_badge_custom_text contains '[saving]' or subscription_badge_custom_text contains '[SAVING]' %}
+  {% assign subscription_badge_custom_text = 'Save [saving]' %}
+{% endunless %}
+{% assign subscription_badge_extra_text = '' %}
+{% if should_append_extra_badge %}
+  {% assign subscription_badge_extra_text = 'EXTRA ' %}
+{% endif %}
+{%- capture benefit_icon_svg -%}
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="M14.2649 4.76492L6.26492 12.7649C6.19461 12.8351 6.0993 12.8746 5.99992 12.8746C5.90055 12.8746 5.80524 12.8351 5.73492 12.7649L2.23492 9.26492C2.16868 9.19384 2.13262 9.09981 2.13434 9.00266C2.13605 8.90551 2.17541 8.81282 2.24411 8.74411C2.31282 8.67541 2.40551 8.63605 2.50266 8.63434C2.59981 8.63262 2.69384 8.66868 2.76492 8.73492L5.99992 11.9693L13.7349 4.23492C13.806 4.16868 13.9 4.13262 13.9972 4.13434C14.0943 4.13605 14.187 4.17541 14.2557 4.24411C14.3244 4.31282 14.3638 4.40551 14.3655 4.50266C14.3672 4.59981 14.3312 4.69384 14.2649 4.76492Z" fill="black"/>
+  </svg>
+{%- endcapture -%}
+
+{% render 'ctr-subscription-item-styles' %}
+
+{%- capture icon-checkmark -%}
+  {%- render 'icon-checkmark' -%}
+{%- endcapture -%}
+
+{%- capture icon-x -%}
+  {%- render 'icon-x' -%}
+{%- endcapture -%}
+
+<div class="subscription_item{% if is_secondary_subscription_style %} ctr-subscription-secondary{% endif %}">
+  {% if product_discount_heading != blank %}
+    {% render 'product-discount-heading',
+      heading: product_discount_heading,
+      subscription_form_style: subscription_form_style
+    %}
+  {% endif %}
+
+  {% assign fieldset_classes = 'flex flex-col ' %}
+  {% if subscription_form_style == 'compact' %}
+    {% comment %} Compact layout: horizontal on desktop {% endcomment %}
+    {% assign fieldset_classes = fieldset_classes | append: ' grid grid-cols-[1fr_1fr] border-4 border-grey' %}
+  {% else %}
+    {% assign fieldset_classes = fieldset_classes | append: ' border-none' %}
+    {% comment %} Stacked layout: vertical {% endcomment %}
+    {% if section.settings.subsOrder == 'onetime_top' %}
+      {% assign fieldset_classes = fieldset_classes | append: ' flex-col-reverse' %}
+    {% else %}
+      {% assign fieldset_classes = fieldset_classes | append: ' flex-col' %}
+    {% endif %}
+  {% endif %}
+
+  {%- if selling_plan_groups.size > 0 -%}
+    <fieldset class="{{ fieldset_classes }} {{ additional_form_classes }} ">
+      {% if hide_subscription == false %}
+        {% assign subscription_form_inner_classes = 'group relative subscription-group' %}
+        {% unless subscription_form_style == 'compact' %}
+          {% if section.settings.subsOrder == 'subs_top' %}
+            {% assign subscription_form_inner_classes = subscription_form_inner_classes | append: ' ' %}
+          {% else %}
+            {% assign subscription_form_inner_classes = subscription_form_inner_classes | append: ' border-t' %}
+          {% endif %}
+        {% endunless %}
+
+        <div class="{{ subscription_form_inner_classes }}">
+          {% assign subscription_label_classes = 'flex items-center transition-all duration-300 ease-in-out group-has-[.subscription-radio:checked]:bg-orange-EXTRA_LIGHT group-has-[.subscription-radio:checked]:text-black lg:hover:cursor-pointer lg:hover:bg-orange/5' %}
+          {% if subscription_form_style == 'compact' %}
+            {% assign subscription_label_classes = subscription_label_classes
+              | append: ' border bg-grey border-transparent group-has-[.subscription-radio:checked]:border-orange'
+            %}
+          {% else %}
+            {% assign subscription_label_classes = subscription_label_classes
+              | append: ' [.js-subscription-active_&]:border [.js-subscription-active_&]:border-orange [.js-one-time-active_&]:border [.js-one-time-active_&]:border-black/15 [.js-one-time-active_&]:bg-black/5'
+            %}
+          {% endif %}
+          <label
+            for="selling_plan_subscription--{{ id }}"
+            class="{{ subscription_label_classes }}{% if is_secondary_subscription_style %} ctr-subscription-secondary__subscription-label{% endif %}"
+          >
+            <div class="flex flex-1 flex-col {% if subscription_form_style == 'compact' %}p-16{% else %}p-16 lg:p-24{% endif %}">
+              {%- if variant
+                and variant.metafields.custom.subscription_badge != blabk
+                and is_secondary_subscription_style == false
+              -%}
+                <div class="mb-8 flex lg:mb-10">
+                  <span class="bg-orange p-4 text-xxs/[1] font-medium uppercase text-white">
+                    {{ variant.metafields.custom.subscription_badge }}
+                  </span>
+                </div>
+              {%- endif -%}
+
+              <div class="flex items-start lg:items-center{% if is_secondary_subscription_style %} ctr-subscription-secondary__header-row{% endif %}">
+                <div class="flex h-full flex-1 flex-col gap-4">
+                  <div class="gap-8{% if subscription_form_style == 'compact' %} grid grid-cols-[auto_1fr]{% else %} flex flex-wrap items-center{% endif %}">
+                    <div class="flex h-full items-center justify-center">
+                      <input
+                        type="radio"
+                        name="purchase_option"
+                        value="subscription"
+                        id="selling_plan_subscription--{{ id }}"
+                        class="subscription-radio sr-only"
+                        {% if section.settings.subsDefaultOption == 'subscriptions'
+                          and current_variant.id == product.selected_or_first_available_variant.id
+                        %}
+                          checked="true"
+                        {% endif %}
+                        {{ data_variant_id }}
+                      >
+                      <span
+                        data-input="subscription"
+                        class="transition-color inline-block h-16 w-16 rounded-full border border-black/15 bg-transparent duration-300 ease-in-out group-has-[.subscription-radio:checked]:bg-orange group-has-[:focus]:ring-1 group-has-[:focus]:ring-orange lg:h-24 lg:w-24 [.js-subscription-active_&]:border-orange{% if is_secondary_subscription_style %} ctr-subscription-secondary__radio{% endif %}"
+                      ></span>
+                    </div>
+                    <h3 class="{{ options_title_classes }}{% if is_secondary_subscription_style %} ctr-subscription-secondary__label-text{% endif %}">
+                      {%- if variant and section.settings.subscription_title contains '#option#' -%}
+                        {{ section.settings.subscription_title | replace: '#option#', variant.option2 }}
+                      {%- else -%}
+                        {{ section.settings.subscription_title }}
+                      {%- endif -%}
+                    </h3>
+                    {% assign badge_class = 'bg-orange/15 !text-orange ' | append: badge_classes %}
+                    {% if subscription_form_style == 'compact' %}
+                      {% assign badge_class = badge_class | append: ' col-start-2 w-min' %}
+                    {% endif %}
+                    {% if section.settings.subscription_badge_type == 'auto'
+                      or section.settings.subscription_badge_type == 'discount_and_free_shipping'
+                      or section.settings.subscription_badge_type == 'custom'
+                    %}
+                      {% for item in selling_plan_groups %}
+                        {% assign selling_plan = item.selling_plans[0] %}
+                        {% if item.selling_plan %}
+                          {% assign selling_plan = item.selling_plan %}
+                        {% endif %}
+
+                        {% unless item.name == 'Pre Order' or selling_plan.name == 'Pre Order' %}
+                          {% assign discount_value = selling_plan.price_adjustments[0].value %}
+                          {% assign discount_type = selling_plan.price_adjustments[0].value_type %}
+                          {% if discount_type == 'percentage' %}
+                            {% assign discount = discount_value | append: '%' %}
+                          {% endif %}
+                          {% if discount_type == 'fixed_amount' %}
+                            {% assign discount = discount_value | money_without_trailing_zeros %}
+                          {% endif %}
+
+                          {% assign badge_id = 'discount-plan-' | append: selling_plan.id %}
+                          {% if section.settings.subscription_badge_type == 'custom' %}
+                            {% assign badge_text = subscription_badge_custom_text %}
+                            {% assign badge_text = badge_text | replace: '[saving]', discount %}
+                            {% assign badge_text = badge_text | replace: '[SAVING]', discount %}
+                            {% assign badge_text = badge_text | replace: '[extra]', subscription_badge_extra_text %}
+                            {% assign badge_text = badge_text | replace: '[EXTRA]', subscription_badge_extra_text %}
+                            {% if should_append_extra_badge %}
+                              {% unless subscription_badge_custom_text contains '[extra]'
+                                or subscription_badge_custom_text contains '[EXTRA]'
+                              %}
+                                {% unless badge_text contains 'EXTRA' %}
+                                  {% assign badge_text = badge_text | append: ' EXTRA' %}
+                                {% endunless %}
+                              {% endunless %}
+                            {% endif %}
+                          {% else %}
+                            {% assign badge_text = discount | prepend: 'Save ' %}
+                            {% if should_append_extra_badge %}
+                              {% unless badge_text contains 'EXTRA' %}
+                                {% assign badge_text = badge_text | append: ' EXTRA' %}
+                              {% endunless %}
+                            {% endif %}
+                          {% endif %}
+
+                          {%- if section.settings.subscription_badge_type == 'discount_and_free_shipping' -%}
+                            {% assign badge_text = badge_text | append: ' + Free Shipping ' %}
+                          {%- endif -%}
+
+                          {% if is_secondary_subscription_style %}
+                            <span
+                              id="{{ badge_id }}"
+                              data-subscription-discount
+                              class="ctr-subscription-secondary__save-badge {% unless forloop.first %}hidden{% endunless %}"
+                            >
+                              {{ badge_text }}
+                            </span>
+                          {% else %}
+                            {% render 'badge',
+                              text: badge_text,
+                              class: badge_class,
+                              id: badge_id,
+                              data_attributes: 'data-subscription-discount'
+                            %}
+                          {% endif %}
+                        {% endunless %}
+                      {% endfor %}
+                    {% elsif section.settings.subscription_badge_type == 'manual'
+                      and section.settings.subscription_badge_text != blank
+                    %}
+                      {% assign manual_badge_text = section.settings.subscription_badge_text %}
+                      {% if should_append_extra_badge %}
+                        {% unless manual_badge_text contains 'EXTRA' %}
+                          {% assign manual_badge_text = manual_badge_text | append: ' EXTRA' %}
+                        {% endunless %}
+                      {% endif %}
+                      {% if is_secondary_subscription_style %}
+                        <span class="ctr-subscription-secondary__save-badge">
+                          {{ manual_badge_text }}
+                        </span>
+                      {% else %}
+                        {% render 'badge', text: manual_badge_text, class: badge_class %}
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+                {% assign price_classes = 'flex ' %}
+                {% if subscription_form_style == 'compact' %}
+                  {% assign price_classes = price_classes
+                    | append: ' items-baseline gap-12 pl-0 text-right fn-tt-body-10 hidden xl:flex xl:flex-col-reverse'
+                  %}
+                {% else %}
+                  {% assign price_classes = price_classes
+                    | append: ' text-[14px] flex-col-reverse items-end gap-0 text-left lg:text-[18px] lg:gap-4 '
+                  %}
+                {% endif %}
+                <div class="{{ price_classes }}{% if is_secondary_subscription_style %} ctr-subscription-secondary__price-row{% endif %}">
+                  <p data-subscription-compare-at-price class="fn-tt-caption igPrice text-black/60 line-through">
+                    {% if current_variant.compare_at_price > current_variant.price %}
+                      {{ current_variant.compare_at_price | money }}
+                    {% else %}
+                      {{ current_variant.price | money }}
+                    {% endif %}
+                  </p>
+
+                  {% for item in selling_plan_groups %}
+                    {% assign selling_plan = item.selling_plans[0] %}
+                    {% if item.selling_plan %}
+                      {% assign selling_plan = item.selling_plan %}
+                    {% endif %}
+
+                    {% unless item.name == 'Pre Order' or selling_plan.name == 'Pre Order' %}
+                      <p
+                        data-subscription-price
+                        id="price-plan-{{ selling_plan.id }}"
+                        class="igPrice {% unless forloop.first %}hidden{% endunless %}{% if is_secondary_subscription_style %} ctr-subscription-secondary__main-price{% endif %}"
+                        data-price-multiplier=".85"
+                      >
+                        {{ subscription_discounted_price }}
+                      </p>
+                    {% endunless %}
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="pt-16 lg:pt-10{% if is_secondary_subscription_style %} ctr-subscription-secondary__subscription-extra{% endif %}">
+                {% assign selling_plan_select_classes = 'fn-tt-cta-20 pointer-events-none mb-16 h-40 w-full appearance-none border border-black/15 bg-transparent px-16 pr-36 text-black group-has-[.subscription-radio:checked]:pointer-events-auto group-has-[.subscription-radio:checked]:bg-white lg:h-56 lg:pr-56' %}
+                {% if is_secondary_subscription_style %}
+                  {% assign selling_plan_select_classes = 'fn-tt-caption ctr-subscription-secondary__plan-select' %}
+                {% endif %}
+                {% if selling_plan_groups.size < 2 %}
+                  {% assign selling_plan_select_classes = selling_plan_select_classes | prepend: 'hidden ' %}
+                {% endif %}
+                {% if is_secondary_subscription_style and delivered_every_text != blank %}
+                  <div class="ctr-subscription-secondary__delivered-row">
+                    <div class="ctr-subscription-secondary__delivered-group">
+                      <p class="fn-tt-caption ctr-subscription-secondary__delivery-text text-black/80">
+                        {{ delivered_every_text }}
+                      </p>
+                      {% assign plan_trigger_label = '' %}
+                      {% if current_variant_product_option_preselected_selling_plan_id != blank %}
+                        {% for item in ordered_selling_plan_groups %}
+                          {% assign selling_plans = item.selling_plans %}
+                          {% if item.selling_plan %}
+                            {% assign selling_plans = item.selling_plan | sort %}
+                          {% endif %}
+                          {% unless item.name == 'Pre Order' %}
+                            {% for plan in selling_plans %}
+                              {% assign plan_id_string = plan.id | append: '' %}
+                              {% unless plan.name == 'Pre Order' %}
+                                {% if plan_id_string == current_variant_product_option_preselected_selling_plan_id %}
+                                  {% assign plan_trigger_label = plan.name %}
+                                  {% break %}
+                                {% endif %}
+                              {% endunless %}
+                            {% endfor %}
+                          {% endunless %}
+                          {% if plan_trigger_label != blank %}
+                            {% break %}
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                      {% if plan_trigger_label == blank %}
+                        {% for item in ordered_selling_plan_groups %}
+                          {% assign selling_plans = item.selling_plans %}
+                          {% if item.selling_plan %}
+                            {% assign selling_plans = item.selling_plan | sort %}
+                          {% endif %}
+                          {% unless item.name == 'Pre Order' %}
+                            {% for plan in selling_plans %}
+                              {% unless plan.name == 'Pre Order' %}
+                                {% assign plan_trigger_label = plan.name %}
+                                {% break %}
+                              {% endunless %}
+                            {% endfor %}
+                          {% endunless %}
+                          {% if plan_trigger_label != blank %}
+                            {% break %}
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                      <div class="ctr-subscription-secondary__plan-dropdown" data-plan-dropdown>
+                        <button
+                          type="button"
+                          class="ctr-subscription-secondary__plan-trigger"
+                          data-plan-trigger
+                          aria-expanded="false"
+                        >
+                          <span data-plan-current>{{ plan_trigger_label }}</span>
+                        </button>
+                        <div class="ctr-subscription-secondary__plan-menu hidden" data-plan-menu>
+                          {% for item in ordered_selling_plan_groups %}
+                            {% assign selling_plans = item.selling_plans %}
+                            {% if item.selling_plan %}
+                              {% assign selling_plans = item.selling_plan | sort %}
+                            {% endif %}
+                            {% unless item.name == 'Pre Order' %}
+                              {% for plan in selling_plans %}
+                                {% unless plan.name == 'Pre Order' %}
+                                  <button
+                                    type="button"
+                                    class="ctr-subscription-secondary__plan-option"
+                                    data-plan-option
+                                    data-plan-value="{{ plan.id }}"
+                                  >
+                                    Delivered every {{ plan.name }}
+                                  </button>
+                                {% endunless %}
+                              {% endfor %}
+                            {% endunless %}
+                          {% endfor %}
+                        </div>
+                        <select
+                          name="selling_plan"
+                          id="selling_plan--{{ id }}"
+                          class="{{ selling_plan_select_classes }} ctr-subscription-secondary__plan-select-native"
+                          data-plan-native
+                        >
+                          {% assign has_preselected_plan_option = false %}
+                          {% if current_variant_product_option_preselected_selling_plan_id != blank %}
+                            {% for item in ordered_selling_plan_groups %}
+                              {% assign selling_plans = item.selling_plans %}
+                              {% if item.selling_plan %}
+                                {% assign selling_plans = item.selling_plan | sort %}
+                              {% endif %}
+                              {% unless item.name == 'Pre Order' %}
+                                {% for plan in selling_plans %}
+                                  {% assign plan_id_string = plan.id | append: '' %}
+                                  {% unless plan.name == 'Pre Order' %}
+                                    {% if plan_id_string == current_variant_product_option_preselected_selling_plan_id
+                                    %}
+                                      {% assign has_preselected_plan_option = true %}
+                                      {% break %}
+                                    {% endif %}
+                                  {% endunless %}
+                                {% endfor %}
+                              {% endunless %}
+                              {% if has_preselected_plan_option %}
+                                {% break %}
+                              {% endif %}
+                            {% endfor %}
+                          {% endif %}
+                          {% assign has_selected_plan_option = false %}
+                          {% for item in ordered_selling_plan_groups %}
+                            {% assign selling_plans = item.selling_plans %}
+                            {% if item.selling_plan %}
+                              {% assign selling_plans = item.selling_plan | sort %}
+                            {% endif %}
+
+                            {% unless item.name == 'Pre Order' %}
+                              {% for plan in selling_plans %}
+                                {% unless plan.name == 'Pre Order' %}
+                                  {% assign plan_id_string = plan.id | append: '' %}
+                                  <option
+                                    data-price-value="{{ price_adjustment_value }}"
+                                    data-price="{{ subscription_discounted_price }}"
+                                    selling_plan="{{ plan.id }}"
+                                    value="{{ plan.id }}"
+                                    data-price-value-type="{{ price_adjustment_value_type }}"
+                                    {% if has_preselected_plan_option
+                                      and plan_id_string == current_variant_product_option_preselected_selling_plan_id
+                                    %}
+                                      selected
+                                      {% assign has_selected_plan_option = true %}
+                                    {% elsif has_preselected_plan_option == false
+                                      and has_selected_plan_option == false
+                                    %}
+                                      selected
+                                      {% assign has_selected_plan_option = true %}
+                                    {% endif %}
+                                  >
+                                    {{ plan.name }}
+                                  </option>
+                                {% endunless %}
+                              {% endfor %}
+                            {% endunless %}
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+                    {% if current_variant_product_option_badge_label != blank
+                      or show_subscription_saving_message
+                      and subscription_saving_message_template != blank
+                    %}
+                      <div class="fn-tt-caption ctr-subscription-secondary__message--subscription text-right text-black/80">
+                        {% if show_subscription_saving_message and subscription_saving_message_template != blank %}
+                          {% assign has_visible_saving_message = false %}
+                          {% for item in selling_plan_groups %}
+                            {% assign selling_plan = item.selling_plans[0] %}
+                            {% if item.selling_plan %}
+                              {% assign selling_plan = item.selling_plan %}
+                            {% endif %}
+                            {% assign savings_base_price = current_variant.compare_at_price %}
+                            {% if savings_base_price == blank or savings_base_price <= 0 %}
+                              {% assign savings_base_price = current_variant.price %}
+                            {% endif %}
+                            {% assign selling_plan_price = current_variant.price %}
+                            {% if item.price_adjustments[0].price != blank %}
+                              {% assign selling_plan_price = item.price_adjustments[0].price %}
+                            {% endif %}
+                            {% assign saving_amount = savings_base_price | minus: selling_plan_price | at_least: 0 %}
+                            {% assign saving_amount_text = saving_amount | money %}
+
+                            {% unless item.name == 'Pre Order' or selling_plan.name == 'Pre Order' %}
+                              {% if saving_amount > 0 %}
+                                {% assign saving_message_classes = 'hidden' %}
+                                {% unless has_visible_saving_message %}
+                                  {% assign saving_message_classes = '' %}
+                                  {% assign has_visible_saving_message = true %}
+                                {% endunless %}
+                                <p
+                                  data-subscription-saving-message
+                                  id="saving-message-plan-{{ selling_plan.id }}"
+                                  class="{{ saving_message_classes }}"
+                                >
+                                  {{ subscription_saving_message_template | replace: '[saving]', saving_amount_text }}
+                                </p>
+                              {% endif %}
+                            {% endunless %}
+                          {% endfor %}
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </div>
+                {% else %}
+                  {% if delivered_every_text != blank %}
+                    <p class="fn-tt-caption mb-8 text-black/60">
+                      {{ delivered_every_text }}
+                    </p>
+                  {% endif %}
+                  <select
+                    name="selling_plan"
+                    id="selling_plan--{{ id }}"
+                    class="{{ selling_plan_select_classes }}"
+                  >
+                    {% assign has_preselected_plan_option = false %}
+                    {% if current_variant_product_option_preselected_selling_plan_id != blank %}
+                      {% for item in ordered_selling_plan_groups %}
+                        {% assign selling_plans = item.selling_plans %}
+                        {% if item.selling_plan %}
+                          {% assign selling_plans = item.selling_plan | sort %}
+                        {% endif %}
+                        {% unless item.name == 'Pre Order' %}
+                          {% for plan in selling_plans %}
+                            {% assign plan_id_string = plan.id | append: '' %}
+                            {% unless plan.name == 'Pre Order' %}
+                              {% if plan_id_string == current_variant_product_option_preselected_selling_plan_id %}
+                                {% assign has_preselected_plan_option = true %}
+                                {% break %}
+                              {% endif %}
+                            {% endunless %}
+                          {% endfor %}
+                        {% endunless %}
+                        {% if has_preselected_plan_option %}
+                          {% break %}
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                    {% assign has_selected_plan_option = false %}
+                    {% for item in ordered_selling_plan_groups %}
+                      {% assign selling_plans = item.selling_plans %}
+                      {% if item.selling_plan %}
+                        {% assign selling_plans = item.selling_plan | sort %}
+                      {% endif %}
+
+                      {% unless item.name == 'Pre Order' %}
+                        {% for plan in selling_plans %}
+                          {% unless plan.name == 'Pre Order' %}
+                            {% assign plan_id_string = plan.id | append: '' %}
+                            <option
+                              data-price-value="{{ price_adjustment_value }}"
+                              data-price="{{ subscription_discounted_price }}"
+                              selling_plan="{{ plan.id }}"
+                              value="{{ plan.id }}"
+                              data-price-value-type="{{ price_adjustment_value_type }}"
+                              {% if has_preselected_plan_option
+                                and plan_id_string == current_variant_product_option_preselected_selling_plan_id
+                              %}
+                                selected
+                                {% assign has_selected_plan_option = true %}
+                              {% elsif has_preselected_plan_option == false and has_selected_plan_option == false %}
+                                selected
+                                {% assign has_selected_plan_option = true %}
+                              {% endif %}
+                            >
+                              {{ plan.name }}
+                            </option>
+                          {% endunless %}
+                        {% endfor %}
+                      {% endunless %}
+                    {% endfor %}
+                  </select>
+                {% endif %}
+                {% if show_subscription_saving_message
+                  and subscription_saving_message_template != blank
+                  and is_secondary_subscription_style == false
+                %}
+                  <div class="fn-tt-caption mb-16 text-black/60">
+                    {% assign has_visible_saving_message = false %}
+                    {% for item in selling_plan_groups %}
+                      {% assign selling_plan = item.selling_plans[0] %}
+                      {% if item.selling_plan %}
+                        {% assign selling_plan = item.selling_plan %}
+                      {% endif %}
+                      {% assign savings_base_price = current_variant.compare_at_price %}
+                      {% if savings_base_price == blank or savings_base_price <= 0 %}
+                        {% assign savings_base_price = current_variant.price %}
+                      {% endif %}
+                      {% assign selling_plan_price = current_variant.price %}
+                      {% if item.price_adjustments[0].price != blank %}
+                        {% assign selling_plan_price = item.price_adjustments[0].price %}
+                      {% endif %}
+                      {% assign saving_amount = savings_base_price | minus: selling_plan_price | at_least: 0 %}
+                      {% assign saving_amount_text = saving_amount | money %}
+
+                      {% unless item.name == 'Pre Order' or selling_plan.name == 'Pre Order' %}
+                        {% if saving_amount > 0 %}
+                          {% assign saving_message_classes = 'hidden' %}
+                          {% unless has_visible_saving_message %}
+                            {% assign saving_message_classes = '' %}
+                            {% assign has_visible_saving_message = true %}
+                          {% endunless %}
+                          <p
+                            data-subscription-saving-message
+                            id="saving-message-plan-{{ selling_plan.id }}"
+                            class="{{ saving_message_classes }}"
+                          >
+                            {{ subscription_saving_message_template | replace: '[saving]', saving_amount_text }}
+                          </p>
+                        {% endif %}
+                      {% endunless %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+                {% if subscription_form_style == 'compact' %}
+                  <div class="fn-tt-body-10 flex items-center gap-8 pt-16 xl:hidden">
+                    <p data-subscription-compare-at-price class="fn-tt-caption igPrice text-black/60 line-through">
+                      {% if current_variant.compare_at_price > current_variant.price %}
+                        {{ current_variant.compare_at_price | money }}
+                      {% else %}
+                        {{ current_variant.price | money }}
+                      {% endif %}
+                    </p>
+
+                    {% for item in selling_plan_groups %}
+                      {% assign selling_plan = item.selling_plans[0] %}
+                      {% if item.selling_plan %}
+                        {% assign selling_plan = item.selling_plan %}
+                      {% endif %}
+
+                      {% unless item.name == 'Pre Order' or selling_plan.name == 'Pre Order' %}
+                        <p
+                          data-subscription-price
+                          id="price-plan-{{ selling_plan.id }}"
+                          class="igPrice {% unless forloop.first %}hidden{% endunless %}"
+                          data-price-multiplier=".85"
+                        >
+                          {{ subscription_discounted_price }}
+                        </p>
+                      {% endunless %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+                {% if section.blocks != blank and subscription_form_style == 'stacked' %}
+                  {% assign subscription_benefits_classes = 'flex flex-col gap-8 lg:gap-12' %}
+                  {% if is_secondary_subscription_style %}
+                    {% assign subscription_benefits_classes = 'ctr-subscription-secondary__benefits' %}
+                  {% endif %}
+                  <ul class="{{ subscription_benefits_classes }}">
+                    {%- assign icon_x_class = '[.js-subscription-active_&]:hidden' -%}
+                    {%- assign icon_checkmark_class = '[.js-one-time-active_&]:hidden' -%}
+                    {% if is_secondary_subscription_style %}
+                      {%- assign icon_x_class = '' -%}
+                      {%- assign icon_checkmark_class = '' -%}
+                    {% endif %}
+
+                    {%- if current_variant.metafields.custom.subscription_benefits.value != blabk -%}
+                      {%- for benefit in current_variant.metafields.custom.subscription_benefits.value -%}
+                        {% if is_secondary_subscription_style %}
+                          <li class="ctr-subscription-secondary__benefit-item {{ icon_checkmark_class }}">
+                            <span>{{ benefit_icon_svg }}</span>
+                            <p class="fn-tt-caption lg:text-sm">{{ benefit }}</p>
+                          </li>
+                        {% else %}
+                          {% render 'checkpoint', class: icon_checkmark_class, icon: icon-checkmark, text: benefit %}
+                          {% render 'checkpoint', class: icon_x_class, icon: icon-x, text: benefit %}
+                        {% endif %}
+                      {%- endfor -%}
+                    {%- endif -%}
+
+                    {% for block in section.blocks %}
+                      {% if block.type == 'subscription_benefit' %}
+                        {% if block.settings.title != blank %}
+                          {%- if block.settings.benefit_variant_ids != blank -%}
+                            {%- assign benefit_variant_ids = block.settings.benefit_variant_ids | split: ',' -%}
+
+                            {%- for id in benefit_variant_ids -%}
+                              {%- assign strip_id = id | strip | plus: 0 -%}
+                              {%- if strip_id == variant.id -%}
+                                {% if is_secondary_subscription_style %}
+                                  <li class="ctr-subscription-secondary__benefit-item {{ icon_checkmark_class }}">
+                                    <span>{{ benefit_icon_svg }}</span>
+                                    <p class="fn-tt-caption lg:text-sm">{{ block.settings.title }}</p>
+                                  </li>
+                                {% else %}
+                                  {% render 'checkpoint',
+                                    class: icon_checkmark_class,
+                                    icon: icon-checkmark,
+                                    text: block.settings.title
+                                  %}
+                                  {% render 'checkpoint',
+                                    class: icon_x_class,
+                                    icon: icon-x,
+                                    text: block.settings.title
+                                  %}
+                                {% endif %}
+                                {%- break -%}
+                              {%- endif -%}
+                            {%- endfor -%}
+
+                          {%- else -%}
+                            {% if is_secondary_subscription_style %}
+                              <li class="ctr-subscription-secondary__benefit-item {{ icon_checkmark_class }}">
+                                <span>{{ benefit_icon_svg }}</span>
+                                <p class="fn-tt-caption lg:text-sm">{{ block.settings.title }}</p>
+                              </li>
+                            {% else %}
+                              {% render 'checkpoint',
+                                class: icon_checkmark_class,
+                                icon: icon-checkmark,
+                                text: block.settings.title
+                              %}
+                              {% render 'checkpoint', class: icon_x_class, icon: icon-x, text: block.settings.title %}
+                            {% endif %}
+                          {%- endif -%}
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+            </div>
+          </label>
+
+          <div class="hidden peer-has-[:checked]:block"></div>
+        </div>
+      {% endif %}
+
+      {%- if hide_one_tine_purchase == false -%}
+        {% unless subscription_form_style == 'compact' %}
+          {% if section.settings.subsOrder == 'subs_top' %}
+            {% assign onetime_form_inner_classes = onetime_form_inner_classes
+              | append: ' mt-[16px] mb-[16px] lg:mt-[24px] lg:mb-[24px]'
+            %}
+          {% endif %}
+        {% endunless %}
+
+        <div class="group {{ onetime_form_inner_classes }}">
+          {% assign selling_plan_classes = 'transition-color flex duration-300 ease-in-out has-[:checked]:bg-orange-EXTRA_LIGHT group-has-[.subscription-radio:checked]:text-black lg:hover:cursor-pointer lg:hover:bg-orange/5' %}
+          {% if subscription_form_style == 'compact' %}
+            {% assign selling_plan_classes = selling_plan_classes
+              | append: ' h-full bg-grey border border-transparent xl:has-[:checked]:border-orange'
+            %}
+          {% else %}
+            {% assign selling_plan_classes = selling_plan_classes
+              | append: ' items-center bg-black/5 [.js-one-time-active_&]:border [.js-one-time-active_&]:border-orange [.js-one-time-active_&]:border-orange [.js-subscription-active_&]:border [.js-subscription-active_&]:border-black/15'
+            %}
+          {% endif %}
+          <label
+            for="selling_plan_onetime--{{ id }}"
+            class="{{ selling_plan_classes }}{% if is_secondary_subscription_style %} ctr-subscription-secondary__onetime-label{% endif %}"
+          >
+            <div class="space-between ctr-subscription-secondary__onetime-inner flex flex-1 {% if subscription_form_style == 'compact' %} flex-col xl:flex-row justify-between {% endif %}">
+              <div class="ctr-subscription-secondary__onetime-left flex gap-8 px-12 py-16 {% if subscription_form_style == 'compact' %} h-min items-center xl:flex-1{% else %} flex-1 h-auto lg:px-24 lg:py-24{% endif %}">
+                <div class="flex h-full justify-center {% if subscription_form_style == 'stacked' %}items-center{% endif %}">
+                  <input
+                    type="radio"
+                    name="purchase_option"
+                    value="onetime"
+                    id="selling_plan_onetime--{{ id }}"
+                    {% if section.settings.subsDefaultOption == 'onetime' %}
+                      checked="true"
+                    {% endif %}
+                    class="subscription-radio sr-only"
+                    {{ data_variant_id }}
+                  >
+                  <span
+                    data-input="purchase_option"
+                    class="transition-color inline-block h-16 w-16 rounded-full border border-black/15 bg-transparent duration-300 ease-in-out group-has-[.subscription-radio:checked]:bg-orange group-has-[:focus]:ring-1  group-has-[:focus]:ring-orange lg:h-24 lg:w-24{% if is_secondary_subscription_style %} ctr-subscription-secondary__radio{% endif %}"
+                  ></span>
+                </div>
+                <div class="flex flex-wrap gap-8 {% if subscription_form_style == 'stacked' %}items-center{% endif %}">
+                  <p class="{{ options_title_classes }}{% if is_secondary_subscription_style %} ctr-subscription-secondary__label-text{% endif %}">
+                    {%- assign one_time_title = section.settings.one_time_title | default: 'One-time' -%}
+
+                    {%- if variant and one_time_title contains '#option#' -%}
+                      {{ one_time_title | replace: '#option#', variant.option2 }}
+                    {%- else -%}
+                      {{ one_time_title }}
+                    {%- endif -%}
+                  </p>
+
+                  {% if section.settings.one_time_purchase_badge_text != blank %}
+                    {% render 'badge', text: section.settings.one_time_purchase_badge_text, class: 'bg-blue' %}
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="flex h-auto items-baseline gap-8 xl:pl-0 ctr-subscription-secondary__onetime-right{% if subscription_form_style == 'compact' %} fn-tt-body-10 p-16 text-right {% else %} text-[14px] justify-center pl-0 pr-12 py-16 lg:p-24 lg:pl-0 text-right lg:text-[18px]{% endif %}">
+                <div class="{% if is_secondary_subscription_style %}ctr-subscription-secondary__price-row{% else %}flex items-baseline gap-8{% endif %}">
+                  <p
+                    data-one-time-compare-at-price
+                    data-base-compare-at-price="{{ current_variant.compare_at_price | divided_by: 100.0 }}"
+                    class="fn-tt-caption igComparePrice text-black/60 line-through empty:hidden"
+                    data-currency="{{ cart.currency.iso_code }}"
+                  ></p>
+
+                  <p
+                    data-one-time-price
+                    class="igPrice flex flex-row-reverse items-baseline gap-8{% if subscription_form_style == 'compact' %} xl:flex-col{% endif %}{% if is_secondary_subscription_style %} ctr-subscription-secondary__main-price{% endif %}"
+                  >
+                    {% render 'one-time-price', variant: current_variant %}
+                  </p>
+                </div>
+                {% if is_secondary_subscription_style
+                  and show_subscription_saving_message
+                  and one_time_saving_message_template != blank
+                %}
+                  <div class="fn-tt-caption ctr-subscription-secondary__message--onetime-inline text-right text-black/80">
+                    {% assign has_visible_one_time_saving_message = false %}
+                    {% for item in selling_plan_groups %}
+                      {% assign selling_plan = item.selling_plans[0] %}
+                      {% if item.selling_plan %}
+                        {% assign selling_plan = item.selling_plan %}
+                      {% endif %}
+                      {% assign one_time_price = current_variant.price %}
+                      {% assign selling_plan_price = current_variant.price %}
+                      {% if item.price_adjustments[0].price != blank %}
+                        {% assign selling_plan_price = item.price_adjustments[0].price %}
+                      {% endif %}
+                      {% assign saving_amount = one_time_price | minus: selling_plan_price | at_least: 0 %}
+                      {% assign saving_amount_text = saving_amount | money %}
+
+                      {% unless item.name == 'Pre Order' or selling_plan.name == 'Pre Order' %}
+                        {% if saving_amount > 0 %}
+                          {% assign one_time_saving_message_classes = 'hidden' %}
+                          {% unless has_visible_one_time_saving_message %}
+                            {% assign one_time_saving_message_classes = '' %}
+                            {% assign has_visible_one_time_saving_message = true %}
+                          {% endunless %}
+                          <p
+                            data-subscription-saving-message
+                            id="onetime-saving-message-plan-{{ selling_plan.id }}"
+                            class="{{ one_time_saving_message_classes }}"
+                          >
+                            {{ one_time_saving_message_template | replace: '[saving]', saving_amount_text }}
+                          </p>
+                        {% endif %}
+                      {% endunless %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </label>
+        </div>
+      {%- endif -%}
+    </fieldset>
+
+    {% if section.blocks != blank and subscription_form_style == 'compact' %}
+      <ul class="hidden flex-col gap-16 py-16 lg:flex-row lg:flex-wrap xl:py-24 [fieldset:has(#selling\_plan\_subscription--{{ id }}:checked)+&]:flex">
+        {%- assign icon_x_class = '[.js-subscription-active_&]:hidden' -%}
+        {%- assign icon_checkmark_class = '[.js-one-time-active_&]:hidden' -%}
+        {% if is_secondary_subscription_style %}
+          {%- assign icon_x_class = '' -%}
+          {%- assign icon_checkmark_class = '' -%}
+        {% endif %}
+
+        {%- if current_variant.metafields.custom.subscription_benefits.value != blabk -%}
+          {%- for benefit in current_variant.metafields.custom.subscription_benefits.value -%}
+            {% if is_secondary_subscription_style %}
+              <li class="ctr-subscription-secondary__benefit-item {{ icon_checkmark_class }}">
+                <span>{{ benefit_icon_svg }}</span>
+                <p class="fn-tt-caption lg:text-sm">{{ benefit }}</p>
+              </li>
+            {% else %}
+              {% render 'checkpoint', class: icon_checkmark_class, icon: icon-checkmark, text: benefit %}
+              {% render 'checkpoint', class: icon_x_class, icon: icon-x, text: benefit %}
+            {% endif %}
+          {%- endfor -%}
+        {%- endif -%}
+
+        {% for block in section.blocks %}
+          {% if block.type == 'subscription_benefit' %}
+            {% if block.settings.title != blank %}
+              {%- if block.settings.benefit_variant_ids != blank -%}
+                {%- assign benefit_variant_ids = block.settings.benefit_variant_ids | split: ',' -%}
+
+                {%- for id in benefit_variant_ids -%}
+                  {%- assign strip_id = id | strip | plus: 0 -%}
+                  {%- if strip_id == variant.id -%}
+                    <div class="">
+                      {% if is_secondary_subscription_style %}
+                        <li class="ctr-subscription-secondary__benefit-item {{ icon_checkmark_class }}">
+                          <span>{{ benefit_icon_svg }}</span>
+                          <p class="fn-tt-caption lg:text-sm">{{ block.settings.title }}</p>
+                        </li>
+                      {% else %}
+                        {% render 'checkpoint',
+                          class: icon_checkmark_class,
+                          icon: icon-checkmark,
+                          text: block.settings.title
+                        %}
+                        {% render 'checkpoint', class: icon_x_class, icon: icon-x, text: block.settings.title %}
+                      {% endif %}
+                    </div>
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+
+              {%- else -%}
+                <div class="">
+                  {% if is_secondary_subscription_style %}
+                    <li class="ctr-subscription-secondary__benefit-item {{ icon_checkmark_class }}">
+                      <span>{{ benefit_icon_svg }}</span>
+                      <p class="fn-tt-caption lg:text-sm">{{ block.settings.title }}</p>
+                    </li>
+                  {% else %}
+                    {% render 'checkpoint',
+                      class: icon_checkmark_class,
+                      icon: icon-checkmark,
+                      text: block.settings.title
+                    %}
+                    {% render 'checkpoint', class: icon_x_class, icon: icon-x, text: block.settings.title %}
+                  {% endif %}
+                </div>
+              {%- endif -%}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+      <ul class="flex flex-col gap-16 py-16 lg:flex-row lg:flex-wrap xl:py-24 [fieldset:has(#selling\_plan\_subscription--{{ id }}:checked)+ul+&]:hidden">
+        {%- assign icon_x_class = '[.js-subscription-active_&]:hidden' -%}
+        {%- assign icon_checkmark_class = '[.js-one-time-active_&]:hidden' -%}
+        {% if is_secondary_subscription_style %}
+          {%- assign icon_x_class = '' -%}
+          {%- assign icon_checkmark_class = '' -%}
+        {% endif %}
+
+        {%- if current_variant.metafields.custom.subscription_benefits.value != blabk -%}
+          {%- for benefit in current_variant.metafields.custom.subscription_benefits.value -%}
+            {% if is_secondary_subscription_style %}
+              <li class="ctr-subscription-secondary__benefit-item {{ icon_checkmark_class }}">
+                <span>{{ benefit_icon_svg }}</span>
+                <p class="fn-tt-caption lg:text-sm">{{ benefit }}</p>
+              </li>
+            {% else %}
+              {% render 'checkpoint', class: icon_checkmark_class, icon: icon-checkmark, text: benefit %}
+              {% render 'checkpoint', class: icon_x_class, icon: icon-x, text: benefit %}
+            {% endif %}
+          {%- endfor -%}
+        {%- endif -%}
+
+        {% for block in section.blocks %}
+          {% if block.type == 'subscription_benefit' %}
+            {% if block.settings.title != blank %}
+              {%- if block.settings.benefit_variant_ids != blank -%}
+                {%- assign benefit_variant_ids = block.settings.benefit_variant_ids | split: ',' -%}
+
+                {%- for id in benefit_variant_ids -%}
+                  {%- assign strip_id = id | strip | plus: 0 -%}
+                  {%- if strip_id == variant.id -%}
+                    <div class="">
+                      {% if is_secondary_subscription_style %}
+                        <li class="ctr-subscription-secondary__benefit-item {{ icon_checkmark_class }}">
+                          <span>{{ benefit_icon_svg }}</span>
+                          <p class="fn-tt-caption lg:text-sm">{{ block.settings.title }}</p>
+                        </li>
+                      {% else %}
+                        {% render 'checkpoint',
+                          class: icon_checkmark_class,
+                          icon: icon-checkmark,
+                          text: block.settings.title
+                        %}
+                        {% render 'checkpoint', class: icon_x_class, icon: icon-x, text: block.settings.title %}
+                      {% endif %}
+                    </div>
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+
+              {%- else -%}
+                <div class="">
+                  {% if is_secondary_subscription_style %}
+                    <li class="ctr-subscription-secondary__benefit-item {{ icon_checkmark_class }}">
+                      <span>{{ benefit_icon_svg }}</span>
+                      <p class="fn-tt-caption lg:text-sm">{{ block.settings.title }}</p>
+                    </li>
+                  {% else %}
+                    {% render 'checkpoint',
+                      class: icon_checkmark_class,
+                      icon: icon-checkmark,
+                      text: block.settings.title
+                    %}
+                    {% render 'checkpoint', class: icon_x_class, icon: icon-x, text: block.settings.title %}
+                  {% endif %}
+                </div>
+              {%- endif -%}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {%- endif -%}
+</div>
+
+<script>
+  (() => {
+    const bindPlanDropdowns = () => {
+      const dropdowns = document.querySelectorAll('[data-plan-dropdown]');
+      dropdowns.forEach((dropdown) => {
+        if (dropdown.dataset.dropdownBound === 'true') return;
+
+        const nativeSelect = dropdown.querySelector('[data-plan-native]');
+        const trigger = dropdown.querySelector('[data-plan-trigger]');
+        const menu = dropdown.querySelector('[data-plan-menu]');
+        const current = dropdown.querySelector('[data-plan-current]');
+        const options = dropdown.querySelectorAll('[data-plan-option]');
+
+        if (!nativeSelect || !trigger || !menu || !current || options.length === 0) return;
+
+        const syncState = () => {
+          const selected = nativeSelect.options[nativeSelect.selectedIndex];
+          if (selected) current.textContent = selected.textContent?.trim() || '';
+          options.forEach((option) => {
+            option.classList.toggle('is-active', option.dataset.planValue === nativeSelect.value);
+          });
+        };
+
+        trigger.addEventListener('click', () => {
+          if (trigger.disabled) return;
+          menu.classList.toggle('hidden');
+          trigger.setAttribute('aria-expanded', menu.classList.contains('hidden') ? 'false' : 'true');
+        });
+
+        options.forEach((option) => {
+          option.addEventListener('click', () => {
+            const value = option.dataset.planValue || '';
+            if (!value) return;
+            nativeSelect.value = value;
+            nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+            syncState();
+            menu.classList.add('hidden');
+            trigger.setAttribute('aria-expanded', 'false');
+          });
+        });
+
+        document.addEventListener('click', (event) => {
+          if (!dropdown.contains(event.target)) {
+            menu.classList.add('hidden');
+            trigger.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        nativeSelect.addEventListener('change', syncState);
+        syncState();
+        dropdown.dataset.dropdownBound = 'true';
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bindPlanDropdowns);
+    } else {
+      bindPlanDropdowns();
+    }
+
+    document.addEventListener('shopify:section:load', bindPlanDropdowns);
+    document.addEventListener('shopify:section:select', bindPlanDropdowns);
+  })();
+</script>

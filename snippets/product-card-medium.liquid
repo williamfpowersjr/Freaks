@@ -1,0 +1,166 @@
+{% comment %}
+  accepts the following arguments:
+  - product: a product object
+  - extra_classes: additional classes to apply to the card
+  - isHeader: boolean to determine if the card is for the header
+  - cta_text_override: optional card CTA label override
+  - cta_as_add_to_cart: when true, card CTA adds to cart instead of linking to PDP
+{% endcomment %}
+
+{% assign product_title = product.title %}
+{% assign product_image = product.featured_image %}
+{% assign product_type = product.type %}
+{% assign product_url = product.url %}
+{% assign product_slider_subline = product.metafields.custom.product_slider_subline.value %}
+{% assign product_label = product.metafields.custom.product_label %}
+
+{% assign hover_image = product.images[1] %}
+{% assign product_is_bundle = false %}
+{% if product.metafields.custom.product_is_bundle.value == true %}
+  {% assign product_is_bundle = true %}
+{% endif %}
+
+{% assign cta_text = settings.default_cta_text %}
+{% if cta_text_override != blank %}
+  {% assign cta_text = cta_text_override %}
+{% endif %}
+{% assign cta_color = 'orange' %}
+{% assign is_coming_soon = false %}
+{% assign is_preorder = false %}
+{% assign is_sold_out = false %}
+
+{% for group in product.selling_plan_groups %}
+  {% if group.name == 'Pre Order' %}
+    {% assign cta_text = settings.pre_order_cta_text %}
+    {% assign cta_color = 'orange' %}
+    {% assign is_preorder = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% if product.available != true and product.metafields.custom.coming_soon == true %}
+  {% assign cta_text = settings.coming_soon_cta_text %}
+  {% assign cta_color = 'orange' %}
+  {% assign is_coming_soon = true %}
+{% endif %}
+
+{% if product.available != true and product.metafields.custom.coming_soon != true %}
+  {% assign cta_text = settings.sold_out_cta_text %}
+  {% assign cta_color = 'orange' %}
+  {% assign is_sold_out = true %}
+{% endif %}
+
+{% if cta_arrow_icon_classes == null %}
+  {% assign cta_arrow_icon_classes = '-rotate-90' %}
+{% endif %}
+
+<a href="{{ product_url }}" aria-label="{{ product_title }}">
+  <div class="group relative flex h-full flex-col lg:pt-24 {{ extra_classes }}">
+    {% unless is_coming_soon %}
+      <div
+        class="relative mx-24 mt-32 flex aspect-square flex-col items-center justify-center overflow-hidden lg:mx-40 lg:mt-0"
+      >
+        {{
+          product_image
+          | image_url: width: product_image.width
+          | image_tag:
+            loading: 'lazy',
+            sizes: '(min-width: 1024px) 50vw, 100vw',
+            class: 'w-full h-full object-cover absolute inset-0 z-0'
+        }}
+      </div>
+
+      <div class="flex h-full flex-1 flex-col gap-16 px-24 py-16 lg:gap-24 lg:px-40 lg:pb-40">
+        {% if has_reviews == true %}
+          {% render 'junip-product-summary', product: product %}
+        {% endif %}
+        <div class="flex flex-1 flex-col">
+          <h3 class="fn-tt-title-20">{{ product_title }}</h3>
+          <p class="fn-tt-title-20 text-black/60">{{ product_type }}</p>
+        </div>
+
+        {% unless isHeader == true %}
+          {% if product_slider_subline != blank %}
+            <p class="fn-tt-body-20 flex-1">{{ product_slider_subline }}</p>
+          {% endif %}
+        {% endunless %}
+
+        <div class="fn-tt-body-20 flex items-baseline gap-8 {% if isHeader == true %}text-[14px]{% endif %}">
+          {% render 'one-time-price', variant: product.selected_or_first_available_variant %}
+        </div>
+      </div>
+
+      {% if hover_image != blank %}
+        <div class="absolute inset-0 hidden h-full w-full flex-1 transition-opacity duration-300 ease-in-out lg:block lg:opacity-0 lg:group-hover:opacity-100">
+          {{
+            hover_image
+            | image_url: width: hover_image.width
+            | image_tag: loading: 'lazy', class: 'w-full h-full object-cover', sizes: '(min-width: 1024px) 50vw, 100vw'
+          }}
+        </div>
+      {% endif %}
+    {% endunless %}
+
+    {% if is_preorder != true and is_sold_out != true and product_is_bundle != true and product_label != blank %}
+      {% render 'label',
+        bg_color: 'orange',
+        text: product_label,
+        has_uppercase: true,
+        extra_classes: 'absolute left-0 top-0',
+        hasPadding: true
+      %}
+    {% endif %}
+    {% if product_is_bundle == true and is_sold_out != true %}
+      {% render 'label',
+        bg_color: 'blue',
+        text: settings.bundle_banner_text,
+        has_uppercase: true,
+        extra_classes: 'absolute left-0 top-0  ',
+        hasPadding: true
+      %}
+    {% endif %}
+    {% if is_coming_soon == true %}
+      {% render 'label',
+        bg_color: 'black',
+        text: settings.coming_soon_banner_text,
+        has_uppercase: true,
+        extra_classes: 'absolute left-0 top-0 ',
+        hasPadding: true
+      %}
+    {% endif %}
+    {% if is_preorder == true and is_sold_out != true %}
+      {% render 'label',
+        bg_color: 'orange',
+        text: settings.pre_order_banner_text,
+        has_uppercase: true,
+        extra_classes: 'absolute left-0 top-0 ',
+        hasPadding: true
+      %}
+    {% endif %}
+    {% if is_sold_out == true %}
+      {% render 'label',
+        bg_color: 'black',
+        text: settings.sold_out_banner_text,
+        has_uppercase: true,
+        extra_classes: 'absolute left-0 top-0 ',
+        hasPadding: true
+      %}
+    {% endif %}
+
+    {% unless is_coming_soon == true %}
+      <div class="hidden lg:absolute lg:bottom-0 lg:left-0 lg:block lg:w-full">
+        {% render 'product-card-cta',
+          product: product,
+          cta_text: cta_text,
+          cta_color: cta_color,
+          cta_as_add_to_cart: cta_as_add_to_cart,
+          is_coming_soon: is_coming_soon,
+          is_sold_out: is_sold_out,
+          extra_classes: 'absolute bottom-0 left-0 w-full transition-opacity duration-300 ease-in-out lg:opacity-0 group-hover:opacity-100',
+          extra_icon_classes: cta_arrow_icon_classes,
+          hover_only: true
+        %}
+      </div>
+    {% endunless %}
+  </div>
+</a>

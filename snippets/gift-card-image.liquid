@@ -1,0 +1,51 @@
+<div class="relative aspect-[127/73] overflow-hidden">
+  {% if settings.gift_card_image != blank %}
+    {{
+      settings.gift_card_image
+      | image_url: width: 762
+      | image_tag:
+        loading: 'eager',
+        sizes: '(min-width: 1024px) 50vw, 100vw',
+        class: 'w-full h-full object-cover absolute inset-0 z-0'
+    }}
+  {% else %}
+    <img
+      src="{{ 'giftcard.png' | asset_url }}"
+      alt=""
+      height="{{ 762 | divided_by: 1.5 }}"
+      width="762"
+      loading="eager"
+    >
+  {% endif %}
+
+  <div class="absolute left-0 top-0 z-10 h-full w-full">
+    <div class="grid h-full grid-rows-5 divide-y divide-grey/40">
+      <div class="flex items-center justify-center ">
+        {% render 'logo', class: 'text-white w-144 lg:w-[340px]' %}
+      </div>
+
+      <div class="flex items-center justify-center">
+        <h2 class="fn-tt-title-70 text-center uppercase text-orange  lg:pt-6 lg:text-[7.5rem]">Protection for</h2>
+      </div>
+      <div class="flex items-center justify-center">
+        <h2 class="fn-tt-title-70 text-center uppercase text-orange  lg:pt-6 lg:text-[7.5rem]">the elements,</h2>
+      </div>
+      <div class="flex items-center justify-center">
+        <h2 class="fn-tt-title-70 text-center uppercase text-orange  lg:pt-6  lg:text-[7.5rem]">by the elements.</h2>
+      </div>
+
+      <div class="relative w-full">
+        <marquee-element>
+          <div data-container class="absolute left-0 top-1/2 flex w-full -translate-y-1/2 items-center overflow-hidden">
+            <div
+              data-content
+              class="flex shrink-0 items-center gap-x-40"
+            >
+              <span class="fn-tt-title-20 text-center font-medium uppercase text-white">Gift Card</span>
+            </div>
+          </div>
+        </marquee-element>
+      </div>
+    </div>
+  </div>
+</div>

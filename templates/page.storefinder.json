@@ -1,0 +1,46 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+      }
+    },
+    "title_EBFTUP": {
+      "type": "title",
+      "settings": {
+        "bg_color": "orange",
+        "title": "Find Freaks of Nature items near you",
+        "text_align": "left"
+      }
+    },
+    "1717159103f7136ba2": {
+      "type": "apps",
+      "blocks": {
+        "progus_store_locator_app_block_8iFPrH": {
+          "type": "shopify:\/\/apps\/progus-store-locator\/blocks\/app-block\/d7896016-8cc9-45e0-860e-ba85ba3d5be4",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "progus_store_locator_app_block_8iFPrH"
+      ],
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main",
+    "title_EBFTUP",
+    "1717159103f7136ba2"
+  ]
+}

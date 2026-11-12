@@ -1,0 +1,176 @@
+{% schema %}
+{
+  "name": "Image Card",
+  "tag": "section",
+  "class": "image-card-section",
+  "presets": [
+    {
+      "name": "Image Card",
+      "category": "Image Card",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "bg_card_color": "bg-offWhite",
+        "card_bg_color": "bg-offWhite",
+        "alignment": "lg:flex-row",
+        "title": "Lorem ipsum",
+        "subtitle": "Lorem ipsum",
+        "description": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>",
+        "label": "Lorem ipsum",
+        "label_link": "#",
+        "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+        "caption": "Lorem ipsum",
+        "full_bleed_media": false
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "lg_bg_color",
+      "label": "Desktop Section Background Color",
+      "options": [
+        {
+          "value": "lg:bg-white",
+          "label": "White"
+        },
+        {
+          "value": "lg:bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "lg:bg-white"
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Mobile Section Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "select",
+      "id": "bg_card_color",
+      "label": "Card Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-offWhite"
+    },
+    {
+      "type": "select",
+      "id": "card_bg_color",
+      "label": "Card Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-offWhite"
+    },
+    {
+      "type": "checkbox",
+      "id": "section_padding",
+      "label": "Section Padding",
+      "default": true,
+      "info": "Check off if you would like the section to have no padding on the left side."
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Desktop Copy Media alignment",
+      "options": [
+        {
+          "value": "lg:flex-row",
+          "label": "Text to the left side, media to the right side."
+        },
+        {
+          "value": "lg:flex-row-reverse",
+          "label": "Text to the right side, media to the left side."
+        }
+      ],
+      "default": "lg:flex-row"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label Text"
+    },
+    {
+      "type": "url",
+      "id": "label_link",
+      "label": "Label link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Optional: Image Caption"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_bleed_media",
+      "label": "Image is full bleed",
+      "default": false,
+      "info": "Check on if you would like the media to be full bleed."
+    }
+  ]
+}
+{% endschema %}
+
+<div class="-mt-1 flex w-full lg:flex lg:justify-end {{ section.settings.bg_color }} {{ section.settings.lg_bg_color }} {% if section.settings.section_padding == true %}lg:px-40 pb-32 lg:pb-112{% endif %}">
+  <div class="{% if section.settings.section_padding == true %}lg:w-3/4{% else %}lg:w-full{% endif %}">
+    {% render 'image-card',
+      bg_color: section.settings.bg_card_color,
+      alignment: section.settings.alignment,
+      image_card_image: section.settings.image,
+      image_card_caption: section.settings.caption,
+      full_bleed_media: section.settings.full_bleed_media,
+      title: section.settings.title,
+      subtitle: section.settings.subtitle,
+      description: section.settings.description,
+      label: section.settings.label,
+      label_link: section.settings.label_link
+    %}
+  </div>
+</div>

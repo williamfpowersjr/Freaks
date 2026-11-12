@@ -1,0 +1,332 @@
+{{ 'ctr-eric-hero.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign ctr_eric_hero_button_link = section.settings.button_link
+  assign ctr_eric_hero_button_icon_classes = 'ctr-eric-hero__button-icon'
+
+  if ctr_eric_hero_button_link == blank
+    assign ctr_eric_hero_button_link = '#'
+  endif
+
+  case section.settings.button_arrow_direction
+    when 'top'
+      assign ctr_eric_hero_button_icon_classes = ctr_eric_hero_button_icon_classes | append: ' -rotate-90'
+    when 'down'
+      assign ctr_eric_hero_button_icon_classes = ctr_eric_hero_button_icon_classes | append: ' rotate-90'
+  endcase
+
+  assign ctr_eric_hero_desktop_image = section.settings.desktop_image
+  assign ctr_eric_hero_mobile_image = section.settings.mobile_image | default: ctr_eric_hero_desktop_image
+-%}
+
+<section
+  id="shopify-section-{{ section.id }}"
+  class="ctr-eric-hero"
+  style="
+    --ctr-eric-hero-bg-color: {{ section.settings.background_color }};
+    --ctr-eric-hero-text-color: {{ section.settings.text_color }};
+    --ctr-eric-hero-border-color: {{ section.settings.border_color }};
+    --ctr-eric-hero-offer-bg: {{ section.settings.offer_background }};
+    --ctr-eric-hero-offer-code-bg: {{ section.settings.offer_code_background }};
+    --ctr-eric-hero-button-bg: {{ section.settings.button_background }};
+    --ctr-eric-hero-button-text-color: {{ section.settings.button_text_color }};
+    --ctr-eric-hero-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-eric-hero-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-eric-hero-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-eric-hero-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --ctr-eric-hero-content-max-width: {{ section.settings.content_max_width }}px;
+  "
+>
+  {% if section.settings.title != blank %}
+    <div class="ctr-eric-hero__mobile-title">
+      <div class="ctr-eric-hero__mobile-title-inner">
+        {{ section.settings.title }}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if ctr_eric_hero_mobile_image != blank %}
+    <div class="ctr-eric-hero__mobile-media">
+      <img
+        class="ctr-eric-hero__mobile-image"
+        src="{{ ctr_eric_hero_mobile_image | img_url: '1200x' }}"
+        alt="{{ ctr_eric_hero_mobile_image.alt | escape }}"
+        loading="eager"
+        width="{{ ctr_eric_hero_mobile_image.width }}"
+        height="{{ ctr_eric_hero_mobile_image.height }}"
+      >
+    </div>
+  {% endif %}
+
+  <div class="ctr-eric-hero__inner">
+    <div class="ctr-eric-hero__content">
+      <div class="ctr-eric-hero__content-inner">
+        {% if section.settings.title != blank %}
+          <div class="ctr-eric-hero__title ctr-eric-hero__title--desktop">
+            {{ section.settings.title }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.text != blank %}
+          <div class="ctr-eric-hero__text">
+            {{ section.settings.text }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.offer_label != blank
+          or section.settings.offer_text != blank
+          or section.settings.offer_code != blank
+        %}
+          <div class="ctr-eric-hero__offer">
+            {% if section.settings.offer_label != blank %}
+              <div class="ctr-eric-hero__offer-label ctr-eric-hero__offer-label--mobile">
+                {{ section.settings.offer_label }}
+              </div>
+            {% endif %}
+
+            <div class="ctr-eric-hero__offer-bar">
+              {% if section.settings.offer_label != blank %}
+                <div class="ctr-eric-hero__offer-bar-label ctr-eric-hero__offer-bar-label--desktop">
+                  {{ section.settings.offer_label }}
+                </div>
+              {% endif %}
+
+              {% if section.settings.offer_text != blank %}
+                <div class="ctr-eric-hero__offer-bar-text">
+                  {{ section.settings.offer_text }}
+                </div>
+              {% endif %}
+
+              {% if section.settings.offer_code != blank %}
+                <div class="ctr-eric-hero__offer-code">
+                  {{ section.settings.offer_code }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if section.settings.button_label != blank %}
+          {%- liquid
+            assign ctr_eric_hero_cta_attrs = ''
+            if section.settings.button_open_new_tab
+              assign ctr_eric_hero_cta_attrs = 'target="_blank" rel="noopener noreferrer"'
+            endif
+          -%}
+          {% render 'cta',
+            as: 'a',
+            href: ctr_eric_hero_button_link,
+            text: section.settings.button_label,
+            hasIcons: true,
+            cta_color: 'orange',
+            extra_classes: 'ctr-eric-hero__button',
+            extra_text_classes: 'ctr-eric-hero__button-label',
+            extra_icon_classes: ctr_eric_hero_button_icon_classes,
+            extra_attributes: ctr_eric_hero_cta_attrs
+          %}
+        {% endif %}
+      </div>
+    </div>
+
+    {% if ctr_eric_hero_desktop_image != blank %}
+      <div class="ctr-eric-hero__desktop-media">
+        <img
+          class="ctr-eric-hero__desktop-image"
+          src="{{ ctr_eric_hero_desktop_image | img_url: '2400x' }}"
+          alt="{{ ctr_eric_hero_desktop_image.alt | escape }}"
+          loading="eager"
+          width="{{ ctr_eric_hero_desktop_image.width }}"
+          height="{{ ctr_eric_hero_desktop_image.height }}"
+        >
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Eric Hero (CTR)",
+  "tag": "section",
+  "class": "ctr-eric-hero-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image",
+      "info": "Right column lifestyle image on desktop."
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image",
+      "info": "Split hero image shown below the mobile title."
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>the only natural</p><p>deodorant eric hinman</p><p>trusts to perform</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Clean, science-backed ingredients that keep you fresh for 48 hours.</p>"
+    },
+    {
+      "type": "text",
+      "id": "offer_label",
+      "label": "Offer label",
+      "default": "Eric's special offer for you"
+    },
+    {
+      "type": "text",
+      "id": "offer_text",
+      "label": "Offer text",
+      "default": "Save 10% with code"
+    },
+    {
+      "type": "text",
+      "id": "offer_code",
+      "label": "Offer code",
+      "default": "hinman10"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop Deodorant"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_open_new_tab",
+      "label": "Open button in new tab",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "button_arrow_direction",
+      "label": "Button arrow direction",
+      "options": [
+        {
+          "value": "right",
+          "label": "Right"
+        },
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "down",
+          "label": "Down"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "number",
+      "id": "content_max_width",
+      "label": "Content max width",
+      "default": 622
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F9F9F9"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#212121"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#22202F29"
+    },
+    {
+      "type": "color",
+      "id": "offer_background",
+      "label": "Offer background",
+      "alpha": true,
+      "default": "#FE50001F"
+    },
+    {
+      "type": "color",
+      "id": "offer_code_background",
+      "label": "Offer code background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#FE5000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Padding desktop"
+    },
+    {
+      "type": "number",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
+      "default": 0
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Padding mobile"
+    },
+    {
+      "type": "number",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "default": 32
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Eric Hero (CTR)",
+      "category": "CTR Sections"
+    }
+  ]
+}
+{% endschema %}

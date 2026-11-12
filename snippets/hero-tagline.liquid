@@ -1,0 +1,20 @@
+<div class="{{ class }}">
+  <p class="fn-tt-caption font-medium uppercase ">{{ section.settings.tagline }}</p>
+  {% if section.settings.credit_logo != blank %}
+    <div class="align-center flex flex-wrap gap-4">
+      <p class="fn-tt-caption font-medium uppercase ">{{ section.settings.credit_title }}</p>
+      <a
+        class="self-center"
+        href="{{ section.settings.credit_url }}"
+        target="_blank"
+        aria-label="{{ section.settings.credit_title }}"
+      >
+        {{
+          section.settings.credit_logo
+          | image_url: width: section.settings.credit_logo.width
+          | image_tag: loading: 'lazy', class: 'w-100 mb-2', sizes: '25vw'
+        }}
+      </a>
+    </div>
+  {% endif %}
+</div>

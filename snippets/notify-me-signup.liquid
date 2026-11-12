@@ -1,0 +1,57 @@
+{% comment %}
+  Renders the newsletter in the footer.
+
+  Accepts:
+  - text (String): Central text to display on the element.
+  - success (String): Success message to display after the form is submitted.
+  - newsletter_placeholder (String): Placeholder text for the email input.
+  - isFooter (boolean): if it is the newsletter in the footer section.
+  - isNewsletterSection (boolean): If it is the newsletter in the newsletter section.
+  - policies (richtText): policies richtext in the newsletter section.
+{% endcomment %}
+
+<notify-me-signup>
+  <form
+    novalidate
+    data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+    data-klaviyo-public="{{ section.settings.klaviyo_api_key }}"
+    data-klaviyo-list-id="{{ section.settings.klaviyo_list_id }}"
+    class="group"
+  >
+    <div class="">
+      <div class="mb-16 mt-40 border border-black/15 p-16 lg:mb-0">
+        <p class="fn-tt-body-30 font-medium text-black">{{ section.settings.notify_text }}</p>
+        <div class="js-form-container relative mt-16 flex w-full items-center gap-x-8 border border-black/15 transition duration-200 ease-in-out ">
+          <input
+            aria-label="Email (required)"
+            placeholder="{{section.settings.notify_placeholder}}"
+            type="email"
+            name="email"
+            class="js-email-input w-full appearance-none bg-transparent p-12 text-2xl font-medium uppercase placeholder-black/60 outline-none focus-visible:placeholder-black/40"
+          >
+          <button
+            aria-label="Submit"
+            class="bg-blue p-16"
+            type="submit"
+          >
+            {% render 'icon-thick-small-arrow',
+              class: 'w-16 transition duration-200 ease-in-out text-white group-has-[:hover]:text-white group-has-[:focus]:text-white'
+            %}
+          </button>
+
+          <div class="js-newsletter-success absolute left-0 top-0 hidden h-full w-full bg-blue px-18">
+            <div class="flex h-full w-full items-center justify-center">
+              <p class="text-xxs font-medium uppercase text-white">
+                {{ section.settings.notify_success }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <p class="js-newsletter-error fn-tt-body-10 h-[1.5em] font-medium text-orange"></p>
+        <div class="fn-tt-caption lg:fn-tt-body-10 inline-rich-text text-black/60">
+          {{ section.settings.notify_subtext }}
+        </div>
+      </div>
+    </div>
+  </form>
+</notify-me-signup>

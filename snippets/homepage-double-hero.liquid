@@ -1,0 +1,255 @@
+{% assign cta_blocks = section.blocks | where: 'type', 'cta' %}
+
+<div class="relative z-10 flex flex-col {{ section_height }}">
+  <div data-section class="group relative z-0 h-full lg:hidden lg:hover:cursor-pointer">
+    <div class="size-full">
+      <swiper-element class="double-hero" id="double-hero">
+        <swiper-container class="swiper-wrapper" loop="true" init="false" autoplay-delay="4000">
+          <swiper-slide>
+            <div class="h-full w-full">
+              {% if section.settings.left_video == blank %}
+                {% if section.settings.left_image != blank %}
+                  {{
+                    section.settings.left_image
+                    | image_url: width: section.settings.left_image.width
+                    | image_tag:
+                      loading: 'eager',
+                      preload: true,
+                      class: 'w-full h-full object-cover absolute inset-0 object-top'
+                  }}
+                {% endif %}
+              {% endif %}
+
+              {% if section.settings.left_video != blank %}
+                {{
+                  section.settings.left_video
+                  | video_tag:
+                    class: 'w-full h-full object-cover absolute inset-0 z-0 object-top',
+                    autoplay: true,
+                    loop: true,
+                    muted: true,
+                    controls: false,
+                    poster: section.settings.left_video.preview_image,
+                    playsinline: true,
+                    data-autopause: true
+                }}
+              {% endif %}
+            </div>
+          </swiper-slide>
+          <swiper-slide>
+            <div class="h-full w-full">
+              {% if section.settings.right_video == blank %}
+                {% if section.settings.right_image != blank %}
+                  {{
+                    section.settings.right_image
+                    | image_url: width: section.settings.right_image.width
+                    | image_tag:
+                      loading: 'eager',
+                      preload: true,
+                      class: 'w-full h-full object-cover absolute inset-0 object-top'
+                  }}
+                {% endif %}
+              {% endif %}
+
+              {% if section.settings.right_video != blank %}
+                {{
+                  section.settings.right_video
+                  | video_tag:
+                    class: 'w-full h-full object-cover absolute inset-0 z-0 object-top',
+                    autoplay: true,
+                    loop: true,
+                    muted: true,
+                    controls: false,
+                    poster: section.settings.right_video.preview_image,
+                    playsinline: true,
+                    data-autopause: true
+                }}
+              {% endif %}
+            </div>
+          </swiper-slide>
+        </swiper-container>
+      </swiper-element>
+
+      <div class="absolute inset-0 flex size-full flex-col justify-between p-24">
+        <div class="relative z-10 grow">
+          {% if section.settings.mobile_headline != blank %}
+            {{
+              section.settings.mobile_headline
+              | image_url: width: section.settings.mobile_headline.width
+              | image_tag:
+                loading: 'eager',
+                preload: true,
+                class: 'object-contain absolute inset-0 size-full object-top'
+            }}
+          {% endif %}
+        </div>
+        <div class="relative z-10 flex flex-col gap-24">
+          {% if section.settings.subtitle != blank %}
+            <p class="fn-tt-cta-20 text-center font-medium uppercase text-white">{{ section.settings.subtitle }}</p>
+          {% endif %}
+          <div class="flex flex-col gap-y-8 ">
+            {% if blocks.size > 0 %}
+              {% for block in blocks %}
+                {% if block.type == 'cta' %}
+                  {% render 'cta',
+                    text: block.settings.cta_text,
+                    as: 'a',
+                    href: block.settings.cta_link,
+                    extra_classes: 'w-full z-10',
+                    hasIcons: true,
+                    cta_color: block.settings.cta_color
+                  %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hidden size-full grid-cols-2 lg:grid">
+    <div class="absolute inset-x-0 top-0 z-10 flex size-full flex-col gap-y-24">
+      <div class="relative size-full p-40">
+        <div class="relative size-full">
+          {% if section.settings.desktop_headline != blank %}
+            {{
+              section.settings.desktop_headline
+              | image_url: width: section.settings.desktop_headline.width
+              | image_tag:
+                loading: 'eager',
+                preload: true,
+                class: 'object-contain absolute inset-0 size-full object-top'
+            }}
+          {% endif %}
+        </div>
+      </div>
+
+      {% if section.settings.subtitle != blank %}
+        <p class="fn-tt-title-30 w-1/2 px-40 font-medium uppercase text-white">
+          {{ section.settings.subtitle }}
+        </p>
+      {% endif %}
+    </div>
+    <div class="relative">
+      <div class="absolute inset-0">
+        {% if section.settings.left_video == blank %}
+          {% if section.settings.left_image != blank %}
+            {{
+              section.settings.left_image
+              | image_url: width: section.settings.left_image.width
+              | image_tag:
+                loading: 'eager',
+                preload: true,
+                class: 'w-full h-full object-cover absolute inset-0 object-top'
+            }}
+          {% endif %}
+        {% endif %}
+
+        {% if section.settings.left_video != blank %}
+          {{
+            section.settings.left_video
+            | video_tag:
+              class: 'w-full h-full object-cover absolute inset-0 z-0 object-top',
+              autoplay: true,
+              loop: true,
+              muted: true,
+              controls: false,
+              poster: section.settings.left_video.preview_image,
+              playsinline: true,
+              data-autopause: true
+          }}
+        {% endif %}
+        {% if cta_blocks[0] != blank %}
+          <div class="absolute inset-x-0 bottom-0 p-40">
+            {% render 'cta',
+              text: cta_blocks[0].settings.cta_text,
+              as: 'a',
+              href: cta_blocks[0].settings.cta_link,
+              extra_classes: 'w-full z-10',
+              hasIcons: true,
+              cta_color: cta_blocks[0].settings.cta_color
+            %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="relative">
+      <div class="absolute inset-0">
+        {% if section.settings.right_video == blank %}
+          {% if section.settings.right_image != blank %}
+            {{
+              section.settings.right_image
+              | image_url: width: section.settings.right_image.width
+              | image_tag:
+                loading: 'eager',
+                preload: true,
+                class: 'w-full h-full object-cover absolute inset-0 object-top'
+            }}
+          {% endif %}
+        {% endif %}
+
+        {% if section.settings.right_video != blank %}
+          {{
+            section.settings.right_video
+            | video_tag:
+              class: 'w-full h-full object-cover absolute inset-0 z-0 object-top',
+              autoplay: true,
+              loop: true,
+              muted: true,
+              controls: false,
+              poster: section.settings.right_video.preview_image,
+              playsinline: true,
+              data-autopause: true
+          }}
+        {% endif %}
+        {% if cta_blocks[1] != blank %}
+          <div class="absolute inset-x-0 bottom-0 p-40">
+            {% render 'cta',
+              text: cta_blocks[1].settings.cta_text,
+              as: 'a',
+              href: cta_blocks[1].settings.cta_link,
+              extra_classes: 'w-full z-10',
+              hasIcons: true,
+              cta_color: cta_blocks[1].settings.cta_color
+            %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%}
+    <div class="bg-orange hidden lg:flex flex-col justify-between">
+      {% if title != blank %}
+        {% render 'title',
+          title: title,
+          text_size: 'fn-tt-title-70',
+          extra_wrapper_classes: 'text-center px-24 overflow-hidden mt-40',
+          bg_lines: 'bg-blue-lines',
+          text_color: 'text-blue',
+          extra_text_classes: '!leading-[0.98]'
+        %}
+      {% endif %}
+      {% if blocks.size > 0 %}
+        <div class="flex flex-col px-40 pb-40 gap-y-16 ">
+          {% for block in blocks %}
+            {% if block.type == 'cta' %}
+              {% assign cta_color = block.settings.cta_color %}
+              {% if cta_color == 'orange' %}
+                {% assign cta_color = 'white' %}
+              {% endif %}
+              {% render 'cta',
+                text: block.settings.cta_text,
+                as: 'a',
+                href: block.settings.cta_link,
+                extra_classes: 'w-full z-10',
+                hasIcons: true,
+                cta_color: cta_color
+              %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  {%- endcomment -%}
+</div>

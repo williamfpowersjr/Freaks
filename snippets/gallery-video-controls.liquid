@@ -1,0 +1,68 @@
+<div
+  data-video-controls
+  class="absolute bottom-0 left-0 flex w-full border-t border-grey/40 transition-opacity duration-200 ease-in-out"
+>
+  <button
+    aria-label="Pause"
+    data-video-pause
+    class="group/pause bg-black/15 p-16 text-white backdrop-blur-md transition-all duration-200 ease-in-out lg:hover:cursor-pointer lg:hover:bg-black/30 lg:active:bg-black/40"
+  >
+    {% render 'icon-pause', class: 'transition-all duration-200 ease-in-out w-20 lg:group-hover/pause:opacity-80' %}
+  </button>
+  <button
+    aria-label="Play"
+    data-video-play
+    class="group/play hidden bg-black/15 p-16 text-white backdrop-blur-md transition-all duration-200 ease-in-out lg:hover:cursor-pointer lg:hover:bg-black/30 lg:active:bg-black/40"
+  >
+    {% render 'icon-play', class: 'transition-all duration-200 ease-in-out w-20 lg:group-hover/play:opacity-80' %}
+  </button>
+
+  <div
+    class="transition-color flex flex-1 items-center justify-center border-x border-grey/40 bg-black/15 px-40 backdrop-blur-md duration-200 ease-in-out lg:hover:cursor-pointer lg:hover:bg-black/30 lg:active:bg-black/40"
+  >
+    <div data-video-indicator-wrapper class="group/indicator ease h-2 w-full py-16 transition duration-100">
+      <div class="ease relative h-2 w-full overflow-hidden bg-grey/40 transition duration-100">
+        <div
+          data-video-indicator-hover
+          class="ease absolute left-0 top-0 h-full w-full bg-white/40 transition duration-100"
+          style="width: 0%;"
+        ></div>
+        <div
+          data-video-indicator
+          class="ease absolute left-0 top-0 h-full bg-white transition duration-100"
+          style="width: 0%;"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+  {% if hide_mute != true %}
+    <button
+      aria-label="Mute"
+      data-video-mute
+      class="group/mute hidden bg-black/15 p-16 text-white backdrop-blur-md transition-all duration-200 ease-in-out lg:hover:cursor-pointer lg:hover:bg-black/30 lg:active:bg-black/40 "
+    >
+      {% render 'icon-mute', class: 'transition-all duration-200 ease-in-out w-20 lg:group-hover/mute:opacity-80' %}
+    </button>
+    <button
+      aria-label="Unmute"
+      data-video-unmute
+      class="group/unmute bg-black/15 p-16 text-white backdrop-blur-md transition-all duration-200 ease-in-out lg:hover:cursor-pointer lg:hover:bg-black/30 lg:active:bg-black/40"
+    >
+      {% render 'icon-unmute',
+        class: 'transition-all duration-200 ease-in-out lg:group-hover/unmute:opacity-80 w-20 '
+      %}
+    </button>
+  {% endif %}
+
+  {% if has_fullscreen == true %}
+    <button
+      aria-label="Fullscreen"
+
+      data-video-fullscreen
+      class="group/fullscreen border-l border-grey/40 bg-black/15 p-16 text-white backdrop-blur-md transition-all duration-200 ease-in-out lg:hover:cursor-pointer lg:hover:bg-black/30 lg:active:bg-black/40"
+    >
+      {% render 'icon-fullscreen', class: 'transition-all duration-200 ease-in-out w-20' %}
+    </button>
+  {% endif %}
+</div>

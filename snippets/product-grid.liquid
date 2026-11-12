@@ -1,0 +1,17 @@
+<ul class="grid-col-1 grid divide-y divide-black/15 border-y border-black/15 lg:grid-cols-3 lg:divide-x lg:divide-y-0 {{ bg_color }}">
+  {% for block in blocks %}
+    {% if block.type == 'product' %}
+      <li>
+        {% render 'product-card-shopable',
+          product: block.settings.product,
+          feature_1: block.settings.feature_1,
+          feature_2: block.settings.feature_2,
+          feature_3: block.settings.feature_3,
+          cta_color: block.settings.cta_color,
+          image_before: block.settings.image_before,
+          image_after: block.settings.image_after
+        %}
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>

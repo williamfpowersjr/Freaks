@@ -1,0 +1,71 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "title_EBFTUP": {
+      "type": "title",
+      "settings": {
+        "bg_color": "white",
+        "title": "Wholesale Terms & Conditions",
+        "text": "",
+        "has_margin": false,
+        "text_align": "left"
+      }
+    },
+    "divider_NQkfjF": {
+      "type": "divider",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "divider_color": "lg:bg-black/15",
+        "divider_color_mobile": "bg-white"
+      }
+    },
+    "builder_system_WaEKaU": {
+      "type": "builder-system",
+      "disabled": true,
+      "settings": {
+        "hide_mute": false,
+        "title": "Terms & Conditions",
+        "description": "<h3>These Terms and Conditions (\"Terms\") govern the use of Freaks of Nature Inc.’s services and the purchase of products from our company. By placing an order, purchasing our products, or using our services, you agree to be bound by these Terms.</h3><h3>Please read these Terms carefully before proceeding with your order or use of our services. They include important information regarding payment terms, shipping policies, return procedures, and other essential aspects of our business relationship.</h3><h3>If you have any questions or need clarification regarding these Terms, please do not hesitate to contact us at Hi@FreaksofNature.com.</h3><h3>Acceptance of Terms</h3><h3>By accepting these Terms, you acknowledge that you have read, understood, and agree to be bound by the conditions outlined herein. These Terms constitute a legally binding agreement between you and Freaks of Nature. If you do not agree with any of these Terms, please refrain from using our services or placing an order.</h3><h3><span style=\"text-decoration:underline\"><strong>Terms and Conditions</strong></span></h3><p><strong>1. Payment Terms:Due Date:</strong> Payment is due 30 days from the invoice date.</p><ul><li><strong>Accepted Payment Methods:</strong> We accept payment via credit card (American Express, Mastercard, Discover Visa)  and bank transfer. </li><li><strong>Late Fees:</strong> A late fee of 2% per month will be applied to overdue invoices.</li></ul><p><strong>2. Pricing:</strong></p><ul><li><strong>Pricing: </strong>Wholesale pricing is as advertised on our wholesale site. No further discounts are offered for wholesale unless otherwise agreed to in writing with Freaks of Nature. </li><li><strong>MSRP:</strong> All retailers agree to sell Freaks of Nature products at MSRP’s set by the brand unless otherwise agreed with Freaks of Nature in writing.</li></ul><p><strong>3. Shipping and Delivery:</strong></p><ul><li><strong>Shipping Costs:</strong> Shipping costs are included in the invoice.</li><li><strong>Delivery Terms:</strong> Delivery will be made FOB destination unless otherwise specified. </li><li><strong>Estimated Delivery Time:</strong> Estimated delivery time is 5-7 business days for ground and 1-2 business days for express from the date of shipment.</li></ul><p><strong>4. Returns and Exchanges:</strong></p><ul><li><strong>Return Policy:</strong> Returns are accepted within 30 days of receipt. All returned items must be in original condition and packaging. A 2% restocking will apply.</li><li><strong>Procedure for Returns:</strong> To return items, please contact us at <a href=\"mailto:hi@freaksofnature.com\"><span style=\"text-decoration:underline\">hi@freaksofnature.com</span></a>  to obtain a Return Authorization Number (RAN). Instructions for returning items, including the address and any specific packaging requirements, will be provided with the Return Authorization Number.</li><li><strong>Defective Goods:</strong> For defective or damaged items, the return request should be made within 14 of discovery of the issue. Request for return must include pictures and description. </li></ul><p><strong>5. Product Information:</strong></p><ul><li><strong>Description of Goods:</strong> All products are described in on each PDP. Please review and verify your order.</li><li><strong>Pricing:</strong> Prices are as stated on the invoice and are subject to change without prior notice. Taxes are included. </li></ul><p><strong>6. Terms of Sale:</strong></p><ul><li><strong>Minimum Order Quantities:</strong> Minimum order quantity is 12 units unless otherwise agreed.</li><li><strong>Order Confirmation:</strong> Orders are confirmed upon receipt of payment or as per the agreed payment terms.</li></ul><p><strong>7. Legal and Compliance:</strong></p><ul><li><strong>Governing Law:</strong> This invoice is governed by the laws of Delaware. Any disputes will be resolved in the courts of Delaware.</li><li><strong>Liability Limitations:</strong> Our liability for any claims arising from this invoice is limited to the value of the invoice. We are not liable for any indirect or consequential damages.</li></ul><p><strong>8. Contact Information:</strong></p><ul><li><strong>Business Contact Details:</strong> For questions regarding this invoice, please contact us at:</li><li>Email: Jim@Freaksofnature.com</li><li>Address: Spring Place, 6 Saint Johns Lane, New York, NY 10013</li></ul>",
+        "cta": "",
+        "cta_link": "",
+        "cta_color": "blue"
+      }
+    },
+    "copy_media_bqzU3f": {
+      "type": "copy-media",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "text": "<p>These Terms and Conditions (\"Terms\") govern the use of Freaks of Nature Inc.’s services and the purchase of products from our company. By placing an order, purchasing our products, or using our services, you agree to be bound by these Terms.</p><p>Please read these Terms carefully before proceeding with your order or use of our services. They include important information regarding payment terms, shipping policies, return procedures, and other essential aspects of our business relationship.</p><p>If you have any questions or need clarification regarding these Terms, please do not hesitate to contact us at <a href=\"mailto:hi@FreaksofNature.com\" title=\"mailto:hi@FreaksofNature.com\">hi@FreaksofNature.com</a>.</p><h3>Acceptance of Terms</h3><p>By accepting these Terms, you acknowledge that you have read, understood, and agree to be bound by the conditions outlined herein. These Terms constitute a legally binding agreement between you and Freaks of Nature. If you do not agree with any of these Terms, please refrain from using our services or placing an order.</p><h3>Terms and Conditions</h3><p><strong>1. Payment Terms:</strong></p><p><strong>Due Date:</strong> Payment is due 30 days from the invoice date.</p><ul><li><strong>Accepted Payment Methods:</strong> We accept payment via credit card (American Express, Mastercard, Discover Visa)  and bank transfer. </li><li><strong>Late Fees:</strong> A late fee of 2% per month will be applied to overdue invoices.</li></ul><p><strong>2. Pricing:</strong></p><ul><li><strong>Pricing: </strong>Wholesale pricing is as advertised on our wholesale site. No further discounts are offered for wholesale unless otherwise agreed to in writing with Freaks of Nature. </li><li><strong>MSRP:</strong> All retailers agree to sell Freaks of Nature products at MSRP’s set by the brand unless otherwise agreed with Freaks of Nature in writing.</li></ul><p><strong>3. Shipping and Delivery:</strong></p><ul><li><strong>Shipping Costs:</strong> Shipping costs are included in the invoice.</li><li><strong>Delivery Terms:</strong> Delivery will be made FOB destination unless otherwise specified. </li><li><strong>Estimated Delivery Time:</strong> Estimated delivery time is 5-7 business days for ground and 1-2 business days for express from the date of shipment.</li></ul><p><strong>4. Returns and Exchanges:</strong></p><ul><li><strong>Return Policy:</strong> Returns are accepted within 30 days of receipt. All returned items must be in original condition and packaging. A 2% restocking will apply.</li><li><strong>Procedure for Returns:</strong> To return items, please contact us at <a href=\"mailto:hi@freaksofnature.com\"><span style=\"text-decoration:underline\">hi@freaksofnature.com</span></a>  to obtain a Return Authorization Number (RAN). Instructions for returning items, including the address and any specific packaging requirements, will be provided with the Return Authorization Number.</li><li><strong>Defective Goods:</strong> For defective or damaged items, the return request should be made within 14 of discovery of the issue. Request for return must include pictures and description. </li></ul><p><strong>5. Product Information:</strong></p><ul><li><strong>Description of Goods:</strong> All products are described in on each PDP. Please review and verify your order.</li><li><strong>Pricing:</strong> Prices are as stated on the invoice and are subject to change without prior notice. Taxes are included. </li></ul><p><strong>6. Terms of Sale:</strong></p><ul><li><strong>Minimum Order Quantities:</strong> Minimum order quantity is 12 units unless otherwise agreed.</li><li><strong>Order Confirmation:</strong> Orders are confirmed upon receipt of payment or as per the agreed payment terms.</li></ul><p><strong>7. Legal and Compliance:</strong></p><ul><li><strong>Governing Law:</strong> This invoice is governed by the laws of Delaware. Any disputes will be resolved in the courts of Delaware.</li><li><strong>Liability Limitations:</strong> Our liability for any claims arising from this invoice is limited to the value of the invoice. We are not liable for any indirect or consequential damages.</li></ul><p><strong>8. Contact Information:</strong></p><ul><li><strong>Business Contact Details:</strong> For questions regarding this invoice, please contact us at:</li><li>Email: hi@Freaksofnature.com</li><li>Address: Spring Place, 6 Saint Johns Lane, New York, NY 10013</li></ul>",
+        "expansion_text": "",
+        "caption": "",
+        "hide_mute": false,
+        "alignment": "lg:flex-row",
+        "text_alignment": "text-left",
+        "border_top": false,
+        "media_aspect_square": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "title_EBFTUP",
+    "divider_NQkfjF",
+    "builder_system_WaEKaU",
+    "copy_media_bqzU3f"
+  ]
+}

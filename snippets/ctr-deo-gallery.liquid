@@ -1,0 +1,271 @@
+{% comment %}
+  Per-scent PDP gallery for the V2 buy box (CNV-3972). Fork of
+  product-gallery-mobile/-desktop fed a passed scent variant; one instance per
+  scent block, visibility toggled by <ctr-deo-builder>.
+
+  @param {product} product
+  @param {variant} scent_variant
+  @param {string} scent_value
+  @param {boolean} hidden
+  @param {boolean} use_variant_media
+  @param {image} gallery_badge
+  @param {boolean} gallery_badge_first_image_only
+{% endcomment %}
+
+{% liquid
+  assign offset = 0
+  assign use_variant_media = use_variant_media | default: false
+  assign gallery_badge_first_image_only = gallery_badge_first_image_only | default: false
+
+  assign variant_media = scent_variant.metafields.custom.media.value
+  assign variant_media_subscription = scent_variant.metafields.custom.media_subscription.value
+
+  if use_variant_media == true and variant_media != blank
+    assign displayed_media = variant_media
+    for item in variant_media limit: 1
+      assign first_media = item
+    endfor
+    assign media_size = 0
+    for item in variant_media
+      assign media_size = media_size | plus: 1
+    endfor
+  else
+    assign offset = 2
+    assign displayed_media = product.media
+    assign first_media = product.media[offset]
+    assign media_size = product.media.size
+  endif
+
+  # Only the default scent eager-loads its first frame
+  assign first_loading = 'lazy'
+  if hidden != true
+    assign first_loading = 'eager'
+  endif
+%}
+
+{% capture subscription_media %}
+  <div class="js-media-subscription" data-purchase-type="subscription">
+    {% if variant_media_subscription.media_type == 'video' %}
+      {% render 'lazy-video', video: variant_media_subscription, class: 'w-full h-full object-cover' %}
+    {% else %}
+      {{
+      variant_media_subscription
+      | image_url: width: variant_media_subscription.width
+      | image_tag:
+      sizes: '(min-width: 1024px) 50vw, 100vw',
+      loading: 'lazy',
+      class: 'w-full h-full object-cover absolute inset-0'
+      }}
+    {% endif %}
+  </div>
+{% endcapture %}
+
+{% capture subscription_media_thumbnail %}
+  <div class="js-media-subscription h-full w-full" data-purchase-type="subscription">
+    <div class="thumbnail-swiper__inner thumbnail-wrapper relative h-full w-full">
+      {{
+      variant_media_subscription
+      | image_url: width: variant_media_subscription.width
+      | image_tag: sizes: '25vw', loading: 'lazy', class: 'w-full h-full object-cover absolute inset-0'
+      }}
+    </div>
+  </div>
+{% endcapture %}
+
+<div
+  data-scent-gallery="{{ scent_value | escape }}"
+  class="{% if hidden %}hidden {% endif %}h-full w-full"
+>
+  {%- comment -%} ---------- mobile ---------- {%- endcomment -%}
+  <div class="relative h-full w-full lg:hidden">
+    <product-gallery>
+      <div class="pt-[calc(var(--header-height)-2px)]">
+        <div class="js-data-placeholder myPlaceholder">
+          <div class="aspect-square w-full lg:h-full lg:overflow-hidden">
+            {% if first_media.media_type == 'video' %}
+              {% render 'lazy-video', video: first_media, class: 'w-full h-full object-cover' %}
+            {% else %}
+              {{
+                first_media
+                | image_url: width: first_media.width
+                | image_tag:
+                  sizes: '(min-width: 1024px) 50vw, 100vw',
+                  loading: first_loading,
+                  class: 'w-full h-full object-cover absolute inset-0'
+              }}
+            {% endif %}
+          </div>
+        </div>
+        <div class="relative">
+          <swiper-container class="js-product-gallery mySwiper" init="false">
+            {% for media in displayed_media offset: offset %}
+              <swiper-slide>
+                <div class="aspect-square w-full lg:h-full lg:overflow-hidden">
+                  <div class="js-media-one-time" data-purchase-type="one-time">
+                    {% if media.media_type == 'video' %}
+                      {% render 'lazy-video', video: media, class: 'w-full h-full object-cover' %}
+                    {% else %}
+                      {{
+                        media
+                        | image_url: width: media.width
+                        | image_tag:
+                          sizes: '(min-width: 1024px) 50vw, 100vw',
+                          loading: 'lazy',
+                          class: 'w-full h-full object-cover absolute inset-0'
+                      }}
+                    {% endif %}
+                  </div>
+
+                  {% if forloop.first and variant_media_subscription %}
+                    {{ subscription_media }}
+                  {% endif %}
+                  {% if forloop.first and gallery_badge != blank and gallery_badge_first_image_only %}
+                    <div class="pointer-events-none absolute bottom-16 right-16 z-10 size-112">
+                      {{
+                        gallery_badge
+                        | image_url: width: gallery_badge.width
+                        | image_tag: class: 'w-full h-full object-cover', sizes: '112px', loading: 'lazy'
+                      }}
+                    </div>
+                  {% endif %}
+                </div>
+              </swiper-slide>
+            {% endfor %}
+          </swiper-container>
+          {% if gallery_badge != blank and gallery_badge_first_image_only != true %}
+            <div class="pointer-events-none absolute bottom-16 right-16 z-10 size-112">
+              {{
+                gallery_badge
+                | image_url: width: gallery_badge.width
+                | image_tag: class: 'w-full h-full object-cover', sizes: '112px', loading: 'lazy'
+              }}
+            </div>
+          {% endif %}
+        </div>
+
+        {% assign items_to_display = media_size | minus: offset %}
+        {% if items_to_display > 1 %}
+          <swiper-container class="js-thumbnails mySwiper2 h-56 w-full lg:h-80" init="false">
+            {% for media in displayed_media offset: offset %}
+              <swiper-slide class="swiper-slide relative h-56 w-56 overflow-hidden lg:h-80 lg:w-80">
+                <div class="js-media-one-time h-full w-full" data-purchase-type="one-time">
+                  <div class="thumbnail-swiper__inner thumbnail-wrapper relative h-full w-full">
+                    {{
+                      media
+                      | image_url: width: media.width
+                      | image_tag: sizes: '25vw', loading: 'lazy', class: 'w-full h-full object-cover absolute inset-0'
+                    }}
+                  </div>
+                </div>
+                {% if forloop.first and variant_media_subscription %}
+                  {{ subscription_media_thumbnail }}
+                {% endif %}
+                <div
+                  class="thumbnail-swiper__indicator absolute left-1/2 top-1/2 h-12 w-12 -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-orange opacity-0 transition-opacity duration-300 ease-in-out"
+                ></div>
+              </swiper-slide>
+            {% endfor %}
+          </swiper-container>
+        {% endif %}
+      </div>
+    </product-gallery>
+  </div>
+
+  {%- comment -%} ---------- desktop ---------- {%- endcomment -%}
+  <div class="relative hidden h-full w-full lg:block">
+    <product-gallery>
+      <div class="js-product-gallery-image relative flex flex-col">
+        <div>
+          <div class="js-data-placeholder myPlaceholder">
+            <div class="aspect-square w-full">
+              {% if first_media.media_type == 'video' %}
+                {% render 'lazy-video', video: first_media, class: 'w-full h-full object-cover' %}
+              {% else %}
+                {{
+                  first_media
+                  | image_url: width: first_media.width
+                  | image_tag:
+                    sizes: '(min-width: 1024px) 50vw, 100vw',
+                    loading: first_loading,
+                    class: 'w-full h-full object-cover absolute inset-0'
+                }}
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="relative">
+            <swiper-container class="js-product-gallery mySwiper" init="false">
+              {% for media in displayed_media offset: offset %}
+                <swiper-slide>
+                  <div class="height-auto aspect-square max-h-[calc(100svh-var(--dynamic-header-height)-80px)] w-full">
+                    <div class="js-media-one-time" data-purchase-type="one-time">
+                      {% if media.media_type == 'video' %}
+                        {% render 'lazy-video', video: media, class: 'w-full h-full object-cover' %}
+                      {% else %}
+                        {{
+                          media
+                          | image_url: width: media.width
+                          | image_tag:
+                            sizes: '(min-width: 1024px) 50vw, 100vw',
+                            loading: 'lazy',
+                            class: 'w-full h-full object-cover absolute inset-0'
+                        }}
+                      {% endif %}
+                    </div>
+
+                    {% if forloop.first and variant_media_subscription %}
+                      {{ subscription_media }}
+                    {% endif %}
+                    {% if forloop.first and gallery_badge != blank and gallery_badge_first_image_only %}
+                      <div class="pointer-events-none absolute bottom-16 right-16 z-10 size-112">
+                        {{
+                          gallery_badge
+                          | image_url: width: gallery_badge.width
+                          | image_tag: class: 'w-full h-full object-cover', sizes: '112px', loading: 'lazy'
+                        }}
+                      </div>
+                    {% endif %}
+                  </div>
+                </swiper-slide>
+              {% endfor %}
+            </swiper-container>
+            {% if gallery_badge != blank and gallery_badge_first_image_only != true %}
+              <div class="pointer-events-none absolute bottom-16 right-16 z-10 size-112">
+                {{
+                  gallery_badge
+                  | image_url: width: gallery_badge.width
+                  | image_tag: class: 'w-full h-full object-cover', sizes: '112px', loading: 'lazy'
+                }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      {% assign items_to_display = media_size | minus: offset %}
+      {% if items_to_display > 1 %}
+        <swiper-container class="js-thumbnails mySwiper2 h-fit w-full" init="false">
+          {% for media in displayed_media offset: offset %}
+            <swiper-slide class="swiper-slide relative overflow-hidden">
+              <div class="js-media-one-time h-full w-full" data-purchase-type="one-time">
+                <div class="thumbnail-swiper__inner thumbnail-wrapper relative h-full w-full">
+                  {{
+                    media
+                    | image_url: width: media.width
+                    | image_tag: sizes: '25vw', loading: 'lazy', class: 'w-full h-full object-cover absolute inset-0'
+                  }}
+                </div>
+              </div>
+              {% if forloop.first and variant_media_subscription %}
+                {{ subscription_media_thumbnail }}
+              {% endif %}
+              <div
+                class="thumbnail-swiper__indicator absolute left-1/2 top-1/2 h-12 w-12 -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-orange opacity-0 transition-opacity duration-300 ease-in-out"
+              ></div>
+            </swiper-slide>
+          {% endfor %}
+        </swiper-container>
+      {% endif %}
+    </product-gallery>
+  </div>
+</div>

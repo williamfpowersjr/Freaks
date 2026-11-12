@@ -1,0 +1,48 @@
+{% comment %}
+  Quantity stepper for a cart line (Figma 5172:2542 desktop / 5794:2302 mobile).
+  Rendered twice per line — mobile under the product image, desktop in the
+  controls row — so id_suffix keeps the input/label ids unique per instance.
+  Both instances carry the same data-ajax-cart-quantity-input index; the whole
+  section re-renders after any change, so they can never disagree.
+
+  @param {line_item} line_item
+  @param {number} line_item_index
+  @param {string} id_suffix
+{% endcomment %}
+
+<ajax-cart-quantity>
+  <div class="p-px flex items-stretch border border-[#e3e3e3]">
+    <a
+      data-ajax-cart-quantity-minus
+      href="{{ routes.cart_change_url }}?line={{ line_item_index }}&quantity={{ line_item.quantity | minus: line_item.variant.quantity_rule.increment }}"
+      class="flex size-20 items-center justify-center text-[#232323]"
+    >
+      <span class="sr-only">Decrease quantity for {{ line_item.title | escape }}</span>
+      <span data-minus class="font-text text-[10px] leading-[10px]">&minus;</span>
+    </a>
+    <label for="quantity-{{ line_item_index }}-{{ id_suffix }}" class="sr-only">
+      Quantity for {{ line_item.title | escape }}
+    </label>
+    <input
+      id="quantity-{{ line_item_index }}-{{ id_suffix }}"
+      data-ajax-cart-quantity-input="{{ line_item_index }}"
+      name="updates[]"
+      value="{{ line_item.quantity }}"
+      type="number"
+      min="{{ line_item.variant.quantity_rule.min }}"
+      {% if line_item.variant.quantity_rule.max != null %}
+        max="{{ line_item.variant.quantity_rule.max }}"
+      {% endif %}
+      step="{{ line_item.variant.quantity_rule.increment }}"
+      class="flex size-20 items-center border-x border-[#e3e3e3] bg-transparent p-0 text-center font-text text-[14px] leading-[1.5] text-[#232323]"
+    >
+    <a
+      data-ajax-cart-quantity-plus
+      href="{{ routes.cart_change_url }}?line={{ line_item_index }}&quantity={{ line_item.quantity | plus: line_item.variant.quantity_rule.increment }}"
+      class="flex size-20 items-center justify-center text-[#232323] transition-colors lg:hover:bg-blue lg:hover:text-white"
+    >
+      <span class="sr-only">Increase quantity for {{ line_item.title | escape }}</span>
+      <span class="font-text text-[10px] leading-[10px]">+</span>
+    </a>
+  </div>
+</ajax-cart-quantity>

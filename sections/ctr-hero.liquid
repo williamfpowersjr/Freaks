@@ -1,0 +1,546 @@
+{{ 'ctr-hero.css' | asset_url | stylesheet_tag }}
+
+<div
+  id="ctr-hero-{{ section.id }}"
+  class="ctr-hero"
+  style="
+    --ctr-hero-text-color: {{ section.settings.text_color }};
+    --ctr-hero-muted-text-color: {{ section.settings.muted_text_color }};
+    --ctr-hero-star-color: {{ section.settings.star_color }};
+    --ctr-hero-overlay-color: {{ section.settings.overlay_color }};
+    --ctr-hero-background-color: {{ section.settings.background_color }};
+    {% if section.settings.background_gradient != blank %}
+      --ctr-hero-background-gradient: {{ section.settings.background_gradient }};
+    {% else %}
+      --ctr-hero-background-gradient: none;
+    {% endif %}
+    --ctr-hero-min-height-desktop: {{ section.settings.min_height_desktop }}px;
+    --ctr-hero-min-height-mobile: {{ section.settings.min_height_mobile }}px;
+    --ctr-hero-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-hero-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-hero-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-hero-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --ctr-hero-badge-max-width-desktop: {{ section.settings.badge_max_width_desktop }}px;
+    --ctr-hero-badge-max-width-mobile: {{ section.settings.badge_max_width_mobile }}px;
+    --ctr-hero-content-max-width-desktop: {{ section.settings.content_max_width_desktop }}px;
+    --ctr-hero-content-gap-desktop: {{ section.settings.content_gap_desktop }}px;
+    --ctr-hero-content-gap-mobile: {{ section.settings.content_gap_mobile }}px;
+    --ctr-hero-badge-position-offset-x-mobile: {{ section.settings.badge_position_value_x_mobile }}px;
+    --ctr-hero-badge-position-offset-y-mobile: {{ section.settings.badge_position_value_y_mobile }}px;
+    --ctr-hero-badge-position-offset-x-desktop: {{ section.settings.badge_position_value_x_desktop }}px;
+    --ctr-hero-badge-position-offset-y-desktop: {{ section.settings.badge_position_value_y_desktop }}px;
+  "
+>
+  <div class="ctr-hero__media" aria-hidden="true">
+    {% if section.settings.image_desktop != blank %}
+      <img
+        class="ctr-hero__bg-image ctr-hero__bg-image--desktop"
+        src="{{ section.settings.image_desktop | img_url: '2400x' }}"
+        alt="{{ section.settings.image_desktop.alt | escape }}"
+        loading="lazy"
+        width="{{ section.settings.image_desktop.width }}"
+        height="{{ section.settings.image_desktop.height }}"
+      >
+    {% endif %}
+    {% if section.settings.image_mobile != blank %}
+      <img
+        class="ctr-hero__bg-image ctr-hero__bg-image--mobile"
+        src="{{ section.settings.image_mobile | img_url: '1200x' }}"
+        alt="{{ section.settings.image_mobile.alt | escape }}"
+        loading="lazy"
+        width="{{ section.settings.image_mobile.width }}"
+        height="{{ section.settings.image_mobile.height }}"
+      >
+    {% elsif section.settings.image_desktop != blank %}
+      <img
+        class="ctr-hero__bg-image ctr-hero__bg-image--mobile"
+        src="{{ section.settings.image_desktop | img_url: '1200x' }}"
+        alt="{{ section.settings.image_desktop.alt | escape }}"
+        loading="lazy"
+        width="{{ section.settings.image_desktop.width }}"
+        height="{{ section.settings.image_desktop.height }}"
+      >
+    {% endif %}
+  </div>
+
+  <div class="ctr-hero__overlay" aria-hidden="true"></div>
+
+  <div class="ctr-hero__inner">
+    <div class="ctr-hero__content">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'star_rating' %}
+            {% assign ctr_hero_star_count = block.settings.star_count | default: '5' | plus: 0 %}
+            <div
+              class="ctr-hero__block ctr-hero__block--star-rating"
+              style="
+                --ctr-hero-star-font-size-desktop: {{ block.settings.font_size_desktop }}px;
+                --ctr-hero-star-font-size-mobile: {{ block.settings.font_size_mobile }}px;
+              "
+              {{ block.shopify_attributes }}
+            >
+              <div class="ctr-hero__stars" aria-label="{{ ctr_hero_star_count }} out of 5 stars">
+                {% for i in (1..5) %}
+                  <span class="ctr-hero__star{% if i <= ctr_hero_star_count %} is-active{% endif %}">★</span>
+                {% endfor %}
+              </div>
+              {% if block.settings.text != blank %}
+                <div class="ctr-hero__star-text inline-rich-text">
+                  {{ block.settings.text }}
+                </div>
+              {% endif %}
+            </div>
+
+          {% when 'title' %}
+            {% if block.settings.title != blank %}
+              <div
+                class="ctr-hero__block ctr-hero__block--title inline-rich-text font-neue"
+                style="
+                  --ctr-hero-title-font-size-desktop: {{ block.settings.font_size_desktop }}px;
+                  --ctr-hero-title-font-size-mobile: {{ block.settings.font_size_mobile }}px;
+                "
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.title }}
+              </div>
+            {% endif %}
+
+          {% when 'text' %}
+            {% if block.settings.text != blank %}
+              <div
+                class="ctr-hero__block ctr-hero__block--text inline-rich-text"
+                style="
+                  --ctr-hero-text-font-size-desktop: {{ block.settings.font_size_desktop }}px;
+                  --ctr-hero-text-font-size-mobile: {{ block.settings.font_size_mobile }}px;
+                  --ctr-hero-text-max-width-desktop: {{ block.settings.max_width_desktop }}px;
+                "
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.text }}
+              </div>
+            {% endif %}
+
+          {% when 'button' %}
+            {% if block.settings.label != blank %}
+              {% assign ctr_hero_button_url = block.settings.url | default: '#' %}
+              <div
+                class="ctr-hero__block ctr-hero__block--button"
+                style="
+                  --ctr-hero-button-font-size-desktop: {{ block.settings.font_size_desktop }}px;
+                  --ctr-hero-button-font-size-mobile: {{ block.settings.font_size_mobile }}px;
+                  --ctr-hero-button-max-width-desktop: {{ block.settings.max_width_desktop }}px;
+                "
+                {{ block.shopify_attributes }}
+              >
+                {% render 'cta',
+                  as: 'a',
+                  href: ctr_hero_button_url,
+                  text: block.settings.label,
+                  hasIcons: true,
+                  cta_color: block.settings.button_color,
+                  extra_classes: 'ctr-hero__button'
+                %}
+              </div>
+            {% endif %}
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+  {% if section.settings.badge_image != blank %}
+    <div class="ctr-hero__badge-wrap ctr-hero__badge-wrap--{{ section.settings.badge_position }}">
+      <img
+        class="ctr-hero__badge"
+        src="{{ section.settings.badge_image | img_url: '600x' }}"
+        alt="{{ section.settings.badge_image.alt | escape }}"
+        loading="lazy"
+        width="{{ section.settings.badge_image.width }}"
+        height="{{ section.settings.badge_image.height }}"
+      >
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Hero (CTR)",
+  "tag": "section",
+  "class": "ctr-hero-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Background image desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Background image mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_image",
+      "label": "Badge image"
+    },
+    {
+      "type": "number",
+      "id": "badge_max_width_desktop",
+      "label": "Badge max width desktop",
+      "default": 168
+    },
+    {
+      "type": "number",
+      "id": "badge_max_width_mobile",
+      "label": "Badge max width mobile",
+      "default": 100
+    },
+    {
+      "type": "number",
+      "id": "content_max_width_desktop",
+      "label": "Content max width desktop",
+      "default": 720
+    },
+    {
+      "type": "range",
+      "id": "content_gap_desktop",
+      "label": "Content gap desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "content_gap_mobile",
+      "label": "Content gap mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "badge_position",
+      "label": "Badge position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top left"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom left"
+        }
+      ],
+      "default": "bottom-right"
+    },
+    {
+      "type": "number",
+      "id": "badge_position_value_x_desktop",
+      "label": "Badge position X desktop",
+      "default": 35
+    },
+    {
+      "type": "number",
+      "id": "badge_position_value_y_desktop",
+      "label": "Badge position Y desktop",
+      "default": 30
+    },
+    {
+      "type": "number",
+      "id": "badge_position_value_x_mobile",
+      "label": "Badge position X mobile",
+      "default": 20
+    },
+    {
+      "type": "number",
+      "id": "badge_position_value_y_mobile",
+      "label": "Badge position Y mobile",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Background gradient",
+      "info": "Example: linear-gradient(180deg, #FFF 0%, #FFF2E9 100%)"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "alpha": true,
+      "default": "#00000066"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Rating text color",
+      "alpha": true,
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#FE5000"
+    },
+    {
+      "type": "number",
+      "id": "min_height_desktop",
+      "label": "Min height desktop",
+      "default": 700
+    },
+    {
+      "type": "number",
+      "id": "min_height_mobile",
+      "label": "Min height mobile",
+      "default": 778
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "blocks": [
+    {
+      "type": "star_rating",
+      "name": "Star rating (CTR)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "star_count",
+          "label": "Stars",
+          "options": [
+            { "value": "1", "label": "1" },
+            { "value": "2", "label": "2" },
+            { "value": "3", "label": "3" },
+            { "value": "4", "label": "4" },
+            { "value": "5", "label": "5" }
+          ],
+          "default": "5"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Loved by 50,000 Freaks</p>"
+        },
+        {
+          "type": "range",
+          "id": "font_size_desktop",
+          "label": "Font size desktop",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "label": "Font size mobile",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 14
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "Title (CTR)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Title",
+          "default": "<p>Everyday Endurance<br>Deodorant is back</p>"
+        },
+        {
+          "type": "range",
+          "id": "font_size_desktop",
+          "label": "Font size desktop",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 60
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "label": "Font size mobile",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 32
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text (CTR)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>48-hour protection, aluminum-free, and fully restocked. Now with a new scent. The natural deodorant that actually works, better than ever.</p>"
+        },
+        {
+          "type": "range",
+          "id": "font_size_desktop",
+          "label": "Font size desktop",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "label": "Font size mobile",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 18
+        },
+        {
+          "type": "number",
+          "id": "max_width_desktop",
+          "label": "Max width desktop",
+          "default": 590
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button (CTR)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Shop deodorant"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "button_color",
+          "label": "Button color",
+          "options": [
+            { "value": "orange", "label": "Orange" },
+            { "value": "black", "label": "Black" },
+            { "value": "blue", "label": "Blue" },
+            { "value": "white", "label": "White" },
+            { "value": "blue--invert", "label": "Blue invert" }
+          ],
+          "default": "orange"
+        },
+        {
+          "type": "range",
+          "id": "font_size_desktop",
+          "label": "Font size desktop",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "label": "Font size mobile",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 20
+        },
+        {
+          "type": "number",
+          "id": "max_width_desktop",
+          "label": "Max width desktop",
+          "default": 475
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero (CTR)",
+      "category": "CTR Sections",
+      "blocks": [{ "type": "star_rating" }, { "type": "title" }, { "type": "text" }, { "type": "button" }]
+    }
+  ]
+}
+{% endschema %}

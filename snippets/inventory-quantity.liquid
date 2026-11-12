@@ -1,0 +1,21 @@
+{% if quantity == 0 %}
+  {% assign indicator_background = 'bg-[#FF3B10]/20' %}
+  {% assign indicator_foreground = 'bg-[#FF3B10]' %}
+{% elsif quantity > 0 and quantity <= 10 %}
+  {% assign indicator_background = 'bg-[#FFD600]/20' %}
+  {% assign indicator_foreground = 'bg-[#FFD600]' %}
+{% elsif quantity > 10 %}
+  {% assign indicator_background = 'bg-[#1DC338]/20' %}
+  {% assign indicator_foreground = 'bg-[#1DC338]' %}
+{% endif %}
+
+<div class="fn-tt-caption border-b border-black/15 p-5 pt-6 text-center uppercase">
+  <div class="flex items-center justify-center gap-4">
+    <div
+      class="h-10 w-10 rounded-full {{indicator_background}} p-2"
+    >
+      <div class="h-full w-full {{indicator_foreground}} overflow-hidden rounded-full"></div>
+    </div>
+    {{ quantity }} in stock
+  </div>
+</div>

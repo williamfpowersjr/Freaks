@@ -1,0 +1,80 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "parent": "header-group.json",
+  "context": {
+    "market": "us"
+  },
+  "sections": {
+    "header": {
+      "settings": {},
+      "blocks": {
+        "announcement_zriCAx": {
+          "disabled": false,
+          "settings": {
+            "announcement_text": "FREE SHIPPING ON ALL ORDERS OVER $60"
+          }
+        },
+        "announcement_nh3qV": {
+          "type": "announcement",
+          "disabled": false,
+          "settings": {
+            "announcement_text": "INTRODUCING THE HOLIDAY MINI DEO SET <strong>&nbsp;</strong><a href=\"/products/mini-deodorant-holiday-gift-set\" title=\"Mini Deodorant Holiday Gift Set\"><strong>SHOP NOW</strong></a>"
+          }
+        },
+        "announcement_E83pFM": {
+          "disabled": false,
+          "settings": {}
+        },
+        "mobile_subnavigation_item_nBhYh": {
+          "type": "mobile_subnavigation_item",
+          "disabled": false,
+          "settings": {
+            "title": "Sun Stick",
+            "url": "shopify://products/jumbo-sun-stick"
+          }
+        },
+        "mobile_subnavigation_item_LVxPg": {
+          "type": "mobile_subnavigation_item",
+          "disabled": false,
+          "settings": {
+            "title": "Spray (NEW)",
+            "url": "shopify://products/solar-shield-spray"
+          }
+        },
+        "mobile_subnavigation_item_Q9dHV": {
+          "type": "mobile_subnavigation_item",
+          "disabled": false,
+          "settings": {
+            "title": "Deodorant",
+            "url": "shopify://products/everyday-endurance-deodorant"
+          }
+        },
+        "mobile_subnavigation_item_VgPWm": {
+          "type": "mobile_subnavigation_item",
+          "disabled": false,
+          "settings": {
+            "title": "Shop All",
+            "url": "shopify://collections/all-products"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_zriCAx",
+        "announcement_nh3qV",
+        "announcement_E83pFM",
+        "mobile_subnavigation_item_nBhYh",
+        "mobile_subnavigation_item_LVxPg",
+        "mobile_subnavigation_item_Q9dHV",
+        "mobile_subnavigation_item_VgPWm"
+      ]
+    }
+  }
+}

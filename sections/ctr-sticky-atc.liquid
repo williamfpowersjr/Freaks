@@ -1,0 +1,260 @@
+{{ 'ctr-sticky-atc.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ctr-sticky-atc.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign target_product = section.settings.product_override | default: product
+  assign current_variant = target_product.selected_or_first_available_variant
+
+  assign has_subscriptions = false
+  for spg in target_product.selling_plan_groups
+    if spg.name != 'Pre Order'
+      assign has_subscriptions = true
+      break
+    endif
+  endfor
+
+  assign initial_variant = target_product.variants.first | default: current_variant
+  assign initial_alloc = nil
+  assign initial_selling_plan_id = ''
+  assign initial_price = initial_variant.price
+  assign initial_compare = initial_variant.compare_at_price
+
+  if has_subscriptions
+    for variant in target_product.variants
+      if variant.selling_plan_allocations.size > 0
+        assign initial_variant = variant
+        assign initial_alloc = variant.selling_plan_allocations.first
+        assign initial_selling_plan_id = initial_alloc.selling_plan.id
+        assign initial_price = initial_alloc.price
+        assign initial_compare = initial_alloc.compare_at_price
+        break
+      endif
+    endfor
+  endif
+
+  assign initial_variant_id = initial_variant.id
+-%}
+
+<ctr-sticky-atc
+  class="ctr-sticky-atc"
+  data-section-id="{{ section.id }}"
+  style="
+    background-color: {{ section.settings.bg_color }};
+    --ctr-sticky-atc-badge-background: {{ section.settings.badge_background_color }};
+    --ctr-sticky-atc-badge-text-color: {{ section.settings.badge_text_color }};
+    --ctr-sticky-atc-badge-border-color: {{ section.settings.badge_border_color }};
+  "
+>
+  <div class="ctr-sticky-atc__inner">
+
+    {%- comment -%} Left: product image (desktop) + title + price {%- endcomment -%}
+    <div class="ctr-sticky-atc__product">
+      {%- if section.settings.show_product_image -%}
+        {%- assign product_img = section.settings.product_image_override | default: target_product.featured_image -%}
+        {%- if product_img != blank -%}
+          <div class="ctr-sticky-atc__product-img" aria-hidden="true">
+            <img
+              src="{{ product_img | img_url: '300x' }}"
+              alt="{{ product_img.alt | default: target_product.title | escape }}"
+              width="112"
+              height="143"
+              loading="lazy"
+            >
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+
+      <div class="ctr-sticky-atc__product-details">
+        <p class="ctr-sticky-atc__product-name">{{ target_product.title }}</p>
+
+        <div class="ctr-sticky-atc__price ctr-sticky-atc__price--mobile">
+          <span class="ctr-sticky-atc__price-current" data-satc-price>{{ initial_price | money }}</span>
+          {%- if initial_compare > initial_price -%}
+            <s class="ctr-sticky-atc__price-compare" data-satc-compare>{{ initial_compare | money }}</s>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} Right: badge + CTA {%- endcomment -%}
+    <div class="ctr-sticky-atc__right">
+      <div class="ctr-sticky-atc__offer">
+        <div class="ctr-sticky-atc__price ctr-sticky-atc__price--desktop">
+          <span class="ctr-sticky-atc__price-current" data-satc-price>{{ initial_price | money }}</span>
+          {%- if initial_compare > initial_price -%}
+            <s class="ctr-sticky-atc__price-compare" data-satc-compare>{{ initial_compare | money }}</s>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.badge_text != blank -%}
+          <span class="ctr-sticky-atc__badge">{{ section.settings.badge_text }}</span>
+        {%- endif -%}
+      </div>
+
+      <div class="ctr-sticky-atc__actions">
+        {% form 'product', target_product, id: 'ctr-sticky-atc-form', class: 'ctr-sticky-atc__form' %}
+          <input type="hidden" name="id" value="{{ initial_variant_id }}" data-atc-variant-id>
+          <input type="hidden" name="quantity" value="1">
+          <input type="hidden" name="selling_plan" value="{{ initial_selling_plan_id }}" data-atc-selling-plan>
+          {% render 'buy-button',
+            text: section.settings.cta_text,
+            cta_color: 'orange',
+            hasIcons: true,
+            type: 'submit',
+            name: 'add',
+            product_is_available: initial_variant.available,
+            extra_classes: 'w-full'
+          %}
+        {% endform %}
+
+        {%- if section.settings.show_social_proof -%}
+          <div class="ctr-sticky-atc__social-proof">
+            {%- if section.settings.show_star_rating -%}
+              <div class="ctr-sticky-atc__stars" aria-hidden="true">
+                {%- for i in (1..5) -%}
+                  {% render 'icon-star', class: 'ctr-sticky-atc__star' %}
+                {%- endfor -%}
+              </div>
+              {%- if section.settings.rating_label != blank -%}
+                <span class="ctr-sticky-atc__rating-label">{{ section.settings.rating_label }}</span>
+              {%- endif -%}
+            {%- endif -%}
+            {%- if section.settings.social_proof_text != blank -%}
+              <span class="ctr-sticky-atc__social-text">{{ section.settings.social_proof_text }}</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</ctr-sticky-atc>
+
+{% schema %}
+{
+  "name": "Sticky ATC (CTR)",
+  "tag": "section",
+  "class": "ctr-sticky-atc-section",
+  "presets": [
+    {
+      "name": "Sticky ATC (CTR)",
+      "category": "CTR Sections",
+      "settings": {
+        "cta_text": "Start my routine",
+        "show_product_image": true,
+        "badge_text": "15% OFF + FREE FLASK",
+        "badge_background_color": "#fe5000",
+        "badge_text_color": "#000000",
+        "badge_border_color": "#fe5000",
+        "show_social_proof": false,
+        "show_star_rating": true,
+        "rating_label": "Excellent",
+        "social_proof_text": "Free shipping on your first delivery",
+        "bg_color": "#f9f9f9"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product"
+    },
+    {
+      "type": "product",
+      "id": "product_override",
+      "label": "Product Override",
+      "info": "If set, this product will be used instead of the page product."
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button Text",
+      "default": "Start my routine"
+    },
+    {
+      "type": "header",
+      "content": "Product Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_image",
+      "label": "Show Product Image",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image_override",
+      "label": "Product Image Override",
+      "info": "Overrides the product's featured image in the sticky bar."
+    },
+    {
+      "type": "header",
+      "content": "Offer Badge"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "15% OFF + FREE FLASK"
+    },
+    {
+      "type": "color",
+      "id": "badge_background_color",
+      "label": "Badge Background Color",
+      "default": "#fe5000"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "badge_border_color",
+      "label": "Badge Border Color",
+      "default": "#fe5000"
+    },
+    {
+      "type": "header",
+      "content": "Social Proof"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_proof",
+      "label": "Show Social Proof",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_star_rating",
+      "label": "Show Star Rating",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "rating_label",
+      "label": "Rating Label",
+      "default": "Excellent"
+    },
+    {
+      "type": "text",
+      "id": "social_proof_text",
+      "label": "Social Proof Text",
+      "default": "Free shipping on your first delivery"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f9f9f9"
+    }
+  ]
+}
+{% endschema %}

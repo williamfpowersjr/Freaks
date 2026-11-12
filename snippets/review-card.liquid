@@ -1,0 +1,61 @@
+<div class="review-card flex flex-col items-center justify-center gap-y-16 p-16 text-center lg:p-40">
+  {% if stars != blank %}
+    {% if rating_link != blank %}
+      <a href="{{ rating_link }}" class="review-card__stars flex gap-x-2 text-orange" aria-label="Read rating">
+    {% else %}
+      <div class="review-card__stars flex gap-x-2 text-orange">
+    {% endif %}
+    {% if stars == '1' %}
+      {% render 'icon-star' %}
+      {% render 'icon-star', class: 'opacity-15' %}
+      {% render 'icon-star', class: 'opacity-15' %}
+      {% render 'icon-star', class: 'opacity-15' %}
+      {% render 'icon-star', class: 'opacity-15' %}
+    {% endif %}
+    {% if stars == '2' %}
+      {% render 'icon-star' %}
+      {% render 'icon-star' %}
+      {% render 'icon-star', class: 'opacity-15' %}
+      {% render 'icon-star', class: 'opacity-15' %}
+      {% render 'icon-star', class: 'opacity-15' %}
+    {% endif %}
+    {% if stars == '3' %}
+      {% render 'icon-star' %}
+      {% render 'icon-star' %}
+      {% render 'icon-star' %}
+      {% render 'icon-star', class: 'opacity-15' %}
+      {% render 'icon-star', class: 'opacity-15' %}
+    {% endif %}
+    {% if stars == '4' %}
+      {% render 'icon-star' %}
+      {% render 'icon-star' %}
+      {% render 'icon-star' %}
+      {% render 'icon-star' %}
+      {% render 'icon-star', class: 'opacity-15' %}
+    {% endif %}
+    {% if stars == '5' %}
+      {% render 'icon-star' %}
+      {% render 'icon-star' %}
+      {% render 'icon-star' %}
+      {% render 'icon-star' %}
+      {% render 'icon-star' %}
+    {% endif %}
+    {% if rating_link != blank %}
+      </a>
+    {% else %}
+      </div>
+    {% endif %}
+  {% endif %}
+  {% if review != blank %}
+    <div class="flex flex-col gap-y-8">
+      {% if title != blank %}
+        <h6 class="fn-tt-body-20 font-medium">{{ title }}</h6>
+      {% endif %}
+      <p class="fn-tt-body-20">{{ review }}</p>
+    </div>
+  {% endif %}
+
+  {% if name != blank %}
+    <p class="fn-tt-body-10 text-black/60">{{ name }}</p>
+  {% endif %}
+</div>

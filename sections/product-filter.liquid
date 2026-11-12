@@ -1,0 +1,105 @@
+{% schema %}
+{
+  "name": "Product Filter",
+  "tag": "section",
+  "class": "product-filter-section",
+  "presets": [
+    {
+      "name": "Product Filter",
+      "category": "Product Filter"
+    }
+  ],
+  "blocks": []
+}
+{% endschema %}
+
+{% assign collection_name = 'all-products' %}
+{% assign products_ = collections[collection_name].products %}
+
+<section class="bg-grey-LIGHT py-40 lg:p-80 lg:pb-0">
+  {% render 'mobile-nav-product-filter' %}
+  <div class="flex flex-col items-start gap-24 lg:flex-row lg:gap-0">
+    <div class="flex w-full flex-col border border-grey-DARK bg-grey-LIGHT lg:sticky lg:top-[2.2rem] lg:w-[32.43%]">
+      <span class="fn-tt-body-20 w-full bg-white p-8 text-center font-medium">Our Products</span>
+      <ul id="product-buttons" aria-label="Our Products">
+        {% for product in products_ %}
+          {% assign ingredients = product.metafields.custom.ingredients_list.value %}
+          {% if ingredients != null %}
+            {% comment %} The Filter Buttons {% endcomment %}
+            <li>
+              <button
+                aria-label="Product"
+                class="product-button group flex w-full divide-x divide-grey-DARK border-t border-grey-DARK bg-grey-LIGHT transition-colors hover:bg-orange/15 data-[active='true']:bg-white lg:min-h-80"
+                data-product-id="{{ product.id }}"
+              >
+                <div class="flex h-auto items-center justify-center px-12 py-32 lg:p-28">
+                  <span
+                    class="my-auto h-16 w-16 rounded-full border border-grey-DARK bg-transparent transition-colors group-data-[active='true']:bg-orange lg:h-24 lg:w-24"
+                  ></span>
+                </div>
+                <div class="fn-tt-body-10 flex items-center gap-8 p-8">
+                  {% if product.featured_image %}
+                    <div class="relative">
+                      <div
+                        class="aspect-1 lg:w-86 h-68 w-50 shrink-0 overflow-hidden"
+                      >
+                        {{
+                          product.featured_image
+                          | image_url: width: product.featured_image.width
+                          | image_tag: loading: 'lazy', class: 'w-full h-full object-cover object-center', sizes: '30vw'
+                        }}
+                      </div>
+                    </div>
+                  {% endif %}
+                  <div class="flex flex-col text-left">
+                    <span>
+                      {{ product.title }}
+                    </span>
+                    <span class="text-black/60">
+                      {{ product.type }}
+                    </span>
+                  </div>
+                </div>
+              </button>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+    <div
+      class="flex w-full flex-col  border-grey-DARK lg:ml-[-1px] lg:w-[67.57%] lg:border-l"
+      id="ingredients-display"
+    >
+      {% for product in products_ %}
+        <div class="ingredients-info" id="ingredients-{{ product.id }}" style="display: none;">
+          {% assign ingredients = product.metafields.custom.ingredients_list.value %}
+
+          {% comment %} First display ingredients from the freak barrier defense system {% endcomment %}
+          {% assign freak_ingredients = ingredients | where: 'freak_barrier_defense_system', true %}
+          {% if freak_ingredients.size > 0 %}
+            <div class="flex flex-col">
+              <span
+                class="fn-tt-body-20 w-full border-b border-r border-t  border-grey-DARK bg-white p-8 text-center font-medium"
+                >Freak Barrier Defense System™</span
+              >
+              {% comment %} TODO change to generic accordion component {% endcomment %}
+              {% render 'ingredients-accordion', accordions: freak_ingredients %}
+            </div>
+          {% endif %}
+
+          {% comment %} Then display all other ingredients {% endcomment %}
+          {% assign other_ingredients = ingredients | where: 'freak_barrier_defense_system', false %}
+          {% if other_ingredients.size > 0 %}
+            <div class="flex flex-col">
+              <span class="fn-tt-body-20 -mt-1 w-full border-b border-r border-t border-grey-DARK bg-white p-8 text-center font-medium"
+                >Other ingredients</span
+              >
+              {% comment %} TODO change to generic accordion component {% endcomment %}
+              {% render 'ingredients-accordion', accordions: other_ingredients %}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

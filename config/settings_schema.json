@@ -1,0 +1,243 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "freaks-of-nature",
+    "theme_version": "1.0.0",
+    "theme_author": "wild",
+    "theme_documentation_url": "https://wild.as",
+    "theme_support_url": "https://wild.as"
+  },
+  {
+    "name": "Theme Settings",
+    "settings": [
+      {
+        "type": "header",
+        "content": "General"
+      },
+      {
+        "type": "text",
+        "id": "site_name",
+        "label": "Site Name"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_announcement",
+        "label": "Show Header Announcement Bar"
+      }
+    ]
+  },
+  {
+    "name": "Siblings",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Siblings are configured using metaobjects. [Learn more](https://help.shopify.com/en/manual/custom-data/metaobjects)"
+      },
+      {
+        "type": "text",
+        "id": "theme_siblings",
+        "label": "Metaobject type",
+        "default": "siblings"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Cart content"
+      },
+      {
+        "type": "textarea",
+        "id": "cart_empty_headline",
+        "label": "Empty Cart Headline",
+        "default": "Looks like your cart is empty"
+      },
+      {
+        "type": "text",
+        "id": "cart_empty_cta",
+        "label": "Empty Cart Text",
+        "default": "Shop all products"
+      },
+      {
+        "type": "url",
+        "id": "cart_empty_cta_link",
+        "label": "Cta link"
+      },
+      {
+        "type": "text",
+        "id": "subscription_text",
+        "label": "Subscribe button text",
+        "default": "Subscribe + Save"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_subscription_discount",
+        "label": "Show Percentage off",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Savings labels"
+      },
+      {
+        "type": "text",
+        "id": "cart_savings_suffix",
+        "label": "Savings tag suffix",
+        "info": "Appended after \"Saving X%\" on non-subscription lines. Leave empty for just \"Saving X%\"."
+      },
+      {
+        "type": "text",
+        "id": "cart_savings_autofill_suffix",
+        "label": "Subscription savings suffix",
+        "info": "Appended after \"Saving X%\" on subscription lines, e.g. \"w/ Autofill\".",
+        "default": "w/ Autofill"
+      },
+      {
+        "type": "header",
+        "content": "Free gifts"
+      },
+      {
+        "type": "text",
+        "id": "gift_lock_properties",
+        "label": "Locked gift properties",
+        "info": "Comma-separated cart line property names that mark a locked free gift (e.g. _igGWP, _free_gift). A $0 line carrying any of these shows as FREE and is locked — no quantity, subscribe, or remove.",
+        "default": "_igGWP"
+      },
+      {
+        "type": "text",
+        "id": "shipping_text",
+        "label": "Shipping Text",
+        "default": "Shipping, taxes, and discount codes calculated at checkout."
+      },
+      {
+        "type": "text",
+        "id": "cart_shipping_pending_text",
+        "label": "Shipping row — not yet qualified",
+        "info": "Shown in the order summary Shipping row before the free-shipping threshold is met.",
+        "default": "Calculated at checkout"
+      },
+      {
+        "type": "text",
+        "id": "cart_shipping_free_text",
+        "label": "Shipping row — free shipping earned",
+        "info": "Shown in the order summary Shipping row once the Intelligems free-shipping threshold is met.",
+        "default": "Free shipping"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_free_shipping_on_subscription",
+        "label": "Show free shipping when a subscription is in the cart",
+        "info": "Relies on the store's \"Free Shipping\" automatic discount (applies on subscriptions, no minimum). Turn off if that discount is ever removed — or for markets whose rates exceed its cap.",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Newsletter Settings",
+    "settings": [
+      {
+        "type": "text",
+        "id": "klaviyo_list_id",
+        "label": "Klaviyo List ID",
+        "info": "Enter your Klaviyo List ID here."
+      },
+      {
+        "type": "text",
+        "id": "newsletter_placeholder",
+        "label": "Newsletter Signup Placeholder",
+        "default": "Enter Your Email"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_success",
+        "label": "Newsletter Success Message",
+        "info": "Shown when a customer successfully signs up for the newsletter.",
+        "default": "Thank you for signing up!"
+      },
+      {
+        "type": "richtext",
+        "id": "newsletter_policies",
+        "label": "Newsletter policies footnote"
+      }
+    ]
+  },
+  {
+    "name": "Product Card Banner & CTA Text",
+    "settings": [
+      {
+        "type": "text",
+        "id": "default_cta_text",
+        "label": "Default CTA Text",
+        "info": "Shown for products that are not sold out, coming soon, or pre-order",
+        "default": "Shop Now"
+      },
+      {
+        "type": "text",
+        "id": "sold_out_cta_text",
+        "label": "Sold Out CTA Text",
+        "info": "Shown for products that are sold out",
+        "default": "Sign Up For Waitlist"
+      },
+      {
+        "type": "text",
+        "id": "sold_out_banner_text",
+        "label": "Sold Out Banner Text",
+        "info": "Shown at the top of product card for sold out products",
+        "default": "Sold Out"
+      },
+      {
+        "type": "text",
+        "id": "coming_soon_cta_text",
+        "label": "Coming Soon CTA Text",
+        "info": "Shown for products that are coming soon",
+        "default": "Sign Up For Waitlist"
+      },
+      {
+        "type": "text",
+        "id": "coming_soon_banner_text",
+        "label": "Coming Soon Banner Text",
+        "info": "Shown at the top of product card for coming soon products",
+        "default": "Coming Soon"
+      },
+      {
+        "type": "text",
+        "id": "pre_order_cta_text",
+        "label": "Pre-Order CTA Text",
+        "info": "Shown for products that are available for pre-order",
+        "default": "Pre-Order Now"
+      },
+      {
+        "type": "text",
+        "id": "pre_order_banner_text",
+        "label": "Pre-Order Banner Text",
+        "info": "Shown at the top of product card for pre-order products",
+        "default": "Pre-Order Now"
+      },
+      {
+        "type": "text",
+        "id": "bundle_banner_text",
+        "label": "Bundle Banner Text",
+        "info": "Shown at the top of product card for product bundles",
+        "default": "Bundle & Save"
+      }
+    ]
+  },
+  {
+    "name": "CTR Password Gate",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Server-side passcode check (CTR Password Gate section set to \"Server\"). The layout only runs the check on the templates listed here; every other page is untouched."
+      },
+      {
+        "type": "text",
+        "id": "ctr_pwg_templates",
+        "label": "Template suffixes to check",
+        "info": "Comma separated, e.g. mini-deo-kit for product.mini-deo-kit. A gate on a template not listed here falls back to Browser mode.",
+        "default": "mini-deo-kit"
+      }
+    ]
+  }
+]

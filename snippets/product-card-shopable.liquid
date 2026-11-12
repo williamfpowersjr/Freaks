@@ -1,0 +1,257 @@
+{% assign product_title = product.title %}
+{% assign product_image = product.featured_image %}
+{% assign product_type = product.type %}
+{% assign product_url = product.url %}
+{% assign product_label = product.metafields.custom.product_label %}
+
+{% assign hover_image = product.images[1] %}
+{% assign product_is_bundle = false %}
+{% if product.metafields.custom.product_is_bundle.value == true %}
+  {% assign product_is_bundle = true %}
+{% endif %}
+
+{% assign cta_as = 'button' %}
+{% assign cta_text = settings.default_cta_text %}
+{% assign cta_color = 'orange' %}
+{% assign is_coming_soon = false %}
+{% assign is_preorder = false %}
+{% assign is_sold_out = false %}
+
+{% for group in product.selling_plan_groups %}
+  {% if group.name == 'Pre Order' %}
+    {% assign cta_text = settings.pre_order_cta_text %}
+    {% assign cta_color = 'orange' %}
+    {% assign is_preorder = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% if product.available != true and product.metafields.custom.coming_soon == true %}
+  {% assign cta_text = settings.coming_soon_cta_text %}
+  {% assign cta_color = 'orange' %}
+  {% assign is_coming_soon = true %}
+{% endif %}
+
+{% if product.available != true and product.metafields.custom.coming_soon != true %}
+  {% assign cta_text = settings.sold_out_cta_text %}
+  {% assign cta_color = 'orange' %}
+  {% assign is_sold_out = true %}
+{% endif %}
+
+{%- comment -%}
+  Build a reusable price block for the CTA using your one_time_price snippet.
+  We wrap it to match the CTA spacing classes and keep styles intact.
+{%- endcomment -%}
+{% assign v = product.selected_or_first_available_variant %}
+{% capture price_block_html %}
+  <div class="flex flex-wrap items-baseline gap-x-8 text-center">
+    {% render 'one-time-price', variant: v %}
+  </div>
+{% endcapture %}
+
+<a href="{{ product_url }}" aria-label="{{ product_title }}">
+  <div class="flex flex-col gap-y-16 p-24 lg:hidden {{ extra_classes }}">
+    <div class="flex h-fit gap-x-8 gap-y-8">
+      <div class="relative aspect-[0.9] h-116 shrink-0">
+        {% if product_image != blank %}
+          {{
+            product_image
+            | image_url: width: product_image.width
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 1024px) 50vw, 100vw',
+              class: 'w-full h-full object-cover absolute inset-0 z-0'
+          }}
+        {% endif %}
+      </div>
+      <div class="flex flex-col justify-between gap-y-16 pr-8">
+        <div class="flex flex-col gap-y-8">
+          <div class="flex flex-col ">
+            <h3 class="fn-tt-body-20 font-medium">{{ product_title }}</h3>
+            <p class="fn-tt-body-20 ">{{ product_type }}</p>
+          </div>
+          {% unless feature_1 == blank and feature_2 == blank and feature_3 == blank %}
+            <ul class="fn-tt-body-10 !list-disc pl-12">
+              {% if feature_1 != blank %}
+                <li>{{ feature_1 }}</li>
+              {% endif %}
+              {% if feature_2 != blank %}
+                <li>{{ feature_2 }}</li>
+              {% endif %}
+              {% if feature_3 != blank %}
+                <li>{{ feature_3 }}</li>
+              {% endif %}
+            </ul>
+          {% endunless %}
+        </div>
+      </div>
+    </div>
+    {% unless is_coming_soon == true %}
+      {% render 'cta',
+        as: cta_as,
+        text: cta_text,
+        hasIcons: false,
+        cta_color: cta_color,
+        price_block_html: price_block_html,
+        extra_classes: '!py-12 w-full',
+        extra_text_classes: 'fn-tt-cta-40 [@media(max-width:375px)]:fn-tt-cta-20'
+      %}
+    {% endunless %}
+  </div>
+
+  {% comment %} DESKTOP {% endcomment %}
+  <div class="group relative hidden h-full flex-col lg:flex {{ extra_classes }}">
+    {% unless is_coming_soon %}
+      {% if product_image != blank %}
+        <div
+          class="relative mx-40 mt-16 flex aspect-square flex-col items-center justify-center overflow-hidden"
+        >
+          {{
+            product_image
+            | image_url: width: product_image.width
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 1024px) 50vw, 100vw',
+              class: 'w-full h-full object-cover absolute inset-0 z-0'
+          }}
+        </div>
+      {% endif %}
+
+      <div class="flex h-full flex-1 flex-col gap-24 px-40 pb-24 pt-16">
+        <div class="flex flex-1 flex-col">
+          <h3 class="fn-tt-title-20">{{ product_title }}</h3>
+          <p class="fn-tt-title-20 text-black/60">{{ product_type }}</p>
+        </div>
+
+        {% unless feature_1 == blank and feature_2 == blank and feature_3 == blank %}
+          <ul class="fn-tt-body-10 !list-disc pl-12">
+            {% if feature_1 != blank %}
+              <li>{{ feature_1 }}</li>
+            {% endif %}
+            {% if feature_2 != blank %}
+              <li>{{ feature_2 }}</li>
+            {% endif %}
+            {% if feature_3 != blank %}
+              <li>{{ feature_3 }}</li>
+            {% endif %}
+          </ul>
+        {% endunless %}
+      </div>
+
+      {% if image_before != blank and image_after != blank %}
+        <div class="absolute inset-0 hidden h-full w-full flex-1 flex-col transition-opacity duration-300 ease-in-out lg:flex lg:opacity-0 lg:group-hover:opacity-100">
+          <div class="relative h-1/2 overflow-hidden">
+            {{
+              image_before
+              | image_url: width: image_before.width
+              | image_tag:
+                loading: 'lazy',
+                class: 'absolute inset-0 w-full h-full object-cover object-center',
+                sizes: '50vw'
+            }}
+            <span class="bg-blue-600 absolute left-10 top-10 flex h-26 items-center justify-center bg-blue px-8 py-1 text-center text-sm text-white"
+              >Before</span
+            >
+          </div>
+          <div class="relative h-1/2 overflow-hidden">
+            {{
+              image_after
+              | image_url: width: image_after.width
+              | image_tag:
+                loading: 'lazy',
+                class: 'absolute inset-0 w-full h-full object-cover object-center',
+                sizes: '50vw'
+            }}
+            <span class="bg-blue-600 absolute left-10 top-10 flex h-26 items-center justify-center bg-blue px-8 py-1 text-center text-sm text-white"
+              >After</span
+            >
+          </div>
+        </div>
+      {% elsif hover_image != blank %}
+        <div class="absolute inset-0 hidden h-full w-full flex-1 transition-opacity duration-300 ease-in-out lg:block lg:opacity-0 lg:group-hover:opacity-100">
+          {{
+            hover_image
+            | image_url: width: hover_image.width
+            | image_tag:
+              loading: 'lazy',
+              class: 'w-full h-full object-cover object-top',
+              sizes: '(min-width: 1024px) 50vw, 100vw'
+          }}
+        </div>
+      {% endif %}
+    {% endunless %}
+
+    {% if is_coming_soon == true and product_image != blank %}
+      <div class="absolute inset-0 bottom-0 left-0 h-full w-full flex-1 {{ section.settings.bg_color }}">
+        {% if product_image != blank %}
+          {{
+            product_image
+            | image_url: width: product_image.width
+            | image_tag: loading: 'lazy', class: 'w-full h-full object-cover', sizes: '(min-width: 1024px) 50vw, 100vw'
+          }}
+        {% endif %}
+      </div>
+      <div class="absolute bottom-88 left-40 flex flex-col ">
+        <h3 class="fn-tt-title-20 text-white">{{ product_title }}</h3>
+        <p class="fn-tt-title-20 text-white/60">{{ product_type }}</p>
+      </div>
+    {% endif %}
+
+    {% if is_preorder != true and is_sold_out != true and product_is_bundle != true and product_label != blank %}
+      {% render 'label',
+        bg_color: 'orange',
+        text: product_label,
+        has_uppercase: true,
+        extra_classes: 'absolute left-0 top-0 mx-40 mt-16 w-[calc(100%-80px)] text-center',
+        hasPadding: true
+      %}
+    {% endif %}
+    {% if product_is_bundle == true and is_sold_out != true %}
+      {% render 'label',
+        bg_color: 'blue',
+        text: settings.bundle_banner_text,
+        has_uppercase: true,
+        extra_classes: 'absolute left-0 top-0 mx-40 mt-16 w-[calc(100%-80px)] text-center',
+        hasPadding: true
+      %}
+    {% endif %}
+    {% if is_coming_soon == true %}
+      {% render 'label',
+        bg_color: 'black',
+        text: settings.coming_soon_banner_text,
+        has_uppercase: true,
+        extra_classes: 'absolute left-0 top-0 mx-40 mt-16 w-[calc(100%-80px)] text-center',
+        hasPadding: true
+      %}
+    {% endif %}
+    {% if is_preorder == true and is_sold_out != true %}
+      {% render 'label',
+        bg_color: 'orange',
+        text: settings.pre_order_banner_text,
+        has_uppercase: true,
+        extra_classes: 'absolute left-0 top-0 mx-40 mt-16 w-[calc(100%-80px)] text-center',
+        hasPadding: true
+      %}
+    {% endif %}
+    {% if is_sold_out == true %}
+      {% render 'label',
+        bg_color: 'black',
+        text: settings.sold_out_banner_text,
+        has_uppercase: true,
+        extra_classes: 'absolute left-0 top-0 mx-40 mt-16 w-[calc(100%-80px)] text-center',
+        hasPadding: true
+      %}
+    {% endif %}
+
+    {% render 'cta',
+      as: cta_as,
+      text: cta_text,
+      hasIcons: true,
+      cta_color: cta_color,
+      extra_classes: 'absolute left-0 top-0 mx-40 mb-40',
+      extra_icon_classes: '-rotate-90',
+      hover_only: true,
+      price_block_html: price_block_html
+    %}
+  </div>
+</a>

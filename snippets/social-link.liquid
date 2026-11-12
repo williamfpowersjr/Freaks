@@ -1,0 +1,37 @@
+<a
+  href="{{ href }}"
+  aria-label="{{ type }}"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="flex items-center justify-center {{ class }}"
+>
+  {% case type %}
+    {% when 'tiktok' %}
+      {% render 'icon-tiktok', class: 'w-16 ' %}
+    {% when 'instagram' %}
+      {% render 'icon-instagram', class: 'w-16' %}
+    {% when 'linkedin' %}
+      {% render 'icon-linkedin', class: 'w-16' %}
+    {% when 'pinterest' %}
+      {% render 'icon-pinterest', class: 'w-16' %}
+    {% when 'snapchat' %}
+      {% render 'icon-snapchat', class: 'w-16' %}
+
+    {% when 'twitter' %}
+      {% render 'icon-twitter', class: 'w-16 ' %}
+
+    {% when 'vimeo' %}
+      {% render 'icon-vimeo', class: 'w-16 ' %}
+
+    {% when 'facebook' %}
+      {% render 'icon-facebook', class: 'w-16 ' %}
+
+    {% when 'tumblr' %}
+      {% render 'icon-tumblr', class: 'w-16' %}
+
+    {% when 'youtube' %}
+      {% render 'icon-youtube', class: 'w-16' %}
+    {% else %}
+      <span>Missing icon for "{{ type }}"</span>
+  {% endcase %}
+</a>

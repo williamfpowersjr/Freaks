@@ -1,0 +1,115 @@
+{% schema %}
+{
+  "name": "Bundle Upsell",
+  "tag": "section",
+  "class": "bundle-upsell-section",
+  "presets": [
+    {
+      "name": "Bundle Upsell",
+      "category": "Bundle Upsell",
+      "settings": {
+        "bg_color": "bg-blue/20",
+        "title": "Lorem ipsum"
+      },
+      "blocks": [
+        {
+          "type": "bundle",
+          "settings": {
+            "bundle_product": "daily-system",
+            "bundle_cta_color": "blue"
+          }
+        },
+        {
+          "type": "bundle",
+          "settings": {
+            "bundle_product": "daily-system",
+            "bundle_cta_color": "blue"
+          }
+        },
+        {
+          "type": "bundle",
+          "settings": {
+            "bundle_product": "daily-system",
+            "bundle_cta_color": "blue"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Card Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        },
+        {
+          "value": "bg-blue/20",
+          "label": "Light Blue"
+        }
+      ],
+      "default": "bg-blue/20"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Bundle",
+      "type": "bundle",
+      "settings": [
+        {
+          "type": "product",
+          "id": "bundle_product",
+          "label": "Bundle Product"
+        },
+        {
+          "type": "text",
+          "id": "bundle_banner",
+          "label": "Bundle Banner"
+        },
+        {
+          "type": "select",
+          "id": "bundle_cta_color",
+          "label": "Bundle Cta Color",
+          "options": [
+            {
+              "value": "orange",
+              "label": "Orange"
+            },
+            {
+              "value": "blue",
+              "label": "Blue"
+            },
+            {
+              "value": "black",
+              "label": "Black"
+            },
+            {
+              "value": "white",
+              "label": "White"
+            }
+          ],
+          "default": "blue"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% render 'bundles-upsell',
+  blocks: section.blocks,
+  bg_color: section.settings.bg_color,
+  title: section.settings.title
+%}

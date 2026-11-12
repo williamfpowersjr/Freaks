@@ -1,0 +1,245 @@
+<tab-switch-element>
+  <div class="relative flex flex-col {{ bg_color }}">
+    <div class="w-full flex-none py-24 lg:py-80">
+      {% render 'title',
+        title: title,
+        text_size: 'fn-tt-title-70',
+        bg_color: bg_color,
+        border_color: 'border-black/15',
+        extra_wrapper_classes: 'text-center px-24 lg:px-16 overflow-hidden',
+        bg_lines: 'bg-grey-lines',
+        extra_text_classes: '!leading-[0.98] lg:w-[800px] lg:mx-auto !-mb-3 lg:!-mb-6 '
+      %}
+    </div>
+  </div>
+
+  <div class="flex  items-center justify-center gap-8 px-24 lg:border-t lg:border-black/15 lg:p-40">
+    <button
+      type="button"
+      aria-label="{{ title_a }}"
+      data-tab-trigger
+      data-index="tab-a"
+      class="transition-color fn-tt-body-30 [[data-active]]:!bg-orange/15 [[data-active]]:!border-orange border border-black/15 px-8 py-2 text-center font-medium duration-300 ease-in-out lg:hover:border-orange lg:hover:bg-orange/15"
+      aria-expanded="true"
+      data-active="true"
+    >
+      {{ title_a }}
+    </button>
+    <button
+      type="button"
+      aria-label="{{ title_b }}"
+      data-tab-trigger
+      data-index="tab-b"
+      class="transition-color fn-tt-body-30 [[data-active]]:!bg-orange/15 [[data-active]]:!border-orange border border-black/15 px-8 py-2 text-center font-medium duration-300 ease-in-out lg:hover:border-orange lg:hover:bg-orange/15"
+      aria-expanded="false"
+    >
+      {{ title_b }}
+    </button>
+  </div>
+
+  {% comment %} TAB A {% endcomment %}
+  <div
+    data-tab-content
+    class="pt-24 transition-opacity duration-300 ease-in-out lg:p-40 lg:pt-0 "
+    id="tab-a"
+  >
+    {% comment %} DESKTOP {% endcomment %}
+    <div class="hidden lg:grid lg:grid-cols-2">
+      {% if image_a1 != blank %}
+        <div class="relative aspect-square overflow-hidden">
+          {{
+            image_a1
+            | image_url: width: image_a1.width
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 1024px) 50vw, 100vw',
+              class: 'w-full h-full object-cover absolute inset-0 '
+          }}
+          {% if title_a1 != blank %}
+            <p class="fn-tt-body-10 absolute right-16 top-16 bg-blue px-8 py-1 font-medium text-white">
+              {{ title_a1 }}
+            </p>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if image_a2 != blank %}
+        <div class="relative aspect-square overflow-hidden">
+          {{
+            image_a2
+            | image_url: width: image_a2.width
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 1024px) 50vw, 100vw',
+              class: 'w-full h-full object-cover absolute inset-0 '
+          }}
+          {% if title_a2 != blank %}
+            <p class="fn-tt-body-10 absolute right-16 top-16 bg-blue px-8 py-1 font-medium text-white">
+              {{ title_a2 }}
+            </p>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    {% comment %} MOBILE {% endcomment %}
+    <div class="relative border-b border-black/15 lg:hidden">
+      <swiper-element class="comparison" id="comparison">
+        <swiper-container
+          init="false"
+          class="swiper-wrapper divide-x divide-black/15 "
+        >
+          <swiper-slide class="swiper-slide -ml-1 ">
+            {% if image_a1 != blank %}
+              <div class="relative -mb-2 aspect-[2/3] overflow-hidden">
+                {{
+                  image_a1
+                  | image_url: width: image_a1.width
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '(min-width: 1024px) 50vw, 100vw',
+                    class: 'w-full h-full object-cover absolute inset-0 '
+                }}
+                {% if title_a1 != blank %}
+                  <p class="fn-tt-body-10 absolute right-16 top-16 bg-blue px-8 py-1 font-medium text-white">
+                    {{ title_a1 }}
+                  </p>
+                {% endif %}
+              </div>
+            {% endif %}
+          </swiper-slide>
+          <swiper-slide class="swiper-slide -ml-1 ">
+            {% if image_a2 != blank %}
+              <div class="relative -mb-2 aspect-[2/3] overflow-hidden">
+                {{
+                  image_a2
+                  | image_url: width: image_a2.width
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '(min-width: 1024px) 50vw, 100vw',
+                    class: 'w-full h-full object-cover absolute inset-0 '
+                }}
+                {% if title_a2 != blank %}
+                  <p class="fn-tt-body-10 absolute right-16 top-16 bg-blue px-8 py-1 font-medium text-white">
+                    {{ title_a2 }}
+                  </p>
+                {% endif %}
+              </div>
+            {% endif %}
+          </swiper-slide>
+        </swiper-container>
+        <div class="align-center absolute bottom-0 right-0 z-10 flex w-fit border-t border-black/15">
+          <div class="border-x border-black/15 bg-white">
+            <div class="swiper-button-prev " aria-label="Previous Slide {{ section.id }}" role="button"></div>
+          </div>
+          <div class="bg-white">
+            <div class="swiper-button-next " aria-label="Next Slide {{ section.id }}" role="button"></div>
+          </div>
+        </div>
+      </swiper-element>
+    </div>
+  </div>
+
+  {% comment %} TAB B {% endcomment %}
+  <div
+    data-tab-content
+    class="pt-24 transition-opacity duration-300 ease-in-out lg:p-40 lg:pt-0 "
+    id="tab-b"
+  >
+    {% comment %} DESKTOP {% endcomment %}
+    <div class="hidden lg:grid lg:grid-cols-2">
+      {% if image_b1 != blank %}
+        <div class="relative aspect-square overflow-hidden">
+          {{
+            image_b1
+            | image_url: width: image_b1.width
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 1024px) 50vw, 100vw',
+              class: 'w-full h-full object-cover absolute inset-0 '
+          }}
+          {% if title_b1 != blank %}
+            <p class="fn-tt-body-10 absolute right-16 top-16 bg-blue px-8 py-1 font-medium text-white">
+              {{ title_b1 }}
+            </p>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if image_b2 != blank %}
+        <div class="relative aspect-square overflow-hidden">
+          {{
+            image_b2
+            | image_url: width: image_b2.width
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 1024px) 50vw, 100vw',
+              class: 'w-full h-full object-cover absolute inset-0 '
+          }}
+          {% if title_b2 != blank %}
+            <p class="fn-tt-body-10 absolute right-16 top-16 bg-blue px-8 py-1 font-medium text-white">
+              {{ title_b2 }}
+            </p>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    {% comment %} MOBILE {% endcomment %}
+    <div class="relative lg:hidden">
+      <swiper-element id="comparison" class="comparison">
+        <swiper-container
+          init="false"
+          class="swiper-wrapper divide-x divide-black/15 "
+        >
+          <swiper-slide class="swiper-slide -ml-1 ">
+            {% if image_b1 != blank %}
+              <div class="relative -mb-2 aspect-[2/3] overflow-hidden">
+                {{
+                  image_b1
+                  | image_url: width: image_b1.width
+                  | image_tag:
+                    loading: 'eager',
+                    preload: true,
+                    sizes: '(min-width: 1024px) 50vw, 100vw',
+                    class: 'w-full h-full object-cover absolute inset-0 '
+                }}
+                {% if title_b1 != blank %}
+                  <p class="fn-tt-body-10 absolute right-16 top-16 bg-blue px-8 py-1 font-medium text-white">
+                    {{ title_b1 }}
+                  </p>
+                {% endif %}
+              </div>
+            {% endif %}
+          </swiper-slide>
+          <swiper-slide class="swiper-slide -ml-1 ">
+            {% if image_b2 != blank %}
+              <div class="relative -mb-2 aspect-[2/3] overflow-hidden">
+                {{
+                  image_b2
+                  | image_url: width: image_b2.width
+                  | image_tag:
+                    loading: 'eager',
+                    preload: true,
+                    sizes: '(min-width: 1024px) 50vw, 100vw',
+                    class: 'w-full h-full object-cover absolute inset-0 '
+                }}
+                {% if title_b2 != blank %}
+                  <p class="fn-tt-body-10 absolute right-16 top-16 bg-blue px-8 py-1 font-medium text-white">
+                    {{ title_b2 }}
+                  </p>
+                {% endif %}
+              </div>
+            {% endif %}
+          </swiper-slide>
+        </swiper-container>
+        <div class="align-center absolute bottom-0 right-0 z-10 flex w-fit border-t border-black/15">
+          <div class="border-x border-black/15 bg-white">
+            <div class="swiper-button-prev" aria-label="Previous Slide {{ section.id }}" role="button"></div>
+          </div>
+          <div class="bg-white">
+            <div class="swiper-button-next" aria-label="Next Slide {{ section.id }}" role="button"></div>
+          </div>
+        </div>
+      </swiper-element>
+    </div>
+  </div>
+</tab-switch-element>

@@ -1,0 +1,119 @@
+{% schema %}
+{
+  "name": "Blog",
+  "tag": "section",
+  "class": "main-blog",
+  "presets": [
+    {
+      "name": "Blog",
+      "category": "Blog",
+      "settings": {
+        "bg_color": "white",
+        "title": "Lorem ipsum",
+        "text_align": "left"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Title Background Color",
+      "options": [
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "offWhite",
+          "label": "Off White"
+        },
+        {
+          "value": "orange",
+          "label": "Orange"
+        }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title"
+    },
+
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Title Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "left"
+    }
+  ]
+}
+{% endschema %}
+
+{% case section.settings.bg_color %}
+  {% when 'offWhite' %}
+    {% assign bg_lines = 'bg-grey-lines' %}
+    {% assign text_color = 'text-black' %}
+    {% assign bg_color = 'bg-offWhite' %}
+
+  {% when 'orange' %}
+    {% assign bg_lines = 'bg-blue-lines' %}
+    {% assign text_color = 'text-blue' %}
+    {% assign bg_color = 'bg-orange' %}
+
+  {% else %}
+    {% assign bg_lines = 'bg-grey-lines' %}
+    {% assign text_color = 'text-black' %}
+    {% assign bg_color = 'bg-white' %}
+{% endcase %}
+
+{% assign extra_wrapper_classes = 'overflow-hidden px-8 lg:px-12 text-balance border-none -mb-1' %}
+
+{% if section.settings.text_align == 'center' %}
+  {% assign extra_wrapper_classes = extra_wrapper_classes | append: ' text-center' %}
+{% else %}
+  {% assign extra_wrapper_classes = extra_wrapper_classes | append: ' text-left' %}
+{% endif %}
+{% comment %} {% if blog.articles.size > 0 %} {% endcomment %}
+<sticky-blog-navigation-element>
+  <div data-blog-title>
+    {% render 'title',
+      title: section.settings.title,
+      text_size: 'fn-tt-title-70',
+      extra_wrapper_classes: extra_wrapper_classes,
+      text_color: text_color,
+      bg_color: bg_color,
+      bg_lines: bg_lines
+    %}
+  </div>
+
+  <div class="relative">
+    {% paginate blog.articles by 9 %}
+      {% render 'blog-filters', blog: blogs.news %}
+
+      <div
+        data-blog-grid
+        class="-mr-1 divide-black/15 border-t border-t-black/15 max-lg:divide-x lg:-mb-1 lg:grid lg:grid-cols-3 lg:divide-black/15 lg:bg-offWhite {{ section.settings.bg_color }}"
+      >
+        {% for article in blog.articles %}
+          {% render 'article-card', article: article, extra_classes: 'lg:border-b lg:border-black/15' %}
+        {% endfor %}
+      </div>
+      {% if paginate.pages > 1 %}
+        {% render 'pagination', paginate: paginate %}
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</sticky-blog-navigation-element>
+{% comment %} {% endif %} {% endcomment %}

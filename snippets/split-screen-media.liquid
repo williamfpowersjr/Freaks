@@ -1,0 +1,37 @@
+<div class="{% if full_bleed_media != true %}p-24 lg:p-40{% endif %} h-full">
+  <video-element>
+    {% if split_screen_video == blank %}
+      {% if split_screen_image != blank %}
+        <div class="relative {% if split_screen_aspect_classes %}{{ split_screen_aspect_classes }} overflow-hidden{% else %}h-full{% endif %} w-full ">
+          {{
+            split_screen_image
+            | image_url: width: split_screen_image.width
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 1024px) 50vw, 100vw',
+              class: 'w-full h-full object-cover absolute inset-0 z-0'
+          }}
+          {% if split_screen_caption != blank %}
+            <div class="absolute bottom-0 left-0 z-10 bg-white p-4">
+              <p class="fn-tt-caption text-black">{{ split_screen_caption }}</p>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if split_screen_video != blank %}
+      <div class="group relative text-white {% if split_screen_aspect_classes %}{{ split_screen_aspect_classes }}{% else %}aspect-square{% endif %} w-full overflow-hidden">
+        {% render 'lazy-video', video: split_screen_video, class: 'object-cover h-full' %}
+        <div class="transition-opacity duration-300 ease-in-out lg:opacity-0 lg:group-hover:opacity-100">
+          {% render 'video-controls', icons_class: 'absolute w-fit m-16 top-0 right-0', hide_mute: hide_mute %}
+        </div>
+        {% if split_screen_caption != blank %}
+          <div class="absolute bottom-0 left-0 z-10 bg-white p-4">
+            <p class="fn-tt-caption text-black">{{ split_screen_caption }}</p>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </video-element>
+</div>

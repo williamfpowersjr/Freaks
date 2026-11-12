@@ -1,0 +1,258 @@
+{% style %}
+  .rc-login .rc-login--body {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  .rc-login {
+    max-width: 100vw !important;
+    padding: 80px 24px !important;
+    margin-top: 0 !important;
+  }
+
+  @media (min-width: 1024px) {
+    .rc-login {
+      max-width: 758px !important;
+      margin: 160px auto !important;
+    }
+  }
+
+  .rc-error {
+    border: 1px solid var(--tw-color-orange) !important;
+    background-color: transparent !important;
+  }
+
+  .rc-login-form-label {
+    height: 0 !important;
+    overflow: hidden !important;
+    padding-bottom: 0 !important;
+  }
+
+  .rc-email-error {
+    padding-top: 8px !important;
+    color: var(--tw-color-orange) !important;
+    text-transform: uppercase !important;
+    font-family: 'Alliance Neue', sans-serif !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    letter-spacing: 0 !important;
+    position: relative !important;
+    bottom: unset !important;
+    height: fit-content !important;
+    line-height: 100% !important;
+    font-size: 12px !important;
+    display: inline-block !important;
+  }
+
+  .rc-login input {
+    margin-top: 24px !important;
+    border-radius: 0 !important;
+    text-transform: uppercase !important;
+    border: 1px solid rgba(0, 50, 160, 0.2) !important;
+    font-size: 32px !important;
+    padding: 0 8px !important;
+    font-family: 'Alliance Neue', sans-serif !important;
+    line-height: 32px !important;
+    letter-spacing: 0 !important;
+    transition: all 0.2s ease !important;
+    height: auto !important;
+    color: var(--tw-color-blue) !important;
+  }
+
+  @media (min-width: 1024px) {
+    .rc-login input {
+      font-size: 80px !important;
+      line-height: 80px !important;
+    }
+  }
+
+  .rc-login input:focus,
+  .rc-login input:active {
+    border-color: var(--tw-color-blue) !important;
+    filter: none !important;
+  }
+  @media (min-width: 1024px) {
+    .rc-login:hover input,
+    .rc-login:hover input {
+      cursor: pointer !important;
+      border-color: var(--tw-color-blue) !important;
+    }
+  }
+
+  .rc-login input::placeholder {
+    color: rgba(0, 50, 160, 0.4) !important;
+  }
+
+  .rc-login-form-button {
+    margin-top: 24px !important;
+    border-radius: 0 !important;
+    text-transform: uppercase !important;
+    font-size: 20px !important;
+    font-family: 'Alliance Neue', sans-serif !important;
+    font-size: 18px !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    line-height: 120% !important;
+    text-align: center !important;
+    background: var(--tw-color-blue) !important;
+    padding: 16px 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  @media (min-width: 1024px) {
+    .rc-login button {
+      font-size: 20px !important;
+    }
+  }
+
+  .rc-login-form-button {
+    padding: 4px 52px !important;
+    height: fit-content !important;
+    min-height: 40px !important;
+  }
+  @media (min-width: 1024px) {
+    .rc-login-form-button {
+      padding: 4px 16px !important;
+    }
+  }
+
+  .rc-login-form-button > div {
+    padding: 0 !important;
+    top: unset !important;
+    left: unset !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative !important;
+  }
+
+  .rc-login button::before,
+  .rc-login button::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: theme(colors.white.DEFAULT);
+    display: block;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-14" aria-hidden="true"><path d="M5.90015 1C5.90015 2.25018 6.41901 3.36655 7.09719 4.29511C7.7763 5.22494 8.65972 6.02888 9.506 6.67836C9.59045 6.74318 9.67484 6.80669 9.75897 6.86887H1V8.86887H9.75836C9.67443 8.9309 9.59024 8.99427 9.50599 9.05892C8.65972 9.70841 7.7763 10.5123 7.09719 11.4422C6.41901 12.3707 5.90015 13.4871 5.90015 14.7373H7.90015C7.90015 14.0531 8.18497 13.3438 8.71228 12.6218C9.23868 11.901 9.96259 11.2296 10.7237 10.6455C11.48 10.065 12.2421 9.59431 12.8181 9.26777C13.1049 9.10515 13.3429 8.97985 13.5073 8.89608C13.5894 8.85423 13.653 8.82284 13.6949 8.80244L13.7523 8.77484C14.1041 8.61042 14.3295 8.25695 14.3295 7.86863C14.3295 7.48023 14.1046 7.12697 13.7527 6.9626L13.7512 6.96191C13.6694 6.9226 13.5881 6.88239 13.5073 6.84119C13.3429 6.75742 13.1049 6.63213 12.8181 6.4695C12.2421 6.14297 11.48 5.67225 10.7237 5.09176C9.96259 4.50767 9.23868 3.83624 8.71229 3.11551C8.18497 2.39351 7.90015 1.68415 7.90015 1H5.90015Z" fill="white"></path></svg>');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .rc-login button::before {
+    left: 16px;
+  }
+
+  .rc-login button::after {
+    right: 16px;
+  }
+
+  .rc-login--header-title {
+    margin: 0 !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+    font-family: 'Alliance Neue', sans-serif !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 120% !important;
+    font-size: 32px !important;
+    color: var(--tw-color-blue) !important;
+  }
+
+  @media (min-width: 1024px) {
+    .rc-login--header-title {
+      line-height: 100% !important;
+      font-size: 80px !important;
+    }
+  }
+  .rc-login--header {
+    display: none !important;
+  }
+
+  .rc-enter-code-digits {
+    justify-content: center !important;
+    gap: 24px !important;
+  }
+
+  .rc-login-form {
+    margin: 0 !important;
+  }
+
+  .rc-enter-code-text {
+    color: var(--tw-color-blue) !important;
+    text-align: center !important;
+    letter-spacing: 0 !important;
+    font-family: 'Alliance Neue', sans-serif !important;
+    font-size: 18px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 150% !important;
+    margin: 24px 0px 0px 0px !important;
+  }
+
+  .rc-error-digits {
+    padding-top: 8px !important;
+    color: var(--tw-color-orange) !important;
+    text-transform: uppercase !important;
+    font-family: 'Alliance Neue', sans-serif !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    letter-spacing: 0 !important;
+    position: relative !important;
+    bottom: unset !important;
+    height: fit-content !important;
+    line-height: 100% !important;
+    font-size: 12px !important;
+    display: inline-block !important;
+  }
+
+  .rc-error-digits span {
+    margin-left: 0 !important;
+  }
+
+  .rc-enter-code {
+    margin: auto auto !important;
+  }
+
+  .rc-enter-code-header {
+    margin: 0 !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+    font-family: 'Alliance Neue', sans-serif !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 120% !important;
+    font-size: 32px !important;
+    color: var(--tw-color-blue) !important;
+    width: 11ch !important;
+    margin: auto auto !important;
+  }
+
+  @media (min-width: 1024px) {
+    .rc-enter-code-header {
+      line-height: 100% !important;
+      font-size: 80px !important;
+      width: 11ch !important;
+    }
+  }
+
+  .rc-enter-code-sms-info {
+    color: rgba(33, 33, 33, 0.6) !important;
+    font-family: 'Alliance Neue', sans-serif !important;
+
+    font-size: 12px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 130% !important;
+    letter-spacing: 0 !important;
+    margin: 24px 0px 0px 0px !important;
+  }
+{% endstyle %}

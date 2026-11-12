@@ -1,0 +1,256 @@
+{% schema %}
+{
+  "name": "Footer",
+  "tag": "footer",
+  "class": "footer-section",
+  "presets": [
+    {
+      "name": "Footer",
+      "category": "Footer",
+      "settings": {
+        "logo": "shopify://shop_images/logo.svg",
+        "legal_menu": "legals",
+        "klaviyo_list_id": "",
+        "newsletter_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "email_text": "Lorem ipsum",
+        "email": "",
+        "credit": "Lorem ipsum"
+      },
+      "blocks": [
+        {
+          "type": "social",
+          "settings": {
+            "type": "instagram",
+            "url": "#"
+          }
+        },
+        {
+          "type": "social",
+          "settings": {
+            "type": "twitter",
+            "url": "#"
+          }
+        },
+        {
+          "type": "menu",
+          "settings": {
+            "title": "Lorem ipsum",
+            "menu": "footer-secondary"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "legal_menu",
+      "label": "Legal Menu"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_list_id",
+      "label": "Newsletter Klaviyo List ID"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_description",
+      "label": "Newsletter Signup description"
+    },
+    {
+      "type": "text",
+      "id": "email_text",
+      "label": "Email Contact Text"
+    },
+    {
+      "type": "url",
+      "id": "email",
+      "label": "Email Contact"
+    },
+    {
+      "type": "text",
+      "id": "credit",
+      "label": "Credit"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "social",
+      "name": "Social",
+      "settings": [
+        {
+          "type": "select",
+          "id": "type",
+          "label": "Type",
+          "options": [
+            {
+              "value": "tiktok",
+              "label": "TikTok"
+            },
+            {
+              "value": "twitter",
+              "label": "Twitter (X)"
+            },
+            {
+              "value": "instagram",
+              "label": "Instagram"
+            },
+            {
+              "value": "youtube",
+              "label": "Youtube"
+            },
+            {
+              "value": "facebook",
+              "label": "Facebook"
+            },
+            {
+              "value": "pinterest",
+              "label": "Pinterest"
+            }
+          ]
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL"
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "name": "Nav",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "info": "Defaults to menu title"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "info": "This menu will only show top-level links"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<footer>
+  <div data-footer class="overflow-hidden bg-blue">
+    {% assign logo = section.settings.logo %}
+    {% if logo != blank %}
+      <div class="hidden border-b border-white/15 p-40 lg:block">
+        {{ logo | image_url: width: logo.width | image_tag: loading: 'lazy', sizes: '100vw' }}
+      </div>
+
+      {% render 'footer-logo-mobile', logo: logo, class: 'lg:hidden pt-48' %}
+    {% endif %}
+
+    <div class="fn-tt-body-10 flex flex-col lg:flex-row">
+      <div class="flex w-full gap-16 border-b border-white/15 px-24 py-48 lg:w-1/2  lg:border-b-0 lg:border-r lg:p-40 lg:pl-80">
+        {% for block in section.blocks %}
+          {% if block.type == 'menu' %}
+            <nav class="flex flex-1  flex-col gap-16 lg:w-1/3 lg:flex-none">
+              <p class="fon-body-10 text-orange">
+                {% if block.settings.title == blank %}
+                  {{ linklists[block.settings.menu].title }}
+                {% else %}
+                  {{ block.settings.title }}
+                {% endif %}
+              </p>
+              <ul class="flex flex-col gap-16 text-white">
+                {% for link in linklists[block.settings.menu].links %}
+                  <li class="transition-opacity duration-300 ease-in-out lg:hover:opacity-[0.8]">
+                    {{ link.title | link_to: link.url }}
+                  </li>
+                {% endfor %}
+              </ul>
+            </nav>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="w-full lg:w-1/2 ">
+        <div class="relative border-b border-white/15 p-24 lg:p-40 lg:pr-80">
+          {% render 'newsletter-signup', isFooter: true, text: section.settings.newsletter_description %}
+        </div>
+        <div class="flex flex-col items-center lg:flex-row lg:pr-40">
+          <ul class="flex w-full items-center justify-center gap-x-40 border-b border-white/15 p-24 lg:w-fit lg:justify-start lg:border-none lg:p-40">
+            {% assign social_links = shop.brand.metafields.social_links %}
+
+            {% for link in social_links %}
+              {% assign type = link[0] %}
+              {% assign href = link[1].value %}
+              <li>
+                {% render 'social-link',
+                  href: href,
+                  type: type,
+                  class: 'text-white transition-opacity duration-300 ease-in-out lg:hover:opacity-[0.8]'
+                %}
+              </li>
+            {% endfor %}
+          </ul>
+          {% if section.settings.email != blank %}
+            <div>
+              <a
+                href="{{- section.settings.email }}"
+                class="text-white underline transition-opacity duration-300 ease-in-out lg:hover:opacity-[0.8]"
+              >
+                <div class="lg:p-none flex items-center gap-4 p-24">
+                  {{- section.settings.email_text }}
+                </div>
+              </a>
+            </div>
+          {% endif %}
+        </div>
+        <div class="flex flex-col items-center lg:flex-row lg:pr-40">
+          <p style="font-size: 0.9em; color: #BBB;">
+            Accessibility statement: If you are using a screen reader and having problems using this website, please
+            e-mail
+            <a href="mailto:hi@freaksofnature.com">hi@freaksofnature.com</a> for assistance.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="fn-tt-body-10 lg:fn-tt-caption flex flex-col border-t border-white/15 lg:flex-row lg:px-80 lg:py-20">
+      <div class="w-full p-24 lg:flex lg:w-1/2 lg:items-center lg:p-0">
+        {% if section.settings.legal_menu.links.size > 0 %}
+          <nav>
+            <ul class="flex justify-center gap-x-20 lg:justify-start">
+              {% for link in section.settings.legal_menu.links %}
+                <li class="text-white transition-opacity duration-300 ease-in-out lg:hover:opacity-[0.8]">
+                  {{ link.title | link_to: link.url }}
+                </li>
+              {% endfor %}
+            </ul>
+          </nav>
+        {% endif %}
+      </div>
+      <div class="border-t border-white/15 p-24 lg:border-none lg:p-0">{% render 'currency-picker' %}</div>
+      <div class="w-full border-t border-white/15 p-24 text-center lg:flex lg:w-1/2 lg:items-center lg:justify-end lg:border-none lg:p-0 lg:text-right">
+        <p class="text-white">{{ section.settings.credit }}</p>
+      </div>
+      <!-- Footer logo (RIGHT SIDE) -->
+      <div
+        class="flex items-center p-24 border-t border-white/15 lg:border-none lg:p-0 lg:ml-24"
+        style="padding-left: 20px;"
+      >
+        <img
+          src="{{ 'fon_logo_cobalt.png' | asset_url }}"
+          alt="Footer logo"
+          width="120"
+          height="40"
+          class="h-20 w-auto object-contain filter invert sepia saturate-[500%] hue-rotate-[10deg] brightness-[1.1]"
+          loading="lazy"
+        >
+      </div>
+    </div>
+  </div>
+</footer>

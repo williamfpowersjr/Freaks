@@ -1,0 +1,29 @@
+{% doc %}
+@param {string} [class] - Class name. @param {string} [icon] - The icon to display. @param {string} [text] - The text to
+display. @param {string} [variant] - The variant style: 'positive' (default, green) or 'negative' (orange).
+{% enddoc %}
+
+{% liquid
+  assign variant = variant | default: 'positive'
+
+  if variant == 'negative'
+    assign bg_color = 'bg-orange/10'
+    assign icon_color = 'text-orange'
+  else
+    assign bg_color = 'bg-[rgba(29,195,56,0.08)]'
+    assign icon_color = 'text-[#127A23]'
+  endif
+%}
+
+<li class="flex items-center gap-8 {{ class }}">
+  <span class="flex size-16 items-center justify-center rounded-lg {{ bg_color }}">
+    {% if icon != blank %}
+      {{ icon }}
+    {% else %}
+      {% render 'icon-check', class: 'w-10 {{ icon_color }}' %}
+    {% endif %}
+  </span>
+  <p class="fn-tt-caption lg:text-sm">
+    {{ text }}
+  </p>
+</li>

@@ -1,0 +1,212 @@
+<mobile-header-element>
+  <accordion-element>
+    <div
+      data-overlay
+      class="fixed inset-0 left-0 top-0 z-behind hidden h-[100vh] bg-blue/20 backdrop-blur-lg transition-opacity duration-500 ease-in-out lg:w-full"
+    >
+      <p class="sr-only">Close header navigation</p>
+    </div>
+    <div
+      class="relative border-b border-black/15 bg-white px-8 lg:hidden"
+      style="height: var(--menu-bar-height)"
+    >
+      <navigation>
+        <div class="relative flex h-full items-center justify-between gap-x-8">
+          <div>
+            <div class="self-center" id="menu-button">
+              <div data-open class="fn-tt-sub-title-30 z-20 font-medium leading-none hover:cursor-pointer">Menu</div>
+              <div data-close class="fn-tt-sub-title-30 z-20 hidden font-medium leading-none hover:cursor-pointer">
+                Close
+              </div>
+            </div>
+
+            {% if menu_links.size > 0 or products_title and header_collection != blank %}
+              <ul
+                id="menu-content"
+                data-menu-content
+                class="absolute -left-8 top-[var(--total-navigation-height)] z-behind flex w-[100vw] flex-1 -translate-y-[200%] flex-col overflow-y-auto transition duration-300 ease-in-out"
+              >
+                <li data-accordion data-no-autoscroll class="relative bg-white">
+                  <button
+                    aria-label="Product Content"
+                    data-accordion-trigger
+                    aria-expanded="true"
+                    aria-controls="mobile-content-product"
+                    class="group flex w-full items-center justify-between gap-2 p-8"
+                  >
+                    <p class="fn-tt-title-70 flex-1 text-left font-medium uppercase">
+                      {{ products_title }}
+                    </p>
+
+                    {% render 'header-nav-icons', is_desktop: false %}
+                  </button>
+
+                  <div
+                    data-accordion-content
+                    id="mobile-content-product"
+                    style="max-height: 0;"
+                    class="h-fit max-h-0 overflow-hidden bg-white transition-all duration-300 will-change-[max-width]"
+                  >
+                    <div class="flex flex-col divide-y divide-black/15 border-t border-black/15">
+                      {% for product in header_collection.products limit: 5 %}
+                        {% render 'product-card-mini', product: product, bg_color: 'bg-white' %}
+                      {% endfor %}
+                    </div>
+                    {% if products_cta != blank %}
+                      {% render 'cta',
+                        as: 'a',
+                        href: products_cta_url,
+                        text: products_cta,
+                        extra_classes: 'w-full',
+                        cta_color: 'orange',
+                        hasIcons: true
+                      %}
+                    {% endif %}
+                  </div>
+                </li>
+                <li data-accordion data-no-autoscroll class="relative bg-white ">
+                  <button
+                    aria-label="Bundle Content"
+                    data-accordion-trigger
+                    aria-expanded="false"
+                    aria-controls="mobile-content-bundle"
+                    class="group flex w-full items-center justify-between gap-2 border-t border-black/15 p-8"
+                  >
+                    <p class="fn-tt-title-70 flex-1 text-left font-medium uppercase">
+                      {{ bundle_title }}
+                    </p>
+
+                    {% render 'header-nav-icons', is_desktop: false %}
+                  </button>
+
+                  <div
+                    data-accordion-content
+                    id="mobile-content-bundle"
+                    style="max-height: 0;"
+                    class="h-fit max-h-0 overflow-hidden bg-white transition-all duration-300 will-change-[max-width]"
+                  >
+                    <div class="flex flex-col divide-y divide-black/15 border-t border-black/15">
+                      {% for product in bundle_collection.products limit: 5 %}
+                        {% render 'product-card-mini', product: product, bg_color: 'bg-white' %}
+                      {% endfor %}
+                    </div>
+                    {% if bundle_cta != blank %}
+                      {% render 'cta',
+                        as: 'a',
+                        href: bundle_cta_url,
+                        text: bundle_cta,
+                        extra_classes: 'w-full',
+                        cta_color: 'orange',
+                        hasIcons: true
+                      %}
+                    {% endif %}
+                  </div>
+                </li>
+                {% for link in menu_links %}
+                  <li data-accordion class="relative bg-white">
+                    {% unless link.links != blank %}
+                      <a href="{{ link.url }}" aria-label="{{ link.title }}">
+                    {% endunless %}
+                    <button
+                      aria-label="Product Content"
+                      data-accordion-trigger
+                      aria-expanded="false"
+                      aria-controls="mobile-content-{{ forloop.index0 }}"
+                      class="group -mt-1 flex w-full items-center gap-2 border-t border-black/15 p-8"
+                    >
+                      <p class="fn-tt-title-70 flex-1 text-left font-medium uppercase">{{ link.title }}</p>
+                      {% if link.links != blank %}
+                        {% render 'header-nav-icons', is_desktop: false %}
+                      {% endif %}
+                    </button>
+                    {% if link.links != blank %}
+                      <ul
+                        data-accordion-content
+                        id="mobile-content-{{ forloop.index0 }}"
+                        style="max-height: 0;"
+                        class="-mb-1 flex max-h-0 w-full flex-col divide-y divide-black/15 overflow-hidden border-t border-black/15 bg-offWhite transition-all duration-300 will-change-[max-width]"
+                      >
+                        {% for child_link in link.links %}
+                          <li class="bg-white px-24 py-16">
+                            {% render 'header-mobile-submenu-item', link: child_link.url, title: child_link.title %}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                    {% unless link.links != blank %}</a>{% endunless %}
+                  </li>
+                {% endfor %}
+                <li data-accordion class="relative bg-white">
+                  <button
+                    aria-label="Content"
+                    data-accordion-trigger
+                    aria-expanded="false"
+                    aria-controls="mobile-content-account"
+                    class="group -mt-1 flex w-full items-center gap-2 border-t border-black/15 p-8"
+                  >
+                    <p class="fn-tt-title-70 flex-1 text-left font-medium uppercase">Account</p>
+                    {% render 'header-nav-icons', is_desktop: false %}
+                  </button>
+                  <ul
+                    data-accordion-content
+                    id="mobile-content-account"
+                    style="max-height: 0;"
+                    class="flex max-h-0 w-full flex-col divide-y divide-black/15 overflow-hidden border-t border-black/15 bg-offWhite transition-all duration-300 will-change-[max-width]"
+                  >
+                    <li class="bg-white px-24 py-16">
+                      {% render 'header-mobile-submenu-item',
+                        link: '/tools/recurring/get-subscription-access',
+                        title: 'Manage Subscriptions'
+                      %}
+                    </li>
+                    <li class="bg-white px-24 py-16">
+                      {% if customer %}
+                        {% render 'header-mobile-submenu-item', link: routes.account_logout_url, title: 'Log out' %}
+                      {% else %}
+                        {% render 'header-mobile-submenu-item',
+                          link: routes.account_login_url,
+                          title: 'Wholesale Login'
+                        %}
+                      {% endif %}
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            {% endif %}
+          </div>
+          <div>
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ">
+              <a href="/" aria-label="Index Page">
+                {% if logo %}
+                  {{
+                    logo
+                    | image_url: width: logo.width
+                    | image_tag: loading: 'lazy', sizes: '50vw', class: 'block w-auto h-18', alt: site_name
+                  }}
+                {% else %}
+                  <span class="text-xl font-medium">{{ site_name }}</span>
+                {% endif %}
+              </a>
+            </div>
+          </div>
+          <div class="flex items-center gap-x-24">
+            <button
+              aria-label="Open Cart"
+              class="flex items-center justify-center gap-4"
+              data-open-cart
+            >
+              <span class="sr-only">Cart</span>
+              <span class="fn-tt-sub-title-30 font-medium leading-none">Cart</span>
+              <span
+                class="fn-tt-body-10 mb-1 flex size-20 items-center justify-center rounded-full bg-blue/20 leading-none lg:size-24 lg:pt-1"
+                data-cart-count
+              >
+                {{- cart.item_count -}}
+              </span>
+            </button>
+          </div>
+        </div>
+      </navigation>
+    </div>
+  </accordion-element>
+</mobile-header-element>

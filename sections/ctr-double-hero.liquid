@@ -1,0 +1,892 @@
+{{ 'ctr-double-hero.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ctr-double-hero.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign ctr_double_hero_layout = section.settings.layout | default: 'single'
+  assign ctr_double_hero_primary_image = section.settings.primary_image
+  assign ctr_double_hero_primary_image_mobile = section.settings.primary_image_mobile | default: ctr_double_hero_primary_image
+  assign ctr_double_hero_primary_video = section.settings.primary_video
+  assign ctr_double_hero_primary_video_mobile = section.settings.primary_video_mobile
+  assign ctr_double_hero_secondary_image = section.settings.secondary_image
+  assign ctr_double_hero_secondary_image_mobile = section.settings.secondary_image_mobile | default: ctr_double_hero_secondary_image
+  assign ctr_double_hero_secondary_video = section.settings.secondary_video
+  assign ctr_double_hero_secondary_video_mobile = section.settings.secondary_video_mobile
+
+  if section.settings.background_gradient != blank
+    assign ctr_double_hero_background_gradient = section.settings.background_gradient
+  else
+    assign ctr_double_hero_background_gradient = 'none'
+  endif
+-%}
+
+<ctr-double-hero
+  id="ctr-double-hero-{{ section.id }}"
+  class="ctr-double-hero ctr-double-hero--{{ ctr_double_hero_layout }}{% if section.settings.fill_media_desktop %} ctr-double-hero--fill-media{% endif %}"
+  data-section-id="{{ section.id }}"
+  style="
+    --ctr-double-hero-background-color: {{ section.settings.background_color }};
+    --ctr-double-hero-background-gradient: {{ ctr_double_hero_background_gradient }};
+    --ctr-double-hero-content-bg-desktop: {{ section.settings.content_background_desktop }};
+    --ctr-double-hero-content-bg-mobile: {{ section.settings.content_background_mobile }};
+    --ctr-double-hero-min-height-desktop: {{ section.settings.min_height_desktop }}px;
+    {% if section.settings.enable_media_height_mobile %}--ctr-double-hero-media-height-mobile: {{ section.settings.media_height_mobile }}px;{% endif %}
+    --ctr-double-hero-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-double-hero-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-double-hero-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-double-hero-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --ctr-double-hero-content-max-width: {{ section.settings.content_max_width }}px;
+    --ctr-double-hero-content-gap-desktop: {{ section.settings.content_gap_desktop }}px;
+    --ctr-double-hero-content-gap-mobile: {{ section.settings.content_gap_mobile }}px;
+    --ctr-double-hero-content-text-align-desktop: {{ section.settings.content_text_align_desktop }};
+    --ctr-double-hero-content-text-align-mobile: {{ section.settings.content_text_align_mobile }};
+    --ctr-double-hero-content-align-items-desktop: {% if section.settings.content_text_align_desktop == 'center' %}center{% elsif section.settings.content_text_align_desktop == 'right' %}flex-end{% else %}flex-start{% endif %};
+    --ctr-double-hero-content-align-items-mobile: {% if section.settings.content_text_align_mobile == 'center' %}center{% elsif section.settings.content_text_align_mobile == 'right' %}flex-end{% else %}flex-start{% endif %};
+    --ctr-double-hero-badge-max-width-desktop: {{ section.settings.badge_max_width_desktop }}px;
+    --ctr-double-hero-badge-max-width-mobile: {{ section.settings.badge_max_width_mobile }}px;
+    --ctr-double-hero-badge-position-offset-x-mobile: {{ section.settings.badge_position_value_x_mobile }}px;
+    --ctr-double-hero-badge-position-offset-y-mobile: {{ section.settings.badge_position_value_y_mobile }}px;
+    --ctr-double-hero-badge-position-offset-x-desktop: {{ section.settings.badge_position_value_x_desktop }}px;
+    --ctr-double-hero-badge-position-offset-y-desktop: {{ section.settings.badge_position_value_y_desktop }}px;
+  "
+>
+  <div class="ctr-double-hero__content-wrap">
+    <div class="ctr-double-hero__content">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'tag' %}
+            {% if block.settings.text != blank %}
+              <div
+                class="ctr-double-hero__block ctr-double-hero__block--tag"
+                style="
+                  --ctr-double-hero-tag-color: {{ block.settings.color }};
+                  --ctr-double-hero-tag-font-size-desktop: {{ block.settings.font_size_desktop }}px;
+                  --ctr-double-hero-tag-font-size-mobile: {{ block.settings.font_size_mobile }}px;
+                "
+                {{ block.shopify_attributes }}
+              >
+                <span class="ctr-double-hero__tag">{{ block.settings.text }}</span>
+              </div>
+            {% endif %}
+
+          {% when 'star_rating' %}
+            {% assign ctr_double_hero_star_count = block.settings.star_count | default: '5' | plus: 0 %}
+            <div
+              class="ctr-double-hero__block ctr-double-hero__block--star-rating"
+              style="
+                --ctr-double-hero-muted-text-color: {{ block.settings.text_color }};
+                --ctr-double-hero-star-color: {{ block.settings.star_color }};
+                --ctr-double-hero-star-font-size-desktop: {{ block.settings.font_size_desktop }}px;
+                --ctr-double-hero-star-font-size-mobile: {{ block.settings.font_size_mobile }}px;
+              "
+              {{ block.shopify_attributes }}
+            >
+              <div class="ctr-double-hero__stars" aria-label="{{ ctr_double_hero_star_count }} out of 5 stars">
+                {% for i in (1..5) %}
+                  <span class="ctr-double-hero__star{% if i <= ctr_double_hero_star_count %} is-active{% endif %}"
+                    >★</span
+                  >
+                {% endfor %}
+              </div>
+              {% if block.settings.text != blank %}
+                <div class="ctr-double-hero__star-text inline-rich-text">
+                  {{ block.settings.text }}
+                </div>
+              {% endif %}
+            </div>
+
+          {% when 'title' %}
+            {% if block.settings.title != blank %}
+              <div
+                class="ctr-double-hero__block ctr-double-hero__block--title inline-rich-text font-neue"
+                style="
+                  --ctr-double-hero-title-color: {{ block.settings.title_color }};
+                  {% if block.settings.title_color_desktop != blank %}--ctr-double-hero-title-color-desktop: {{ block.settings.title_color_desktop }};{% endif %}
+                  {% if block.settings.title_color_mobile != blank %}--ctr-double-hero-title-color-mobile: {{ block.settings.title_color_mobile }};{% endif %}
+                  --ctr-double-hero-accent-color: {{ block.settings.accent_color }};
+                  --ctr-double-hero-accent-color-mobile: {{ block.settings.accent_color_mobile | default: block.settings.accent_color }};
+                  --ctr-double-hero-title-font-size-desktop: {{ block.settings.font_size_desktop }}px;
+                  --ctr-double-hero-title-font-size-mobile: {{ block.settings.font_size_mobile }}px;
+                "
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.title }}
+              </div>
+            {% endif %}
+
+          {% when 'text' %}
+            {% if block.settings.text != blank %}
+              <div
+                class="ctr-double-hero__block ctr-double-hero__block--text inline-rich-text"
+                style="
+                  --ctr-double-hero-text-color: {{ block.settings.text_color }};
+                  {% if block.settings.text_color_desktop != blank %}--ctr-double-hero-text-color-desktop: {{ block.settings.text_color_desktop }};{% endif %}
+                  {% if block.settings.text_color_mobile != blank %}--ctr-double-hero-text-color-mobile: {{ block.settings.text_color_mobile }};{% endif %}
+                  --ctr-double-hero-text-font-size-desktop: {{ block.settings.font_size_desktop }}px;
+                  --ctr-double-hero-text-font-size-mobile: {{ block.settings.font_size_mobile }}px;
+                  --ctr-double-hero-text-max-width-desktop: {{ block.settings.max_width_desktop }}px;
+                "
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.text }}
+              </div>
+            {% endif %}
+
+          {% when 'button' %}
+            {% if block.settings.label != blank %}
+              {% assign ctr_double_hero_button_url = block.settings.url | default: '#' %}
+              <div
+                class="ctr-double-hero__block ctr-double-hero__block--button"
+                style="
+                  --ctr-double-hero-button-font-size-desktop: {{ block.settings.font_size_desktop }}px;
+                  --ctr-double-hero-button-font-size-mobile: {{ block.settings.font_size_mobile }}px;
+                  --ctr-double-hero-button-max-width-desktop: {{ block.settings.max_width_desktop }}px;
+                "
+                {{ block.shopify_attributes }}
+              >
+                {% render 'cta',
+                  as: 'a',
+                  href: ctr_double_hero_button_url,
+                  text: block.settings.label,
+                  hasIcons: true,
+                  cta_color: block.settings.button_color,
+                  extra_classes: 'ctr-double-hero__button'
+                %}
+              </div>
+            {% endif %}
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="ctr-double-hero__panel ctr-double-hero__panel--primary">
+    {% if ctr_double_hero_primary_video != blank %}
+      <div class="ctr-double-hero__video ctr-double-hero__video--desktop">
+        {% render 'lazy-video',
+          video: ctr_double_hero_primary_video,
+          class: 'ctr-double-hero__video-element object-cover w-full h-full',
+          autopause: false
+        %}
+      </div>
+    {% elsif ctr_double_hero_primary_image != blank %}
+      <img
+        class="ctr-double-hero__image ctr-double-hero__image--desktop"
+        src="{{ ctr_double_hero_primary_image | img_url: '2400x' }}"
+        alt="{{ ctr_double_hero_primary_image.alt | escape }}"
+        loading="lazy"
+        width="{{ ctr_double_hero_primary_image.width }}"
+        height="{{ ctr_double_hero_primary_image.height }}"
+      >
+    {% endif %}
+
+    {% if ctr_double_hero_primary_video_mobile != blank %}
+      <div class="ctr-double-hero__video ctr-double-hero__video--mobile">
+        {% render 'lazy-video',
+          video: ctr_double_hero_primary_video_mobile,
+          class: 'ctr-double-hero__video-element object-cover w-full h-full',
+          autopause: false
+        %}
+      </div>
+    {% elsif ctr_double_hero_primary_video != blank %}
+      <div class="ctr-double-hero__video ctr-double-hero__video--mobile">
+        {% render 'lazy-video',
+          video: ctr_double_hero_primary_video,
+          class: 'ctr-double-hero__video-element object-cover w-full h-full',
+          autopause: false
+        %}
+      </div>
+    {% elsif ctr_double_hero_primary_image_mobile != blank %}
+      <img
+        class="ctr-double-hero__image ctr-double-hero__image--mobile"
+        src="{{ ctr_double_hero_primary_image_mobile | img_url: '1400x' }}"
+        alt="{{ ctr_double_hero_primary_image_mobile.alt | escape }}"
+        loading="lazy"
+        width="{{ ctr_double_hero_primary_image_mobile.width }}"
+        height="{{ ctr_double_hero_primary_image_mobile.height }}"
+      >
+    {% endif %}
+  </div>
+
+  {% if ctr_double_hero_layout == 'split' %}
+    <div class="ctr-double-hero__panel ctr-double-hero__panel--secondary">
+      {% if ctr_double_hero_secondary_video != blank %}
+        <div class="ctr-double-hero__video ctr-double-hero__video--desktop">
+          {% render 'lazy-video',
+            video: ctr_double_hero_secondary_video,
+            class: 'ctr-double-hero__video-element object-cover w-full h-full',
+            autopause: false
+          %}
+        </div>
+      {% elsif ctr_double_hero_secondary_image != blank %}
+        <img
+          class="ctr-double-hero__image ctr-double-hero__image--desktop"
+          src="{{ ctr_double_hero_secondary_image | img_url: '2400x' }}"
+          alt="{{ ctr_double_hero_secondary_image.alt | escape }}"
+          loading="lazy"
+          width="{{ ctr_double_hero_secondary_image.width }}"
+          height="{{ ctr_double_hero_secondary_image.height }}"
+        >
+      {% endif %}
+
+      {% if ctr_double_hero_secondary_video_mobile != blank %}
+        <div class="ctr-double-hero__video ctr-double-hero__video--mobile">
+          {% render 'lazy-video',
+            video: ctr_double_hero_secondary_video_mobile,
+            class: 'ctr-double-hero__video-element object-cover w-full h-full',
+            autopause: false
+          %}
+        </div>
+      {% elsif ctr_double_hero_secondary_video != blank %}
+        <div class="ctr-double-hero__video ctr-double-hero__video--mobile">
+          {% render 'lazy-video',
+            video: ctr_double_hero_secondary_video,
+            class: 'ctr-double-hero__video-element object-cover w-full h-full',
+            autopause: false
+          %}
+        </div>
+      {% elsif ctr_double_hero_secondary_image_mobile != blank %}
+        <img
+          class="ctr-double-hero__image ctr-double-hero__image--mobile"
+          src="{{ ctr_double_hero_secondary_image_mobile | img_url: '1400x' }}"
+          alt="{{ ctr_double_hero_secondary_image_mobile.alt | escape }}"
+          loading="lazy"
+          width="{{ ctr_double_hero_secondary_image_mobile.width }}"
+          height="{{ ctr_double_hero_secondary_image_mobile.height }}"
+        >
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if section.settings.badge_image != blank %}
+    <div class="ctr-double-hero__badge-wrap ctr-double-hero__badge-wrap--{{ section.settings.badge_position }}">
+      <img
+        class="ctr-double-hero__badge"
+        src="{{ section.settings.badge_image | img_url: '600x' }}"
+        alt="{{ section.settings.badge_image.alt | escape }}"
+        loading="lazy"
+        width="{{ section.settings.badge_image.width }}"
+        height="{{ section.settings.badge_image.height }}"
+      >
+    </div>
+  {% endif %}
+</ctr-double-hero>
+
+{% schema %}
+{
+  "name": "Double Hero (CTR)",
+  "tag": "section",
+  "class": "ctr-double-hero-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Media layout",
+      "options": [
+        {
+          "value": "single",
+          "label": "1 image / video"
+        },
+        {
+          "value": "split",
+          "label": "2 split images / videos"
+        }
+      ],
+      "default": "single",
+      "info": "Same layout on desktop and mobile."
+    },
+    {
+      "type": "header",
+      "content": "Primary media"
+    },
+    {
+      "type": "image_picker",
+      "id": "primary_image",
+      "label": "Primary image desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "primary_image_mobile",
+      "label": "Primary image mobile",
+      "info": "Falls back to desktop image if empty."
+    },
+    {
+      "type": "video",
+      "id": "primary_video",
+      "label": "Primary video desktop",
+      "info": "Takes priority over the primary image when set."
+    },
+    {
+      "type": "video",
+      "id": "primary_video_mobile",
+      "label": "Primary video mobile",
+      "info": "Falls back to desktop video if empty."
+    },
+    {
+      "type": "header",
+      "content": "Secondary media",
+      "visible_if": "{{ section.settings.layout == 'split' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "secondary_image",
+      "label": "Secondary image desktop",
+      "visible_if": "{{ section.settings.layout == 'split' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "secondary_image_mobile",
+      "label": "Secondary image mobile",
+      "info": "Falls back to desktop image if empty.",
+      "visible_if": "{{ section.settings.layout == 'split' }}"
+    },
+    {
+      "type": "video",
+      "id": "secondary_video",
+      "label": "Secondary video desktop",
+      "info": "Takes priority over the secondary image when set.",
+      "visible_if": "{{ section.settings.layout == 'split' }}"
+    },
+    {
+      "type": "video",
+      "id": "secondary_video_mobile",
+      "label": "Secondary video mobile",
+      "info": "Falls back to desktop video if empty.",
+      "visible_if": "{{ section.settings.layout == 'split' }}"
+    },
+    {
+      "type": "header",
+      "content": "Badge"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_image",
+      "label": "Badge image"
+    },
+    {
+      "type": "number",
+      "id": "badge_max_width_desktop",
+      "label": "Badge max width desktop",
+      "default": 168
+    },
+    {
+      "type": "number",
+      "id": "badge_max_width_mobile",
+      "label": "Badge max width mobile",
+      "default": 100
+    },
+    {
+      "type": "select",
+      "id": "badge_position",
+      "label": "Badge position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top left"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom left"
+        }
+      ],
+      "default": "bottom-right"
+    },
+    {
+      "type": "number",
+      "id": "badge_position_value_x_desktop",
+      "label": "Badge position X desktop",
+      "default": 35
+    },
+    {
+      "type": "number",
+      "id": "badge_position_value_y_desktop",
+      "label": "Badge position Y desktop",
+      "default": 30
+    },
+    {
+      "type": "number",
+      "id": "badge_position_value_x_mobile",
+      "label": "Badge position X mobile",
+      "default": 20
+    },
+    {
+      "type": "number",
+      "id": "badge_position_value_y_mobile",
+      "label": "Badge position Y mobile",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "number",
+      "id": "content_max_width",
+      "label": "Content max width desktop",
+      "default": 680
+    },
+    {
+      "type": "range",
+      "id": "content_gap_desktop",
+      "label": "Content gap desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "content_gap_mobile",
+      "label": "Content gap mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "content_text_align_desktop",
+      "label": "Content text align desktop",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "content_text_align_mobile",
+      "label": "Content text align mobile",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Content colors"
+    },
+    {
+      "type": "color",
+      "id": "content_background_desktop",
+      "label": "Content background desktop",
+      "alpha": true,
+      "default": "#FFFFFF82"
+    },
+    {
+      "type": "color",
+      "id": "content_background_mobile",
+      "label": "Content background mobile",
+      "alpha": true,
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Section colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#E5EDF5"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Background gradient",
+      "info": "Example: linear-gradient(180deg, #FFF 0%, #FFF2E9 100%)"
+    },
+    {
+      "type": "number",
+      "id": "min_height_desktop",
+      "label": "Min height desktop",
+      "default": 700
+    },
+    {
+      "type": "checkbox",
+      "id": "fill_media_desktop",
+      "label": "Fit media to section height desktop",
+      "info": "Images/videos fill the panel instead of setting the section height by their aspect ratio.",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_media_height_mobile",
+      "label": "Fixed media height mobile",
+      "default": false
+    },
+    {
+      "type": "number",
+      "id": "media_height_mobile",
+      "label": "Media height mobile",
+      "default": 250,
+      "visible_if": "{{ section.settings.enable_media_height_mobile }}"
+    },
+    {
+      "type": "header",
+      "content": "Padding desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "Padding mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tag",
+      "name": "Tag (CTR)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "New scent"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color",
+          "default": "#FE5000"
+        },
+        {
+          "type": "range",
+          "id": "font_size_desktop",
+          "label": "Font size desktop",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 24
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "label": "Font size mobile",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 18
+        }
+      ]
+    },
+    {
+      "type": "star_rating",
+      "name": "Star rating (CTR)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "star_count",
+          "label": "Stars",
+          "options": [
+            { "value": "1", "label": "1" },
+            { "value": "2", "label": "2" },
+            { "value": "3", "label": "3" },
+            { "value": "4", "label": "4" },
+            { "value": "5", "label": "5" }
+          ],
+          "default": "5"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Loved by 50,000 Freaks</p>"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#232323"
+        },
+        {
+          "type": "color",
+          "id": "star_color",
+          "label": "Star color",
+          "default": "#FE5000"
+        },
+        {
+          "type": "range",
+          "id": "font_size_desktop",
+          "label": "Font size desktop",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "label": "Font size mobile",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 14
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "Title (CTR)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Title",
+          "default": "<p>Clean, clinical skincare built for <strong>all movement</strong></p>"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title color",
+          "default": "#232323"
+        },
+        {
+          "type": "color",
+          "id": "title_color_desktop",
+          "label": "Title color desktop",
+          "info": "Optional. Overrides the title color from 1024px up."
+        },
+        {
+          "type": "color",
+          "id": "title_color_mobile",
+          "label": "Title color mobile",
+          "info": "Optional. Overrides the title color below 1024px."
+        },
+        {
+          "type": "color",
+          "id": "accent_color",
+          "label": "Accent color",
+          "info": "Applied to bold text in the title.",
+          "default": "#FE5000"
+        },
+        {
+          "type": "color",
+          "id": "accent_color_mobile",
+          "label": "Accent color (mobile)",
+          "info": "Optional. Used for the bold title text below 1024px. Leave empty to use the accent color above."
+        },
+        {
+          "type": "range",
+          "id": "font_size_desktop",
+          "label": "Font size desktop",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 60
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "label": "Font size mobile",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 32
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text (CTR)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Mineral SPF. Bio-based hydrators. Marine-derived actives. No fillers, no fluff. Only ingredients doing exactly what they're supposed to.</p>"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#232323"
+        },
+        {
+          "type": "color",
+          "id": "text_color_desktop",
+          "label": "Text color desktop",
+          "info": "Optional. Overrides the text color from 1024px up."
+        },
+        {
+          "type": "color",
+          "id": "text_color_mobile",
+          "label": "Text color mobile",
+          "info": "Optional. Overrides the text color below 1024px."
+        },
+        {
+          "type": "range",
+          "id": "font_size_desktop",
+          "label": "Font size desktop",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "label": "Font size mobile",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 18
+        },
+        {
+          "type": "number",
+          "id": "max_width_desktop",
+          "label": "Max width desktop",
+          "default": 527
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button (CTR)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Shop the Collection"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "button_color",
+          "label": "Button color",
+          "options": [
+            { "value": "orange", "label": "Orange" },
+            { "value": "black", "label": "Black" },
+            { "value": "blue", "label": "Blue" },
+            { "value": "white", "label": "White" },
+            { "value": "blue--invert", "label": "Blue invert" }
+          ],
+          "default": "orange"
+        },
+        {
+          "type": "range",
+          "id": "font_size_desktop",
+          "label": "Font size desktop",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "label": "Font size mobile",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 20
+        },
+        {
+          "type": "number",
+          "id": "max_width_desktop",
+          "label": "Max width desktop",
+          "default": 527
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Double Hero (CTR)",
+      "category": "CTR Sections",
+      "blocks": [{ "type": "star_rating" }, { "type": "title" }, { "type": "text" }, { "type": "button" }]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,223 @@
+{% schema %}
+{
+  "name": "Header",
+  "tag": "header",
+  "class": "header-section",
+  "presets": [
+    {
+      "name": "Header",
+      "category": "Header",
+      "settings": {
+        "menu": "main-menu",
+        "logo": "shopify://shop_images/fon-logo.svg",
+        "products_title": "Lorem ipsum",
+        "header_collection": "menu-products",
+        "products_cta": "Lorem ipsum",
+        "products_cta_url": "#",
+        "bundle_title": "Lorem ipsum",
+        "bundle_collection": "menu-bundles",
+        "bundle_cta": "Lorem ipsum",
+        "bundle_cta_url": "#"
+      },
+      "blocks": [
+        {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "Lorem ipsum"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "info": "This menu will only show top and sub-level links"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "products_title",
+      "label": "Header Products Title",
+      "info": "This is the title of the Products-Navigation in the Header. It will only be listed if you add a collection."
+    },
+    {
+      "type": "collection",
+      "id": "header_collection",
+      "label": "Header Products",
+      "info": "This collection will appear in the Products Subnavigation. Will be limited to 4 products."
+    },
+    {
+      "type": "text",
+      "id": "products_cta",
+      "label": "Products Cta",
+      "info": "This is the Cta Text in the Products Subnavigation"
+    },
+    {
+      "type": "url",
+      "id": "products_cta_url",
+      "label": "Products Cta Url",
+      "info": "This is the Link of the Cta in the Products Subnavigation"
+    },
+    {
+      "type": "text",
+      "id": "bundle_title",
+      "label": "Header Bundle Title",
+      "info": "This is the title of the Bundle-Navigation in the Header. It will only be listed if you add a collection."
+    },
+    {
+      "type": "collection",
+      "id": "bundle_collection",
+      "label": "Bundle Products",
+      "info": "This collection will appear in the Bundle Subnavigation. Will be limited to 4 products."
+    },
+    {
+      "type": "text",
+      "id": "bundle_cta",
+      "label": "Bundle Cta",
+      "info": "This is the Cta Text in the Bundles Subnavigation"
+    },
+    {
+      "type": "url",
+      "id": "bundle_cta_url",
+      "label": "Bundle Cta Url",
+      "info": "This is the Link of the Cta in the Bundles Subnavigation"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mobile_subnavigation",
+      "label": "Show Mobile Subnavigation",
+      "info": "Add subnavigation items to this section as blocks."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "announcement_text",
+          "label": "Announcement Text"
+        }
+      ]
+    },
+    {
+      "type": "mobile_subnavigation_item",
+      "name": "Mobile Subnavigation Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ],
+      "limit": 4
+    }
+  ]
+}
+{% endschema %}
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": {{ shop.name | json }}
+  }
+</script>
+
+{% if request.page_type == 'index' %}
+  {% assign potential_action_target = request.origin | append: routes.search_url | append: '?q={search_term_string}' %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": {{ shop.name | json }},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {{ potential_action_target | json }},
+        "query-input": "required name=search_term_string"
+      },
+      "url": {{ request.origin | append: page.url | json }}
+    }
+  </script>
+{% endif %}
+
+<style>
+  html.js-show-cart-drawer .js-header {
+    transform: translateY(calc(-1 * var(--header-height)));
+  }
+
+  #cart-drawer {
+    display: none;
+  }
+</style>
+
+<header>
+  <div
+    class="js-header [html:not([data-scrolled='true'])_&]:translate-y-[var(--announcement-bar-height)] header-desktop transition-translate fixed left-0 w-full duration-300 ease-in-out z-[1000]"
+    style="top: calc(-1 * var(--announcement-bar-height));"
+  >
+    {% if settings.show_announcement == true %}
+      {% render 'announcement-bar', blocks: section.blocks %}
+    {% endif %}
+
+    {% assign logo = section.settings.logo %}
+    {% assign site_name = settings.site_name %}
+    {% assign menu_links = section.settings.menu.links %}
+
+    {% assign products_title = section.settings.products_title %}
+    {% assign header_collection_name = section.settings.header_collection %}
+    {% assign header_collection = collections[header_collection_name] %}
+    {% assign products_cta = section.settings.products_cta %}
+    {% assign products_cta_url = section.settings.products_cta_url %}
+
+    {% assign bundle_title = section.settings.bundle_title %}
+    {% assign bundle_collection_name = section.settings.bundle_collection %}
+    {% assign bundle_collection = collections[bundle_collection_name] %}
+    {% assign bundle_cta = section.settings.bundle_cta %}
+    {% assign bundle_cta_url = section.settings.bundle_cta_url %}
+
+    {% render 'header-desktop',
+      logo: logo,
+      menu_links: menu_links,
+      site_name: site_name,
+      products_title: products_title,
+      header_collection: header_collection,
+      products_cta: products_cta,
+      products_cta_url: products_cta_url,
+      bundle_title: bundle_title,
+      bundle_collection: bundle_collection,
+      bundle_cta: bundle_cta,
+      bundle_cta_url: bundle_cta_url
+    %}
+    {% render 'header-mobile',
+      logo: logo,
+      menu_links: menu_links,
+      site_name: site_name,
+      products_title: products_title,
+      header_collection: header_collection,
+      products_cta: products_cta,
+      products_cta_url: products_cta_url,
+      bundle_title: bundle_title,
+      bundle_collection: bundle_collection,
+      bundle_cta: bundle_cta,
+      bundle_cta_url: bundle_cta_url
+    %}
+    {% if section.settings.show_mobile_subnavigation %}
+      {% assign mobile_subnavigation_items = section.blocks | where: 'type', 'mobile_subnavigation_item' %}
+      {% render 'mobile-subnavigation', mobile_subnavigation_items: mobile_subnavigation_items %}
+    {% endif %}
+  </div>
+</header>

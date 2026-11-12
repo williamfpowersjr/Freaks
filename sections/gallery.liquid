@@ -1,0 +1,228 @@
+{% schema %}
+{
+  "name": "Gallery",
+  "tag": "section",
+  "class": "gallery-section",
+  "presets": [
+    {
+      "name": "Gallery",
+      "category": "Gallery",
+      "settings": {
+        "show_video_controls": true
+      },
+      "blocks": [
+        {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240507_Kelly_Interview_Freaks_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "mobile_video": "shopify://files/videos/MOBILE_HP_Kelly_Interview_Freaks_Specific_4x5_H.264_Final_Delivery.mp4",
+            "hide_mute": false,
+            "title": "Lorem ipsum",
+            "info_text": "Lorem ipsum",
+            "info_text_image": "shopify://shop_images/Bassilicus_x_Shark_bc01bcbc-801c-4001-b45c-6e749825c547.svg"
+          }
+        },
+        {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240507_Kelly_Interview_Freaks_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "mobile_video": "shopify://files/videos/MOBILE_HP_Kelly_Interview_Freaks_Specific_4x5_H.264_Final_Delivery.mp4",
+            "hide_mute": false,
+            "title": "Lorem ipsum",
+            "info_text": "Lorem ipsum",
+            "info_text_image": "shopify://shop_images/Bassilicus_x_Shark_bc01bcbc-801c-4001-b45c-6e749825c547.svg"
+          }
+        },
+        {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify://files/videos/240507_Kelly_Interview_Freaks_Specific_16x9_H.264_Final_Delivery_V2.mp4",
+            "mobile_video": "shopify://files/videos/MOBILE_HP_Kelly_Interview_Freaks_Specific_4x5_H.264_Final_Delivery.mp4",
+            "hide_mute": false,
+            "title": "Lorem ipsum",
+            "info_text": "Lorem ipsum",
+            "info_text_image": "shopify://shop_images/Bassilicus_x_Shark_bc01bcbc-801c-4001-b45c-6e749825c547.svg"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_video_controls",
+      "label": "Show Video Controls",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Item",
+      "type": "gallery_item",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "video",
+          "id": "mobile_video",
+          "label": "Mobile Video"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_mute",
+          "label": "Hide Mute",
+          "info": "Check on if you would like to hide the mute/unmute control button for the video.",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "info_text",
+          "label": "Info Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "info_text_image",
+          "label": "Info Text Image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% if section.blocks != blank %}
+  <video-gallery-element>
+    <div>
+      <div class="relative h-640 lg:h-[90vh] ">
+        <div>
+          <ul>
+            {% for block in section.blocks %}
+              {% if block.type == 'gallery_item' %}
+                {% assign item_video = block.settings.video %}
+                {% assign item_mobile_video = block.settings.mobile_video %}
+                {% assign is_first = forloop.first %}
+                {% assign item_info_text = block.settings.info_text %}
+                {% assign item_info_text_image = block.settings.info_text_image %}
+
+                <li
+                  data-tab-content
+                  class="transition-opacity duration-300 ease-in-out"
+                  id="content-{{ forloop.index }}"
+                  {% if is_first %}
+                    style="max-height: none;"
+                  {% else %}
+                    style="max-height: 0;"
+                  {% endif %}
+                  {% if is_first %}
+                    active
+                  {% endif %}
+                >
+                  {% if item_video != blank %}
+                    {% render 'lazy-video',
+                      video: item_video,
+                      class: 'hidden lg:block w-full h-full object-cover absolute inset-0 z-0',
+                      loop: false,
+                      autopause: false,
+                      media_query: 'desktop',
+                      poster: item_video.preview_image
+                    %}
+                  {% endif %}
+                  {% if item_mobile_video != blank %}
+                    {% render 'lazy-video',
+                      video: item_mobile_video,
+                      class: 'lg:hidden w-full h-full object-cover absolute inset-0 z-0',
+                      loop: false,
+                      autopause: false,
+                      media_query: 'mobile',
+                      poster: item_mobile_video.preview_image
+                    %}
+                  {% endif %}
+                  {% if item_mobile_video == blank and item_video != blank %}
+                    {% render 'lazy-video',
+                      video: item_video,
+                      class: 'lg:hidden w-full h-full object-cover absolute inset-0 z-0',
+                      loop: false,
+                      autopause: false,
+                      media_query: 'mobile',
+                      poster: item_video.preview_image
+                    %}
+                  {% endif %}
+
+                  {% if item_info_text != '' and item_info_text != null %}
+                    <div
+                      class=" fn-tt-body-30 absolute bottom-0 left-0 w-full bg-blue-LIGHT p-24 text-blue lg:w-[56.5%] lg:p-40"
+                    >
+                      <div class="flex items-start gap-16 lg:items-center lg:gap-40 lg:pr-24">
+                        {% if item_info_text_image %}
+                          <img
+                            src="{{ item_info_text_image | img_url: '72x'}}"
+                            alt="{{ item_info_text_image.alt }}"
+                            width="72"
+                            height="auto"
+                            class="h-auto w-40 flex-shrink-0 lg:w-[72px]"
+                          >
+                        {% endif %}
+                        <p>
+                          {{ item_info_text }}
+                        </p>
+                      </div>
+                    </div>
+                  {% endif %}
+                </li>
+              {% endif %}
+            {% endfor %}
+
+            <li class="absolute left-0 top-0 w-full border-grey/40 lg:flex-row">
+              <div class="relative flex w-full flex-col justify-between lg:flex-row">
+                {% for block in section.blocks %}
+                  {% if block.type == 'gallery_item' %}
+                    {% assign item_title = block.settings.title %}
+                    {% assign is_first = forloop.first %}
+
+                    <button
+                      aria-label="Video {{ forloop.index }}"
+
+                      class="last:border-b-none group flex-1 border-b border-grey/40 bg-black/15 backdrop-blur-md transition-all duration-200 ease-in-out lg:border-r lg:hover:bg-black/30 lg:active:bg-black/40 lg:active:delay-[10ms]"
+                      {% if is_first %}
+                        active
+                      {% endif %}
+                      data-tab-trigger
+                      data-index="content-{{ forloop.index }}"
+                      aria-expanded="{{ forloop.first }}"
+                    >
+                      <div class="flex items-center gap-x-16 px-24 py-8 lg:justify-center lg:py-16">
+                        <span
+                          data-tab-indicator
+                          class="h-8 w-8 rounded-lg bg-grey/40 transition-all duration-200 ease-in-out lg:group-hover:bg-grey/30 {% if forloop.first %}bg-orange{% endif %}"
+                        ></span>
+                        <h3
+                          class="fn-tt-title-50 lg:fn-tt-title-20 text-left text-grey/40 transition-all duration-200 ease-in-out lg:text-center lg:group-hover:text-grey/30"
+                          data-tab-headline
+                        >
+                          {{ item_title }}
+                        </h3>
+                      </div>
+                    </button>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </li>
+          </ul>
+          {% comment %} MISSING: needs to pass the hide_mute setting {% endcomment %}
+          {% if section.settings.show_video_controls == true %}
+            {% render 'gallery-video-controls' %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </video-gallery-element>
+{% endif %}

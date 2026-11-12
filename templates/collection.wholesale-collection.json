@@ -1,0 +1,64 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "title_Taij4t": {
+      "type": "title",
+      "settings": {
+        "bg_color": "bg-offWhite",
+        "title": "Wholesale Collection",
+        "text_align": "center"
+      }
+    },
+    "main": {
+      "type": "collection-grid",
+      "settings": {
+        "bg_color": "bg-offWhite"
+      }
+    },
+    "list_kdGg74": {
+      "type": "list",
+      "blocks": {
+        "list_item_RB4xqT": {
+          "type": "list_item",
+          "settings": {
+            "title": "Benefit 1"
+          }
+        },
+        "list_item_7enpLK": {
+          "type": "list_item",
+          "settings": {
+            "title": "Benefit 2"
+          }
+        },
+        "list_item_L7fQMr": {
+          "type": "list_item",
+          "settings": {
+            "title": "Benefit 3"
+          }
+        }
+      },
+      "block_order": [
+        "list_item_RB4xqT",
+        "list_item_7enpLK",
+        "list_item_L7fQMr"
+      ],
+      "settings": {
+        "bg_color": "bg-offWhite",
+        "title": "Wholesale Benefits"
+      }
+    }
+  },
+  "order": [
+    "title_Taij4t",
+    "main",
+    "list_kdGg74"
+  ]
+}

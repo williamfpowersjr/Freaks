@@ -1,0 +1,102 @@
+{% comment %}
+  Product Supplement Popup
+
+  Accepts:
+    block: block object with settings
+{% endcomment %}
+
+{% liquid
+  assign default_popup_button_text = 'View Supplement Facts'
+  assign default_popup_heading = 'Supplement Facts'
+  assign popup_button_text = block.settings.button_text | default: default_popup_button_text
+  assign popup_heading = block.settings.popup_heading | default: default_popup_heading
+  assign popup_heading_array = popup_heading | split: ' '
+
+  assign popup_image = product.selected_or_first_available_variant.metafields.supplement_popup.image
+  assign popup_image_mobile = product.selected_or_first_available_variant.metafields.supplement_popup.image_mobile
+  assign popup_description = product.selected_or_first_available_variant.metafields.supplement_popup.description
+
+  assign desktop_image_classes = 'size-full'
+  assign mobile_image_classes = 'size-full lg:hidden'
+
+  if popup_image_mobile != blank
+    assign desktop_image_classes = desktop_image_classes | append: ' hidden lg:block'
+  endif
+%}
+
+{% capture extra_attributes %}
+  onclick="document.getElementById('supplement-popup-{{ block.id }}').showModal()"
+  aria-controls="supplement-popup-{{ block.id }}"
+{% endcapture %}
+
+{% if popup_image != blank %}
+  <div class="mb-16 size-full lg:mb-0">
+    {% render 'cta',
+      as: 'button',
+      text: popup_button_text,
+      extra_classes: 'supplement-popup__button size-full',
+      hasIcons: true,
+      cta_color: 'blue--invert',
+      extra_attributes: extra_attributes,
+      type: 'button'
+    %}
+
+    <dialog
+      class="supplement-popup overflow-hidden p-0"
+      id="supplement-popup-{{ block.id }}"
+    >
+      <div
+        class="supplement-popup__backdrop fixed inset-0 bg-black/60"
+        aria-hidden="true"
+        onclick="document.getElementById('supplement-popup-{{ block.id }}').close()"
+      ></div>
+
+      <button
+        class="supplement-popup__close-btn d-flex absolute right-0 top-0 items-center justify-center"
+        onclick="document.getElementById('supplement-popup-{{ block.id }}').close()"
+        aria-label="Close Supplement Facts"
+        type="button"
+      >
+        {% render 'icon-close', class: 'w-20' %}
+      </button>
+
+      <div
+        class="
+          supplement-popup__content
+          no-scrollbar relative max-h-full
+          w-full overflow-auto
+          bg-white
+        "
+      >
+        <div class="supplement-popup__header">
+          <h2
+            class="supplement-popup__heading fn-tt-title-60 mb-24 text-pretty uppercase"
+            aria-label="{{ popup_heading }}"
+          >
+            {% for heading_part in popup_heading_array %}
+              <span aria-hidden="true">{{ heading_part }}</span>
+            {% endfor %}
+          </h2>
+
+          {% if popup_description != blank %}
+            <div class="supplement-popup__description">
+              {{ popup_description | metafield_tag }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="supplement-popup__image-wrapper">
+          {% if popup_image_mobile != blank %}
+            {{
+              popup_image_mobile
+              | image_url: width: 800
+              | image_tag: class: mobile_image_classes, alt: popup_image_mobile.alt
+            }}
+          {% endif %}
+
+          {{ popup_image | image_url: width: 1200 | image_tag: class: desktop_image_classes, alt: popup_image.alt }}
+        </div>
+      </div>
+    </dialog>
+  </div>
+{% endif %}

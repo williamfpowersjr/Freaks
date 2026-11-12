@@ -1,0 +1,46 @@
+{% schema %}
+{
+  "name": "Quote Card",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "author",
+      "label": "Author"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Caption"
+    }
+  ],
+  "blocks": [],
+  "presets": [{ "name": "Quote Card" }]
+}
+{% endschema %}
+
+<div class="size-full p-24 lg:p-40">
+  <div class="no-scrollbar relative flex size-full h-full flex-col gap-24 overflow-y-scroll bg-white p-24 xl:p-40">
+    {% if block.settings.text != blank %}
+      <p class="fn-tt-sub-title-30 flex-1">
+        {{ block.settings.text }}
+      </p>
+    {% endif %}
+
+    {% if block.settings.author != blank %}
+      <p class="fn-tt-caption-20 font-medium uppercase">
+        {{ block.settings.author }}
+      </p>
+    {% endif %}
+
+    {% if block.settings.caption != blank %}
+      <p class="fn-tt-caption text-black/60">
+        {{ block.settings.caption }}
+      </p>
+    {% endif %}
+  </div>
+</div>

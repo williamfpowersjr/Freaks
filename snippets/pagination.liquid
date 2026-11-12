@@ -1,0 +1,39 @@
+{% if paginate.parts.size > 0 %}
+  <nav
+    aria-label="Pagination"
+    class="w-full border-t border-black/15 p-24 lg:border-none lg:bg-offWhite"
+    role="navigation"
+  >
+    <ul role="list" class="flex w-full items-center justify-center gap-8 text-center">
+      {% for part in paginate.parts %}
+        <li>
+          {% if part.is_link %}
+            <a
+              aria-label="Page {{ part.title }}"
+              href="{{ part.url }}"
+            >
+              <div class="fn-tt-body-30 duration-250 h-31 min-w-31 border border-black/15 px-8 pt-2 font-medium transition-all ease-in-out lg:hover:bg-orange lg:hover:text-white">
+                {{- part.title -}}
+              </div>
+            </a>
+          {% else %}
+            {% if part.title == paginate.current_page %}
+              <a
+                aria-current="page"
+                aria-disabled="true"
+                aria-label="Page {{ part.title }}"
+                role="link"
+              >
+                <div class="fn-tt-body-30 h-31 min-w-31 border border-black/15 bg-orange px-8 pt-2 font-medium text-white">
+                  {{- part.title -}}
+                </div>
+              </a>
+            {% else %}
+              <span> {{ part.title }} </span>
+            {% endif %}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+{% endif %}

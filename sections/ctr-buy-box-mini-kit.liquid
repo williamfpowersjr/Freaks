@@ -1,0 +1,619 @@
+{{ 'ctr-buy-box-mini-kit.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ctr-buy-box-mini-kit.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_is_available = current_variant.available
+  assign product_details = product.metafields.custom.details.value
+  assign product_volume = product.metafields.custom.volume.value
+  assign product_subline = product.metafields.custom.subline.value
+  assign reviews_product = section.settings.reviews_product | default: product
+
+  assign badges = section.blocks | where: 'type', 'badge'
+  assign kit_items = section.blocks | where: 'type', 'kit_item'
+
+  assign has_accordion = false
+  for block in section.blocks
+    if block.type == 'accordion' or block.type == '@app'
+      assign has_accordion = true
+      break
+    endif
+  endfor
+
+  comment
+    Stock bar: real inventory by default (only when Shopify tracks it), or the editor override.
+  endcomment
+  assign stock_count = null
+  if section.settings.stock_use_real
+    if current_variant.inventory_management == 'shopify'
+      assign stock_count = current_variant.inventory_quantity
+    endif
+  elsif section.settings.stock_override != blank
+    assign stock_count = section.settings.stock_override
+  endif
+
+  assign show_stock_bar = false
+  if product_is_available and stock_count != null and stock_count > 0
+    if section.settings.stock_threshold == blank or stock_count <= section.settings.stock_threshold
+      assign show_stock_bar = true
+    endif
+  endif
+
+  assign stock_fill = 100
+  if show_stock_bar and section.settings.stock_bar_max > 0
+    assign stock_fill = stock_count | times: 100 | divided_by: section.settings.stock_bar_max
+    if stock_fill > 100
+      assign stock_fill = 100
+    elsif stock_fill < 4
+      assign stock_fill = 4
+    endif
+  endif
+
+  assign stock_message = section.settings.stock_text | replace: '{N}', stock_count
+
+  assign claim_1_is_fs = false
+  if section.settings.claim_1 contains '{amount}'
+    assign claim_1_is_fs = true
+  endif
+  assign claim_1_filled = section.settings.claim_1 | replace: '{amount}', section.settings.free_shipping_fallback
+-%}
+
+<ctr-buy-box-mini-kit
+  id="ctr-buy-box-mini-kit"
+  class="ctr-bbmk"
+  style="scroll-margin-top: var(--header-height)"
+>
+  <div class="relative flex flex-col border-b border-t border-black/15 lg:flex-row lg:border-t-0">
+    <div class="relative flex h-full flex-col overflow-hidden lg:sticky lg:top-[--dynamic-header-height] lg:z-20 lg:w-1/2">
+      {% render 'product-gallery-mobile',
+        product: product,
+        product_images: product.media,
+        media_offset: section.settings.media_offset
+      %}
+      {% render 'product-gallery-desktop',
+        product: product,
+        product_images: product.media,
+        media_offset: section.settings.media_offset
+      %}
+    </div>
+
+    <div class="relative flex h-fit w-full flex-col lg:h-auto lg:w-1/2 lg:border-l lg:border-black/15">
+      {% comment %} Clears the fixed desktop header, same as ctr-product-hero. {% endcomment %}
+      <div class="menu-bar--offset hidden lg:block"></div>
+      <div class="ctr-bbmk__content" data-pdp-hero id="product-hero-content">
+        <div class="ctr-bbmk__intro">
+          {% if badges.size > 0 %}
+            <ul class="ctr-bbmk__badges">
+              {% for block in badges %}
+                <li class="ctr-bbmk__badge ctr-bbmk__badge--{{ block.settings.color }}" {{ block.shopify_attributes }}>
+                  {{ block.settings.text }}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          <div class="ctr-bbmk__meta">
+            {% render 'junip-product-summary', product: reviews_product %}
+            {% if product_volume != blank %}
+              {% render 'label', text: product_volume, hasPadding: false %}
+            {% endif %}
+          </div>
+
+          <div class="ctr-bbmk__heading">
+            <h1 class="ctr-bbmk__title">
+              <span class="ctr-bbmk__title-text">{{ section.settings.title_override | default: product.title }}</span>
+            </h1>
+            {% if product_subline != blank %}
+              <p class="ctr-bbmk__subline">{{ product_subline }}</p>
+            {% endif %}
+          </div>
+        </div>
+
+        {% if section.settings.show_description and product.description != blank %}
+          <div class="ctr-bbmk__description inline-rich-text">{{ product.description }}</div>
+        {% endif %}
+
+        {% if section.settings.gift_heading != blank or section.settings.gift_text != blank %}
+          <div
+            class="ctr-bbmk__gift{% if section.settings.gift_image == blank %} ctr-bbmk__gift--no-image{% endif %}"
+            style="--ctr-bbmk-gift-bg: {{ section.settings.gift_background }};"
+          >
+            {% if section.settings.gift_image != blank %}
+              <div class="ctr-bbmk__gift-media">
+                {{
+                  section.settings.gift_image
+                  | image_url: width: 380
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '130, 260, 380',
+                    sizes: '126px',
+                    alt: '',
+                    class: 'ctr-bbmk__gift-img'
+                }}
+              </div>
+            {% endif %}
+            <div class="ctr-bbmk__gift-copy">
+              {% if section.settings.gift_heading != blank %}
+                <p class="ctr-bbmk__gift-heading">{{ section.settings.gift_heading }}</p>
+              {% endif %}
+              {% if section.settings.gift_text != blank %}
+                <p class="ctr-bbmk__gift-text">{{ section.settings.gift_text }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if kit_items.size > 0 %}
+          <div class="ctr-bbmk__kit">
+            <div class="ctr-bbmk__kit-header">
+              {% if section.settings.kit_heading != blank %}
+                <p class="ctr-bbmk__kit-heading">{{ section.settings.kit_heading }}</p>
+              {% endif %}
+              {% if section.settings.kit_note != blank %}
+                <p class="ctr-bbmk__kit-note">{{ section.settings.kit_note }}</p>
+              {% endif %}
+            </div>
+            <ul class="ctr-bbmk__kit-items">
+              {% for block in kit_items %}
+                <li class="ctr-bbmk__kit-item" {{ block.shopify_attributes }}>
+                  {% if block.settings.image != blank %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 600
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '150, 300, 450, 600',
+                        sizes: '(min-width: 1024px) 134px, 22vw',
+                        alt: block.settings.name,
+                        class: 'ctr-bbmk__kit-img'
+                    }}
+                  {% else %}
+                    {{ 'product-1' | placeholder_svg_tag: 'ctr-bbmk__kit-img ctr-bbmk__kit-img--placeholder' }}
+                  {% endif %}
+                  {% if block.settings.label != blank %}
+                    <span class="ctr-bbmk__kit-label">{{ block.settings.label }}</span>
+                  {% endif %}
+                  {% if block.settings.name != blank %}
+                    <span class="ctr-bbmk__kit-label">{{ block.settings.name }}</span>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+        {% if product_is_available %}
+          {% if show_stock_bar and section.settings.stock_text != blank %}
+            <div class="ctr-bbmk__stock">
+              <p class="ctr-bbmk__stock-text">{{ stock_message }}</p>
+              <div class="ctr-bbmk__stock-bar" aria-hidden="true">
+                <span class="ctr-bbmk__stock-fill" style="width: {{ stock_fill }}%;"></span>
+              </div>
+            </div>
+          {% endif %}
+
+          <div class="ctr-bbmk__purchase">
+            {% render 'ctr-product-form',
+              product: product,
+              cta: section.settings.cta,
+              product_is_available: product_is_available,
+              show_save_badge: true
+            %}
+
+            {% if section.settings.claim_1 != blank or section.settings.claim_2 != blank %}
+              <ul class="ctr-bbmk__claims">
+                {% if section.settings.claim_1 != blank %}
+                  <li
+                    class="ctr-bbmk__claim"
+                    {% if claim_1_is_fs %}
+                      data-free-shipping-claim
+                      data-free-shipping-fallback="{{ section.settings.free_shipping_fallback | escape }}"
+                    {% endif %}
+                  >
+                    {% render 'ctr-icon-check-thin', class: 'ctr-bbmk__claim-icon' %}
+                    <span
+                      {% if claim_1_is_fs %}
+                        data-free-shipping-text data-claim-template="{{ section.settings.claim_1 | escape }}"
+                      {% endif %}
+                    >
+                      {{- claim_1_filled -}}
+                    </span>
+                  </li>
+                {% endif %}
+                {% if section.settings.claim_2 != blank %}
+                  <li class="ctr-bbmk__claim">
+                    {% render 'ctr-icon-check-thin', class: 'ctr-bbmk__claim-icon' %}
+                    <span>{{ section.settings.claim_2 }}</span>
+                  </li>
+                {% endif %}
+              </ul>
+            {% endif %}
+          </div>
+        {% else %}
+          {% if section.settings.sold_out_text != blank %}
+            <div class="ctr-bbmk__stock ctr-bbmk__stock--sold-out">
+              <div class="ctr-bbmk__stock-text">{{ section.settings.sold_out_text }}</div>
+              <div class="ctr-bbmk__stock-bar" aria-hidden="true">
+                <span class="ctr-bbmk__stock-fill" style="width: 100%;"></span>
+              </div>
+            </div>
+          {% endif %}
+
+          <div class="ctr-bbmk__purchase">
+            {% if section.settings.show_notify %}
+              <notify-me-signup class="ctr-bbmk__notify">
+                <form
+                  novalidate
+                  data-variant-id="{{ current_variant.id }}"
+                  data-klaviyo-public="{{ section.settings.klaviyo_api_key }}"
+                  data-klaviyo-list-id="{{ section.settings.klaviyo_list_id }}"
+                >
+                  <div class="js-form-container ctr-bbmk__notify-row">
+                    <input
+                      aria-label="Email (required)"
+                      placeholder="{{ section.settings.notify_placeholder }}"
+                      type="email"
+                      name="email"
+                      autocomplete="email"
+                      class="js-email-input ctr-bbmk__notify-input"
+                    >
+                    <button type="submit" class="ctr-bbmk__notify-button">{{ section.settings.notify_button }}</button>
+                    <div class="js-newsletter-success ctr-bbmk__notify-success">
+                      <p>{{ section.settings.notify_success }}</p>
+                    </div>
+                  </div>
+                  <p class="js-newsletter-error ctr-bbmk__notify-error"></p>
+                </form>
+              </notify-me-signup>
+            {% endif %}
+
+            {% render 'buy-button',
+              text: section.settings.cta,
+              extra_classes: 'w-full ctr-bbmk__sold-out-button',
+              cta_color: 'orange',
+              type: 'button',
+              product_is_available: false
+            %}
+
+            {% if section.settings.sold_out_link_text != blank and section.settings.sold_out_link != blank %}
+              <a class="ctr-bbmk__sold-out-link" href="{{ section.settings.sold_out_link }}">
+                {{- section.settings.sold_out_link_text -}}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      {% if section.settings.show_details and product_details != blank %}
+        <div class="ctr-bbmk__details border border-b-0 border-black/15">
+          {% render 'product-details', product_details: product_details %}
+        </div>
+      {% endif %}
+
+      {% if has_accordion %}
+        <div class="ctr-bbmk__accordions border border-b-0 border-black/15">
+          {% render 'product-accordions', blocks: section.blocks %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</ctr-buy-box-mini-kit>
+
+{% schema %}
+{
+  "name": "Buy Box Mini Kit (CTR)",
+  "tag": "section",
+  "class": "ctr-buy-box-mini-kit-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Gallery"
+    },
+    {
+      "type": "range",
+      "id": "media_offset",
+      "label": "Skip first product images",
+      "info": "Other PDPs skip the first 2 images (reserved for product cards).",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "product",
+      "id": "reviews_product",
+      "label": "Reviews product",
+      "info": "Stars and review count come from this product. Leave empty to use this product's reviews."
+    },
+    {
+      "type": "text",
+      "id": "title_override",
+      "label": "Title override",
+      "info": "Leave empty to use the product title."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show product description",
+      "info": "Desktop only.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Gift banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "gift_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "gift_heading",
+      "label": "Heading",
+      "default": "The perfect gift for the freak in your life"
+    },
+    {
+      "type": "text",
+      "id": "gift_text",
+      "label": "Text",
+      "default": "Four mini deo scents in a ready-to-gift holiday box"
+    },
+    {
+      "type": "color",
+      "id": "gift_background",
+      "label": "Background",
+      "default": "#0032A0"
+    },
+    {
+      "type": "header",
+      "content": "What's in the kit"
+    },
+    {
+      "type": "text",
+      "id": "kit_heading",
+      "label": "Heading",
+      "default": "What’s in the kit"
+    },
+    {
+      "type": "text",
+      "id": "kit_note",
+      "label": "Note",
+      "default": "Holiday kit: 4 mini deos, each lasting ~1 week with daily use."
+    },
+    {
+      "type": "header",
+      "content": "Stock bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "stock_use_real",
+      "label": "Use real stock",
+      "info": "Uses the variant's tracked inventory. Turn off to use the number below.",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "stock_override",
+      "label": "Stock number override",
+      "info": "Used only when \"Use real stock\" is off."
+    },
+    {
+      "type": "number",
+      "id": "stock_threshold",
+      "label": "Show when stock is at or below",
+      "info": "Leave empty to always show while in stock.",
+      "default": 100
+    },
+    {
+      "type": "number",
+      "id": "stock_bar_max",
+      "label": "Bar max",
+      "info": "Bar fill = stock ÷ this number.",
+      "default": 200
+    },
+    {
+      "type": "text",
+      "id": "stock_text",
+      "label": "Text",
+      "info": "{N} is replaced with the stock number.",
+      "default": "Selling fast. Only {N} left."
+    },
+    {
+      "type": "header",
+      "content": "Purchase"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Button text",
+      "default": "Add to cart"
+    },
+    {
+      "type": "text",
+      "id": "claim_1",
+      "label": "Claim 1",
+      "info": "{amount} is replaced with the market's free shipping threshold.",
+      "default": "Free shipping on orders over {amount}"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_fallback",
+      "label": "Free shipping fallback amount",
+      "info": "Used when the market threshold isn't available.",
+      "default": "$60"
+    },
+    {
+      "type": "text",
+      "id": "claim_2",
+      "label": "Claim 2",
+      "default": "Order now for holiday delivery"
+    },
+    {
+      "type": "header",
+      "content": "Sold out"
+    },
+    {
+      "type": "richtext",
+      "id": "sold_out_text",
+      "label": "Banner text",
+      "default": "<p><strong>The holiday kit is sold out.</strong> Get notified if it’s back.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_notify",
+      "label": "Show notify me form",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "notify_placeholder",
+      "label": "Email placeholder",
+      "default": "Email address"
+    },
+    {
+      "type": "text",
+      "id": "notify_button",
+      "label": "Notify button text",
+      "default": "Notify me"
+    },
+    {
+      "type": "text",
+      "id": "notify_success",
+      "label": "Success message",
+      "default": "Thank you! We will notify you when the product is back in stock."
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_api_key",
+      "label": "Klaviyo public API key"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_list_id",
+      "label": "Klaviyo list ID"
+    },
+    {
+      "type": "text",
+      "id": "sold_out_link_text",
+      "label": "Link text",
+      "default": "Shop Everyday Endurance Deodorant"
+    },
+    {
+      "type": "url",
+      "id": "sold_out_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Below the buy box"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_details",
+      "label": "Show product claims grid",
+      "info": "From the Product Claims metafield.",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "badge",
+      "name": "Badge",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "NEW"
+        },
+        {
+          "type": "select",
+          "id": "color",
+          "label": "Color",
+          "options": [
+            {
+              "value": "blue",
+              "label": "Blue"
+            },
+            {
+              "value": "orange",
+              "label": "Orange"
+            },
+            {
+              "value": "black",
+              "label": "Black"
+            }
+          ],
+          "default": "blue"
+        }
+      ]
+    },
+    {
+      "type": "kit_item",
+      "name": "Kit item",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Square, approx. 600 x 600px."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Top label",
+          "default": "Week 1"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Scent name",
+          "default": "Santal Dune"
+        }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Accordion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_variant_metafield",
+          "label": "Use variant metafield",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "variant_metafield",
+          "label": "Variant metafield key"
+        },
+        {
+          "type": "richtext",
+          "id": "richtext",
+          "label": "Content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Buy Box Mini Kit (CTR)"
+    }
+  ]
+}
+{% endschema %}

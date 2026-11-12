@@ -1,0 +1,77 @@
+{% comment %}
+  Cart line price stack: price/FREE + strikethrough, unit price, and the
+  savings / Free Gift pill. Rendered in the line's right rail, under the
+  remove icon (Figma 5785:1779).
+
+  @param {line_item} line_item
+  @param {boolean} is_free_line
+  @param {boolean} is_locked_gift
+  @param {number} strike_line          line reference price in cents
+  @param {number} savings_pct
+  @param {boolean} has_subscription
+{% endcomment %}
+
+{% if is_locked_gift %}
+  {%- comment -%} One tag only for the GWP line — the pill covers both "free" and "gift". {%- endcomment -%}
+  <span class="flex items-center gap-6 bg-orange px-4 py-2 text-white">
+    {% render 'icon-tag', class: 'h-[12px] w-[12px] lg:h-13 lg:w-13' %}
+    <span class="font-text text-[10px] font-medium uppercase leading-[15.6px] lg:text-[12px]">Free Gift</span>
+  </span>
+{% else %}
+  <div class="flex items-center justify-end gap-4">
+    {% if is_free_line %}
+      <span class="font-text text-[16px] font-medium uppercase leading-[1.5] text-orange">Free</span>
+    {% else %}
+      <span class="font-text text-[16px] font-medium leading-[1.5] text-[#212121]">
+        {{- line_item.final_line_price | money -}}
+      </span>
+      {% if strike_line > line_item.final_line_price %}
+        <s class="font-text text-[12px] leading-[1.5] text-[#666]">{{ strike_line | money }}</s>
+      {% endif %}
+    {% endif %}
+  </div>
+
+  {%- comment -%} Unit price (€/100ml etc.) — legally required in EU markets when set. {%- endcomment -%}
+  {% if line_item.unit_price_measurement %}
+    <p class="text-right font-text text-[11px] leading-[1.5] text-[#939393]">
+      <span class="sr-only">Unit price</span>
+      {{ line_item.unit_price | money -}}
+      /
+      {%- if line_item.unit_price_measurement.reference_value != 1 -%}
+        {{- line_item.unit_price_measurement.reference_value -}}
+      {%- endif -%}
+      {{- line_item.unit_price_measurement.reference_unit }}
+    </p>
+  {% endif %}
+
+  {% if savings_pct > 0 %}
+    {%- comment -%}
+      "w/ Autofill" on every subscription line, including when a cart discount blends the % —
+      that discount has its own green label. Exception: a higher variant compare-at (RRP) means
+      the strike isn't the plan's, so fall back to the neutral suffix.
+    {%- endcomment -%}
+    {% assign savings_suffix = settings.cart_savings_suffix %}
+    {% if has_subscription %}
+      {% assign rrp_over_sub = false %}
+      {% if line_item.variant.compare_at_price
+        and line_item.selling_plan_allocation.compare_at_price
+        and line_item.variant.compare_at_price > line_item.selling_plan_allocation.compare_at_price
+      %}
+        {% assign rrp_over_sub = true %}
+      {% endif %}
+      {% unless rrp_over_sub %}
+        {% assign savings_suffix = settings.cart_savings_autofill_suffix %}
+      {% endunless %}
+    {% endif %}
+    <span class="flex items-center gap-6 bg-orange px-4 py-2 text-white">
+      {% render 'icon-tag', class: 'h-[12px] w-[12px] lg:h-13 lg:w-13' %}
+      {%- comment -%} Suffix is desktop-only (Figma mobile variants show just "SAVING X%"). {%- endcomment -%}
+      <span class="font-text text-[10px] font-medium uppercase leading-[15.6px] lg:text-[12px]"
+        >Saving {{ savings_pct }}%
+        {%- if savings_suffix != blank -%}
+          <span class="hidden lg:inline">&nbsp;{{ savings_suffix }}</span>
+        {%- endif -%}
+      </span>
+    </span>
+  {% endif %}
+{% endif %}

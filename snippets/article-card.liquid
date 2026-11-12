@@ -1,0 +1,23 @@
+<a class="flex" href="{{ article.url }}">
+  <div
+    class="flex h-full min-h-368 w-full flex-1 flex-col overflow-hidden xl:min-h-448 {% if is_slide == true %}w-[calc(100%-105px)] lg:w-fit{% endif %} {{ extra_classes }}"
+  >
+    {% if article.image != blank %}
+      <div class="relative">
+        <div class="group relative aspect-[1.3] overflow-hidden">
+          {{
+            article.image
+            | image_url: width: article.image.width
+            | image_tag: loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', class: 'w-full h-full object-cover'
+          }}
+          <div class="hover-effect absolute inset-0 transition duration-300 lg:hover:backdrop-blur-sm"></div>
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="flex h-full flex-1 flex-col justify-between gap-16 border-r border-black/15 p-16 lg:p-24 lg:pb-40">
+      {% render 'article-tags', article_tags: article.tags %}
+      <p class="fn-tt-title-20 flex-1 font-medium">{{ article.excerpt }}</p>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,327 @@
+{{ 'ctr-routine-hero.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign ctr_routine_hero_desktop_image = section.settings.desktop_image
+  assign ctr_routine_hero_mobile_image = section.settings.mobile_image | default: ctr_routine_hero_desktop_image
+  assign ctr_routine_hero_button_link = section.settings.button_link
+  assign ctr_routine_hero_button_icon_classes = ''
+  if ctr_routine_hero_button_link == blank
+    assign ctr_routine_hero_button_link = '#'
+  endif
+
+  case section.settings.button_arrow_direction
+    when 'top'
+      assign ctr_routine_hero_button_icon_classes = '-rotate-90'
+    when 'down'
+      assign ctr_routine_hero_button_icon_classes = 'rotate-90'
+  endcase
+-%}
+
+<section
+  id="shopify-section-{{ section.id }}"
+  class="ctr-routine-hero"
+  style="
+    --ctr-routine-hero-bg-color: {{ section.settings.background_color }};
+    --ctr-routine-hero-bg-gradient: {{ section.settings.background_gradient }};
+    --ctr-routine-hero-panel-bg: {{ section.settings.panel_background }};
+    --ctr-routine-hero-accent: {{ section.settings.accent_color }};
+    --ctr-routine-hero-text: {{ section.settings.text_color }};
+    --ctr-routine-hero-pt-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ctr-routine-hero-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ctr-routine-hero-pt-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ctr-routine-hero-pb-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --ctr-routine-hero-min-height-desktop: {{ section.settings.min_height_desktop }}px;
+    --ctr-routine-hero-min-height-mobile: {{ section.settings.min_height_mobile }}px;
+    --ctr-routine-hero-panel-max-width-desktop: {{ section.settings.panel_max_width_desktop }}px;
+    --ctr-routine-hero-desktop-image-position: {{ section.settings.desktop_image_position }};
+    --ctr-routine-hero-mobile-image-position: {{ section.settings.mobile_image_position }};
+  "
+>
+  {% if ctr_routine_hero_desktop_image != blank %}
+    <div class="ctr-routine-hero__background ctr-routine-hero__background--desktop" aria-hidden="true">
+      <img
+        class="ctr-routine-hero__background-image"
+        src="{{ ctr_routine_hero_desktop_image | img_url: '2400x' }}"
+        alt=""
+        loading="eager"
+        width="{{ ctr_routine_hero_desktop_image.width }}"
+        height="{{ ctr_routine_hero_desktop_image.height }}"
+      >
+    </div>
+  {% endif %}
+
+  {% if ctr_routine_hero_mobile_image != blank %}
+    <div class="ctr-routine-hero__background ctr-routine-hero__background--mobile" aria-hidden="true">
+      <img
+        class="ctr-routine-hero__background-image"
+        src="{{ ctr_routine_hero_mobile_image | img_url: '1200x' }}"
+        alt=""
+        loading="eager"
+        width="{{ ctr_routine_hero_mobile_image.width }}"
+        height="{{ ctr_routine_hero_mobile_image.height }}"
+      >
+    </div>
+  {% endif %}
+
+  <div class="ctr-routine-hero__overlay" aria-hidden="true"></div>
+
+  <div class="ctr-routine-hero__inner">
+    <div class="ctr-routine-hero__panel">
+      {% if section.settings.title != blank %}
+        <div class="ctr-routine-hero__title inline-rich-text">
+          {{ section.settings.title }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.subtitle != blank %}
+        <div class="ctr-routine-hero__subtitle inline-rich-text">
+          {{ section.settings.subtitle }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.button_label != blank %}
+        {%- liquid
+          assign ctr_routine_hero_cta_attrs = ''
+          if section.settings.button_open_new_tab
+            assign ctr_routine_hero_cta_attrs = 'target="_blank" rel="noopener noreferrer"'
+          endif
+        -%}
+        {% render 'cta',
+          as: 'a',
+          href: ctr_routine_hero_button_link,
+          text: section.settings.button_label,
+          hasIcons: true,
+          cta_color: section.settings.button_style,
+          extra_classes: 'ctr-routine-hero__cta',
+          extra_attributes: ctr_routine_hero_cta_attrs,
+          extra_icon_classes: ctr_routine_hero_button_icon_classes
+        %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Routine Hero (CTR)",
+  "tag": "section",
+  "class": "ctr-routine-hero-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "select",
+      "id": "desktop_image_position",
+      "label": "Desktop image position",
+      "options": [
+        { "value": "center center", "label": "Center" },
+        { "value": "top center", "label": "Top" },
+        { "value": "bottom center", "label": "Bottom" },
+        { "value": "center left", "label": "Left" },
+        { "value": "center right", "label": "Right" },
+        { "value": "top left", "label": "Top left" },
+        { "value": "top right", "label": "Top right" },
+        { "value": "bottom left", "label": "Bottom left" },
+        { "value": "bottom right", "label": "Bottom right" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image",
+      "info": "If empty, desktop image is used."
+    },
+    {
+      "type": "select",
+      "id": "mobile_image_position",
+      "label": "Mobile image position",
+      "options": [
+        { "value": "center center", "label": "Center" },
+        { "value": "top center", "label": "Top" },
+        { "value": "bottom center", "label": "Bottom" },
+        { "value": "center left", "label": "Left" },
+        { "value": "center right", "label": "Right" },
+        { "value": "top left", "label": "Top left" },
+        { "value": "top right", "label": "Top right" },
+        { "value": "bottom left", "label": "Bottom left" },
+        { "value": "bottom right", "label": "Bottom right" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>Start your <strong>30-day</strong> skin routine</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "<p>For a limited time, get a free Freak Flask with a 30-day supply subscription.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Start my routine"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_open_new_tab",
+      "label": "Open button in new tab",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        { "value": "orange", "label": "Orange" },
+        { "value": "blue", "label": "Blue" }
+      ],
+      "default": "orange"
+    },
+    {
+      "type": "select",
+      "id": "button_arrow_direction",
+      "label": "Button arrow direction",
+      "options": [
+        { "value": "right", "label": "Right" },
+        { "value": "top", "label": "Top" },
+        { "value": "down", "label": "Down" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#320f11"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Background gradient",
+      "default": "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(9, 5, 11, 0.25) 100%)",
+      "info": "Example: linear-gradient(180deg, #FFFFFF 0%, #FFF2E9 100%)"
+    },
+    {
+      "type": "color",
+      "id": "panel_background",
+      "label": "Panel background",
+      "alpha": true,
+      "default": "#FFFFFF36"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#FB5219"
+    },
+    {
+      "type": "number",
+      "id": "panel_max_width_desktop",
+      "label": "Panel max width desktop",
+      "default": 715
+    },
+    {
+      "type": "header",
+      "content": "Sizing"
+    },
+    {
+      "type": "number",
+      "id": "min_height_desktop",
+      "label": "Min height desktop",
+      "default": 700
+    },
+    {
+      "type": "number",
+      "id": "min_height_mobile",
+      "label": "Min height mobile",
+      "default": 700
+    },
+    {
+      "type": "header",
+      "content": "Padding desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Padding mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    }
+  ],
+  "presets": [
+    {
+      "name": "Routine Hero (CTR)",
+      "category": "CTR Sections"
+    }
+  ]
+}
+{% endschema %}

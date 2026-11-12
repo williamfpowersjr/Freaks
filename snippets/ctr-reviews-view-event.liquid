@@ -1,0 +1,39 @@
+{%- comment -%}
+  Intelligems custom metric for the homepage reviews A/B test (CNV-3175).
+  Fires "reviews_section_viewed" once per pageview when the reviews zone
+  becomes meaningfully visible: the ctr-reviews section on the variant
+  template, or the legacy reviews/UGC sliders on the control template.
+  Register the event in the Intelligems Events Manager before launching
+  the experiment (events must exist pre-launch to be used as metrics).
+{%- endcomment -%}
+<script>
+  (function () {
+    if (window.__ctrReviewsViewed) return;
+    var target = document.querySelector('.ctr-reviews, .reviews-slider-section, .ugc-slider-section');
+    if (!target || !('IntersectionObserver' in window)) return;
+
+    var thresholds = [];
+    for (var i = 0; i <= 20; i++) thresholds.push(i / 20);
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        for (var j = 0; j < entries.length; j++) {
+          var entry = entries[j];
+          if (!entry.isIntersecting) continue;
+          var viewportShare = entry.intersectionRect.height / window.innerHeight;
+          // Counts as "viewed" once 30% of the section is shown, or once it
+          // fills half the viewport (tall sections never reach a 30% ratio).
+          if (entry.intersectionRatio >= 0.3 || viewportShare >= 0.5) {
+            window.__ctrReviewsViewed = true;
+            window.igEvents = window.igEvents || [];
+            window.igEvents.push({ event: 'reviews_section_viewed' });
+            observer.disconnect();
+            return;
+          }
+        }
+      },
+      { threshold: thresholds }
+    );
+    observer.observe(target);
+  })();
+</script>

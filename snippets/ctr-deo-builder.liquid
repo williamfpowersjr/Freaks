@@ -1,0 +1,658 @@
+{% comment %}
+  Build Your Pack quantity builder (CNV-3972). State lives in <ctr-deo-builder>
+  (frontend/js/ctr-deo-builder.ts); initial paint is server-rendered. Scent
+  blocks resolve their single-unit variant by option values, never pinned ids.
+{% endcomment %}
+
+{% liquid
+  assign scent_blocks = section.blocks | where: 'type', 'scent'
+  assign tier_blocks = section.blocks | where: 'type', 'tier'
+  assign benefit_blocks = section.blocks | where: 'type', 'subscription_benefit'
+  assign base_value = section.settings.base_option_value | default: 'Pack of 1'
+  assign buildpack_property = '_ctr_buildpack'
+
+  # Default plan: section setting, else the shared PDP/cart rule (reversed, first non-Pre-Order)
+  assign default_plan_id = section.settings.default_selling_plan_id | strip
+  if default_plan_id == blank
+    for group in product.selling_plan_groups reversed
+      unless group.name == 'Pre Order'
+        for plan in group.selling_plans reversed
+          unless plan.name == 'Pre Order'
+            assign default_plan_id = plan.id | append: ''
+          endunless
+        endfor
+      endunless
+    endfor
+  endif
+%}
+
+{% liquid
+  assign default_purchase = section.settings.default_purchase | default: 'subscription'
+
+  # With nothing selected yet, both options show the single-stick baseline price.
+  assign initial_otp_price = blank
+  assign initial_sub_price = blank
+  for block in scent_blocks
+    assign baseline_value = block.settings.scent_value | strip
+    for variant in product.variants
+      if variant.options contains baseline_value and variant.options contains base_value
+        assign initial_otp_price = variant.price
+        assign initial_sub_price = variant.price
+        for allocation in variant.selling_plan_allocations
+          assign alloc_plan_id = allocation.selling_plan.id | append: ''
+          if alloc_plan_id == default_plan_id
+            assign initial_sub_price = allocation.price
+          endif
+        endfor
+        break
+      endif
+    endfor
+    if initial_otp_price != blank
+      break
+    endif
+  endfor
+
+  assign show_sub_compare = false
+  if initial_otp_price != blank and initial_otp_price > initial_sub_price
+    assign show_sub_compare = true
+  endif
+%}
+
+<ctr-deo-builder class="flex w-full flex-col font-text text-black">
+  {%- comment -%} ---------- config for the custom element ---------- {%- endcomment -%}
+  <script type="application/json" data-deo-config>
+    {
+      "sectionId": {{ section.id | json }},
+      "currency": {{ cart.currency.iso_code | json }},
+      "property": {{ buildpack_property | json }},
+      "defaultPurchase": {{ default_purchase | json }},
+      "defaultPlanId": {{ default_plan_id | json }},
+      "nudgeTemplate": {{ section.settings.nudge_template | default: 'Add [count] more stick[s] to unlock [pct].' | json }},
+      "unlockedTemplate": {{ section.settings.unlocked_template | default: "You've unlocked [pct]!" | json }},
+      "upgradeTemplate": {{ section.settings.upgrade_template | default: 'Upgrade to autofill + save [amount]' | json }},
+      "tiers": [
+        {%- for block in tier_blocks -%}
+          {"qty": {{ block.settings.qty | default: 1 }}, "pct": {{ block.settings.discount_pct | default: 0 }}}{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ],
+      "scents": [
+        {%- assign scent_emitted = false -%}
+        {%- for block in scent_blocks -%}
+          {%- liquid
+            # forloop.last is unsafe here: a block whose variant no longer exists
+            # is skipped, and a trailing comma makes the whole config unparsable
+            assign scent_value = block.settings.scent_value | strip
+            assign scent_variant = blank
+            for variant in product.variants
+              if variant.options contains scent_value and variant.options contains base_value
+                assign scent_variant = variant
+                break
+              endif
+            endfor
+          -%}
+          {%- if scent_variant != blank -%}
+            {%- if scent_emitted %},{% endif -%}
+            {
+              "value": {{ scent_value | json }},
+              "variantId": {{ scent_variant.id }},
+              "available": {{ scent_variant.available | json }},
+              "price": {{ scent_variant.price }},
+              "planPrices": {
+                {%- for allocation in scent_variant.selling_plan_allocations -%}
+                  {{ allocation.selling_plan.id | append: '' | json }}: {{ allocation.price }}{% unless forloop.last %},{% endunless %}
+                {%- endfor -%}
+              }
+            }
+            {%- assign scent_emitted = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+
+  {%- comment -%} ---------- Build Your Pack panel: heading, tier rail, nudge ---------- {%- endcomment -%}
+  <div class="w-full pb-20 lg:pb-40">
+    <div class="flex w-full flex-col gap-12 border border-black/15 bg-black/5 p-16 min-[395px]:p-20">
+      <div class="flex w-full items-start gap-8">
+        <h3 class="shrink-0 text-[12px] font-medium leading-[21px] lg:text-[14px]">
+          {{ section.settings.builder_heading | default: 'Build Your Pack' }}
+        </h3>
+        {% if section.settings.builder_subtext != blank %}
+          <p class="min-w-0 flex-1 text-left text-[12px] leading-[120%] lg:text-center">
+            {{ section.settings.builder_subtext }}
+          </p>
+        {% endif %}
+      </div>
+
+      {% if tier_blocks.size > 0 %}
+        <div class="flex w-full items-end gap-6">
+          {% for block in tier_blocks %}
+            {% liquid
+              assign tier_label = block.settings.label
+              assign tier_label_prefix = tier_label
+              assign tier_label_bold = blank
+              if tier_label contains ' - '
+                assign tier_label_bold = tier_label | split: ' - ' | last
+                assign bold_with_sep = ' - ' | append: tier_label_bold
+                assign tier_label_prefix = tier_label | replace: bold_with_sep, ''
+              endif
+            %}
+            <div
+              class="flex min-w-0 flex-1 flex-col items-center gap-8"
+              data-deo-tier="{{ block.settings.qty | default: 1 }}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="flex flex-col items-center gap-2">
+                <p
+                  data-deo-tier-label
+                  class="deo-tier flex min-h-[36px] items-center justify-center text-center text-[12px] leading-[1.5] xl:min-h-0 xl:whitespace-nowrap"
+                >
+                  <span>
+                    {%- if tier_label_bold != blank -%}
+                      {{ tier_label_prefix }} - <strong>{{ tier_label_bold }}</strong>
+                    {%- else -%}
+                      {{ tier_label }}
+                    {%- endif -%}
+                  </span>
+                </p>
+                <span data-deo-dot class="deo-dot size-[3px] rounded-full"></span>
+              </div>
+              <div class="h-8 w-full overflow-hidden rounded-full bg-orange/[0.07]">
+                <div
+                  data-deo-fill
+                  class="h-full rounded-full bg-orange transition-all duration-300"
+                  style="width: 0"
+                ></div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <p data-deo-nudge class="text-[12px] leading-[1.5]">
+          {%- assign first_discount_tier = blank -%}
+          {%- for block in tier_blocks -%}
+            {%- if block.settings.discount_pct > 0 and first_discount_tier == blank -%}
+              {%- assign first_discount_tier = block -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if first_discount_tier != blank -%}
+            {%- capture nudge_pct -%}<strong>{{ first_discount_tier.settings.discount_pct }}% OFF</strong>{%- endcapture -%}
+            {%- liquid
+              # Quantities start at 0, so the full tier quantity is still needed.
+              assign nudge_count = first_discount_tier.settings.qty | default: 1
+              assign nudge_plural = 's'
+              if nudge_count == 1
+                assign nudge_count = 'one'
+                assign nudge_plural = ''
+              endif
+            -%}
+            {{-
+              section.settings.nudge_template
+              | default: 'Add [count] more stick[s] to unlock [pct].'
+              | replace: '[count]', nudge_count
+              | replace: '[s]', nudge_plural
+              | replace: '[pct]', nudge_pct
+            -}}
+          {%- endif -%}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+  {%- comment -%} ---------- scent cards ---------- {%- endcomment -%}
+  <div class="flex w-full flex-col gap-16 pb-40">
+    {% for block in scent_blocks %}
+      {% liquid
+        assign scent_value = block.settings.scent_value | strip
+        assign scent_variant = blank
+        for variant in product.variants
+          if variant.options contains scent_value and variant.options contains base_value
+            assign scent_variant = variant
+            break
+          endif
+        endfor
+      %}
+      {% if scent_variant == blank %}
+        <!--
+          ctr-deo-builder: no variant matches "{{ scent_value | escape }}" + "{{ base_value | escape }}" — row skipped
+        -->
+        {% continue %}
+      {% endif %}
+      {% liquid
+        assign scent_image = block.settings.image | default: scent_variant.featured_image | default: product.featured_image
+        assign scent_label = block.settings.custom_label | default: scent_value
+      %}
+      <div
+        data-deo-row="{{ scent_value | escape }}"
+        data-deo-qty="0"
+        class="deo-row p-px flex w-full cursor-pointer flex-col border border-black/15 bg-white transition-colors duration-200"
+        {{ block.shopify_attributes }}
+      >
+        <div class="flex min-h-[56px] w-full items-stretch justify-between">
+          <div class="flex min-w-0 flex-1 items-stretch">
+            <div class="w-[56px] shrink-0 self-stretch overflow-hidden">
+              {% if scent_image != blank %}
+                {{
+                  scent_image
+                  | image_url: width: 160
+                  | image_tag: loading: 'lazy', class: 'h-full w-full object-cover', alt: scent_label
+                }}
+              {% endif %}
+            </div>
+            <div class="flex min-w-0 flex-1 flex-col justify-end">
+              <div class="px-12">
+                <p class="text-[15px] leading-[1.5] min-[395px]:text-[16px] lg:whitespace-nowrap lg:text-[18px]">
+                  {{ scent_label }}
+                </p>
+              </div>
+              <div class="flex w-full items-center justify-between border-t border-black/15 pl-12">
+                {% if block.settings.description != blank %}
+                  <p class="min-w-0 flex-1 py-2 pr-8 text-[10px] leading-[1.5] text-[#565352] lg:text-[12px]">
+                    {{ block.settings.description }}
+                  </p>
+                {% else %}
+                  <span class="py-2 text-[12px] leading-[1.5]">&nbsp;</span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          {% if scent_variant.available %}
+            <button
+              type="button"
+              data-deo-add
+              aria-label="Add {{ scent_label | escape }}"
+              class="deo-row__add flex min-h-[56px] w-[112px] shrink-0 items-center justify-between self-stretch bg-orange px-12 py-18 text-white lg:max-h-[56px] lg:w-[159px] lg:self-end"
+            >
+              <svg
+                class="size-[12px]"
+                viewBox="0 0 12 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path d="M6 1.5V10.5" stroke="currentColor" stroke-width="1.5"/><path d="M1.5 6H10.5" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+              <span class="font-text text-[14px] font-medium uppercase leading-[23.69px]">Add</span>
+              <svg
+                class="size-[12px]"
+                viewBox="0 0 12 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path d="M6 1.5V10.5" stroke="currentColor" stroke-width="1.5"/><path d="M1.5 6H10.5" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </button>
+            <div class="deo-row__stepper min-h-[56px] shrink-0 select-none items-stretch self-stretch border-l border-black/15">
+              <button
+                type="button"
+                data-deo-minus
+                aria-label="Remove one {{ scent_label | escape }}"
+                class="flex w-[44px] items-center justify-center border-r border-black/15 lg:w-[52px]"
+              >
+                <svg
+                  class="size-[20px]"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path d="M6 10H14" stroke="#212121" stroke-width="1.25"/>
+                </svg>
+              </button>
+              <span
+                data-deo-count
+                aria-live="polite"
+                class="flex w-[44px] items-center justify-center text-[17.7px] font-medium leading-[26.61px] lg:w-[54px]"
+              >
+                0
+              </span>
+              <button
+                type="button"
+                data-deo-plus
+                aria-label="Add one {{ scent_label | escape }}"
+                class="flex w-[44px] items-center justify-center border-l border-black/15 lg:w-[52px]"
+              >
+                <svg
+                  class="size-[20px]"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path d="M10 6V14" stroke="#212121" stroke-width="1.25"/><path d="M6 10H14" stroke="#212121" stroke-width="1.25"/>
+                </svg>
+              </button>
+            </div>
+          {% else %}
+            <div class="flex min-h-[56px] w-[112px] shrink-0 items-center justify-center self-stretch bg-black/10 px-12 lg:max-h-[56px] lg:w-[159px] lg:self-end">
+              <span class="text-[14px] font-medium uppercase leading-[23.69px] text-black/50">
+                {{- section.settings.sold_out_label | default: 'Sold Out' -}}
+              </span>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {%- comment -%} ---------- purchase options ---------- {%- endcomment -%}
+  {% liquid
+    assign autofill_label = section.settings.autofill_label | default: 'Autofill &'
+    assign autofill_badge = section.settings.autofill_badge | default: 'SAVE 15%'
+    assign onetime_label = section.settings.onetime_label | default: 'One-Time Purchase'
+  %}
+  <fieldset class="m-0 flex w-full min-w-0 flex-col border-0 p-0">
+    <legend class="sr-only">Purchase options</legend>
+
+    {%- comment -%} Autofill (subscription) {%- endcomment -%}
+    <div class="w-full pb-12 lg:pb-20">
+      <label
+        data-deo-option
+        class="deo-option deo-option--selected p-px flex w-full cursor-pointer flex-col border border-black/15 bg-white transition-colors duration-200"
+      >
+        <div class="flex w-full items-center justify-between">
+          <div class="flex items-center">
+            <div class="flex items-center gap-6 px-12 py-18">
+              <input
+                type="radio"
+                name="deo-purchase-{{ section.id }}"
+                value="subscription"
+                data-deo-opt
+                checked
+                class="deo-radio"
+              >
+              <span class="whitespace-nowrap text-[17.7px] font-medium leading-[26.61px]">{{ autofill_label }}</span>
+            </div>
+            {% if autofill_badge != blank %}
+              <span class="bg-orange px-4 py-2 text-[14px] font-medium leading-[15.6px] text-white">
+                {{- autofill_badge -}}
+              </span>
+            {% endif %}
+          </div>
+          <div class="flex items-baseline gap-8 self-end whitespace-nowrap pb-4 pr-12">
+            <span
+              data-deo-compare="sub"
+              class="igComparePrice{% unless show_sub_compare %} hidden{% endunless %} text-[11.7px] leading-[15.26px] line-through"
+              data-product-id="{{ product.id }}"
+            >
+              {%- if show_sub_compare %}{{ initial_otp_price | money }}{% endif -%}
+            </span>
+            <span
+              data-deo-price="sub"
+              class="igPrice text-[17.7px] leading-[26.61px]"
+              data-product-id="{{ product.id }}"
+            >
+              {%- if initial_sub_price != blank %}{{ initial_sub_price | money }}{% endif -%}
+            </span>
+          </div>
+        </div>
+
+        <div data-deo-benefits class="flex flex-col gap-8 px-12 pb-12">
+          {% if benefit_blocks.size > 0 %}
+            <ul class="m-0 flex list-none flex-col gap-4 p-0 lg:flex-row lg:flex-wrap lg:gap-x-16">
+              {% for block in benefit_blocks %}
+                {% liquid
+                  assign show_tiers = block.settings.show_tiers | default: '' | strip
+                  assign benefit_hidden = false
+                  if show_tiers != blank
+                    assign benefit_hidden = true
+                    assign show_tiers_list = show_tiers | replace: ' ', '' | split: ','
+                    for tier_num in show_tiers_list
+                      if tier_num == '1'
+                        assign benefit_hidden = false
+                        break
+                      endif
+                    endfor
+                  endif
+                %}
+                <li
+                  class="flex items-center gap-6 text-[12px] leading-[1.5]{% if benefit_hidden %} hidden{% endif %}"
+                  data-deo-benefit
+                  data-deo-show-tiers="{{ show_tiers | escape }}"
+                  {{ block.shopify_attributes }}
+                >
+                  <svg
+                    class="h-12 w-12 shrink-0 text-orange"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path d="M13.5 4.5L6.5 11.5L2.5 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/>
+                  </svg>
+                  {{ block.settings.title }}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          {%- comment -%} Same overlaid-native-select technique as cart-selling-plan-selector. {%- endcomment -%}
+          <div class="flex flex-wrap items-center gap-x-8">
+            <span class="text-[12px] leading-[1.5]">
+              {{- section.settings.delivery_label | default: 'Delivery every:' -}}
+            </span>
+            <div class="relative inline-flex items-center gap-4">
+              <label class="sr-only" for="deo-frequency-{{ section.id }}">Delivery frequency</label>
+              <span data-deo-freq-label class="text-[12px] font-medium leading-[1.5] text-orange underline">
+                {%- for group in product.selling_plan_groups -%}
+                  {%- unless group.name == 'Pre Order' -%}
+                    {%- for plan in group.selling_plans -%}
+                      {%- assign plan_id_string = plan.id | append: '' -%}
+                      {%- if plan_id_string == default_plan_id -%}
+                        {%- assign freq_label = plan.name -%}
+                        {%- if freq_label contains 'every ' -%}
+                          {%- assign freq_label = freq_label | split: 'every ' | last -%}
+                        {%- endif -%}
+                        {%- if freq_label contains ' with' -%}
+                          {%- assign freq_label = freq_label | split: ' with' | first -%}
+                        {%- endif -%}
+                        {{- freq_label -}}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endunless -%}
+                {%- endfor -%}
+              </span>
+              <svg
+                class="h-14 w-14"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path d="M13.265 6.265L8.265 11.265C8.19469 11.3352 8.09938 11.3747 8 11.3747C7.90062 11.3747 7.80531 11.3352 7.735 11.265L2.735 6.265C2.66876 6.19391 2.6327 6.09989 2.63441 6.00274C2.63613 5.90559 2.67548 5.8129 2.74419 5.74419C2.8129 5.67548 2.90559 5.63613 3.00274 5.63441C3.09989 5.6327 3.19391 5.66876 3.265 5.735L8 10.4694L12.735 5.735C12.8061 5.66876 12.9001 5.6327 12.9973 5.63441C13.0944 5.63613 13.1871 5.67548 13.2558 5.74419C13.3245 5.8129 13.3639 5.90559 13.3656 6.00274C13.3673 6.09989 13.3312 6.19391 13.265 6.265Z" fill="currentColor"/>
+              </svg>
+              <select
+                id="deo-frequency-{{ section.id }}"
+                data-deo-freq-select
+                class="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+              >
+                {% for group in product.selling_plan_groups %}
+                  {% unless group.name == 'Pre Order' %}
+                    {% for plan in group.selling_plans %}
+                      {% liquid
+                        assign freq_label = plan.name
+                        if freq_label contains 'every '
+                          assign freq_label = freq_label | split: 'every ' | last
+                        endif
+                        if freq_label contains ' with'
+                          assign freq_label = freq_label | split: ' with' | first
+                        endif
+                        assign plan_id_string = plan.id | append: ''
+                      %}
+                      <option
+                        value="{{ plan.id }}"
+                        data-label="{{ freq_label | escape }}"
+                        {% if plan_id_string == default_plan_id %}
+                          selected
+                        {% endif %}
+                      >
+                        {{ freq_label }}
+                      </option>
+                    {% endfor %}
+                  {% endunless %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+      </label>
+    </div>
+
+  </fieldset>
+
+  {%- comment -%} ---------- error + ATC ---------- {%- endcomment -%}
+  <p data-deo-error class="hidden pb-8 text-[12px] font-medium uppercase text-[#ff0000]" role="alert"></p>
+
+  {% assign atc_text = section.settings.cta | default: 'Add to cart' %}
+  {% render 'cta',
+    as: 'button',
+    type: 'button',
+    aria_label: atc_text,
+    text: atc_text,
+    hasIcons: true,
+    cta_color: 'orange',
+    extra_classes: 'w-full !px-24',
+    extra_text_classes: 'font-text text-[19.7px] font-medium uppercase leading-[23.69px] tracking-[0.493px]',
+    data_attributes: 'data-deo-atc disabled'
+  %}
+
+  {%- comment -%} One-time purchase — same control as ctr-product-hero tertiary OTP {%- endcomment -%}
+  <div class="flex w-full justify-center pt-16">
+    <button
+      type="button"
+      class="ctr-deo-otp"
+      data-deo-otp-atc
+      disabled
+      aria-label="{{ onetime_label | escape }}"
+    >
+      <span class="ctr-deo-otp__title">
+        {{ onetime_label }}
+        <span class="ctr-deo-otp__sep"> — </span>
+        <span class="ctr-deo-otp__price">
+          <span
+            data-deo-compare="otp"
+            class="igComparePrice hidden"
+            data-product-id="{{ product.id }}"
+          ></span>
+          <span
+            data-deo-price="otp"
+            class="igPrice"
+            data-product-id="{{ product.id }}"
+          >
+            {%- if initial_otp_price != blank %}{{ initial_otp_price | money_without_trailing_zeros }}{% endif -%}
+          </span>
+        </span>
+      </span>
+    </button>
+  </div>
+</ctr-deo-builder>
+
+{% style %}
+  /* Scent cards */
+  .deo-row .deo-row__stepper {
+    display: none;
+  }
+  .deo-row--selected .deo-row__stepper {
+    display: flex;
+  }
+  .deo-row--selected .deo-row__add {
+    display: none;
+  }
+  .deo-row--selected {
+    background-color: rgba(0, 50, 160, 0.2);
+    border-color: var(--tw-color-black, #212121);
+  }
+
+  /* Tier rail */
+  .deo-tier {
+    color: rgba(33, 33, 33, 0.68);
+  }
+  .deo-tier--active {
+    color: var(--tw-color-orange, #fe5000);
+    font-weight: 500;
+  }
+  .deo-tier--active strong {
+    font-weight: 500;
+  }
+  .deo-dot {
+    background-color: rgba(254, 80, 0, 0.07);
+  }
+  .deo-dot--active {
+    background-color: var(--tw-color-orange, #fe5000);
+  }
+
+  /* Purchase options */
+  .deo-option--selected {
+    border-color: var(--tw-color-orange, #fe5000);
+    background-color: rgba(254, 80, 0, 0.05);
+  }
+
+  .deo-radio {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    border: 1px solid rgba(33, 33, 33, 0.15);
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0;
+  }
+  .deo-radio:checked {
+    border-color: var(--tw-color-orange, #fe5000);
+    background: var(--tw-color-orange, #fe5000);
+  }
+
+  [data-deo-price],
+  [data-deo-compare] {
+    transition: opacity 0.15s ease-in-out;
+  }
+
+  /* One-time purchase button — matches ctr-product-hero tertiary OTP */
+  .ctr-deo-otp {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+    color: #000000;
+  }
+  .ctr-deo-otp:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .ctr-deo-otp__title {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    font-family: 'Alliance Platt', 'Alliance Text', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #000000;
+    text-align: center;
+    border-bottom: 1px solid #000000;
+  }
+  .ctr-deo-otp__title * {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: normal;
+    color: inherit;
+  }
+  .ctr-deo-otp__price {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  .ctr-deo-otp__price [data-deo-compare] {
+    opacity: 0.7;
+    text-decoration: line-through;
+  }
+{% endstyle %}

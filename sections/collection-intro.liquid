@@ -1,0 +1,294 @@
+{% schema %}
+{
+  "name": "Collection Intro",
+  "tag": "section",
+  "class": "collection-intro-section",
+  "presets": [
+    {
+      "name": "Collection Intro",
+      "category": "Collection Intro",
+      "settings": {
+        "bg_color": "bg-white",
+        "intro_caption": "Lorem ipsum",
+        "intro_text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+        "intro_cta": "Lorem ipsum",
+        "intro_cta_link": "#",
+        "intro_cta_color": "black",
+        "collection_cta": "Lorem ipsum",
+        "collection_cta_link": "#",
+        "collection_cta_color": "blue",
+        "collection": "all-products"
+      },
+      "blocks": [
+        {
+          "type": "fact",
+          "settings": {
+            "title": "Lorem ipsum",
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr."
+          }
+        },
+        {
+          "type": "fact",
+          "settings": {
+            "title": "Lorem ipsum",
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr."
+          }
+        },
+        {
+          "type": "fact",
+          "settings": {
+            "title": "Lorem ipsum",
+            "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+            "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr."
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "text",
+      "id": "intro_caption",
+      "label": "Intro Caption"
+    },
+    {
+      "type": "textarea",
+      "id": "intro_text",
+      "label": "Intro Introduction Text"
+    },
+    {
+      "type": "text",
+      "id": "intro_cta",
+      "label": "Intro Cta Text"
+    },
+    {
+      "type": "url",
+      "id": "intro_cta_link",
+      "label": "Intro Cta link"
+    },
+    {
+      "type": "select",
+      "id": "intro_cta_color",
+      "label": "Cta Color",
+      "options": [
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "black"
+    },
+    {
+      "type": "text",
+      "id": "collection_cta",
+      "label": "Collection Cta Text"
+    },
+    {
+      "type": "url",
+      "id": "collection_cta_link",
+      "label": "Collection Cta link"
+    },
+    {
+      "type": "select",
+      "id": "collection_cta_color",
+      "label": "Cta Color",
+      "options": [
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "blue"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Fact",
+      "type": "fact",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Fact Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Fact Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Fact Description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<accordion-element>
+  <div class="relative flex flex-col lg:flex-row {{ section.settings.bg_color }}">
+    <div
+      class="lg:sticky lg:z-20 lg:top-[--dynamic-header-height] relative flex h-[var(--split-section-height)] max-h-[900px] flex-col overflow-hidden lg:w-1/2"
+    >
+      <div class="flex flex-col gap-24 p-24 pb-80 lg:flex-1 lg:gap-40 lg:p-40 lg:pt-64">
+        <h2 class="fn-tt-body-20">{{ section.settings.intro_caption }}</h2>
+        <h2 class="fn-tt-title-50 flex-1">{{ section.settings.intro_text }}</h2>
+      </div>
+      <div class="-mx-1 lg:-m-[.5px]">
+        {% if section.blocks != blank %}
+          <ul class="flex flex-col lg:flex-row ">
+            {% for block in section.blocks %}
+              {% if block.type == 'fact' %}
+                {% assign fact_title = block.settings.title %}
+                {% assign fact_description = block.settings.description %}
+                {% assign fact_image = block.settings.image %}
+
+                <li
+                  data-accordion
+                  data-no-autoscroll
+                  class="relative -my-[.5px] flex h-full flex-1 flex-col border border-grey-DARK lg:-mx-[.5px] lg:my-0 lg:min-h-[219px] lg:flex-1 lg:self-end"
+                >
+                  <button
+                    aria-label="Fact"
+
+                    aria-expanded="false"
+                    aria-controls="content-{{ forloop.index0 }}"
+                    data-accordion-trigger
+                    class="duration-250 group relative h-full flex-1 py-16 pl-8 pr-24 text-left transition-all ease-in-out lg:flex lg:flex-col lg:p-24 lg:hover:cursor-pointer lg:hover:bg-orange/15 {{ section.settings.bg_color }}"
+                  >
+                    <div class="flex h-full flex-1 gap-16 lg:flex-col lg:items-start lg:gap-24">
+                      {% if fact_image %}
+                        <div class="w-40 lg:w-56">
+                          {{
+                            fact_image
+                            | image_url: width: fact_image.width
+                            | image_tag: loading: 'lazy', sizes: '(min-width: 1024px) 25vw, 100vw'
+                          }}
+                        </div>
+                      {% endif %}
+
+                      <div class="flex flex-1 flex-col justify-center pr-40 pt-6 lg:items-start lg:justify-center lg:pr-0 lg:pt-0">
+                        <div class="flex min-h-34 flex-col justify-center lg:min-h-fit">
+                          <h3 class="fn-tt-caption mb-6 font-medium uppercase lg:mb-0 lg:flex-1">{{ fact_title }}</h3>
+                        </div>
+                        {% if fact_description != blank %}
+                          <div class="flex flex-col lg:gap-16">
+                            <div
+                              id="content-{{ forloop.index0 }}"
+                              data-accordion-content
+                              style="max-height: 0;"
+                              class="max-h-0 overflow-hidden transition-all ease-in-out will-change-[max-width]"
+                            >
+                              <p class="fn-tt-body-10 mt-16">
+                                {{ fact_description }}
+                              </p>
+                            </div>
+                            <div
+                              class="duration-250 group absolute right-24 top-24 w-fit rounded-full border border-black/15 px-8 py-6 transition-colors ease-in-out lg:relative lg:right-0 lg:top-0 lg:hover:border-orange lg:hover:bg-orange"
+                            >
+                              {% render 'plus-animation',
+                                extra_wrapper_classes: 'text-black w-7 h-7',
+                                extra_icon_classes: 'bg-black h-[1.2px]'
+                              %}
+                            </div>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </button>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+      {% if section.settings.intro_cta != blank %}
+        <a href="{{ section.settings.intro_cta_link }}" aria-label="{{ section.settings.intro_cta }}">
+          {% render 'cta',
+            as: 'button',
+            variant: 'outline',
+            text: section.settings.intro_cta,
+            extra_classes: 'w-full',
+            hasIcons: true,
+            cta_color: section.settings.intro_cta_color
+          %}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="relative h-full w-full lg:w-1/2 lg:border-l lg:border-black/15">
+      <ul class="flex flex-col lg:divide-y lg:divide-black/15">
+        {% for product in section.settings.collection.products %}
+          <li>
+            {% render 'product-card-big', product: product %}
+          </li>
+        {% endfor %}
+      </ul>
+      {% if section.settings.collection_cta != blank %}
+        <div class="w-full">
+          <a href="{{ section.settings.collection_cta_link }}" aria-label="{{ section.settings.collection_cta }}">
+            {% render 'cta',
+              as: 'button',
+              variant: 'outline',
+              text: section.settings.collection_cta,
+              extra_classes: 'w-full',
+              hasIcons: true,
+              cta_color: section.settings.collection_cta_color
+            %}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</accordion-element>

@@ -1,0 +1,71 @@
+{% if related_topics_title != blank %}
+  <div class="w-full py-40 lg:py-80">
+    {% render 'title',
+      title: related_topics_title,
+      text_size: 'fn-tt-title-70',
+      extra_wrapper_classes: 'overflow-hidden text-center px-24 my-11 lg:px-16 ',
+      bg_lines: 'bg-grey-lines'
+    %}
+  </div>
+{% endif %}
+
+{% comment %} mobile {% endcomment %}
+
+<swiper-element id="article-cards" class="article-cards lg:hidden">
+  <swiper-container init="false">
+    {% assign counter = 0 %}
+
+    {% for article in all_articles %}
+      {% if article.handle != current_article_handle and article.tags contains current_article_tag and counter < 3 %}
+        <swiper-slide class="swiper-slide">
+          {% render 'article-card', article: article %}
+        </swiper-slide>
+        {% assign counter = counter | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+
+    {% if counter < 3 %}
+      {% for article in all_latest_articles %}
+        {% if article.handle != current_article_handle and counter < 3 %}
+          <swiper-slide class="swiper-slide">
+            {% render 'article-card', article: article %}
+            {% assign counter = counter | plus: 1 %}
+          </swiper-slide>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </swiper-container>
+  <div class="align-center flex w-full border-t border-black/15 ">
+    <div class="relative flex w-full justify-center self-center px-24 lg:px-40">
+      <div class="swiper-scrollbar"></div>
+    </div>
+
+    <div class="border-x border-black/15">
+      <div class="swiper-button-prev" aria-label="Previous Slide {{ section.id }}" role="button"></div>
+    </div>
+    <div><div class="swiper-button-next" aria-label="Next Slide {{ section.id }}" role="button"></div></div>
+  </div>
+</swiper-element>
+
+{% comment %} desktop {% endcomment %}
+<div class="hidden lg:-mr-1 lg:grid lg:grid-cols-3">
+  {% assign counter = 0 %}
+
+  {% for article in all_articles %}
+    {% if article.handle != current_article_handle and article.tags contains current_article_tag and counter < 3 %}
+      {% render 'article-card', article: article %}
+      {% assign counter = counter | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+
+  {% if counter < 3 %}
+    {% for article in all_latest_articles %}
+      {% if article.handle != current_article_handle and counter < 3 %}
+        {% render 'article-card', article: article %}
+        {% assign counter = counter | plus: 1 %}
+      {% else %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+</div>

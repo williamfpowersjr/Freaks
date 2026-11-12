@@ -1,0 +1,94 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+      }
+    },
+    "title_EBFTUP": {
+      "type": "title",
+      "settings": {
+        "bg_color": "white",
+        "title": "Protect your skin barrier the \nWay nature intended it.",
+        "text_align": "left"
+      }
+    },
+    "gallery_pnUdWR": {
+      "type": "gallery",
+      "blocks": {
+        "gallery_item_GW3JMF": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify:\/\/files\/videos\/OLÉOACTIF™ _ SEQUENCE _ H264 (1).mp4",
+            "title": "Biome Oleoactif™ Bacillus Ferment",
+            "info_text": ""
+          }
+        },
+        "gallery_item_KVcnJp": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify:\/\/files\/videos\/NEOSSANCE™ SQUALANE _ SEQUENCE _ H264 (1).mp4",
+            "title": "Neossance™ Vegan Shark Squalane",
+            "info_text": ""
+          }
+        },
+        "gallery_item_tGEy3i": {
+          "type": "gallery_item",
+          "settings": {
+            "video": "shopify:\/\/files\/videos\/B-SILK™ _ SEQUENCE _ H264 (1).mp4",
+            "title": "B-Silk™ Vegan Spider Silk",
+            "info_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "gallery_item_GW3JMF",
+        "gallery_item_KVcnJp",
+        "gallery_item_tGEy3i"
+      ],
+      "settings": {
+        "show_video_controls": true
+      }
+    },
+    "product_filter_Ny88nG": {
+      "type": "product-filter",
+      "settings": {
+      }
+    },
+    "proofpoints_rwfQ7n": {
+      "type": "proofpoints",
+      "settings": {
+        "title": "Natural Skincare\nEcosystem",
+        "description": "We're relentless about sourcing minerals, bio-actives and natural ingredients that are well-researched, standardized, and efficacious because our priority is your skin, your wellbeing and that of mother nature."
+      }
+    },
+    "product_carousel_edBVHJ": {
+      "type": "product-carousel",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Protection For The Elements, By The Elements.",
+        "cta": "Shop all products",
+        "cta_link": "",
+        "cta_color": "blue",
+        "collections": ["all-products"]
+      }
+    }
+  },
+  "order": [
+    "main",
+    "title_EBFTUP",
+    "gallery_pnUdWR",
+    "product_filter_Ny88nG",
+    "proofpoints_rwfQ7n",
+    "product_carousel_edBVHJ"
+  ]
+}

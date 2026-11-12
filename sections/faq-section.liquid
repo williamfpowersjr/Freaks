@@ -1,0 +1,221 @@
+{% schema %}
+{
+  "name": "Faq Section",
+  "tag": "section",
+  "class": "faq-section",
+  "presets": [
+    {
+      "name": "Faq Section",
+      "category": "Faq Section",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Lorem ipsum",
+        "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+        "video": "",
+        "hide_mute": false,
+        "full_bleed_media": false
+      },
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>"
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "title",
+      "info": "The headline will only appear if you fill in text."
+    },
+
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Faq Image"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "If you add a video, it will be shown. If you want to have a still image, leave the video field blank."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mute",
+      "label": "Hide Mute",
+      "info": "Check on if you would like to hide the mute/unmute control button for the video.",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "full_bleed_media",
+      "label": "Media is full bleed",
+      "default": false,
+      "info": "Check on if you would like the media to be full bleed."
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Faq",
+      "type": "faq",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% assign has_media = false %}
+
+{% if section.settings.video != blank or section.settings.image != blank %}
+  {% assign has_media = true %}
+{% endif %}
+
+<div class="mb-40 overflow-hidden lg:mb-80 {{ section.settings.bg_color}}">
+  <div class="flex ">
+    <div class="flex w-full flex-col {% if has_media == true %}lg:w-1/2 lg:border-r lg:border-black/15{% endif %}">
+      <accordion-element>
+        {% if section.settings.title != blank %}
+          <div class="w-full py-40 lg:py-80">
+            {% render 'title',
+              title: section.settings.title,
+              text_size: 'fn-tt-title-70',
+              border_color: 'border-black/15',
+              extra_wrapper_classes: 'overflow-hidden text-center ',
+              isH1: true,
+              bg_lines: 'bg-grey-lines',
+              extra_text_classes: '!leading-[0.98]'
+            %}
+          </div>
+        {% endif %}
+
+        {% if section.blocks.size > 0 %}
+          <ul class="mx-24 mb-24 flex flex-col divide-y divide-black/15 overflow-hidden border border-t border-black/15 lg:m-0 lg:border-0 lg:border-y  {% if has_media != true %}lg:mx-80 lg:border-x lg:border-b lg:border-black/15{% endif %}">
+            {% for block in section.blocks %}
+              {% if block.type == 'faq' %}
+                {% assign is_first = forloop.first %}
+
+                <li
+                  data-accordion
+                  data-no-autoscroll
+                  class="flex flex-col overflow-hidden"
+                >
+                  <button
+                    aria-label="Faq"
+                    class="duration-250 group flex w-full text-left transition-all ease-in-out lg:hover:bg-orange/15 aria-expanded:lg:hover:bg-transparent "
+                    data-accordion-trigger
+                    aria-expanded="{{ is_first }}"
+                    aria-controls="content-{{ forloop.index0 }}"
+                  >
+                    <div
+                      class="flex flex-1 flex-col border-r border-black/15 px-24 py-24 lg:py-28 lg:pl-24 lg:pr-40 lg:hover:cursor-pointer"
+                    >
+                      <h3 class="fn-tt-body-20 font-medium text-black">{{ block.settings.title }}</h3>
+
+                      <div
+                        class="duration-250 fn-tt-body-20 inline-rich-text max-h-0 overflow-hidden transition-all ease-in-out will-change-[max-width] group-aria-expanded:pt-16"
+                        data-accordion-content
+                        id="content-{{ forloop.index0 }}"
+                        {% if is_first %}
+                          style="max-height: none;"
+                        {% else %}
+                          style="max-height: 0;"
+                        {% endif %}
+                      >
+                        {{ block.settings.description }}
+                      </div>
+                    </div>
+                    <div
+                      class="flex justify-between"
+                    >
+                      <div class="h-full p-22 lg:p-30">
+                        <span
+                          data-accordion-icon
+                          class="duration-250 icon text-orange transition-transform ease-in-out"
+                        >
+                          {% if is_first %}
+                            <span class="icon-minus-small" style="display: block;">
+                              {% render 'icon-minus-small', class: 'w-20' %}
+                            </span>
+                            <span class="icon-plus-small" style="display: none;">
+                              {% render 'icon-plus-small', class: 'w-20' %}
+                            </span>
+                          {% else %}
+                            <span class="icon-minus-small" style="display: none;">
+                              {% render 'icon-minus-small', class: 'w-20' %}
+                            </span>
+                            <span class="icon-plus-small" style="display: block;">
+                              {% render 'icon-plus-small', class: 'w-20' %}
+                            </span>
+                          {% endif %}
+                        </span>
+                      </div>
+                    </div>
+                  </button>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </accordion-element>
+    </div>
+
+    {% if has_media %}
+      <div class="hidden lg:block lg:w-1/2">
+        {% render 'split-screen-media',
+          split_screen_video: section.settings.video,
+          split_screen_image: section.settings.image,
+          full_bleed_media: section.settings.full_bleed_media,
+          hide_mute: section.settings.hide_mute,
+          split_screen_aspect_classes: 'aspect-square'
+        %}
+      </div>
+    {% endif %}
+  </div>
+</div>

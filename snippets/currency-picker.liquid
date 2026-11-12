@@ -1,0 +1,24 @@
+<div class="flex justify-center">
+  <localization-form>
+    {% form 'localization' %}
+      <select
+        class="block w-184 appearance-none bg-black/15 bg-[length:8px_8px] bg-[right_10px_center] bg-no-repeat px-10 py-8 text-white"
+        style="background-image:url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI4IiB2aWV3Qm94PSIwIDAgOCA4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNNCAwTDQgOE04IDRIMCIgc3Ryb2tlPSJ3aGl0ZSIvPgo8L3N2Zz4K')"
+
+        name="country_code"
+      >
+        {% for country in localization.available_countries %}
+          <option
+            value="{{ country.iso_code }}"
+            {% if country.iso_code == localization.country.iso_code %}
+              selected
+            {% endif %}
+          >
+            {{ country.name }} ({{ country.currency.iso_code }}
+            {{ country.currency.symbol }})
+          </option>
+        {% endfor %}
+      </select>
+    {% endform %}
+  </localization-form>
+</div>

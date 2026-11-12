@@ -1,0 +1,96 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "product_hero_eeAgTT": {
+      "type": "product-hero-alternative",
+      "settings": {
+        "bg_color": "bg-white",
+        "title_size": "large",
+        "show_inventory_quantity": true,
+        "product_announcement_1": "",
+        "product_announcement_2": "",
+        "product_announcement_3": "",
+        "product_announcement_4": "",
+        "bar_color": "bg-blue",
+        "subsDefaultOption": "subscriptions",
+        "subsOrder": "onetime_top",
+        "subscription_title": "Subscribe",
+        "subscription_description": "<p><strong>Free Shipping.</strong> Pause or cancel anytime.</p>",
+        "cta": "Add to cart",
+        "show_details": true,
+        "show_notify": true,
+        "notify_text": "Get notified when the product is available again",
+        "notify_placeholder": "Enter your email",
+        "notify_success": "Thank you! We will notify you when the product is back in stock.",
+        "klaviyo_api_key": "SdwbFd",
+        "klaviyo_list_id": "",
+        "notify_subtext": "",
+        "bundle_product": "",
+        "bundle_title": "Upgrade to our bundle",
+        "bundle_cta": "Discover the bundle",
+        "bundle_cta_color": "blue"
+      }
+    },
+    "divider_WtD3iT": {
+      "type": "divider",
+      "settings": {
+        "lg_bg_color": "lg:bg-white",
+        "bg_color": "bg-white",
+        "divider_color": "bg-black\/15",
+        "divider_color_mobile": "bg-white"
+      }
+    },
+    "product_carousel_x3Ukge": {
+      "type": "product-carousel",
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "Our wholesale products",
+        "cta": "See all Products",
+        "cta_link": "shopify:\/\/collections\/wholesale",
+        "cta_color": "blue",
+        "collections": ["wholesale"]
+      }
+    },
+    "sticky_add_to_cart_button_YwHpbY": {
+      "type": "sticky-add-to-cart-button",
+      "settings": {
+        "show_sticky_add_to_cart": true,
+        "cta": "Add to cart",
+        "cta_color": "orange",
+        "text": "All options"
+      }
+    },
+    "1714745074980e55d9": {
+      "type": "apps",
+      "blocks": {
+        "recharge_subscriptions_subscription_widget_fVXL8i": {
+          "type": "shopify:\/\/apps\/recharge-subscriptions\/blocks\/subscription-widget\/371eed76-0b44-4869-9813-730372ea378e",
+          "disabled": true,
+          "settings": {
+            "product": "{{product}}"
+          }
+        }
+      },
+      "block_order": [
+        "recharge_subscriptions_subscription_widget_fVXL8i"
+      ],
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "product_hero_eeAgTT",
+    "divider_WtD3iT",
+    "product_carousel_x3Ukge",
+    "sticky_add_to_cart_button_YwHpbY",
+    "1714745074980e55d9"
+  ]
+}

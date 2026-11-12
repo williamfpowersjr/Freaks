@@ -1,0 +1,12 @@
+<div class="z-0 {{ section.settings.bg_color }} {{ additional_classes }}">
+  {% if section.settings.text != blank %}
+    <div class="flex flex-col gap-y-32 p-24 lg:gap-y-46 lg:px-168 lg:py-128 ">
+      {% if headline != blank %}
+        <h2 class="fn-tt-title-50 font-medium">{{ headline }}</h2>
+      {% endif %}
+      {% if text != blank %}
+        <p class="fn-tt-title-50">{{ text }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>

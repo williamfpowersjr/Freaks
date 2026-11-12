@@ -1,0 +1,114 @@
+{% schema %}
+{
+  "name": "Values",
+  "tag": "section",
+  "class": "values-section",
+  "presets": [
+    {
+      "name": "Values",
+      "blocks": [
+        {
+          "type": "value",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Lorem ipsum",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-blue",
+          "label": "Blue"
+        }
+      ],
+      "default": "bg-white"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+{% assign text_color = 'text-black' %}
+{% assign tag_styles = 'bg-orange text-white' %}
+{% assign divide_color = 'divide-black/15' %}
+{% if section.settings.bg_color == 'bg-blue' %}
+  {% assign text_color = 'text-white' %}
+  {% assign tag_styles = 'bg-white text-blue' %}
+  {% assign divide_color = 'divide-grey/15' %}
+{% endif %}
+
+{% if section.blocks.size > 0 %}
+  <div class="{{ section.settings.bg_color }} {{ text_color }} overflow-hidden">
+    <div class="-mx-1 -my-1 grid divide-y lg:divide-x {{ divide_color }} {% if section.blocks.size > 1 %}lg:grid-cols-2{% endif %}">
+      {% for block in section.blocks %}
+        {% if block.type == 'value' %}
+          <div class="flex size-full flex-col gap-40 p-24 lg:min-h-352 lg:justify-between lg:p-40 ">
+            <div class="{{ tag_styles }} flex size-32 items-center justify-center rounded-full lg:size-40">
+              <span class="fn-tt-sub-title-30">
+                {% assign index = forloop.index | prepend: '0' %}
+                {{ index }}
+              </span>
+            </div>
+            <div class="flex w-full flex-col gap-16">
+              {% if block.settings.title != blank %}
+                <h2 class="fn-tt-title-30 font-medium">{{ block.settings.title }}</h2>
+              {% endif %}
+              {% if block.settings.description != blank %}
+                <p class="fn-tt-body-20">{{ block.settings.description }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

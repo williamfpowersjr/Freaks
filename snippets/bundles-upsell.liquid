@@ -1,0 +1,23 @@
+<div class="p-24 lg:-ml-1 lg:p-40 {{ bg_color }}">
+  <div class="flex flex-col border border-black/15">
+    {% if title != blank %}
+      <div class="flex w-full items-center justify-center border-b border-black/15 py-8 text-center">
+        <h3 class="fn-tt-sub-title-40 font-medium uppercase">
+          {{ title }}
+        </h3>
+      </div>
+    {% endif %}
+    <div class="flex flex-col divide-y divide-black/15 lg:flex-row lg:flex-wrap lg:divide-x lg:divide-y-0 ">
+      {% for block in blocks %}
+        {% if block.type == 'bundle' %}
+          {% render 'product-bundle',
+            bundle_product: block.settings.bundle_product,
+            bundle_banner: block.settings.bundle_banner,
+            bundle_cta_color: block.settings.bundle_cta_color,
+            cta_reduced_height: true
+          %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+{% doc %}
+Reusable carousel snippet with Swiper integration
+
+@param {string} slides - Required. Pre-rendered HTML content for all slides (should include swiper-slide elements)
+@param {string} [carousel_id] - Optional unique ID for the carousel element. Defaults to 'product-carousel' @param
+{number} [slides_per_view] - Optional number of slides visible at once. Defaults to 3 @param {string} [carousel_label] -
+Optional ARIA label for the carousel region. Defaults to 'Carousel' @param {string} [extra_classes] - Optional
+additional CSS classes to apply to the carousel wrapper
+
+@example
+{% capture slides %}
+  {% for product in products %}
+    <swiper-slide class="swiper-slide">
+      {% render 'product-card-medium', product: product %}
+    </swiper-slide>
+  {% endfor %}
+{% endcapture %}
+{% render 'carousel',
+  slides: slides,
+  carousel_id: 'my-carousel',
+  slides_per_view: 4,
+  carousel_label: 'Product carousel'
+%}
+{% enddoc %}
+
+{% assign carousel_id = carousel_id | default: 'product-carousel' %}
+{% assign slides_per_view = slides_per_view | default: 3 %}
+{% assign carousel_label = carousel_label | default: 'Carousel' %}
+<div class="no-select {{ extra_classes }}">
+  <swiper-element id="{{ carousel_id }}" class="product-carousel">
+    <swiper-container
+      init="false"
+      class="swiper-wrapper divide-x divide-black/15"
+      role="region"
+      aria-label="{{ carousel_label }}"
+    >
+      {{ slides }}
+    </swiper-container>
+
+    <div class="align-center flex w-full border-t border-black/15 ">
+      <div class="relative flex w-full justify-center self-center px-24 lg:px-40">
+        <div class="swiper-scrollbar"></div>
+      </div>
+
+      <div class="border-x border-black/15">
+        <div class="swiper-button-prev" aria-label="Previous Slide" role="button"></div>
+      </div>
+
+      <div><div class="swiper-button-next" aria-label="Next Slide" role="button"></div></div>
+    </div>
+  </swiper-element>
+</div>

@@ -1,0 +1,252 @@
+{% schema %}
+{
+  "name": "Copy Media",
+  "tag": "section",
+  "class": "copy-media-section",
+  "presets": [
+    {
+      "name": "Copy Media",
+      "category": "Copy Media",
+      "settings": {
+        "text": "<p>Lorem ipsum</p>",
+        "expansion_text": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>",
+        "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+        "caption": "Lorem ipsum",
+        "video": "",
+        "hide_mute": false,
+        "alignment": "lg:flex-row",
+        "text_alignment": "text-left",
+        "border_top": false,
+        "media_aspect_square": false
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "lg_bg_color",
+      "label": "Desktop Section Background Color",
+      "options": [
+        {
+          "value": "lg:bg-white",
+          "label": "White"
+        },
+        {
+          "value": "lg:bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "lg:bg-white"
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Mobile Section Background Color",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "White"
+        },
+        {
+          "value": "bg-offWhite",
+          "label": "Off White"
+        }
+      ],
+      "default": "bg-white"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "richtext",
+      "id": "expansion_text",
+      "label": "Expandable Text",
+      "info": "If you want to have expandable text, add the text here."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Optional: Image Caption"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "If you add a video, it will be shown. If you want to have a still image, leave the video field blank."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mute",
+      "label": "Hide Mute",
+      "info": "Check on if you would like to hide the mute/unmute control button for the video.",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Desktop Copy Media alignment",
+      "options": [
+        {
+          "value": "lg:flex-row",
+          "label": "Text to the left side, media to the right side."
+        },
+        {
+          "value": "lg:flex-row-reverse",
+          "label": "Text to the right side, media to the left side."
+        }
+      ],
+      "default": "lg:flex-row"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Desktop Copy alignment",
+      "options": [
+        {
+          "value": "text-left",
+          "label": "Text is left aligned."
+        },
+        {
+          "value": "text-center",
+          "label": "Text is center aligned."
+        }
+      ],
+      "default": "text-left"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_top",
+      "label": "Text Top Border",
+      "default": false,
+      "info": "Check on if you would like to show a border on top of the text."
+    },
+    {
+      "type": "checkbox",
+      "id": "media_aspect_square",
+      "label": "Square Media Proportion",
+      "default": false,
+      "info": "Check on if you would like the media to be square."
+    }
+  ]
+}
+{% endschema %}
+
+{% assign media_aspect_classes = 'aspect-[1.3]' %}
+
+{% if section.settings.media_aspect_square == true %}
+  {% assign media_aspect_classes = 'aspect-square' %}
+{% endif %}
+
+{% assign text_wrapper_classes = 'underline-links inline-italic-orange inline-rich-text fn-tt-body-20' %}
+{% if section.settings.video == blank and section.settings.image == blank %}
+  {% if section.settings.text_alignment != 'text-center' %}
+    {% assign text_wrapper_classes = text_wrapper_classes
+      | append: 'inline-italic-orange inline-rich-text fn-tt-body-20 lg:w-full lg:pr-40 xl:pr-368'
+    %}
+  {% else %}
+    {% assign text_wrapper_classes = text_wrapper_classes
+      | append: 'inline-italic-orange inline-rich-text fn-tt-body-20 lg:w-full lg:text-center lg:pr-0'
+    %}
+  {% endif %}
+{% endif %}
+<accordion-element>
+  <div
+    class="relative flex w-full px-24 pb-32 lg:flex lg:justify-end lg:px-40 lg:pb-112 {{ section.settings.bg_color }} {{ section.settings.lg_bg_color }}"
+  >
+    <div class="lg:w-3/4">
+      <div class="flex flex-col-reverse gap-24 lg:flex-row lg:gap-0 {% if section.settings.media_aspect_square != true %}lg:gap-x-8{% else %}lg:gap-x-40{% endif %} {{ section.settings.alignment }}">
+        {% if section.settings.text != blank %}
+          <div
+            class="relative  flex flex-1 flex-col gap-y-24 lg:gap-y-40 lg:px-16 {% if section.settings.border_top == true %} lg:py-40 lg:border-t lg:border-black/15{% endif %}"
+          >
+            <div class="{{ text_wrapper_classes }} fn-tt-body-20">
+              {% assign text_with_sup = section.settings.text
+                | replace: '¹', '<sup>1</sup>'
+                | replace: '²', '<sup>2</sup>'
+                | replace: '³', '<sup>3</sup>'
+                | replace: '⁴', '<sup>4</sup>'
+                | replace: '⁵', '<sup>5</sup>'
+                | replace: '⁶', '<sup>6</sup>'
+                | replace: '⁷', '<sup>7</sup>'
+                | replace: '⁸', '<sup>8</sup>'
+                | replace: '⁹', '<sup>9</sup>'
+              %}
+
+              {{ text_with_sup }}
+            </div>
+
+            {% if section.settings.expansion_text != blank %}
+              <div
+                data-accordion
+                data-no-autoscroll
+                class="flex flex-col overflow-hidden "
+              >
+                {% assign expansion_text_with_sup = section.settings.expansion_text
+                  | replace: '¹', '<sup>1</sup>'
+                  | replace: '²', '<sup>2</sup>'
+                  | replace: '³', '<sup>3</sup>'
+                  | replace: '⁴', '<sup>4</sup>'
+                  | replace: '⁵', '<sup>5</sup>'
+                  | replace: '⁶', '<sup>6</sup>'
+                  | replace: '⁷', '<sup>7</sup>'
+                  | replace: '⁸', '<sup>8</sup>'
+                  | replace: '⁹', '<sup>9</sup>'
+                %}
+                <div
+                  class="max-h-0 overflow-hidden transition-all ease-in-out will-change-[max-width]"
+                  data-accordion-content
+                  id="content-{{section.id}}"
+                  style="max-height: 0;"
+                >
+                  <div class="pb-24 lg:pb-40 {{ text_wrapper_classes }} fn-tt-body-20">
+                    {{ expansion_text_with_sup }}
+                  </div>
+                </div>
+
+                <button
+                  class="duration-250 group flex h-fit w-fit items-center justify-center gap-8 text-left transition-all ease-in-out  "
+                  data-accordion-trigger
+                  aria-label="Expand Text"
+
+                  aria-expanded="false"
+                  aria-controls="content-{{section.id}}"
+                >
+                  <div class="flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-blue/20 transition-all duration-300 ease-in-out group-hover:bg-blue/40 ">
+                    {% render 'plus-animation',
+                      extra_wrapper_classes: 'text-blue w-10 h-10',
+                      extra_icon_classes: 'bg-blue h-[1.5px]'
+                    %}
+                  </div>
+                  <p data-read-more class="text-[12px] font-medium uppercase">Read More</p>
+                  <p data-read-less class="hidden text-[12px] font-medium uppercase">Read Less</p>
+                </button>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if section.settings.video != blank or section.settings.image != blank %}
+          <div class="relative h-fit lg:w-1/2 {% if section.settings.media_aspect_square != true %}lg:mx-16{% endif %} ">
+            <video-element>
+              {% render 'split-screen-media',
+                split_screen_video: section.settings.video,
+                split_screen_image: section.settings.image,
+                split_screen_caption: section.settings.caption,
+                split_screen_aspect_classes: media_aspect_classes,
+                hide_mute: section.settings.hide_mute,
+                full_bleed_media: true
+              %}
+            </video-element>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</accordion-element>

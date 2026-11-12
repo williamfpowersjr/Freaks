@@ -1,0 +1,57 @@
+{% assign total_responses = yes_count | plus: no_count %}
+{% assign yes_percentage = yes_count | times: 100.0 | divided_by: total_responses %}
+
+<div class="flex flex-col {% unless mobile_pie_size == 'sm' %}gap-24{% endunless %} h-full items-center justify-center border border-black/15 bg-offWhite px-8 py-24 lg:p-40 {{ additional_classes }}">
+  {% if mobile_pie_size == 'sm' %}
+    <div
+      class="relative my-auto mb-24 flex aspect-square items-center justify-center rounded-full lg:hidden"
+      style="
+        width: 50%;
+        position: relative;
+        background: conic-gradient(
+          #fe5000 {{ yes_percentage }}%,
+          #22202F29 0
+        );
+      "
+    ></div>
+  {% endif %}
+  <div class="relative flex aspect-square w-full items-center justify-center {% if mobile_pie_size == 'sm' %}hidden lg:flex{% endif %}">
+    <div
+      class="relative flex aspect-square items-center justify-center rounded-full"
+      style="
+        width: 70%;
+        position: relative;
+        background: conic-gradient(
+          #fe5000 {{ yes_percentage }}%,
+          #22202F29 0
+        );
+      "
+    >
+      <span
+        class="fn-tt-body-20 hidden uppercase lg:absolute lg:block"
+        style="top: -20px; left: -30px; font-weight: 500"
+      >
+        No ({{ no_count }})
+      </span>
+      <span
+        class="fn-tt-body-20 hidden uppercase lg:absolute lg:block"
+        style="bottom: -20px; right: -30px; font-weight: 500"
+      >
+        Yes ({{ yes_count }})
+      </span>
+    </div>
+  </div>
+
+  <div class="mt-auto flex min-h-56 items-center justify-center text-center lg:min-h-72">
+    <p class="fn-tt-sub-title-40">
+      <span class="text-orange">
+        {% if display_format == 'percentage' %}
+          {{ yes_percentage | round }}%
+        {% else %}
+          {{ yes_count }} of {{ total_responses }}
+        {% endif %}
+      </span>
+      {{ recommendation_text }}
+    </p>
+  </div>
+</div>

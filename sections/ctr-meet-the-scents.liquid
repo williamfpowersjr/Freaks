@@ -1,0 +1,341 @@
+{{ 'ctr-meet-the-scents.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ctr-meet-the-scents.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign scents = section.blocks | where: 'type', 'scent'
+  assign active_index = -1
+  if section.settings.preselect_first and scents.size > 0
+    assign active_index = 0
+  endif
+-%}
+
+<ctr-meet-the-scents
+  class="ctr-meet-the-scents{% if active_index == -1 %} is-idle{% endif %}"
+  data-interaction="{{ section.settings.interaction }}"
+  data-active-index="{{ active_index }}"
+  style="
+    --ctr-mts-background: {{ section.settings.background_color }};
+    --ctr-mts-accent: {{ section.settings.accent_color }};
+  "
+>
+  <div class="ctr-meet-the-scents__box">
+    <div class="ctr-meet-the-scents__content">
+      {% if section.settings.title_line_1 != blank or section.settings.title_line_2 != blank %}
+        <h2 class="ctr-meet-the-scents__title">
+          {% if section.settings.title_line_1 != blank %}
+            <span class="ctr-meet-the-scents__title-line">{{ section.settings.title_line_1 }}</span>
+          {% endif %}
+          {% if section.settings.title_line_2 != blank %}
+            <span class="ctr-meet-the-scents__title-line">{{ section.settings.title_line_2 }}</span>
+          {% endif %}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.hint_desktop != blank or section.settings.hint_mobile != blank %}
+        <p class="ctr-meet-the-scents__hint" aria-hidden="true">
+          <span class="ctr-meet-the-scents__hint-text ctr-meet-the-scents__hint-text--desktop">
+            {{- section.settings.hint_desktop -}}
+          </span>
+          <span class="ctr-meet-the-scents__hint-text ctr-meet-the-scents__hint-text--mobile">
+            {{- section.settings.hint_mobile -}}
+          </span>
+          {% render 'ctr-icon-hand-pointer', class: 'ctr-meet-the-scents__hint-icon' %}
+        </p>
+      {% endif %}
+
+      <div class="ctr-meet-the-scents__info" aria-live="polite">
+        {% for block in scents %}
+          <div
+            class="ctr-meet-the-scents__info-item{% if forloop.index0 == active_index %} is-active{% endif %}"
+            id="ctr-mts-info-{{ block.id }}"
+            data-scent-index="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="ctr-meet-the-scents__info-head">
+              <div class="ctr-meet-the-scents__name-wrap">
+                <p class="ctr-meet-the-scents__name">{{ block.settings.name }}</p>
+                {% if block.settings.tagline != blank %}
+                  <p class="ctr-meet-the-scents__tagline">{{ block.settings.tagline }}</p>
+                {% endif %}
+              </div>
+              {% if block.settings.description != blank %}
+                <div class="ctr-meet-the-scents__description">{{ block.settings.description }}</div>
+              {% endif %}
+            </div>
+
+            {% if block.settings.for_text != blank or block.settings.feels_like_text != blank %}
+              <div class="ctr-meet-the-scents__cards">
+                {% if block.settings.for_text != blank %}
+                  <div class="ctr-meet-the-scents__card ctr-meet-the-scents__card--for">
+                    <span class="ctr-meet-the-scents__card-tag">{{ section.settings.for_label }}</span>
+                    <p class="ctr-meet-the-scents__card-text">{{ block.settings.for_text }}</p>
+                  </div>
+                {% endif %}
+                {% if block.settings.feels_like_text != blank %}
+                  <div class="ctr-meet-the-scents__card">
+                    <span class="ctr-meet-the-scents__card-tag">{{ section.settings.feels_like_label }}</span>
+                    <p class="ctr-meet-the-scents__card-text">{{ block.settings.feels_like_text }}</p>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.settings.cta_text != blank %}
+        <div class="ctr-meet-the-scents__cta">
+          {% render 'cta',
+            as: 'a',
+            href: section.settings.cta_link,
+            text: section.settings.cta_text,
+            hasIcons: true,
+            cta_color: 'orange',
+            extra_classes: 'w-full'
+          %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ctr-meet-the-scents__stage">
+      <div class="ctr-meet-the-scents__stage-labels" aria-hidden="true">
+        {% for block in scents %}
+          <div
+            class="ctr-meet-the-scents__stage-label{% if forloop.index0 == active_index %} is-active{% endif %}"
+            data-scent-index="{{ forloop.index0 }}"
+          >
+            <p class="ctr-meet-the-scents__name">{{ block.settings.name }}</p>
+            {% if block.settings.tagline != blank %}
+              <p class="ctr-meet-the-scents__tagline">{{ block.settings.tagline }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="ctr-meet-the-scents__bottles" role="group" aria-label="{{ section.settings.title_line_1 | escape }}">
+        {% for block in scents %}
+          <button
+            type="button"
+            class="ctr-meet-the-scents__bottle{% if forloop.index0 == active_index %} is-active{% endif %}"
+            data-scent-index="{{ forloop.index0 }}"
+            data-block-id="{{ block.id }}"
+            aria-pressed="{% if forloop.index0 == active_index %}true{% else %}false{% endif %}"
+            aria-controls="ctr-mts-info-{{ block.id }}"
+            aria-label="{{ block.settings.name | escape }}"
+          >
+            <span class="ctr-meet-the-scents__bottle-label" aria-hidden="true">
+              <span class="ctr-meet-the-scents__name">{{ block.settings.name }}</span>
+              {% if block.settings.tagline != blank %}
+                <span class="ctr-meet-the-scents__tagline">{{ block.settings.tagline }}</span>
+              {% endif %}
+            </span>
+
+            <span class="ctr-meet-the-scents__bottle-media">
+              {% if block.settings.image_closed != blank %}
+                {{
+                  block.settings.image_closed
+                  | image_url: width: 460
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '200, 300, 460',
+                    sizes: '(min-width: 1024px) 14vw, 22vw',
+                    alt: block.settings.name,
+                    class: 'ctr-meet-the-scents__bottle-img ctr-meet-the-scents__bottle-img--closed'
+                }}
+              {% else %}
+                {{
+                  'product-1'
+                  | placeholder_svg_tag: 'ctr-meet-the-scents__bottle-img ctr-meet-the-scents__bottle-img--closed ctr-meet-the-scents__bottle-img--placeholder'
+                }}
+              {% endif %}
+              {% if block.settings.image_open != blank %}
+                {{
+                  block.settings.image_open
+                  | image_url: width: 460
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '200, 300, 460',
+                    sizes: '(min-width: 1024px) 14vw, 22vw',
+                    alt: '',
+                    class: 'ctr-meet-the-scents__bottle-img ctr-meet-the-scents__bottle-img--open'
+                }}
+              {% endif %}
+            </span>
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</ctr-meet-the-scents>
+
+{% schema %}
+{
+  "name": "Meet The Scents (CTR)",
+  "tag": "section",
+  "class": "ctr-meet-the-scents-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title_line_1",
+      "label": "Title line 1",
+      "default": "Meet the scents."
+    },
+    {
+      "type": "text",
+      "id": "title_line_2",
+      "label": "Title line 2",
+      "default": "Four to try."
+    },
+    {
+      "type": "text",
+      "id": "hint_desktop",
+      "label": "Hint (desktop)",
+      "info": "Shown only while no scent is selected.",
+      "default": "Mouse hover a stick to discover."
+    },
+    {
+      "type": "text",
+      "id": "hint_mobile",
+      "label": "Hint (mobile)",
+      "info": "Shown only while no scent is selected.",
+      "default": "Select a stick to discover."
+    },
+    {
+      "type": "text",
+      "id": "for_label",
+      "label": "\"For\" card label",
+      "default": "FOR"
+    },
+    {
+      "type": "text",
+      "id": "feels_like_label",
+      "label": "\"Feels like\" card label",
+      "default": "FEELS LIKE"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Shop mini deo kit"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link",
+      "info": "Use #ctr-buy-box-mini-kit to scroll to the buy box."
+    },
+    {
+      "type": "header",
+      "content": "Behavior"
+    },
+    {
+      "type": "select",
+      "id": "interaction",
+      "label": "Reveal scent on",
+      "info": "Touch devices always use tap.",
+      "options": [
+        {
+          "value": "both",
+          "label": "Hover and click"
+        },
+        {
+          "value": "hover",
+          "label": "Hover only"
+        },
+        {
+          "value": "click",
+          "label": "Click only"
+        }
+      ],
+      "default": "both"
+    },
+    {
+      "type": "checkbox",
+      "id": "preselect_first",
+      "label": "Start with first scent selected",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#CCD6EC"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Card tag background",
+      "default": "#FE5000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "scent",
+      "name": "Scent",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Scent name",
+          "default": "Cedar Peak"
+        },
+        {
+          "type": "text",
+          "id": "tagline",
+          "label": "Tagline",
+          "default": "Cool and sharp."
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description / vibe",
+          "default": "<p>A crisp hit of eucalyptus and mint, layered with herbal lavandin and a touch of geranium. Made to wake you up.</p>"
+        },
+        {
+          "type": "text",
+          "id": "for_text",
+          "label": "\"For\" text",
+          "default": "Early mornings"
+        },
+        {
+          "type": "text",
+          "id": "feels_like_text",
+          "label": "\"Feels like\" text",
+          "default": "Cold air on a mountain trail."
+        },
+        {
+          "type": "image_picker",
+          "id": "image_closed",
+          "label": "Bottle image (closed)",
+          "info": "Transparent PNG, approx. 460 x 930px."
+        },
+        {
+          "type": "image_picker",
+          "id": "image_open",
+          "label": "Bottle image (open)",
+          "info": "Shown when the scent is selected. Same size as the closed image."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Meet The Scents (CTR)",
+      "blocks": [
+        {
+          "type": "scent"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

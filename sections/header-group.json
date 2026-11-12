@@ -1,0 +1,103 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "Header",
+  "type": "header",
+  "sections": {
+    "header": {
+      "type": "header",
+      "blocks": {
+        "announcement_zriCAx": {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "INTRODUCING THE HOLIDAY MINI DEO SET &nbsp;<a href=\"/products/mini-deodorant-holiday-gift-set\" title=\"Mini Deodorant Holiday Gift Set\"><strong>SHOP NOW</strong></a>"
+          }
+        },
+        "announcement_E83pFM": {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "free shipping on subscriptions"
+          }
+        },
+        "mobile_subnavigation_item_f9yeAn": {
+          "type": "mobile_subnavigation_item",
+          "settings": {
+            "title": "Shop All",
+            "url": "shopify://collections/all-products"
+          }
+        },
+        "mobile_subnavigation_item_fctPiG": {
+          "type": "mobile_subnavigation_item",
+          "settings": {
+            "title": "Sun Stick",
+            "url": "https://freaksofnature.com/products/sun-stick-spf50?variant=51253583708465"
+          }
+        },
+        "mobile_subnavigation_item_qCL7LX": {
+          "type": "mobile_subnavigation_item",
+          "settings": {
+            "title": "Hydrator",
+            "url": "shopify://products/deeper-dive-moisturizer"
+          }
+        },
+        "mobile_subnavigation_item_KRnA86": {
+          "type": "mobile_subnavigation_item",
+          "settings": {
+            "title": "Electrolyte (NEW)",
+            "url": "shopify://products/skin-support-electrolyte"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_zriCAx",
+        "announcement_E83pFM",
+        "mobile_subnavigation_item_f9yeAn",
+        "mobile_subnavigation_item_fctPiG",
+        "mobile_subnavigation_item_qCL7LX",
+        "mobile_subnavigation_item_KRnA86"
+      ],
+      "settings": {
+        "menu": "main-menu",
+        "logo": "shopify://shop_images/fon-logo.svg",
+        "products_title": "Products",
+        "header_collection": "menu-products",
+        "products_cta": "Shop all",
+        "products_cta_url": "shopify://collections/all-products",
+        "bundle_title": "Bundles",
+        "bundle_collection": "menu-bundles",
+        "bundle_cta": "Shop all",
+        "bundle_cta_url": "shopify://collections/all-bundles",
+        "show_mobile_subnavigation": true
+      }
+    },
+    "17314165753ff41c46": {
+      "type": "apps",
+      "blocks": {
+        "rebuy_personalization_engine_rebuy_widget_zVGEPF": {
+          "type": "shopify://apps/rebuy-personalization-engine/blocks/rebuy-widget/a26ae9b9-933b-40bf-bbc6-bf1220bbc4dc",
+          "settings": {
+            "enabled": true,
+            "id": "182321",
+            "product_id_enabled": true,
+            "collection_id_enabled": false
+          }
+        }
+      },
+      "block_order": [
+        "rebuy_personalization_engine_rebuy_widget_zVGEPF"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "header",
+    "17314165753ff41c46"
+  ]
+}

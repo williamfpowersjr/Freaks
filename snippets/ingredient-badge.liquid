@@ -1,0 +1,13 @@
+{% if tag_thumbnail != blank %}
+  <div class="flex min-w-96 items-center gap-16 p-8 pr-16 {{ extra_classes }}">
+    <div class="relative h-48 w-48 overflow-hidden rounded-full">
+      {{
+        tag_thumbnail
+        | image_url: width: tag_thumbnail.width
+        | image_tag: loading: 'lazy', sizes: '5vw', class: 'w-full h-full object-cover absolute inset-0 z-0'
+      }}
+    </div>
+
+    <p class="fn-tt-body-10 flex-1 break-words sm:max-w-fit {{ text_color }}">{{ tag_title }}</p>
+  </div>
+{% endif %}

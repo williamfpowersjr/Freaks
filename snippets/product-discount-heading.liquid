@@ -1,0 +1,19 @@
+{% doc %}
+@param heading - : The heading for the product discount @param subscription_form_style - : The style of the subscription
+form
+{% enddoc %}
+
+{% assign product_form_subscription_heading_classes = 'font-medium mb-8' %}
+{% if subscription_form_style == 'compact' %}
+  {% assign product_form_subscription_heading_classes = product_form_subscription_heading_classes
+    | append: ' fn-tt-body-20'
+  %}
+{% else %}
+  {% assign product_form_subscription_heading_classes = product_form_subscription_heading_classes
+    | append: ' fn-tt-caption-20 relative z-10  flex h-18 items-center justify-center bg-grey px-8 text-center uppercase'
+  %}
+{% endif %}
+
+<div class="{{ product_form_subscription_heading_classes }}">
+  <span>{{ heading }}</span>
+</div>

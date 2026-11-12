@@ -1,0 +1,12 @@
+<div class="{{ bg_color }} {{ border }} {{ text_color }} flex min-h-208 flex-col justify-between gap-y-24 p-24 lg:h-full lg:min-h-432 lg:gap-y-40 lg:p-40 {{ additional_classes }}">
+  <div>
+    <h4 class="fn-tt-title-60">{{ approach_number }}</h4>
+    <p class="fn-tt-title-60 uppercase">{{ approach_title }}</p>
+  </div>
+  <div class="flex flex-col gap-y-24 lg:gap-y-40">
+    <p class="fn-tt-body-30 {{ additional_approach_title_class }}">{{ approach_text }}</p>
+    {% if approach_caption != blank %}
+      <span class="fn-tt-body-10 text-grey/40">{{ approach_caption }}</span>
+    {% endif %}
+  </div>
+</div>

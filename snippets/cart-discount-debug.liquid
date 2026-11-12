@@ -1,0 +1,97 @@
+{% comment %}
+  TEMP debug panel — lists every discount APPLIED to the current cart (the only
+  discounts the storefront can see; "all discounts in admin" needs the Admin API).
+  Toggle via the "Show discount debug" checkbox in the CTR Cart Drawer section.
+  Also logs the full structure to the console as [CART DISCOUNT DEBUG].
+
+  @param {boolean} enabled
+{% endcomment %}
+
+{% if enabled %}
+  <div
+    data-discount-debug-panel
+    class="pointer-events-auto absolute inset-x-0 top-0 z-50 max-h-[60%] overflow-y-auto bg-black text-[11px] leading-tight text-white"
+    style="font-family: ui-monospace, monospace;"
+  >
+    <div class="flex items-center justify-between bg-orange px-8 py-4 font-bold">
+      <span>DISCOUNT DEBUG · applied to cart</span>
+      <button type="button" data-close-discount-debug class="border border-white px-4">close</button>
+    </div>
+    <div class="flex flex-col gap-4 p-8">
+      <div>
+        cart.total_discount: <b>{{ cart.total_discount | money }}</b> · currency {{ cart.currency.iso_code }}
+      </div>
+
+      <div class="mt-2 font-bold text-orange">cart.discount_applications ({{ cart.discount_applications.size }})</div>
+      {% for da in cart.discount_applications %}
+        <div>
+          • "{{ da.title }}" — type:{{ da.type }} value:{{ da.value -}}
+          {%- if da.value_type == 'percentage' %}%{% endif %} target:{{ da.target_type }} method:
+          {{- da.target_selection }}
+        </div>
+      {% else %}
+        <div>(none)</div>
+      {% endfor %}
+
+      <div class="mt-2 font-bold text-orange">
+        cart.cart_level_discount_applications ({{ cart.cart_level_discount_applications.size }})
+      </div>
+      {% for da in cart.cart_level_discount_applications %}
+        <div>• "{{ da.title }}" — -{{ da.total_allocated_amount | money }} target:{{ da.target_type }}</div>
+      {% else %}
+        <div>(none)</div>
+      {% endfor %}
+
+      <div class="mt-2 font-bold text-orange">per line</div>
+      {% for item in cart.items %}
+        <div class="mt-1">
+          — {{ item.product.title }} × {{ item.quantity }} · final:{{ item.final_price | money }} orig:
+          {{- item.original_price | money -}}
+          {%- if item.variant.compare_at_price %} compareAt:{{ item.variant.compare_at_price | money }}{% endif %}
+        </div>
+        {% for alloc in item.discount_allocations %}
+          <div class="pl-8">↳ "{{ alloc.discount_application.title }}" -{{ alloc.amount | money }}</div>
+        {% else %}
+          <div class="pl-8 text-white/50">↳ (no line discounts — savings are compare-at / selling-plan)</div>
+        {% endfor %}
+        {% if item.selling_plan_allocation %}
+          <div class="pl-8">↳ selling plan: "{{ item.selling_plan_allocation.selling_plan.name }}"</div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <script type="application/json" data-discount-debug-json>
+    {
+      "total_discount": {{ cart.total_discount | json }},
+      "discount_applications": [
+        {%- for da in cart.discount_applications -%}
+          {"title": {{ da.title | json }}, "type": {{ da.type | json }}, "value": {{ da.value | json }}, "value_type": {{ da.value_type | json }}, "target_type": {{ da.target_type | json }}, "target_selection": {{ da.target_selection | json }}}{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ],
+      "lines": [
+        {%- for item in cart.items -%}
+          {"title": {{ item.product.title | json }}, "final_price": {{ item.final_price | json }}, "original_price": {{ item.original_price | json }}, "discounts": [{%- for alloc in item.discount_allocations -%}{"title": {{ alloc.discount_application.title | json }}, "amount": {{ alloc.amount | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}], "selling_plan": {{ item.selling_plan_allocation.selling_plan.name | json }}}{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+  <script>
+    (function () {
+      var json = document.querySelector('[data-discount-debug-json]');
+      if (json) {
+        try {
+          console.log('[CART DISCOUNT DEBUG]', JSON.parse(json.textContent));
+        } catch (e) {
+          console.warn('[CART DISCOUNT DEBUG] parse error', e);
+        }
+      }
+      document.addEventListener('click', function (e) {
+        if (e.target.closest('[data-close-discount-debug]')) {
+          var panel = document.querySelector('[data-discount-debug-panel]');
+          if (panel) panel.remove();
+        }
+      });
+    })();
+  </script>
+{% endif %}

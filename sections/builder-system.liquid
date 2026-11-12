@@ -1,0 +1,237 @@
+{% schema %}
+{
+  "name": "Builder System",
+  "tag": "section",
+  "class": "builder-system-section",
+  "presets": [
+    {
+      "name": "Builder System",
+      "category": "Builder System",
+      "settings": {
+        "image": "shopify://shop_images/02_SLATER_1149_rt2_1a574b68-3a9d-4a6f-86d9-dfc3cca4cce8.jpg",
+        "hide_mute": false,
+        "title": "Lorem ipsum",
+        "description": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>",
+        "icon": "shopify://shop_images/Bassilicus_x_Shark_bc01bcbc-801c-4001-b45c-6e749825c547.svg",
+        "cta": "Lorem ipsum",
+        "cta_link": "#",
+        "cta_color": "blue"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "If you add a video, it will be shown. If you want to have a still image, leave the video field blank."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mute",
+      "label": "Hide Mute",
+      "info": "Check on if you would like to hide the mute/unmute control button for the video.",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Cta Text"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Cta link"
+    },
+    {
+      "type": "select",
+      "id": "cta_color",
+      "label": "Cta Color",
+      "options": [
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "blue"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Card",
+      "type": "card",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "tag_thumbnail_1",
+          "label": "Tag Thumbnail #1"
+        },
+        {
+          "type": "text",
+          "id": "tag_1",
+          "label": "Tag Title #1"
+        },
+
+        {
+          "type": "image_picker",
+          "id": "tag_thumbnail_2",
+          "label": "Tag Thumbnail #2"
+        },
+        {
+          "type": "text",
+          "id": "tag_2",
+          "label": "Tag Title #2"
+        },
+        {
+          "type": "image_picker",
+          "id": "tag_thumbnail_3",
+          "label": "Tag Thumbnail #3"
+        },
+        {
+          "type": "text",
+          "id": "tag_3",
+          "label": "Tag Title #3"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<video-element>
+  <div class="bg-blue/20">
+    <div class="flex w-full flex-col lg:flex-row">
+      <div class="flex flex-col lg:w-1/2">
+        {% render 'title',
+          title: section.settings.title,
+          text_size: 'fn-tt-title-70',
+          extra_wrapper_classes: 'mt-40 lg:my-80 px-24 lg:px-40 text-balance overflow-hidden',
+          text_color: 'text-blue',
+          bg_lines: 'bg-blue-lines',
+          extra_text_classes: '!leading-[0.98]'
+        %}
+        <div class="flex w-full flex-1 flex-col gap-16 p-24 md:gap-24 lg:p-40">
+          {% if section.settings.icon != blank %}
+            <div class="relative aspect-square w-56 lg:w-116">
+              {{
+                section.settings.icon
+                | image_url: width: section.settings.icon.width
+                | image_tag:
+                  loading: 'lazy',
+                  sizes: '(min-width: 1024px) 50vw, 100vw',
+                  class: 'w-full h-full object-cover absolute inset-0 z-0'
+              }}
+            </div>
+          {% endif %}
+
+          <div class="fn-tt-title-20 inline-rich-text text-blue lg:mr-40">{{ section.settings.description }}</div>
+        </div>
+      </div>
+      <div class="lg:w-1/2">
+        {% if section.settings.video == blank %}
+          {% if section.settings.image != blank %}
+            <div class="relative aspect-square  w-full overflow-hidden lg:h-full">
+              {{
+                section.settings.image
+                | image_url: width: section.settings.image.width
+                | image_tag:
+                  loading: 'lazy',
+                  sizes: '(min-width: 1024px) 50vw, 100vw',
+                  class: 'w-full h-full object-cover absolute inset-0 z-0'
+              }}
+            </div>
+          {% endif %}
+        {% endif %}
+        {% if section.settings.video != blank %}
+          <div class="group relative aspect-square w-full overflow-hidden lg:h-full">
+            {% render 'lazy-video',
+              video: section.settings.video,
+              class: 'w-full h-full object-cover absolute inset-0 z-0'
+            %}
+            <div class="transition-opacity duration-300 ease-in-out lg:opacity-0 lg:group-hover:opacity-100">
+              {% render 'video-controls',
+                hide_mute: section.settings.hide_mute,
+                icons_class: 'absolute w-fit m-16 top-0 right-0'
+              %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class=" flex flex-col divide-y  divide-blue/20 lg:flex-row lg:divide-x">
+      {% for block in section.blocks %}
+        {% if block.type == 'card' %}
+          {% assign card_text = block.settings.text %}
+          {% assign tag_title_1 = block.settings.tag_1 %}
+          {% assign tag_title_2 = block.settings.tag_2 %}
+          {% assign tag_title_3 = block.settings.tag_3 %}
+
+          {% assign tag_thumbnail_1 = block.settings.tag_thumbnail_1 %}
+          {% assign tag_thumbnail_2 = block.settings.tag_thumbnail_2 %}
+          {% assign tag_thumbnail_3 = block.settings.tag_thumbnail_3 %}
+
+          {% render 'ingredient-card',
+            card_text: card_text,
+            tag_title_1: tag_title_1,
+            tag_title_2: tag_title_2,
+            tag_title_3: tag_title_3,
+            tag_thumbnail_1: tag_thumbnail_1,
+            tag_thumbnail_2: tag_thumbnail_2,
+            tag_thumbnail_3: tag_thumbnail_3
+          %}
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% if section.settings.cta != blank %}
+      <a href="{{ section.settings.cta_link }}" aria-label="{{ section.settings.cta }}">
+        <div class="border-t border-t-blue/20 p-24 lg:w-full lg:p-40">
+          {% render 'cta',
+            as: 'button',
+            text: section.settings.cta,
+            extra_classes: 'w-full',
+            hasIcons: true,
+            cta_color: section.settings.cta_color
+          %}
+        </div>
+      </a>
+    {% endif %}
+  </div>
+</video-element>

@@ -1,0 +1,51 @@
+<div class="{{ bg_color }} {{ extra_classes }} border-b border-black/15">
+  {% if blocks.size < 4 %}
+    <div class="hidden divide-x divide-black/15 lg:grid {% if blocks.size == 3 %}lg:grid-cols-3{% endif %} {% if blocks.size == 2 %}lg:grid-cols-2{% endif %} {% if blocks.size == 1 %}lg:grid-cols-1{% endif %}">
+      {% for block in blocks %}
+        {% if block.type == 'quote' %}
+          {% if block.settings.text != blank %}
+            {% render 'press-card',
+              text: block.settings.text,
+              logo: block.settings.logo,
+              author: block.settings.author,
+              verified: block.settings.verified
+            %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <div class="{% if blocks.size <= 3 %}lg:hidden{% endif %}">
+    <swiper-element id="press" class="press">
+      <swiper-container init="false" class="swiper-wrapper divide-x divide-black/15">
+        {% for block in blocks %}
+          <swiper-slide class="swiper-slide">
+            {% if block.type == 'quote' %}
+              {% if block.settings.text != blank %}
+                {% render 'press-card',
+                  text: block.settings.text,
+                  logo: block.settings.logo,
+                  author: block.settings.author,
+                  verified: block.settings.verified
+                %}
+              {% endif %}
+            {% endif %}
+          </swiper-slide>
+        {% endfor %}
+      </swiper-container>
+
+      <div class="align-center flex w-full border-t border-black/15 ">
+        <div class="relative flex w-full justify-center self-center px-24 lg:px-40">
+          <div class="swiper-scrollbar"></div>
+        </div>
+
+        <div class="border-x border-black/15">
+          <div class="swiper-button-prev" aria-label="Previous Slide {{ section.id }}" role="button"></div>
+        </div>
+
+        <div><div class="swiper-button-next" aria-label="Next Slide {{ section.id }}" role="button"></div></div>
+      </div>
+    </swiper-element>
+  </div>
+</div>

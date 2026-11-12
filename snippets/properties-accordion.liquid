@@ -1,0 +1,308 @@
+{% comment %} DESKTOP {% endcomment %}
+<info-block-element>
+  <div
+    class="hidden flex-1 flex-row-reverse overflow-hidden border border-black/15 lg:flex {{ card_bg_color }}"
+    data-accordion
+    data-no-autoscroll
+  >
+    <div class="flex w-1/2 flex-col justify-between ">
+      {% if title != blank %}
+        <div class="mb-24 mt-80 flex-1">
+          {% render 'title',
+            title: title,
+            text_size: 'fn-tt-title-70',
+            border_color: 'border-black/15',
+            extra_wrapper_classes: 'text-center px-16 overflow-hidden ',
+            bg_lines: 'bg-grey-lines',
+            extra_text_classes: '!leading-[0.98]'
+          %}
+        </div>
+      {% endif %}
+      <div class="lg:max-h-auto flex h-auto flex-col sm:max-h-496">
+        {% for block in section.blocks %}
+          {% if block.type == 'item' %}
+            {% assign item_title = block.settings.title %}
+            {% assign item_description = block.settings.description %}
+            {% assign item_image = block.settings.image %}
+            {% assign is_first = forloop.first %}
+
+            <button
+              aria-label="Info {{ forloop.index }}"
+              data-accordion-trigger
+              aria-expanded="{{ is_first }}"
+              aria-controls="content-{{ forloop.index0 }}"
+              class="group flex w-full scroll-m-[var(--total-navigation-height)] items-center border-t border-black/15 px-0 pb-24 pt-24 text-left aria-expanded:pb-0"
+            >
+              <div class="relative pl-40">
+                <h3
+                  data-title
+                  class="fn-tt-title-20 pl-48 transition-opacity duration-300 ease-in-out {% unless is_first %}opacity-60 group-hover:opacity-100{% endunless %}"
+                >
+                  <div
+                    data-accordion-indicator-circle
+                    class="absolute left-40 top-8 flex h-16 w-16 items-center justify-center rounded-full bg-blue/20"
+                  >
+                    <div
+                      data-accordion-indicator-center
+                      class="h-8 w-8 rounded-full {% if is_first %}bg-blue{% else %}bg-blue/40{% endif %}"
+                    ></div>
+                  </div>
+                  {{ item_title }}
+                </h3>
+              </div>
+            </button>
+
+            <div
+              data-accordion-content
+              class="lg:no-scrollbar delay-550 ease-in-out-out flex h-full flex-col overflow-hidden transition-[max-height] will-change-[max-height] lg:overflow-y-scroll "
+              id="content-{{ forloop.index0 }}"
+              {% if is_first %}
+                style="max-height: 100%;"
+              {% else %}
+                style="max-height: 0;"
+              {% endif %}
+            >
+              <div class="flex h-auto flex-1 flex-col justify-between px-40 pb-24 pt-8">
+                <div class="fn-tt-body-20 h-auto flex-1 pl-48 pr-40">
+                  {% if block.settings.use_variant_metafield_for_description == true %}
+                    {% render 'render-variant-metafield',
+                      variant: product.selected_or_first_available_variant,
+                      metafield_key: block.settings.description_metafield_key
+                    %}
+                  {% else %}
+                    <p>{{ block.settings.description }}</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="group/item relative aspect-square h-auto w-1/2 {% if full_bleed_image != true %}p-40 border-r border-black/15{% endif %}">
+      {% if show_section_image != true %}
+        {% for block in section.blocks %}
+          {% if block.type == 'item' %}
+            {% assign item_image = block.settings.image %}
+            {% assign full_bleed_image = block.settings.full_bleed_image %}
+            {% assign is_first = forloop.first %}
+            <div
+              data-accordion-desktop-media
+              id="content-{{ forloop.index0 }}"
+              class="absolute h-full w-full overflow-hidden transition-opacity delay-[10ms] duration-300 ease-in-out"
+            >
+              <div
+                class="relative h-full w-full overflow-hidden"
+              >
+                {% if block.settings.use_variant_metafield_for_image == true %}
+                  {% render 'render-variant-metafield',
+                    variant: product.selected_or_first_available_variant,
+                    metafield_key: block.settings.image_metafield_key,
+                    is_image: true,
+                    loading: 'lazy',
+                    sizes: '(min-width: 1024px) 50vw, 100vw',
+                    class: 'accordion-media w-full h-full object-cover absolute inset-0'
+                  %}
+                {% elsif item_image != blank %}
+                  {{
+                    item_image
+                    | image_url: width: item_image.width
+                    | image_tag:
+                      loading: 'lazy',
+                      sizes: '(min-width: 1024px) 50vw, 100vw',
+                      class: 'accordion-media w-full h-full object-cover absolute inset-0'
+                  }}
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <div
+          class="relative h-full w-full overflow-hidden {% if full_bleed_image != true %}p-40{% endif %}"
+        >
+          {{
+            image
+            | image_url: width: image.width
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 1024px) 50vw, 100vw',
+              class: 'w-full h-full object-cover absolute inset-0'
+          }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</info-block-element>
+
+{% comment %} MOBILE {% endcomment %}
+
+{% assign first_item_image = null %}
+{% for block in section.blocks %}
+  {% if block.type == 'item' %}
+    {% assign item_image = block.settings.image %}
+    {% if forloop.first %}
+      {% assign first_item_image = item_image %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+<image-accordion-element data-force-open="true" id="properties" class="lg:hidden">
+  <div class="flex flex-col">
+    {% unless hide_mobile_image == true %}
+      {% if show_section_image == true %}
+        <div
+          class="relative aspect-square h-full w-full overflow-hidden"
+        >
+          {% if title != blank %}
+            <div class="w-[inherit]' absolute left-0 top-0 z-10 w-full">
+              {% render 'title',
+                title: title,
+                text_size: 'fn-tt-title-70',
+                extra_wrapper_classes: 'text-center px-24 overflow-hidden mt-32',
+                bg_lines: 'bg-white-lines',
+                extra_text_classes: '!leading-[0.98] text-white'
+              %}
+            </div>
+          {% endif %}
+          {{
+            image
+            | image_url: width: image.width
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 1024px) 50vw, 100vw',
+              class: 'w-full h-full object-cover absolute inset-0'
+          }}
+        </div>
+
+      {% else %}
+        <div
+          class="relative aspect-square h-full w-full overflow-hidden"
+        >
+          {% for block in section.blocks %}
+            {% if block.type == 'item' %}
+              {% assign item_image = block.settings.image %}
+              {% assign full_bleed_image = block.settings.full_bleed_image %}
+              {% assign is_first = forloop.first %}
+              <div
+                data-accordion-mobile-media
+                id="content-{{ forloop.index0 }}"
+                {% if is_first %}
+                  style="z-index: 10"
+                {% else %}
+                  style="z-index: 1"
+                {% endif %}
+                class="absolute h-full w-full overflow-hidden transition-opacity duration-300 ease-in-out"
+              >
+                <div>
+                  <div
+                    class="relative aspect-square h-full w-full overflow-hidden"
+                  >
+                    {% if block.settings.use_variant_metafield_for_image == true %}
+                      {% render 'render-variant-metafield',
+                        variant: product.selected_or_first_available_variant,
+                        metafield_key: block.settings.image_metafield_key,
+                        is_image: true,
+                        loading: 'lazy',
+                        sizes: '(min-width: 1024px) 50vw, 100vw',
+                        class: 'accordion-media w-full h-full object-cover absolute inset-0'
+                      %}
+                    {% elsif item_image != blank %}
+                      {{
+                        item_image
+                        | image_url: width: item_image.width
+                        | image_tag:
+                          loading: 'lazy',
+                          sizes: '(min-width: 1024px) 50vw, 100vw',
+                          class: 'accordion-media w-full h-full object-cover absolute inset-0'
+                      }}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+          {% if title != blank %}
+            <div class="absolute left-0 top-0 z-10 w-[inherit]">
+              {% render 'title',
+                title: title,
+                text_size: 'fn-tt-title-70',
+                extra_wrapper_classes: 'text-center px-24 overflow-hidden mt-32',
+                bg_lines: 'bg-white-lines',
+                extra_text_classes: '!leading-[0.98] text-white'
+              %}
+            </div>
+          {% endif %}
+          <div class="relative aspect-square h-full w-full overflow-hidden">
+            {{
+              first_item_image
+              | image_url: width: first_item_image.width
+              | image_tag:
+                loading: 'lazy',
+                sizes: '(min-width: 1024px) 50vw, 100vw',
+                class: 'accordion-media w-full h-full object-cover absolute inset-0'
+            }}
+          </div>
+        </div>
+      {% endif %}
+
+    {% else %}
+      <div class="w-full border border-b-0 border-black/15 py-24 {{ card_bg_color }}">
+        {% render 'title',
+          title: title,
+          text_size: 'fn-tt-title-70',
+          extra_wrapper_classes: 'text-center px-24 overflow-hidden !-my-2',
+          bg_lines: 'bg-grey-lines',
+          extra_text_classes: '!leading-[0.98]'
+        %}
+      </div>
+    {% endunless %}
+
+    <div class="divide-y divide-black/15 border border-black/15 {{ card_bg_color }}">
+      {% for block in blocks %}
+        {% if block.type == 'item' %}
+          <div
+            data-accordion
+            data-no-autoscroll
+            class="flex w-full flex-col"
+          >
+            <button
+              aria-label="Details"
+              aria-expanded="false"
+              aria-controls="content-{{ forloop.index0 }}"
+              data-accordion-trigger
+              class="group flex w-full items-center justify-between border-transparent transition-[background-color] duration-300 ease-in-out lg:hover:bg-orange/15"
+            >
+              <div class="flex h-full min-h-64 flex-1 items-center gap-16 border-r border-black/15 py-12 pl-24 pr-40 text-left lg:min-h-80 lg:px-24 lg:py-28">
+                <h3 class="fn-tt-body-20 font-medium">
+                  {{ block.settings.title }}
+                </h3>
+              </div>
+
+              <div class="flex h-64 w-64 items-center justify-center lg:h-80 lg:w-80">
+                {% render 'plus-animation' %}
+              </div>
+            </button>
+            <div
+              id="content-{{ forloop.index0 }}"
+              data-accordion-content
+              style="max-height: 0;"
+              class="max-h-0 overflow-hidden transition-all ease-in-out will-change-[max-width] "
+            >
+              <div class="inline-rich-text fn-tt-body-20  p-24 lg:pr-80">
+                {% if block.settings.use_variant_metafield_for_description == true %}
+                  {% render 'render-variant-metafield',
+                    variant: product.selected_or_first_available_variant,
+                    metafield_key: block.settings.description_metafield_key
+                  %}
+                {% else %}
+                  <p>{{ item_description }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</image-accordion-element>

@@ -1,0 +1,712 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_liquid_6fiee9": {
+      "type": "custom-liquid",
+      "name": "Styles",
+      "settings": {
+        "custom_liquid": "<style>\n#shopify-section-{{section.id}} {\n  padding-top: 0;\n}\n\nheader #mobile-subnavigation, header mobile-header-element,\nheader accordion-element {\n  display: none;\n}\n\nfooter:not(cart-drawer footer), #shopify-section-footer, #shopify-section-banner-image, .footer-section, #shopify-section-new-footer, #shopify-section-layout-footer, [id^=\"shopify-section-footer\"], #footer:not(#replo-fullpage-element #footer), .main-footer, .shopify-section-group-footer-group {\n  display: none!important;\n}\n\n[data-announcement-bar] {\n   opacity: 0;\n}\n</style>",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "ctr_announcement_bar_wi8hzM": {
+      "type": "ctr-announcement-bar",
+      "blocks": {
+        "announcement_zj4BUC": {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "<p>FREE SHIPPING ON $60+</p>",
+            "announcement_url": ""
+          }
+        },
+        "announcement_KxEaJ4": {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "<p>SAVE 10% WITH CODE HINMAN10</p>",
+            "announcement_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_zj4BUC",
+        "announcement_KxEaJ4"
+      ],
+      "custom_css": [
+        ".ctr-announcement-bar__desktop-item {flex: unset;}",
+        ".ctr-announcement-bar__desktop-item .ctr-announcement-bar__text {font-size: 14px;}",
+        ".ctr-announcement-bar__desktop-list {justify-content: center;}",
+        ".ctr-nav-section__actions {display: none;}"
+      ],
+      "name": "Announcement Bar (CTR)",
+      "settings": {
+        "background_color": "#0032a0",
+        "text_color": "#ffffff",
+        "indicator_color": "#c6c6c6",
+        "indicator_active_color": "#ffffff",
+        "height_mobile": 32,
+        "height_desktop": 32,
+        "show_timer": false,
+        "timer_duration_hours": 24,
+        "timer_duration_minutes": 0
+      }
+    },
+    "ctr_nav_section_MjWmmF": {
+      "type": "ctr-nav-section",
+      "custom_css": [
+        "@media (min-width: 1024px) {.ctr-nav-section .ctr-nav-section__logo-image {height: 30px; }}",
+        ".ctr-nav-section__actions {display: none;}"
+      ],
+      "name": "Nav Section (CTR)",
+      "settings": {
+        "logo": "shopify://shop_images/fon-logo.svg",
+        "logo_link": "",
+        "show_account": false,
+        "show_cart": true,
+        "enable_sticky_header": true,
+        "background_color": "#ffffff",
+        "border_color": "#21212126",
+        "text_color": "#212121",
+        "icon_bubble_background": "#0032a033",
+        "padding_top_desktop": 10,
+        "padding_bottom_desktop": 10,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "ctr_eric_hero_rW33zW": {
+      "type": "ctr-eric-hero",
+      "name": "Eric Hero (CTR)",
+      "settings": {
+        "desktop_image": "shopify://shop_images/image_frame-3.png",
+        "title": "<p>the only mineral<br/>spray spf eric hinman trusts to perform</p>",
+        "text": "<p>Air-powered, 100% mineral protection that covers every angle with no white cast and no hydrocarbon propellant.</p>",
+        "offer_label": "Eric's special offer for you",
+        "offer_text": "Save 10% with code",
+        "offer_code": "hinman10",
+        "button_label": "Get the Spray",
+        "button_link": "#product-hero-content",
+        "button_open_new_tab": false,
+        "button_arrow_direction": "down",
+        "content_max_width": 622,
+        "background_color": "#f9f9f9",
+        "text_color": "#212121",
+        "border_color": "#22202f29",
+        "offer_background": "#fe50001f",
+        "offer_code_background": "#ffffff",
+        "button_background": "#fe5000",
+        "button_text_color": "#ffffff",
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "ctr_as_seen_in_eR8k2n": {
+      "type": "ctr-as-seen-in",
+      "blocks": {
+        "logo_6L6gFX": {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "",
+            "link": "",
+            "open_in_new_tab": false,
+            "logo_height_desktop": 72,
+            "logo_height_mobile": 48,
+            "opacity": 100
+          }
+        },
+        "logo_mens_health": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/logo-container_51c1eea3-2eb1-4c1c-b32c-bc6cdc6553ff.png",
+            "logo_alt": "Men's Health",
+            "link": "",
+            "open_in_new_tab": false,
+            "logo_height_desktop": 72,
+            "logo_height_mobile": 48,
+            "opacity": 100
+          }
+        },
+        "logo_surfer": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/logo-container_fde7f8fc-5221-4df1-ab3a-36159033cd35.png",
+            "logo_alt": "Surfer",
+            "link": "",
+            "open_in_new_tab": false,
+            "logo_height_desktop": 72,
+            "logo_height_mobile": 48,
+            "opacity": 100
+          }
+        },
+        "logo_people": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/logo-container_46b1433e-1220-4fe2-937a-a8362fbaa138.png",
+            "logo_alt": "People",
+            "link": "",
+            "open_in_new_tab": false,
+            "logo_height_desktop": 72,
+            "logo_height_mobile": 48,
+            "opacity": 100
+          }
+        },
+        "logo_outside": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/logo-container.png",
+            "logo_alt": "Outside",
+            "link": "",
+            "open_in_new_tab": false,
+            "logo_height_desktop": 72,
+            "logo_height_mobile": 48,
+            "opacity": 100
+          }
+        }
+      },
+      "block_order": [
+        "logo_6L6gFX",
+        "logo_mens_health",
+        "logo_surfer",
+        "logo_people",
+        "logo_outside"
+      ],
+      "name": "As Seen In (CTR)",
+      "settings": {
+        "title": "<p>as seen in</p>",
+        "background_color": "#f9f9f9",
+        "background_gradient": "",
+        "panel_background": "#f9f9f9",
+        "text_color": "#212121",
+        "border_color": "#22202f26",
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40
+      }
+    },
+    "product_hero_tDFVj3": {
+      "type": "product-hero",
+      "blocks": {
+        "summary_fcX8tD": {
+          "type": "summary",
+          "settings": {
+            "title": "100% mineral protection"
+          }
+        },
+        "summary_C9Nwy4": {
+          "type": "summary",
+          "settings": {
+            "title": "Air-powered continuous spray"
+          }
+        },
+        "summary_NceE3J": {
+          "type": "summary",
+          "settings": {
+            "title": "Minimal white cast"
+          }
+        },
+        "summary_enTG38": {
+          "type": "summary",
+          "settings": {
+            "title": "Hydrates + soothes"
+          }
+        },
+        "summary_FJRMGw": {
+          "type": "summary",
+          "settings": {
+            "title": "Protects + strengthens skin barrier"
+          }
+        },
+        "summary_QjiDiG": {
+          "type": "summary",
+          "settings": {
+            "title": "No chemical filters"
+          }
+        },
+        "summary_ABYYNH": {
+          "type": "summary",
+          "settings": {
+            "title": "Water resistant (40 min)"
+          }
+        },
+        "summary_gi9Ayc": {
+          "type": "summary",
+          "settings": {
+            "title": "Dermatologist tested"
+          }
+        },
+        "summary_MRFXjB": {
+          "type": "summary",
+          "settings": {
+            "title": "Broad spectrum UV protection"
+          }
+        },
+        "summary_8mYxMe": {
+          "type": "summary",
+          "settings": {
+            "title": "Reef safe"
+          }
+        },
+        "summary_gEpkKh": {
+          "type": "summary",
+          "settings": {
+            "title": "Fragrance free"
+          }
+        }
+      },
+      "block_order": [
+        "summary_fcX8tD",
+        "summary_C9Nwy4",
+        "summary_NceE3J",
+        "summary_enTG38",
+        "summary_FJRMGw",
+        "summary_QjiDiG",
+        "summary_ABYYNH",
+        "summary_gi9Ayc",
+        "summary_MRFXjB",
+        "summary_8mYxMe",
+        "summary_gEpkKh"
+      ],
+      "custom_css": [
+        "#product-gallery product-gallery > div {padding-top: 0 !important;}",
+        "[data-title] h1 {text-wrap: balance;}",
+        "section-renderer > div {border-top: 1px solid #21212126;}",
+        "[data-pdp-hero] > div:last-of-type {padding: 24px 20px;}",
+        ".menu-bar--offset {padding-top: 40px;}",
+        "@media (min-width: 1024px) {.product-hero-section {padding-top: 64px; } [data-pdp-hero] > div:last-of-type {padding: 40px; }}"
+      ],
+      "name": "Product Hero",
+      "settings": {
+        "product_override": "solar-shield-spray",
+        "is_landing_page": false,
+        "bg_color": "bg-white",
+        "title_size": "large",
+        "show_inventory_quantity": false,
+        "gallery_badge_first_image_only": false,
+        "use_variant_media": false,
+        "discount_tag": "+ Free Shipping",
+        "hide_from_price_and_discount": true,
+        "hide_description": false,
+        "hide_summary": false,
+        "show_siblings": false,
+        "product_discount_heading": "",
+        "subscription_badge_type": "auto",
+        "subscription_badge_text": "Save 25%",
+        "subscription_badge_custom_text": "[extra] [saving] OFF",
+        "show_extra_in_saving_badge": false,
+        "show_unit_price": false,
+        "unit_name": "",
+        "show_variant_title_in_variant_picker": false,
+        "show_prices_in_variant_picker": false,
+        "hide_default_variant_picker": false,
+        "variant_product_option_label": "Scent",
+        "hide_variant_product_option_badges": false,
+        "variant_picker_style": "title",
+        "hide_quantity_input": false,
+        "show_quantity_input_for_subscription": false,
+        "hide_purchase_selector": false,
+        "one_time_purchase_badge_text": "",
+        "subsDefaultOption": "subscriptions",
+        "subsOrder": "subs_top",
+        "subscription_form_style": "stacked",
+        "subscription_style_variant": "secondary",
+        "split_subscriptions_by_variants": false,
+        "subscription_title": "Subscribe",
+        "one_time_title": "One-time",
+        "subscription_delivered_every_text": "<p>Delivered Every</p>",
+        "reverse_selling_plan_order": true,
+        "show_subscription_saving_message": true,
+        "cta": "Add to cart",
+        "cta_link": "",
+        "show_out_of_stock_banner": false,
+        "out_of_stock_banner_text": "",
+        "social_quote": "Check out this product!",
+        "social_profile_name": "",
+        "social_link": "",
+        "show_details": false,
+        "show_notify": true,
+        "notify_text": "Get notified when the product is available again",
+        "notify_placeholder": "Enter your email",
+        "notify_success": "Thank you! We will notify you when the product is back in stock.",
+        "klaviyo_api_key": "SdwbFd",
+        "klaviyo_list_id": "",
+        "notify_subtext": "<p>By signing up, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Service</a> and our <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a>.</p>",
+        "bundle_title": "Upgrade to our bundle",
+        "video_carousel_heading": "STRAIGHT FROM THE FREAKS"
+      }
+    },
+    "ctr_why_eric_uses_k9m2Pq": {
+      "type": "ctr-why-eric-uses",
+      "custom_css": [
+        "@media (max-width: 1023.98px) {.ctr-why-eric-uses__button-wrap {display: none; }}"
+      ],
+      "name": "Why Eric Uses (CTR)",
+      "settings": {
+        "video": "shopify://files/videos/Freaks Reel 1 (Captions).mp4",
+        "show_video_controls": true,
+        "title": "<p>why eric uses <br/>freaks of nature</p>",
+        "text": "<p>Eric is a 5× Ironman finisher and hybrid athlete who trains outdoors daily. He needs a clean SPF Spray that actually keeps up.</p>",
+        "quote": "<p>“A lot of sunscreens just sit on your skin. This one actually leaves it feeling better, and the only reason not to get Freaks of Nature is because it's going to ruin every other spray sunscreen you've ever used.”</p>",
+        "attribution": "<p>—Eric Hinman</p>",
+        "button_label": "Shop now",
+        "button_link": "#product-hero-content",
+        "button_open_new_tab": false,
+        "button_style": "blue",
+        "button_arrow_direction": "top",
+        "background_color": "#f9f9f9",
+        "background_gradient": "",
+        "heading_color": "#212121",
+        "text_color": "#212121",
+        "body_color": "#000000",
+        "enable_border_top": false,
+        "enable_border_bottom": true,
+        "border_color": "#22202f29",
+        "padding_top_desktop": 80,
+        "padding_bottom_desktop": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40
+      }
+    },
+    "ctr_comparison_table_RDLAHV": {
+      "type": "ctr-comparison-table",
+      "blocks": {
+        "header_row_pW3kRH": {
+          "type": "header_row",
+          "settings": {
+            "col_1_label": "",
+            "col_1_label_mobile": "<p>FoN</p>",
+            "col_1_image": "shopify://shop_images/image_4_1.png",
+            "col_1_logo_image": "shopify://shop_images/fon-logo_svg.png",
+            "col_2_label": "<p>STANDARD AEROSOL</p>",
+            "col_2_label_mobile": "<p>OTHERS</p>",
+            "col_2_image": "shopify://shop_images/image_4_2.png",
+            "col_3_label": "",
+            "col_3_label_mobile": "",
+            "col_4_label": "",
+            "col_4_label_mobile": ""
+          }
+        },
+        "comparison_row_HNfnLw": {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Hydrocarbon Propellant</p>",
+            "col_1_label": "<h4><strong>0%</strong></h4>",
+            "col_1_subtitle": "<p>Zero propellant gas</p>",
+            "col_2_label": "<p>Up to 60% of the can</p>",
+            "col_2_subtitle": "",
+            "col_3_label": "",
+            "col_3_subtitle": "",
+            "col_4_label": "",
+            "col_4_subtitle": "",
+            "col_1_icon": "check",
+            "col_2_icon": "minus",
+            "col_3_icon": "check",
+            "col_4_icon": "minus"
+          }
+        },
+        "comparison_row_JLQMVb": {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Mineral UV Filter</p>",
+            "col_1_label": "<h4><strong>100% </strong></h4>",
+            "col_1_subtitle": "<p>Non-nano zinc oxide</p>",
+            "col_2_label": "<p>0% mineral. Chemical filters only.</p>",
+            "col_2_subtitle": "",
+            "col_3_label": "",
+            "col_3_subtitle": "",
+            "col_4_label": "",
+            "col_4_subtitle": "",
+            "col_1_icon": "check",
+            "col_2_icon": "minus",
+            "col_3_icon": "minus",
+            "col_4_icon": "minus"
+          }
+        },
+        "comparison_row_XUhhfC": {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Reef Compliance</p>",
+            "col_1_label": "<h4><strong>Act 104</strong></h4>",
+            "col_1_subtitle": "<p>Hawaii certified</p>",
+            "col_2_label": "<p>Not compliant</p>",
+            "col_2_subtitle": "",
+            "col_3_label": "",
+            "col_3_subtitle": "",
+            "col_4_label": "",
+            "col_4_subtitle": "",
+            "col_1_icon": "check",
+            "col_2_icon": "minus",
+            "col_3_icon": "minus",
+            "col_4_icon": "minus"
+          }
+        },
+        "comparison_row_zzCg6a": {
+          "type": "comparison_row",
+          "settings": {
+            "label": "<p>Water Resistance</p>",
+            "col_1_label": "<h4><strong>40 min</strong></h4>",
+            "col_1_subtitle": "<p>Tested & confirmed</p>",
+            "col_2_label": "<p>Not rated</p>",
+            "col_2_subtitle": "",
+            "col_3_label": "",
+            "col_3_subtitle": "",
+            "col_4_label": "",
+            "col_4_subtitle": "",
+            "col_1_icon": "check",
+            "col_2_icon": "minus",
+            "col_3_icon": "minus",
+            "col_4_icon": "check"
+          }
+        }
+      },
+      "block_order": [
+        "header_row_pW3kRH",
+        "comparison_row_HNfnLw",
+        "comparison_row_JLQMVb",
+        "comparison_row_XUhhfC",
+        "comparison_row_zzCg6a"
+      ],
+      "name": "Comparison Table (CTR)",
+      "settings": {
+        "title": "<p>THE SPRAY THAT <br/>STARTED WITH A PROBLEM</p>",
+        "subtitle": "",
+        "column_count": "2",
+        "use_custom_labels_column_width": false,
+        "labels_column_width": 24,
+        "labels_column_width_mobile": 30,
+        "check_icon": "shopify://shop_images/Vector_1.png",
+        "minus_icon": "shopify://shop_images/Frame_7_4cc68bd1-6bf0-4936-8ba9-6b41e189d810.png",
+        "footnote": "",
+        "legal_badge": "",
+        "button_label": "Shop Now",
+        "button_arrow_direction": "top",
+        "cta_adds_to_cart": false,
+        "button_link": "#product-hero-content",
+        "cta_product": "",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "card_background": "#f9f9f9",
+        "highlight_column_background": "#e5581f1a",
+        "border_color": "#21212126",
+        "heading_color": "#212121",
+        "subheading_color": "#000000",
+        "row_label_color": "#212121",
+        "column_label_color": "#000000",
+        "cell_text_align": "left",
+        "cell_text_align_mobile": "left",
+        "header_cell_padding_y_desktop": 40,
+        "header_cell_padding_x_desktop": 24,
+        "header_cell_padding_y_mobile": 20,
+        "header_cell_padding_x_mobile": 10,
+        "row_label_cell_padding_y_desktop": 20,
+        "row_label_cell_padding_x_desktop": 24,
+        "row_label_cell_padding_y_mobile": 20,
+        "row_label_cell_padding_x_mobile": 16,
+        "cell_padding_y_desktop": 20,
+        "cell_padding_x_desktop": 24,
+        "cell_padding_y_mobile": 20,
+        "cell_padding_x_mobile": 12,
+        "icon_width_desktop": 40,
+        "icon_width_mobile": 16,
+        "row_label_font_size_desktop": 20,
+        "row_label_font_size_mobile": 14,
+        "cell_title_font_size_desktop": 20,
+        "cell_title_font_size_mobile": 10,
+        "highlight_cell_title_font_size_desktop": 20,
+        "highlight_cell_title_font_size_mobile": 16,
+        "cell_subtitle_font_size_desktop": 20,
+        "cell_subtitle_font_size_mobile": 10,
+        "header_image_max_width_desktop": 119,
+        "header_image_max_width_mobile": 42,
+        "highlight_header_image_max_width_desktop": 119,
+        "highlight_header_image_max_width_mobile": 42,
+        "header_image_margin_top_desktop": -73,
+        "header_image_margin_top_mobile": -13,
+        "highlight_header_image_margin_top_desktop": -73,
+        "highlight_header_image_margin_top_mobile": -13,
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "wrapper_gap_desktop": 80,
+        "wrapper_gap_mobile": 16
+      }
+    },
+    "ctr_eric_community_T4VhwM": {
+      "type": "ctr-eric-community",
+      "blocks": {
+        "member_bjK9FJ": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/image-frame.png",
+            "name": "<p>Kelly Slater</p>",
+            "role": "<p>11x World Surfing Champion</p>",
+            "quote": "<p>\"We made a spray sunscreen that doesn’t require you to hold your breath.\"</p>"
+          }
+        },
+        "member_TR9WmJ": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2025-12-15_at_4.13.02_PM_a1503fe3-08f9-4be2-a8d4-3aaff5295e68.png",
+            "name": "<p>eric hinman</p>",
+            "role": "<p>5x Ironman, serial entrepreneur, and brand builder</p>",
+            "quote": "<p>“Skincare products I trust to not damage my skin with harsh chemicals.”</p>"
+          }
+        },
+        "member_xDzdLN": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2025-02-12_at_3.52.32_PM_1.png",
+            "name": "<p>elsa jungman</p>",
+            "role": "<p>Ph.D. in skin barrier function, CEO of HelloBiome</p>",
+            "quote": "<p>“It’s remarkably gentle on the skin while being highly effective, a true demonstration that performance and gentleness can coexist.”</p>"
+          }
+        }
+      },
+      "block_order": [
+        "member_bjK9FJ",
+        "member_TR9WmJ",
+        "member_xDzdLN"
+      ],
+      "custom_css": [
+        "@media (max-width: 1023.98px) {.ctr-eric-community {border-top: 1px solid var(--ctr-eric-community-border-color); }}"
+      ],
+      "name": "Eric Community (CTR)",
+      "settings": {
+        "title": "<p>dermatologist-tested.</p><p>athlete-approved.</p>",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "heading_color": "#212121",
+        "text_color": "#212121",
+        "name_color": "#000000",
+        "role_color": "#212121",
+        "quote_color": "#000000",
+        "border_color": "#22202f29",
+        "padding_top_desktop": 80,
+        "padding_bottom_desktop": 0,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "steps_CirmEA": {
+      "type": "steps",
+      "blocks": {
+        "item_N7cq33": {
+          "type": "item",
+          "settings": {
+            "title": "Step 1",
+            "description": "<p>Shake well before use and apply 15 minutes before sun exposure. </p>",
+            "image": "shopify://shop_images/video-element.png",
+            "video": "shopify://files/videos/new-01.mp4",
+            "hide_mute": true,
+            "full_bleed_media": false
+          }
+        },
+        "item_f8R4LL": {
+          "type": "item",
+          "settings": {
+            "title": "Step 2",
+            "description": "<p>Hold container 4–6 inches from skin and spray liberally and evenly across the body. Rub into skin.</p>",
+            "image": "shopify://shop_images/video-element_1.png",
+            "video": "shopify://files/videos/new-02.mp4",
+            "hide_mute": true,
+            "full_bleed_media": false
+          }
+        },
+        "item_8w88hN": {
+          "type": "item",
+          "settings": {
+            "title": "Step 3",
+            "description": "<p>Reapply after 40 minutes of swimming or sweating, immediately after towel drying, and at least every 2 hours.</p>",
+            "image": "shopify://shop_images/video-element_3.png",
+            "video": "shopify://files/videos/new-03.mp4",
+            "hide_mute": true,
+            "full_bleed_media": false
+          }
+        }
+      },
+      "block_order": [
+        "item_N7cq33",
+        "item_f8R4LL",
+        "item_8w88hN"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "steps-accordion-element,steps-swiper-element > div {background-color: #f9f9f9;}"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "How to Apply"
+      }
+    },
+    "reviews_R89Br9": {
+      "type": "reviews",
+      "custom_css": [
+        ".reviews-section > .border-y {border-top-width: 0;}",
+        "[data-title] {font-size: clamp( 28px, calc(28 * 1px + (64) * (100vw - 430 * 1px) / (1225)), 80px ); padding: 0 16px;}",
+        "@media (min-width: 1024px) {.reviews-section > div > div:first-of-type {padding: 64px 0 40px; }}"
+      ],
+      "settings": {
+        "product_override": "solar-shield-spray",
+        "bg_color": "bg-white",
+        "title": "see why freaks   are making the switch",
+        "image": "shopify://shop_images/Reviews.png",
+        "hide_mute": false,
+        "full_bleed_media": false
+      }
+    },
+    "product_carousel_J4r8Lz": {
+      "type": "product-carousel",
+      "custom_css": [
+        "[data-title] {font-size: clamp( 28px, calc(28 * 1px + (56) * (100vw - 430 * 1px) / (1225)), 80px );}",
+        ".product-carousel-section {border-bottom: 1px solid #21212126;}",
+        "@media (max-width: 1023.98px) {button {max-height: 48px; }}"
+      ],
+      "settings": {
+        "bg_color": "bg-white",
+        "title": "eric’s other<br> favorites",
+        "title_style": "title_big",
+        "hide_mobile_title": false,
+        "cta": "",
+        "cta_link": "",
+        "cta_color": "blue",
+        "card_cta_text": "add to cart",
+        "card_cta_as_add_to_cart": true,
+        "card_cta_arrow_direction": "right",
+        "collections": [
+          "influencer-suggestions"
+        ]
+      }
+    }
+  },
+  "order": [
+    "custom_liquid_6fiee9",
+    "main",
+    "ctr_announcement_bar_wi8hzM",
+    "ctr_nav_section_MjWmmF",
+    "ctr_eric_hero_rW33zW",
+    "ctr_as_seen_in_eR8k2n",
+    "product_hero_tDFVj3",
+    "ctr_why_eric_uses_k9m2Pq",
+    "ctr_comparison_table_RDLAHV",
+    "ctr_eric_community_T4VhwM",
+    "steps_CirmEA",
+    "reviews_R89Br9",
+    "product_carousel_J4r8Lz"
+  ]
+}

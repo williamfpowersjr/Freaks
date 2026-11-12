@@ -1,0 +1,8 @@
+<div class="{{ bg_color }} {{ border }} {{ text_color }} flex flex-col justify-between gap-y-80 p-24 lg:h-full lg:gap-y-40 lg:p-40 {{ additional_classes }}">
+  {%- if title != blank -%}
+    <h4 class="fn-tt-sub-title-40">{{ title }}</h4>
+  {%- endif -%}
+  {%- if text != blank -%}
+    <p class="fn-tt-body-30">{{ text }}</p>
+  {%- endif -%}
+</div>
